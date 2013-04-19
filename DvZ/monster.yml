@@ -1,0 +1,559 @@
+effects:
+   day: []
+   night:
+    - 11 0
+    - 5 0
+   midnight:
+    - 11 0
+    - 5 0
+    
+# ----------------------------------------------------------------------------------
+# Item Format:
+# id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>
+# Name and Lore1,2,3 can contain spaces
+# to get Names without enchantments use -1 as the enchantmentid(ignoring it)
+# Example: "257 1 100 -1:0 Hi i'm Named!,I also have a lore!,2,3"
+# WARNING: Do not change name or lore of custom Items or they will not work!
+# ----------------------------------------------------------------------------------
+
+# disabledDamage:
+######################################
+# List of Damagesources to disable for the monster
+# currently available: 
+# contact(Cactus),drown,explosion,fall,fire,lava,poison,starve,wither
+# If you miss one just write a comment on the dev.bukkit page
+######################################
+
+# Usable attacks(cast):
+######################################
+# "MonsterExplode"
+# Creates an explosion
+#
+# castVar0: Power
+# castVar1: Kill Monster(0=No, 1=Yes)
+######################################
+# "MonsterConfuse"
+# Confuses Player
+# (CONFUSION+BLINDNESS)
+# castVar0: Duration in ticks(20=1 second)
+# castVar1: Level
+######################################
+# "MonsterPoison"
+# Posions Player
+#
+# castVar0: Duration in ticks(20=1 second)
+# castVar1: Level
+######################################
+# "MonsterSmash"
+# Smashes the block
+#
+# castVar0: Play Sound Effect(0=No, 1=Yes)
+######################################
+# "MonsterLeap"
+# Leaps in the air
+#
+# castVar0: forwardVelocity
+# castVar1: upwardVelocity
+######################################
+# "MonsterItem"
+# Gives Items
+#
+# castVar0: Item(formated)
+# castVar1: Times
+######################################
+# "MonsterSnowballs"
+# Throw a barricade of snowballs
+#
+# castVar0: Required ammount
+# castVar1: You got not enough snowballs message
+######################################
+# "MonsterRoar"
+# Roars and makes silverfish call for help
+#
+# castVar0: Range
+# castVar1: Message to display ""->No Message
+######################################
+# "MonsterLay"
+# Lay Silverfish eggs in nearby ston blocks
+# (Requires an silverfish egg in inventory 383:60)
+# castVar0: Radius
+# castVar1: Message to display ""->No Message
+######################################
+# "MonsterBlink"
+# Blinks(Teleports) to target Block
+#
+# castVar0: maxRange
+######################################
+# "MonsterPortal"
+# Creates or reinforces the Enderman Portal
+######################################
+# "MonsterHunger"
+# Drains Hunger of targeted Player
+#
+# castVar0: Ammount(>50 -> all)d
+######################################
+# "MonsterDrop"
+# Makes the targeted Player drop his weapon
+######################################
+# "MonsterPotions"
+# "Dropps" Potions on nearby players
+#
+# castVar0: Potionitem(formated) 
+# castVar1: Target_Player(0=dwarves,1=monsters)
+# castVar2: Range
+######################################
+# "MonsterTargeted"
+# Shoots a ray of fireworks towards to targeted
+# Block then casts an an attack there
+# Does not work with Player targeting attacks!
+# castVar0: Attack
+# castVar1: Range
+# castVar2: Has effects(0=false,1=true)
+# castVar3: effectType(0=Burst,1=Small Ball,2=Large Ball,3=Star,4=Creeper)
+# castVar4: effect color Red
+# castVar5: effect color Green
+# castVar6: effect color Blue
+# castVar7+: castvars for the onHit Attack
+######################################
+# "MonsterCommand"
+# Perform commands as the player
+# or as the console(OP)
+# castVar0: 0=player, 1=console
+# castVar1+: commands
+######################################
+#
+#
+#
+# castVar0: 
+# castVar1: 
+######################################
+
+# Maximum: 20(0-19)
+monsters:
+   0:
+     name: "Zombie"
+     disguise: "Zombie"
+     chatPrefix: ""
+     chatSuffix: " the Zombie"
+     classItem: 383
+     classItemDamage: 54
+     classChance: 100
+     items: 
+       - "267 1 100 16:2"
+       - "373:16421 2"
+       - "320 64"
+       - "306"
+       - "307 1 100 3:3"
+       - "308"
+       - "309"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 0
+       name: ""
+       getAtSpawn: false
+       time: 30
+       cast: ""
+       castVars: []
+     spellitem1:
+       item: 0
+       name: ""
+       getAtSpawn: false
+       time: 30
+       cast: ""
+       castVars: []
+   1:
+     name: "Skeleton"
+     disguise: "Skeleton"
+     chatPrefix: ""
+     chatSuffix: " the Skeleton"
+     classItem: 383
+     classItemDamage: 51
+     classChance: 75
+     items: 
+       - "261 1 100 48:1,50:1,51:1,49:1"
+       - "262 64"
+       - "320 64"
+       - "298"
+       - "299 1 100 3:3"
+       - "300"
+       - "301"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 0
+       name: ""
+       getAtSpawn: false
+       time: 30
+       cast: ""
+       castVars: []
+     spellitem1:
+       item: 0
+       name: ""
+       getAtSpawn: false
+       time: 30
+       cast: ""
+       castVars: []
+   2:
+     name: "Creeper"
+     disguise: "Creeper"
+     chatPrefix: ""
+     chatSuffix: " the Creeper"
+     classItem: 383
+     classItemDamage: 50
+     classChance: 50
+     items: 
+       - "320 64"
+       - "298"
+       - "299 1 100 3:3"
+       - "300"
+       - "301"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 289
+       name: "Explode"
+       getAtSpawn: true
+       time: 10
+       cast: "MonsterExplode"
+       castVars:
+         - 6
+         - 1
+     spellitem1:
+       item: 0
+       name: ""
+       getAtSpawn: false
+       time: 30
+       cast: ""
+       castVars: []
+   3:
+     name: "Wolf"
+     disguise: "Wolf"
+     chatPrefix: ""
+     chatSuffix: " the Wolf"
+     classItem: 383
+     classItemDamage: 95
+     classChance: 25
+     items: 
+       - "276 1 100 16:2"
+       - "283 1 100 20:1,19:1"
+       - "320 64"
+       - "383:95 5"
+       - "352 64"
+       - "302"
+       - "303 1 100 3:3"
+       - "304"
+       - "305"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 0
+       name: ""
+       getAtSpawn: false
+       time: 30
+       cast: ""
+       castVars: []
+     spellitem1:
+       item: 0
+       name: ""
+       getAtSpawn: false
+       time: 30
+       cast: ""
+       castVars: []
+   4:
+     name: "Spider"
+     disguise: "Spider"
+     chatPrefix: ""
+     chatSuffix: " the Spider"
+     classItem: 383
+     classItemDamage: 52
+     classChance: 25
+     items: 
+       - "106 64"
+       - "320 64"
+       - "306"
+       - "307 1 100 3:3"
+       - "308"
+       - "309 1 100 2:2"
+     effects:
+       - "1 4 95000"
+       - "8 3 95000"
+     placeBlocks: true
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+       - fall
+       - poison
+     spellitem0:
+       item: 375
+       name: "Confuse"
+       getAtSpawn: true
+       time: 0
+       cast: "MonsterConfuse"
+       castVars:
+         - 300
+         - 0
+     spellitem1:
+       item: "373:16452 3"
+       name: "Posion"
+       getAtSpawn: true
+       time: 0
+       cast: "MonsterPoison"
+       castVars:
+         - 60
+         - 4
+   5:
+     name: "IronGolem"
+     disguise: "IronGolem"
+     chatPrefix: ""
+     chatSuffix: " the IronGolem"
+     classItem: 383
+     classItemDamage: 99
+     classChance: 5
+     items: 
+       - "320 64"
+       - "298 1 100 0:3"
+       - "299 1 100 0:3,3:3"
+       - "300 1 100 0:3"
+       - "301 1 100 0:3"
+     effects:
+       - "2 4 95000"
+       - "4 10 95000"
+       - "10 1 95000"
+       - "5 4 95000"
+       - "8 -20 95000"
+     placeBlocks: false
+     damageBuff: 5
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 265
+       name: "Smash Blocks"
+       getAtSpawn: true
+       time: 1
+       cast: "MonsterSmash"
+       castVars:
+         - 1
+     spellitem1:
+       item: 341
+       name: "Leap"
+       getAtSpawn: true
+       time: 30
+       cast: "MonsterLeap"
+       castVars:
+         - 4
+         - 1.5
+   6:
+     name: "SnowGolem"
+     disguise: "Snowman"
+     chatPrefix: ""
+     chatSuffix: " the SnowGolem"
+     classItem: 383
+     classItemDamage: 97
+     classChance: 5
+     items: 
+       - "320 64"
+       - "301 1 100 0:3"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 353
+       name: "Get Snow"
+       getAtSpawn: true
+       time: 60
+       cast: "MonsterItem"
+       castVars:
+         - "332 8:16"
+         - 20
+     spellitem1:
+       item: 332
+       name: "Barricade"
+       getAtSpawn: false
+       time: 0
+       cast: "MonsterSnowballs"
+       castVars:
+         - 96
+         - "You need 96 Snowballs!"
+   7:
+     name: "Broodmother"
+     disguise: "Silverfish"
+     chatPrefix: ""
+     chatSuffix: " the Broodmother"
+     classItem: 383
+     classItemDamage: 60
+     classChance: 5
+     items: 
+       - "256"
+       - "320 64"
+       - "383:60 5"
+       - "383:0 20"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 350
+       name: "Roar"
+       getAtSpawn: true
+       time: 3
+       cast: "MonsterRoar"
+       castVars:
+         - 15
+         - "A Broodmother roars!"
+     spellitem1:
+       item: 349
+       name: "Lay Eggs"
+       getAtSpawn: true
+       time: 3
+       cast: "MonsterLay"
+       castVars:
+         - 1
+         - "A Broodmother is laying her eggs!"
+   8:
+     name: "Enderman"
+     disguise: "Enderman"
+     chatPrefix: ""
+     chatSuffix: " the Enderman"
+     classItem: 383
+     classItemDamage: 58
+     classChance: 5
+     items: 
+       - "320 1"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 378
+       name: "Blink"
+       getAtSpawn: true
+       time: 18
+       cast: "MonsterBlink"
+       castVars:
+         - 75
+     spellitem1:
+       item: 90
+       name: "Create or Reinforce Portal"
+       getAtSpawn: true
+       time: 10
+       cast: "MonsterPortal"
+       castVars: []
+   9:
+     name: "Cat"
+     disguise: "Ocelot"
+     chatPrefix: ""
+     chatSuffix: " the Cat"
+     classItem: 383
+     classItemDamage: 98
+     classChance: 5
+     items: 
+       - "106 24"
+       - "320 64"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     spellitem0:
+       item: 351
+       name: "Drain Hunger"
+       getAtSpawn: true
+       time: 2
+       cast: "MonsterHunger"
+       castVars:
+         - 2
+     spellitem1:
+       item: 372
+       name: "Steal Weapon"
+       getAtSpawn: true
+       time: 2
+       cast: "MonsterDrop"
+       castVars: []
+
+# DISABLED UNTIL I CAN FIND A GOOD WAY TO IMPLEMENT IT:
+#   10:
+#     name: "Hungry Pig"
+#     disguise: "Pig"
+#     chatPrefix: ""
+#     chatSuffix: " the Hungry Pig"
+#     classItem: 383
+#     classItemDamage: 57
+#     classChance: 5
+#     items: 
+#       - "320 64"
+#       - "298"
+#       - "299 1 100 3:3"
+#       - "300"
+#       - "301"
+#     effects: []
+#     placeBlocks: false
+#     damageBuff: 1
+#     disabledDamage:
+#       - explosion
+#       - fire
+#       - drown
+#       - starve
+#     spellitem0:
+#       item: 0
+#       name: ""
+#       getAtSpawn: false
+#       time: 30
+#       cast: ""
+#       castVar0: 0
+#       castVar1: 0
+#     spellitem1:
+#       item: 0
+#       name: ""
+#       getAtSpawn: false
+#       time: 30
+#       cast: ""
+#       castVar0: 0
+#       castVar1: 0
+#       castVar1: 0

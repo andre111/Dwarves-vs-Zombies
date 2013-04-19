@@ -1,0 +1,328 @@
+dragons:
+   0: 
+      name: "Fire Dragon"
+      mana: 2000
+      health: 200
+      speed: 0.3
+   1: 
+      name: "Ice Dragon"
+      mana: 1000
+      health: 200
+      speed: 0.3
+   2:
+      name: "Earth Dragon"
+      mana: 2500
+      health: 200
+      speed: 0.3
+
+# Types:
+######################################
+# 0: Cast at Dragon
+# 1: Shoot at target(looking towards)
+# 2: Shoot downwards
+# 3: Shoot at Player target(looking towards)
+######################################
+
+# Usable attacks(cast):
+######################################
+# "DragonThrow"
+# Near Players will be thrown up in the air
+# by lava fountains
+# castVar0: Radius
+# castVar1: Velocity
+# Cannot be set to type 0
+######################################
+# "DragonIce"
+# Near Players will be frozen
+# (Moving slow, Swinging Slow)
+# castVar0: Radius
+# castVar1: Time(Seconds)
+# Cannot be set to type 0
+######################################
+# "DragonExplode"
+# Creates an explosion at target
+#
+# castVar0: Power
+# castVar1: Has fire(0=false/1=true)
+# Cannot be set to type 0
+######################################
+# "DragonDecoy"
+# Spawns decoy Enderdragons
+#
+# castVar0: Amount
+# castVar1: HP
+######################################
+# "DragonDamage"
+# Damages(or Heals) Entities in Range
+#
+# castVar0: Amount(Negative to heal)
+# castVar1: Range
+######################################
+# "DragonPush"
+# Pushes away entities
+#
+# castVar0: Range
+# castVar1: Power
+######################################
+# "DragonBite"
+# Bites a player, has a random chance to apply effects
+# Needs to be Type 3
+# castVar0: Damage
+# castVar1: Chance for each effect(0-100)
+######################################
+# "DragonFire"
+# Sets nearby Players on fire
+#
+# castVar0: Duration in ticks(20=1 second)
+# castVar1: Radius
+######################################
+# "DragonSpew"
+# Spew Blocks
+# Needs to be Type 0
+# castVar0: BlockID
+# castVar1: Velocity(Speed)
+######################################
+# 
+#
+#
+# castVar0: 
+# castVar1: 
+######################################
+
+# FX:
+######################################
+# fx: 0=nothing, 1=firework(see below), 2=fireball, 3=move the dragon/caster, 4=Fake Block
+# ------------------------------------
+# FOR FX: 1
+# ------------------------------------
+# fxColor[R,G,B]: Color of the effects
+# fxSpeed: How often should it be updated(1=every movement,2=every second m.)
+# fxType: Effect Type: 
+# 0=Burst,1=Small Ball,2=Large Ball,3=Star,4=Creeper
+# ------------------------------------
+# FOR FX: 4
+# ------------------------------------
+# fxType: BlockId
+######################################
+
+# Other vars:
+######################################
+# item: Castitem
+# move: Is the dragon able to move during this attack?
+# dragonTyps: Which dragons get this attack
+######################################
+attacks:
+   0:
+      type: 1
+      times: 1
+      delay: 0
+      maxDistance: 100
+      name: "Throw"
+      speed: 1
+      stopAtCol: true
+      cast: "DragonThrow"
+      castVar0: 3
+      castVar1: 2.75
+      fx: 2
+      fxSpeed: 1
+      fxColorR: 255
+      fxColorG: 0
+      fxColorB: 0
+      fxType: 0
+      mana: 100
+      item: 267
+      move: true
+      invul: false
+      dragonTyps:
+        - 0
+        - 2
+   1:
+      type: 1
+      times: 1
+      delay: 0
+      maxDistance: 100
+      name: "Freeze"
+      speed: 3
+      stopAtCol: true
+      cast: "DragonIce"
+      castVar0: 3
+      castVar1: 20
+      fx: 1
+      fxSpeed: 1
+      fxColorR: 0
+      fxColorG: 200
+      fxColorB: 255
+      fxType: 0
+      mana: 100
+      item: 268
+      move: true
+      invul: false
+      dragonTyps:
+        - 1
+   2:
+      type: 0
+      times: 1
+      delay: 0
+      maxDistance: 100
+      name: "Decoy Dragons"
+      speed: 1
+      stopAtCol: true
+      cast: "DragonDecoy"
+      castVar0: 5
+      castVar1: 1
+      fx: 1
+      fxSpeed: 1
+      fxColorR: 0
+      fxColorG: 0
+      fxColorB: 0
+      fxType: 0
+      mana: 300
+      item: 272
+      move: true
+      invul: false
+      dragonTyps:
+        - 0
+        - 1
+        - 2
+   3:
+      type: 2
+      times: 40
+      delay: 5
+      maxDistance: 100
+      name: "World Anchor"
+      speed: 1
+      stopAtCol: true
+      cast: "DragonExplode"
+      castVar0: 7
+      castVar1: 1
+      fx: 1
+      fxSpeed: 1
+      fxColorR: 139
+      fxColorG: 69
+      fxColorB: 19
+      fxType: 0
+      mana: 300
+      item: 276
+      move: false
+      invul: false
+      dragonTyps:
+        - 2
+   4:
+      type: 0
+      times: 1
+      delay: 0
+      maxDistance: 100
+      name: "Heal"
+      speed: 1
+      stopAtCol: true
+      cast: "DragonDamage"
+      castVar0: -20
+      castVar1: 0
+      fx: 0
+      fxSpeed: 1
+      fxColorR: 0
+      fxColorG: 0
+      fxColorB: 0
+      fxType: 0
+      mana: 300
+      item: 283
+      move: true
+      invul: false
+      dragonTyps:
+        - 0
+        - 1
+        - 2
+   5:
+      type: 0
+      times: 1
+      delay: 0
+      maxDistance: 100
+      name: "Push"
+      speed: 1
+      stopAtCol: true
+      cast: "DragonPush"
+      castVar0: 6
+      castVar1: 4
+      fx: 0
+      fxSpeed: 1
+      fxColorR: 0
+      fxColorG: 0
+      fxColorB: 0
+      fxType: 0
+      mana: 300
+      item: 258
+      move: true
+      invul: false
+      dragonTyps:
+        - 0
+        - 1
+        - 2
+   6:
+      type: 2
+      times: 1
+      delay: 0
+      maxDistance: 100
+      name: "World Anchor 2.0"
+      speed: 3
+      stopAtCol: false
+      cast: "DragonExplode"
+      castVar0: 7
+      castVar1: 1
+      fx: 3
+      fxSpeed: 1
+      fxColorR: 139
+      fxColorG: 69
+      fxColorB: 19
+      fxType: 0
+      mana: 300
+      item: 271
+      move: false
+      invul: true
+      dragonTyps:
+        - 2
+   7:
+      type: 3
+      times: 1
+      delay: 0
+      maxDistance: 10
+      name: "Bite"
+      speed: 1
+      stopAtCol: true
+      cast: "DragonBite"
+      castVar0: 2
+      castVar1: 25
+      fx: 0
+      fxSpeed: 1
+      fxColorR: 139
+      fxColorG: 69
+      fxColorB: 19
+      fxType: 0
+      mana: 300
+      item: 275
+      move: true
+      invul: false
+      dragonTyps:
+        - 2
+   8:
+      type: 0
+      times: 100
+      delay: 1
+      maxDistance: 100
+      name: "Spew Fire"
+      speed: 1
+      stopAtCol: true
+      cast: "DragonSpew"
+      castVar0: 51
+      castVar1: 2
+      fx: 0
+      fxSpeed: 1
+      fxColorR: 139
+      fxColorG: 69
+      fxColorB: 19
+      fxType: 0
+      mana: 100
+      item: 278
+      move: true
+      invul: false
+      dragonTyps:
+        - 0

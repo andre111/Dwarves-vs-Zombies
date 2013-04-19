@@ -1,0 +1,137 @@
+# WARNING:
+# You should always set a lore,
+# because the items are identified by
+# id,data,name and lore
+# and lore can not be canged in normal minecraft!
+
+
+# -------
+# Effectsyntax: effect_name:data:<position>
+# Soundsyntax: sound_name:volume:pitch:<position>
+# -------
+# Effect and Sound Names can be found in the Bukkit Javadoc
+# org.bukkit.Effect
+# org.bukkit.Sound
+# -------
+# position can be: Caster,Target or something specified by the ItemSpell
+# default: Caster
+
+# required is a number of the spell that needs to succed before using this(-1 = none)
+
+# Usable attacks(cast):
+######################################
+# "ItemLeap"
+# Leap through the air
+#
+# castVar0: forwardvel0city(defaut: 4)
+# castVar1: upwardvelocity(defaut: 1.5)
+# castVar2: power(default: 1) 
+# castVar3: disableDamage(1=true)
+# castVar4: range(only used when casted on a location by another spell)
+######################################
+# "ItemLaunch"
+# Launches an Falling BlockEntity
+# and casts another spell on impact
+# EffectPosition: onHit
+# castVar0: BlockID
+# castVar1: Damagevalue(0-15)
+# castVar2: Power
+# castVar3: Create Item when not landing right(1=true)
+# castVar4: Create Block(1=true)
+######################################
+# "ItemDamage"
+# Damages or heals a Player
+# WARNING: This is affected by the friendly_fire option!
+# castVar0: castOnSelf(1=true)
+# castVar1: damage(negative to heal)
+######################################
+# ""
+# 
+#
+# castVar0:
+# castVar1:
+######################################
+
+items:
+   firestaff:
+     name: "Firestaff"
+     lore:
+       - "§6The first custom item!"
+       - "§7This is just for testing"
+       - "Left: Splash §f(5s cooldown)"
+       - "Right: Fireleap §f(5s cooldown)"
+     id: 369
+     data: 0
+     leftclick:
+       effects:
+         - "ENDER_SIGNAL:0:onHit"
+       sounds:
+         - "SPLASH:1:0.5:onHit"
+       cooldown: 5
+       casts:
+         0:
+           cast: "ItemLaunch"
+           require: -1
+           castVars:
+             - 8
+             - 0
+             - 2
+             - 0
+             - 0
+             - "ItemLeap"
+             - 4
+             - 1.5
+             - 1
+             - 1
+             - 2
+     rightclick:
+       effects:
+         - "MOBSPAWNER_FLAMES:0:Caster"
+         - "MOBSPAWNER_FLAMES:0:Caster"
+         - "MOBSPAWNER_FLAMES:0:Caster"
+         - "MOBSPAWNER_FLAMES:0:Caster"
+         - "MOBSPAWNER_FLAMES:0:Caster"
+       sounds:
+         - "ARROW_HIT:1:0.5:Caster"
+       cooldown: 5
+       casts:
+         0:
+           cast: "ItemLeap"
+           require: -1
+           castVars:
+             - 4
+             - 1.5
+             - 1
+             - 1
+   vampire:
+     name: "Vampire"
+     lore:
+       - "§6The second custom item!"
+       - "§7This is just for testing"
+       - "Left: none"
+       - "Right: Lifesteal(1 Heart) §f(3s cooldown)"
+     id: 369
+     data: 0
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 5
+       casts: []
+     rightclick:
+       effects: []
+       sounds:
+         - "BAT_IDLE:1:1:Caster"
+       cooldown: 1
+       casts:
+         0:
+           cast: "ItemDamage"
+           require: -1
+           castVars:
+             - 0
+             - 2
+         1:
+           cast: "ItemDamage"
+           require: 0
+           castVars:
+             - 1
+             - -2

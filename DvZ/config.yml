@@ -1,0 +1,154 @@
+# Default Dwarves vs Zombies config.yml
+# To configure Dwarf classes look into classes.yml
+# To configure Monster classes look into monsters.yml
+# To configure Dragon/Attacks look into dragons.yml
+# ----------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------
+# Game config(0=disabled, 1=old/standart dvz, 2=not implemented
+# ----------------------------------------------------------------------------------
+game0: 1
+game1: 0
+game2: 0
+game3: 0
+game4: 0
+game5: 0
+game6: 0
+game7: 0
+game8: 0
+game9: 0
+
+# ----------------------------------------------------------------------------------
+# Commands(Lists, do NOT include the beginning /)
+# ----------------------------------------------------------------------------------
+# Example:
+# commands_onEnd:
+# - "say A game has been finished!"
+commands_onStart: []
+commands_onEnd: []
+
+# ----------------------------------------------------------------------------------
+# Disabled Items to craft(ID) - List
+# ----------------------------------------------------------------------------------
+disables_crafts:
+  - 298
+  - 299
+  - 300
+  - 301
+  - 302
+  - 303
+  - 304
+  - 305
+  - 306
+  - 307
+  - 308
+  - 309
+  - 310
+  - 311
+  - 312
+  - 313
+  - 314
+  - 315
+  - 316
+  - 317
+  - 267
+  - 268
+  - 272
+  - 276
+  - 283
+
+# ----------------------------------------------------------------------------------
+# Misc
+# ----------------------------------------------------------------------------------
+friendly_fire: false
+# No PvP around Spawn(Range) 0=disabled
+spawn_nopvp: 0
+# WARNING: (Only when set to 1)This uses the Enderchest and deletes everything that is inside!
+# 0: disabled - 1: per Player - 2: One chest per game(for all dwarves, currently not saved)
+crystal_storage: 0
+autoadd_players: false
+monster_invulnarable: 30
+monster_suizidepill: true
+set_to_day: true
+# Enable this if you want to use the Server only for DvZ
+dedicated_mode: false
+# Only diable the check if you have disguisecraft installed, but it somehow doesn't detect it.
+disable_dcraft_check: false
+# Warning! Some texts are also located in the other .yml files
+language: en_EN
+world_prefix: DvZ_
+new_classselection: false
+# Chat messages by Players in a game can only be seen by Players in the same game or OPs
+dedicated_chat: true
+# Monster have to wait until Assasins are choosen or /dvz_release was used
+need_release: false
+# Time(in Minutes) until monsters are released(0=disabled - WARNING: if you have need_release=true and time_release=0 you HAVE TO use /dvz_release or the monsters cann't do anything)
+time_release: 30
+dwarf_potion_exp: 2
+change_death_message: true
+# Track some stats on items(currently only monsters killed)
+item_stats: true
+show_game_id: true
+
+# ----------------------------------------------------------------------------------
+# Lobby/Autostarting the Game
+# ----------------------------------------------------------------------------------
+# Players needed to automatically start the game(0 to disable)
+lobby_players: 20
+lobby_starttime: 60
+# 0=no assasins
+lobby_playerperassasin: 10
+# Minutes until assasins "spawn"
+lobby_assasintime: 30
+# Max Deaths -> More Deaths -> No Assasins
+lobby_assasindeath: 2
+
+# ----------------------------------------------------------------------------------
+# Spell wait times
+# ----------------------------------------------------------------------------------
+spelltime_teleport: 15
+
+# ----------------------------------------------------------------------------------
+# Outdated and not used config Options
+# ----------------------------------------------------------------------------------
+# MOVED TO CLASSES.YML AND MONSTERS.YML
+# spelltime_builder: 30
+# spelltime_alchemy: 30
+# spelltime_blacksmith: 30
+# spelltime_tailor: 30
+# spelltime_creeper: 10
+# spelltime_spiderbite1: 0
+# spelltime_spiderbite2: 0
+# spelltime_ironsmash: 1
+# spelltime_ironjump: 30
+# spelltime_snowgolem: 60
+# spelltime_snowgolemthrow: 0
+# spelltime_broodlay: 3
+# spelltime_broodroar: 3
+# spelltime_enderblink: 18
+# spelltime_enderportal: 10
+# spelltime_reinforceenderportal: 3
+# spelltime_disableportal: 3
+# spelltime_drain_hunger: 2
+# spelltime_steal_weapon: 2
+# 
+# MOVED TO CLASSES.YML AND MONSTERS.YML
+# chance_builder: 100
+# chance_alchemy: 20
+# chance_blacksmith: 20
+# chance_tailor: 20
+# chance_zombie: 100
+# chance_skeleton: 75
+# chance_creeper: 50
+# chance_wolf: 25
+# chance_spider: 25
+# chance_irongolem: 5
+# chance_snowgolem: 5
+# chance_broodmother: 5
+# chance_enderman: 5
+# chance_cat: 5
+# chance_hungrypig: 5
+# 
+# CHANGED TO MONSTERS.YML
+# Hint: You should also change the name in the language file!
+# change_golem_to_blaze: false

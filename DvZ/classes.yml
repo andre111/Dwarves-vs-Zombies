@@ -1,0 +1,308 @@
+effects:
+   lightlevel:
+      above: []
+      below:
+        6: "15 0" 
+
+# ----------------------------------------------------------------------------------
+# Costum Dwarves
+# ----------------------------------------------------------------------------------
+# Item Format:
+# id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>
+# Name and Lore1,2,3 can contain spaces
+# to get Names without enchantments use -1 as the enchantmentid(ignoring it)
+# Example: "257 1 100 -1:0 Hi i'm Named!,I also have a lore!,2,3"
+# WARNING: Do not change name or lore of custom Items or they will not work!
+# ----------------------------------------------------------------------------------
+# 1
+custom_d1_chance: 100
+custom_d1_name: Builder Dwarf
+custom_d1_chatprefix: ""
+custom_d1_chatsuffix: " the Builder"
+
+custom_d1_items: 
+   - "340 1"
+   - "257 1"
+   - "256 1"
+   - "258 1"
+   - "320 20"
+   - "298 1"
+   - "299 1"
+   - "300 1"
+   - "301 1"
+
+custom_d1_spell_time: 30
+custom_d1_spell_item: 340
+custom_d1_spell_name: Get Building Blocks
+custom_d1_spell_need: 1
+custom_d1_spell_needdata: 0
+custom_d1_spell_count: 0
+custom_d1_spell_hasstring: false
+custom_d1_spell_string: some Stuff
+custom_d1_spell_fail: You need some stuff to do this!
+custom_d1_spell_inv: false
+custom_d1_spell_exp: 3
+
+custom_d1_spell_get: 
+   - "98 64 40"
+   - "98:1 64 40"
+   - "98:2 64 40"
+   - "4 64 40"
+
+# 2
+custom_d2_chance: 20
+custom_d2_name: Alchemy Dwarf
+custom_d2_chatprefix: ""
+custom_d2_chatsuffix: " the Alchemist"
+
+custom_d2_items: 
+   - "340 1"
+   - "379 2"
+   - "380 2"
+   - "54 2"
+   - "331 5"
+   - "22 64"
+   - "20 64"
+
+custom_d2_spell_time: 30
+custom_d2_spell_item: 340
+custom_d2_spell_name: Transmute Potions
+custom_d2_spell_need: 373
+custom_d2_spell_needdata: 64
+custom_d2_spell_count: 3
+custom_d2_spell_hasstring: true
+custom_d2_spell_string: 3 Mudane Potions
+custom_d2_spell_fail: You need 3 Mudane Potions to Transmute! Use Redstone and a Bottle of Water in a Brewing Stand
+custom_d2_spell_inv: false
+custom_d2_spell_exp: 6
+
+custom_d2_spell_get: 
+   - "352 9"
+   - "373:8421 1 20"
+   - "373:8421 1 20"
+   - "373:8421 1 20"
+   - "373:8421 1 20"
+   - "373:11449 1 20"
+   - "373:16274 1 20"
+   - "373:16310 1 20"
+   - "335 5 20"
+   - "354 5 20"
+   - "373:8259 1 5"
+
+# 3
+custom_d3_chance: 20
+custom_d3_name: Blacksmith Dwarf
+custom_d3_chatprefix: ""
+custom_d3_chatsuffix: " the Blacksmith"
+
+custom_d3_items: 
+   - "340 1"
+   - "257 1"
+   - "74 8"
+   - "14 24"
+   - "61 2"
+   - "263 10"
+   - "349 10"
+   - "54 2"
+   - "112 64"
+
+custom_d3_spell_time: 30
+custom_d3_spell_item: 340
+custom_d3_spell_name: Create Tools and Weapons
+custom_d3_spell_need: 347
+custom_d3_spell_needdata: 0
+custom_d3_spell_count: 3
+custom_d3_spell_hasstring: true
+custom_d3_spell_string: 3 Clocks
+custom_d3_spell_fail: You need 3 Gold Clocks! Smelt Gold and Redstone and craft them into clocks!
+custom_d3_spell_inv: false
+custom_d3_spell_exp: 6
+
+custom_d3_spell_get: 
+   - "340 10"
+   - "74 8"
+   - "276 1 45"
+   - "267 1 45"
+   - "279 1 45"
+   - "287 3 45"
+   - "288 32 50"
+   - "318 32 50"
+
+# 4
+custom_d4_chance: 20
+custom_d4_name: Tailor Dwarf
+custom_d4_chatprefix: ""
+custom_d4_chatsuffix: " the Tailor"
+
+custom_d4_items: 
+   - "340 1"
+   - "293 1"
+   - "352 10"
+   - "295 30"
+   - "6:3 6"
+   - "325 1"
+   - "101 64"
+   - "50 32"
+   - "54 2"
+
+custom_d4_spell_time: 30
+custom_d4_spell_item: 340
+custom_d4_spell_name: Create Armor
+custom_d4_spell_need: 297
+custom_d4_spell_needdata: 0
+custom_d4_spell_count: 3
+custom_d4_spell_hasstring: true
+custom_d4_spell_string: 3 Bread
+custom_d4_spell_fail: You need 3 Bread to Transmute! Use Bonemeal to spead up the process!
+custom_d4_spell_inv: false
+custom_d4_spell_exp: 6
+
+custom_d4_spell_get: 
+   - "14 1"
+   - "310 1:2 40"
+   - "311 1:2 40"
+   - "312 1:2 40"
+   - "313 1:2 40"
+
+# 5
+custom_d5_chance: 0
+custom_d5_name: Costum Dwarf
+custom_d5_chatprefix: ""
+custom_d5_chatsuffix: ""
+
+custom_d5_items: []
+
+custom_d5_spell_time: 30
+custom_d5_spell_item: 1
+custom_d5_spell_name: Costum Name
+custom_d5_spell_need: 1
+custom_d5_spell_needdata: 0
+custom_d5_spell_count: 3
+custom_d5_spell_hasstring: false
+custom_d5_spell_string: some Stuff
+custom_d5_spell_fail: You need some stuff to do this!
+custom_d5_spell_inv: true
+custom_d5_spell_exp: 6
+
+custom_d5_spell_get: []
+
+# 6
+custom_d6_chance: 0
+custom_d6_name: Costum Dwarf
+custom_d6_chatprefix: ""
+custom_d6_chatsuffix: ""
+
+custom_d6_items: []
+
+custom_d6_spell_time: 30
+custom_d6_spell_item: 1
+custom_d6_spell_name: Costum Name
+custom_d6_spell_need: 1
+custom_d6_spell_needdata: 0
+custom_d6_spell_count: 3
+custom_d6_spell_hasstring: false
+custom_d6_spell_string: some Stuff
+custom_d6_spell_fail: You need some stuff to do this!
+custom_d6_spell_inv: true
+custom_d6_spell_exp: 6
+
+custom_d6_spell_get: []
+
+# 7
+custom_d7_chance: 0
+custom_d7_name: Costum Dwarf
+custom_d7_chatprefix: ""
+custom_d7_chatsuffix: ""
+
+custom_d7_items: []
+
+custom_d7_spell_time: 30
+custom_d7_spell_item: 1
+custom_d7_spell_name: Costum Name
+custom_d7_spell_need: 1
+custom_d7_spell_needdata: 0
+custom_d7_spell_count: 3
+custom_d7_spell_hasstring: false
+custom_d7_spell_string: some Stuff
+custom_d7_spell_fail: You need some stuff to do this!
+custom_d7_spell_inv: true
+custom_d7_spell_exp: 6
+
+custom_d7_spell_get: []
+
+# 8
+custom_d8_chance: 0
+custom_d8_name: Costum Dwarf
+custom_d8_chatprefix: ""
+custom_d8_chatsuffix: ""
+
+custom_d8_items: []
+
+custom_d8_spell_time: 30
+custom_d8_spell_item: 1
+custom_d8_spell_name: Costum Name
+custom_d8_spell_need: 1
+custom_d8_spell_needdata: 0
+custom_d8_spell_count: 3
+custom_d8_spell_hasstring: false
+custom_d8_spell_string: some Stuff
+custom_d8_spell_fail: You need some stuff to do this!
+custom_d8_spell_inv: true
+custom_d8_spell_exp: 6
+
+custom_d8_spell_get: []
+
+# 9
+custom_d9_chance: 0
+custom_d9_name: Costum Dwarf
+custom_d9_chatprefix: ""
+custom_d9_chatsuffix: ""
+
+custom_d9_items: []
+
+custom_d9_spell_time: 30
+custom_d9_spell_item: 1
+custom_d9_spell_name: Costum Name
+custom_d9_spell_need: 1
+custom_d9_spell_needdata: 0
+custom_d9_spell_count: 3
+custom_d9_spell_hasstring: false
+custom_d9_spell_string: some Stuff
+custom_d9_spell_fail: You need some stuff to do this!
+custom_d9_spell_inv: true
+custom_d9_spell_exp: 6
+
+custom_d9_spell_get: []
+
+# 10
+custom_d10_chance: 0
+custom_d10_name: Costum Dwarf
+custom_d10_chatprefix: ""
+custom_d10_chatsuffix: ""
+
+custom_d10_items: []
+
+custom_d10_spell_time: 30
+custom_d10_spell_item: 1
+custom_d10_spell_name: Costum Name
+custom_d10_spell_need: 1
+custom_d10_spell_needdata: 0
+custom_d10_spell_count: 3
+custom_d10_spell_hasstring: false
+custom_d10_spell_string: some Stuff
+custom_d10_spell_fail: You need some stuff to do this!
+custom_d10_spell_inv: true
+custom_d10_spell_exp: 6
+
+custom_d10_spell_get: []
+
+# Assasin
+# If the Assasin doesn't kill someone in this Time, he will die (0 to disable)
+assasin_time_minutes: 5
+assasin_items: 
+   - "276"
+   - "310"
+   - "311"
+   - "312"
+   - "313"
+   - "322"

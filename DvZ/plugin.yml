@@ -1,0 +1,150 @@
+name: Dwarves vs Zombies
+main: me.andre111.dvz.DvZ
+version: 1.5
+website: http://andre111.bplaced.net/
+author: andre111
+
+softdepend: [DisguiseCraft]
+
+commands:
+   dvztest:
+      description: Testing some stuff(do not use this)
+      aliases: []
+      usage: /<command>
+      permission: dvz.test
+   dvz:
+      description: The Main command
+      aliases: []
+      usage: /<command> [subcommand] <subcommand_args>
+   dvz_start:
+      description: Start the Game in [Time]
+      aliases: [d_start]
+      usage: /<command> [gameID_default_0] <time> <minutes_till_assasins> <assasins> <maxdeaths>
+      permission: dvz.start
+   dvz_dwarf:
+      description: Set the Spawnpoints for the Dwarves
+      aliases: [d_dwarf]
+      usage: /<command> <GameID_default_dummygame>
+      permission: dvz.setspawn
+   dvz_monster:
+      description: Set the Spawnpoints for the Monsters
+      aliases: [d_monster]
+      usage: /<command> <GameID_default_dummygame>
+      permission: dvz.setspawn
+   dvz_info:
+      description: Get Information about the Gamestate
+      aliases: [d_info]
+      usage: /<command> [gameID_default_0] 
+      permission: dvz.info
+   dvz_reset:
+      description: Reset all Playerstates
+      aliases: [d_reset]
+      usage: /<command> [gameID_default_0] 
+      permission: dvz.reset
+   dvz_monument:
+      description: Create the Dwarf Monument at your current position
+      aliases: [d_monument]
+      usage: /<command> <GameID_default_dummygame>
+      permission: dvz.monument
+   dvz_dragon:
+      description: Turns you into a dragon
+      aliases: [d_dragon]
+      usage: /<command> [type]
+      permission: dvz.dragon
+   dvz_add:
+      description: Add a Player to the game even after it has been started
+      aliases: [d_add]
+      usage: /<command> [gameID_default_0] [Playername]
+      permission: dvz.add
+   dvz_assasin:
+      description: Chose random Players to be Assasins
+      aliases: [d_assasin]
+      usage: /<command> [gameID_default_0] <Count>
+      permission: dvz.assasin
+   dvz_join:
+      description: Join the Game
+      aliases: [d_join]
+      usage: /<command> [gameID_default_0]
+      permission: dvz.join
+   dvz_joini:
+      description: Join the Game ignoring Items in your Inventory
+      aliases: [d_joini]
+      usage: /<command> [gameID_default_0]
+      permission: dvz.join
+   dvz_leave:
+      description: Leave the game(only possible in the lobby)
+      aliases: [d_leave]
+      usage: /<command>
+      permission: dvz.leave
+   dvz_saveworld:
+      description: Save the current world
+      aliases: [dvz_save,d_saveworld,d_save]
+      usage: /<command>
+      permission: dvz.save
+   dvz_createworld:
+      description: Saves the current world as a automatic World
+      aliases: [dvz_create,d_createworld,d_create]
+      usage: /<command>
+      permission: dvz.save
+   dvz_release:
+      description: Releases the Monsters
+      aliases: [d_release]
+      usage: /<command> [gameID_default_0]
+      permission: dvz.release
+
+permissions:
+   dvz.*:
+      description: Gives you all DvZ permissions
+      default: op
+      children:
+         dvz.start: true
+         dvz.setspawn: true
+         dvz.info: true
+         dvz.reset: true
+         dvz.monument: true
+         dvz.dragon: true
+         dvz.add: true
+         dvz.assasin: true
+         dvz.join: true
+         dvz.leave: true
+         dvz.save: true
+         dvz.release: true
+   dvz.start:
+      description: Starting the Game
+      default: op
+   dvz.setspawn:
+      description: Set the Spawnlocations dor Dwarves/Monsters
+      default: op
+   dvz.info:
+      description: Get Information about the Gamestate
+      default: true
+   dvz.reset:
+      description: Reset all Playerstates
+      default: op
+   dvz.monument:
+      description: Create the Dwarf Monument at your current position
+      default: op
+   dvz.dragon:
+      description: Turns you into a dragon
+      default: op
+   dvz.add:
+      description: Add a Player to the game even after it has been started
+      default: op
+   dvz.assasin:
+      description: Chose random Players to be Assasins
+      default: op
+   dvz.join:
+      description: Join the Game
+      default: true
+   dvz.leave:
+      description: Leave the game(only possible in the lobby)
+      default: true
+   dvz.save:
+      description: Save the current world
+      default: op
+   dvz.release:
+      description: Releases the Monsters
+      default: op
+   dvz.test:
+      description: Testing some stuff(do not use this)
+      default: op
