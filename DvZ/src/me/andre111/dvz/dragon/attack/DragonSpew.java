@@ -1,7 +1,6 @@
 package me.andre111.dvz.dragon.attack;
 
 import org.bukkit.Sound;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
@@ -28,9 +27,8 @@ public class DragonSpew extends DragonAttack {
 		//TODO - find a better way to launch block without needing Player
 		if(entity instanceof Player) {
 			Player player = (Player) entity;
-			Arrow a = player.launchProjectile(Arrow.class);
-			Vector velocity = a.getVelocity();
-			a.remove();
+
+			Vector velocity = player.getEyeLocation().getDirection();
 			velocity.normalize().multiply(power);
 			
 			FallingBlock fb = entity.getWorld().spawnFallingBlock(entity.getLocation().clone().add(0, 1, 0), blockID, (byte)0);
