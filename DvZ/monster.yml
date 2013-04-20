@@ -154,6 +154,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 0
        name: ""
@@ -192,6 +194,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 0
        name: ""
@@ -228,6 +232,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 289
        name: "Explode"
@@ -270,6 +276,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 0
        name: ""
@@ -311,6 +319,8 @@ monsters:
        - starve
        - fall
        - poison
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 375
        name: "Confuse"
@@ -356,6 +366,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 265
        name: "Smash Blocks"
@@ -392,6 +404,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 353
        name: "Get Snow"
@@ -431,6 +445,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 350
        name: "Roar"
@@ -467,6 +483,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 378
        name: "Blink"
@@ -501,6 +519,8 @@ monsters:
        - fire
        - drown
        - starve
+     manaMax: 100
+     manaRegen: 5
      spellitem0:
        item: 351
        name: "Drain Hunger"
@@ -540,6 +560,8 @@ monsters:
 #       - fire
 #       - drown
 #       - starve
+#     manaMax: 100
+#     manaRegen: 5
 #     spellitem0:
 #       item: 0
 #       name: ""

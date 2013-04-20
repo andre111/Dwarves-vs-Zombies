@@ -86,6 +86,7 @@ public class Game {
 	
 	//used for custom cooldowns String: Playername:CooldownName
 	private HashMap<String, Integer> customCooldown = new HashMap<String, Integer>();
+	private ManaManager mana;
 	
 	private boolean autoassasin;
 	private int a_minutes;
@@ -127,6 +128,8 @@ public class Game {
 		deaths = 0;
 		infotimer = 0;
 		dragon = null;
+		
+		mana = new ManaManager();
 		
 		eciTest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		
@@ -188,6 +191,8 @@ public class Game {
 		deaths = 0;
 		infotimer = 0;
 		dragon = null;
+		
+		mana.reset();
 		
 		eciTest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		
@@ -351,6 +356,8 @@ public class Game {
 		for(String st : remove) {
 			customCooldown.remove(st);
 		}
+		
+		mana.tick();
 	}
 
 	//#######################################
@@ -1411,6 +1418,10 @@ public class Game {
 	
 	public int getDauer() {
 		return dauer;
+	}
+	
+	public ManaManager getManaManager() {
+		return mana;
 	}
 	
 	public DvZ getPlugin() {

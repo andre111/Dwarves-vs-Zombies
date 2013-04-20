@@ -48,6 +48,9 @@ custom_d1_spell_get:
    - "98:1 64 40"
    - "98:2 64 40"
    - "4 64 40"
+   
+custom_d1_mana_max: 100
+custom_d1_mana_regen: 5
 
 # 2
 custom_d2_chance: 20
@@ -88,6 +91,9 @@ custom_d2_spell_get:
    - "335 5 20"
    - "354 5 20"
    - "373:8259 1 5"
+   
+custom_d2_mana_max: 100
+custom_d2_mana_regen: 5
 
 # 3
 custom_d3_chance: 20
@@ -127,6 +133,9 @@ custom_d3_spell_get:
    - "287 3 45"
    - "288 32 50"
    - "318 32 50"
+   
+custom_d3_mana_max: 100
+custom_d3_mana_regen: 5
 
 # 4
 custom_d4_chance: 20
@@ -163,6 +172,9 @@ custom_d4_spell_get:
    - "311 1:2 40"
    - "312 1:2 40"
    - "313 1:2 40"
+   
+custom_d4_mana_max: 100
+custom_d4_mana_regen: 5
 
 # 5
 custom_d5_chance: 0
@@ -185,6 +197,9 @@ custom_d5_spell_inv: true
 custom_d5_spell_exp: 6
 
 custom_d5_spell_get: []
+   
+custom_d5_mana_max: 100
+custom_d5_mana_regen: 5
 
 # 6
 custom_d6_chance: 0
@@ -207,6 +222,9 @@ custom_d6_spell_inv: true
 custom_d6_spell_exp: 6
 
 custom_d6_spell_get: []
+   
+custom_d6_mana_max: 100
+custom_d6_mana_regen: 5
 
 # 7
 custom_d7_chance: 0
@@ -229,6 +247,9 @@ custom_d7_spell_inv: true
 custom_d7_spell_exp: 6
 
 custom_d7_spell_get: []
+   
+custom_d7_mana_max: 100
+custom_d7_mana_regen: 5
 
 # 8
 custom_d8_chance: 0
@@ -251,6 +272,9 @@ custom_d8_spell_inv: true
 custom_d8_spell_exp: 6
 
 custom_d8_spell_get: []
+   
+custom_d8_mana_max: 100
+custom_d8_mana_regen: 5
 
 # 9
 custom_d9_chance: 0
@@ -273,6 +297,9 @@ custom_d9_spell_inv: true
 custom_d9_spell_exp: 6
 
 custom_d9_spell_get: []
+   
+custom_d9_mana_max: 100
+custom_d9_mana_regen: 5
 
 # 10
 custom_d10_chance: 0
@@ -295,6 +322,9 @@ custom_d10_spell_inv: true
 custom_d10_spell_exp: 6
 
 custom_d10_spell_get: []
+   
+custom_d10_mana_max: 100
+custom_d10_mana_regen: 5
 
 # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)

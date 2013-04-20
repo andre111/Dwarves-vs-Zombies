@@ -24,6 +24,8 @@ public class Classswitcher {
 	public static void becomeCustomDwarf(Game game, Player player, int cd) {
 		game.setPlayerState(player.getName(), 9+cd);
 		game.resetCountdowns(player.getName());
+		game.getManaManager().setMaxMana(player.getName(), DvZ.getClassFile().getInt("custom_d"+cd+"_mana_max", 0), true);
+		game.getManaManager().setManaRegen(player.getName(), DvZ.getClassFile().getInt("custom_d"+cd+"_mana_regen", 0));
 		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getClassFile().getString("custom_d"+cd+"_name","")));
 		
 		ItemHandler.clearInv(player);

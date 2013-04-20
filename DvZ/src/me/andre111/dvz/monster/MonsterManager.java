@@ -57,6 +57,9 @@ public class MonsterManager {
 		for(String d : DvZ.getMonsterFile().getStringList("monsters."+mo+".disabledDamage")) {
 			monTemp.addDisabledDamage(d);
 		}
+		//mana
+		monTemp.setMaxMana(DvZ.getMonsterFile().getInt("monsters."+mo+".manaMax", 0));
+		monTemp.setManaRegen(DvZ.getMonsterFile().getInt("monsters."+mo+".manaRegen", 0));
 		//items
 		loadItem(mo, monTemp, 0);
 		loadItem(mo, monTemp, 1);

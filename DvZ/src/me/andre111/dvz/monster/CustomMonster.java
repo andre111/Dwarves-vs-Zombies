@@ -34,6 +34,8 @@ public class CustomMonster {
 	private boolean placeBlocks;
 	private double damageBuff;
 	private ArrayList<String> disabledDamage;
+	private int maxMana;
+	private int manaRegen;
 	
 	private CustomMonsterItem item1;
 	private CustomMonsterItem item2;
@@ -160,6 +162,8 @@ public class CustomMonster {
 	public void becomeMonster(Game game, Player player) {
 		Classswitcher.becomeMonster(game, player, true);
 		game.setPlayerState(player.getName(), id+Game.monsterMin);
+		game.getManaManager().setMaxMana(player.getName(), getMaxMana(), true);
+		game.getManaManager().setManaRegen(player.getName(), getManaRegen());
 		
 		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", getName()));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", getDisguise()));
@@ -304,6 +308,18 @@ public class CustomMonster {
 	public boolean isDamageDisabled(String damage) {
 		if(disabledDamage==null) return false;
 		return disabledDamage.contains(damage);
+	}
+	public int getMaxMana() {
+		return maxMana;
+	}
+	public void setMaxMana(int maxMana) {
+		this.maxMana = maxMana;
+	}
+	public int getManaRegen() {
+		return manaRegen;
+	}
+	public void setManaRegen(int manaRegen) {
+		this.manaRegen = manaRegen;
 	}
 	public CustomMonsterItem getItem1() {
 		return item1;
