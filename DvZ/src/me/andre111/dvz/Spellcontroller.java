@@ -32,107 +32,6 @@ import org.bukkit.util.Vector;
 public class Spellcontroller {
 	public static DvZ plugin;
 	
-	/*public static void spellBuildDwarf(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 1)==0) {
-			game.setCountdown(player.getName(), 1, plugin.getConfig().getInt("spelltime_builder",30));
-			
-			player.giveExp(3);
-		
-			World w = player.getWorld();
-			Location loc = player.getLocation();
-			Random rand = new Random();
-			if(rand.nextInt(100)<50) w.dropItem(loc, new ItemStack(98, 64));
-			if(rand.nextInt(100)<50) w.dropItem(loc, new ItemStack(98, 64, (short) 1));
-			if(rand.nextInt(100)<50) w.dropItem(loc, new ItemStack(98, 64, (short) 2));
-			if(rand.nextInt(100)<50) w.dropItem(loc, new ItemStack(4, 64));
-		} else {
-			player.sendMessage(plugin.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
-		}
-	}
-
-	public static void spellAlchDwarf(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 1)==0) {
-			if(countItems(player, 373, 64)>=3) {
-				removeItems(player, 373, 64, 3);
-				game.setCountdown(player.getName(), 1, plugin.getConfig().getInt("spelltime_alchemy",30));
-				
-				player.giveExp(6);
-			
-				World w = player.getWorld();
-				Location loc = player.getLocation();
-				Random rand = new Random();
-				w.dropItem(loc, new ItemStack(352, 9));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)16421));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)16421));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)16421));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)16421));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)19449));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)16456));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)16458));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(335, 5));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(354, 5));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)8259));
-				if(rand.nextInt(100)<20) w.dropItem(loc, new ItemStack(373, 5, (short)8258));
-			} else {
-				player.sendMessage(plugin.getLanguage().getString("string_need_potions","You need 3 Mudane Potions to Transmute! Use Redstone and a Bottle of Water in a Brewing Stand"));
-			}
-		} else {
-			player.sendMessage(plugin.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
-		}
-	}
-	
-	public static void spellBlackSDwarf(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 1)==0) {
-			if(countItems(player, 347, 0)>=3) {
-				removeItems(player, 347, 0, 3);
-				game.setCountdown(player.getName(), 1, plugin.getConfig().getInt("spelltime_blacksmith",30));
-				
-				player.giveExp(6);
-			
-				World w = player.getWorld();
-				Location loc = player.getLocation();
-				Random rand = new Random();
-				w.dropItem(loc, new ItemStack(263, 10));
-				w.dropItem(loc, new ItemStack(74, 8));
-				if(rand.nextInt(100)<45) w.dropItem(loc, new ItemStack(276, 1));
-				if(rand.nextInt(100)<45) w.dropItem(loc, new ItemStack(267, 1));
-				if(rand.nextInt(100)<45) w.dropItem(loc, new ItemStack(279, 1));
-				if(rand.nextInt(100)<45) w.dropItem(loc, new ItemStack(287, 3));
-				if(rand.nextInt(100)<50) w.dropItem(loc, new ItemStack(288, 32));
-				if(rand.nextInt(100)<50) w.dropItem(loc, new ItemStack(318, 32));
-			} else {
-				player.sendMessage(plugin.getLanguage().getString("string_need_clocks","You need 3 Gold Clocks! Smelt Gold and Redstone and craft them into clocks!"));
-			}
-		} else {
-			player.sendMessage(plugin.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
-		}
-	}
-	
-	public static void spellTailorDwarf(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 1)==0) {
-			if(countItems(player, 297, 0)>=3) {
-				removeItems(player, 297, 0, 3);
-				game.setCountdown(player.getName(), 1, plugin.getConfig().getInt("spelltime_tailor",30));
-				
-				player.giveExp(6);
-			
-				World w = player.getWorld();
-				Location loc = player.getLocation();
-				Random rand = new Random();
-				w.dropItem(loc, new ItemStack(14));
-				if(rand.nextInt(100)<40) w.dropItem(loc, new ItemStack(310, rand.nextInt(2)+1));
-				if(rand.nextInt(100)<40) w.dropItem(loc, new ItemStack(311, rand.nextInt(2)+1));
-				if(rand.nextInt(100)<40) w.dropItem(loc, new ItemStack(312, rand.nextInt(2)+1));
-				if(rand.nextInt(100)<40) w.dropItem(loc, new ItemStack(313, rand.nextInt(2)+1));
-				w.playSound(loc, Sound.ANVIL_USE, 1, 1);
-			} else {
-				player.sendMessage(plugin.getLanguage().getString("string_need_bread","You need 3 Bread to Transmute! Use Bonemeal to spead up the process!"));
-			}
-		} else {
-			player.sendMessage(plugin.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
-		}
-	}*/
-	
 	//Custom Dwarves
 	public static void spellCustomDwarf(Game game, Player player, int cd) {
 		if(game.getCountdown(player.getName(), 1)==0) {
@@ -165,30 +64,6 @@ public class Spellcontroller {
 						}
 					}
 				}
-				//Alt:
-				/*for(int i=1; i<=12; i++) {
-					if(rand.nextInt(100)<plugin.getConfig().getInt("custom_d"+cd+"_spell_chance"+i,0)) {
-						int cid = plugin.getConfig().getInt("custom_d"+cd+"_spell_get"+i,0);
-						int cdata = plugin.getConfig().getInt("custom_d"+cd+"_spell_data"+i,0);
-						int cmin = plugin.getConfig().getInt("custom_d"+cd+"_spell_count_min"+i,0);
-						int cmax = plugin.getConfig().getInt("custom_d"+cd+"_spell_count_max"+i,0);
-						int ccount = cmin;
-						if(cmax-cmin>0)
-							ccount = cmin+rand.nextInt(cmax-cmin);
-						
-						if(ccount>0) {
-							ItemStack it = new ItemStack(cid, ccount, (short) cdata);
-							
-							if(insinv=="true") {
-								inv.addItem(it);
-							} else {
-								w.dropItem(loc, it);
-							}
-						}
-					}
-				 	ItemStack it = ItemHandler.decodeItem(plugin.getConfig().getString("custom_d"+cd+"_spell_get"+i, "0"));
-					...
-				}*/
 				
 				DvZ.updateInventory(player);
 			} else {

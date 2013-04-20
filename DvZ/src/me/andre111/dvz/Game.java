@@ -773,32 +773,6 @@ public class Game {
 		Random rand = new Random();
 		PlayerInventory inv = player.getInventory();
 		
-		/*//Builder 100%
-		ItemStack bd = new ItemStack(2256, 1);
-		ItemMeta im = bd.getItemMeta();
-		im.setDisplayName(plugin.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", plugin.getLanguage().getString("string_builder","Builder Dwarf")));
-		bd.setItemMeta(im);
-		//Alchemy 20%
-		ItemStack ad = new ItemStack(2257, 1);
-		im = ad.getItemMeta();
-		im.setDisplayName(plugin.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", plugin.getLanguage().getString("string_alchemy","Alchemy Dwarf")));
-		ad.setItemMeta(im);
-		//Blacksmith 20%
-		ItemStack bld = new ItemStack(2258, 1);
-		im = bld.getItemMeta();
-		im.setDisplayName(plugin.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", plugin.getLanguage().getString("string_blacksmith","Blacksmith Dwarf")));
-		bld.setItemMeta(im);
-		//Tailor 20%
-		ItemStack td = new ItemStack(2259, 1);
-		im = td.getItemMeta();
-		im.setDisplayName(plugin.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", plugin.getLanguage().getString("string_tailor","Tailor Dwarf")));
-		td.setItemMeta(im);
-		//adding
-		if (rand.nextInt(100)<plugin.getConfig().getInt("chance_builder",100)) inv.addItem(bd);
-		if (rand.nextInt(100)<plugin.getConfig().getInt("chance_alchemy",20)) inv.addItem(ad);
-		if (rand.nextInt(100)<plugin.getConfig().getInt("chance_blacksmith",20)) inv.addItem(bld);
-		if (rand.nextInt(100)<plugin.getConfig().getInt("chance_tailor",20)) inv.addItem(td);*/
-		
 		resetCountdowns(player.getName());
 		
 		//costum dwarves
@@ -869,134 +843,6 @@ public class Game {
 		Random rand = new Random();
 		PlayerInventory inv = player.getInventory();
 
-		//OLD CLASSES
-		/*
-		//Zombie 100%
-		ItemStack zo = new ItemStack(397, 1, (short) 2);
-		ItemMeta im = zo.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_zombie","Zombie")));
-		zo.setItemMeta(im);
-		//Skelet 75%
-		ItemStack sk = new ItemStack(397, 1, (short) 0);
-		im = sk.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_skeleton","Skeleton")));
-		sk.setItemMeta(im);
-		//Creeper 50%
-		ItemStack cr = new ItemStack(397, 1, (short) 4);
-		im = cr.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_creeper","Creeper")));
-		cr.setItemMeta(im);
-		//Wolf 25%
-		ItemStack wo = new ItemStack(2256, 1);
-		im = wo.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_wolf","Wolf")));
-		wo.setItemMeta(im);
-		//Spinne 25%
-		ItemStack sp = new ItemStack(2257, 1);
-		im = sp.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_spider","Spider")));
-		sp.setItemMeta(im);
-		//IronGolem 5%
-		ItemStack ir = new ItemStack(2258, 1);
-		im = ir.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_iron","IronGolem")));
-		ir.setItemMeta(im);
-		//SnowGolem 5%
-		ItemStack sn = new ItemStack(2259, 1);
-		im = sn.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_snow","SnowGolem")));
-		sn.setItemMeta(im);
-		//Silverfish 5%
-		ItemStack si = new ItemStack(2260, 1);
-		im = si.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_brood","Broodmother")));
-		si.setItemMeta(im);
-		//Enderman 5%
-		ItemStack en = new ItemStack(2261, 1);
-		im = en.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_enderman","Enderman")));
-		en.setItemMeta(im);
-		//Cat 5%
-		ItemStack ca = new ItemStack(2262, 1);
-		im = ca.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_cat","Cat")));
-		ca.setItemMeta(im);
-		//Hungrypig 5%
-		ItemStack hp = new ItemStack(2263, 1);
-		im = hp.getItemMeta();
-		im.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getLanguage().getString("string_hungrypig","Hungry Pig")));
-		hp.setItemMeta(im);
-
-		//adding
-		if(plugin.getConfig().getString("new_classselection","true")!="true") {
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_zombie",100)) inv.addItem(zo);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_skeleton",75)) inv.addItem(sk);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_creeper",50)) inv.addItem(cr);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_wolf",25)) inv.addItem(wo);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_spider",25)) inv.addItem(sp);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_irongolem",5)) inv.addItem(ir);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_snowgolem",5)) inv.addItem(sn);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_broodmother",5)) inv.addItem(si);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_enderman",5)) inv.addItem(en);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_cat",5)) inv.addItem(ca);
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_hungrypig",5)) inv.addItem(hp);
-		}
-		else
-		{
-			IconMenu icm = new IconMenu(player.getName()+" - "+DvZ.getLanguage().getString("string_choose","Choose your class!"), 18, new GameOptionClickEventHandler(this) {
-				
-	            @Override
-	            public void onOptionClick(IconMenu.OptionClickEvent event) {
-	            	if(!isPlayer(event.getPlayer().getName())) {
-	            		event.setWillClose(true);
-	                    event.setWillDestroy(true);
-	                    return;
-	            	}
-	            	
-	            	boolean monster = false;
-	            	int itemId = event.getItemID();
-	            	int itemD = event.getItemDamage();
-	            	Player player = event.getPlayer();
-	            	
-	    			if(itemId==397 && itemD==2) { Classswitcher.becomeZombie(game, player); monster=true; }
-	    			if(itemId==397 && itemD==0) { Classswitcher.becomeSkeleton(game, player); monster=true; }
-	    			if(itemId==397 && itemD==4) { Classswitcher.becomeCreeper(game, player); monster=true; }
-	    			if(itemId==2256) { Classswitcher.becomeWolf(game, player); monster=true; }
-	    			if(itemId==2257) { Classswitcher.becomeSpider(game, player); monster=true; }
-	    			if(itemId==2258) { Classswitcher.becomeIronGolem(game, player); monster=true; }
-	    			if(itemId==2259) { Classswitcher.becomeSnowGolem(game, player); monster=true; }
-	    			if(itemId==2260) { Classswitcher.becomeBroodmother(game, player); monster=true; }
-	    			if(itemId==2261) { Classswitcher.becomeEnderman(game, player); monster=true; }
-	    			if(itemId==2262) { Classswitcher.becomeCat(game, player); monster=true; }
-	    			if(itemId==2263) { Classswitcher.becomeHungryPig(game, player); monster=true; }
-	    			if (monster) {
-	    				if(spawnMonsters!=null) {
-	    					player.teleport(spawnMonsters);
-	    				}
-	    				
-	    				event.setWillClose(true);
-	                    event.setWillDestroy(true);
-	    			}
-	                //event.getPlayer().sendMessage("You have chosen " + event.getName());
-	            }
-	        },  plugin);
-			int pos = 0;
-			
-			//adding
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_zombie",100)) { icm.setOption(pos, zo); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_skeleton",75)) { icm.setOption(pos, sk); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_creeper",50)) { icm.setOption(pos, cr); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_wolf",25)) { icm.setOption(pos, wo); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_spider",25)) { icm.setOption(pos, sp); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_irongolem",5)) { icm.setOption(pos, ir); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_snowgolem",5)) { icm.setOption(pos, sn); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_broodmother",5)) { icm.setOption(pos, si); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_enderman",5)) { icm.setOption(pos, en); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_cat",5)) { icm.setOption(pos, ca); pos++; }
-			if (rand.nextInt(100)<plugin.getConfig().getInt("chance_hungrypig",5)) { icm.setOption(pos, hp); pos++; }
-			
-			icm.open(player);
-		}*/
 		resetCountdowns(player.getName());
 		
 		ItemStack[] monsterItems = new ItemStack[DvZ.monsterManager.getCount()];
@@ -1078,10 +924,6 @@ public class Game {
 		
 		if(getPlayerState(pname)==2) { //dwarf werden
 			boolean dwarf = false;
-			/*if(itemId==2256) { Classswitcher.becomeBuilderDwarf(this, player); dwarf=true; }
-			if(itemId==2257) { Classswitcher.becomeAlchemyDwarf(this, player); dwarf=true; }
-			if(itemId==2258) { Classswitcher.becomeBlacksmithDwarf(this, player); dwarf=true; }
-			if(itemId==2259) { Classswitcher.becomeTailorDwarf(this, player); dwarf=true; }*/
 			
 			//costum dwarves
 			for(int i=1; i<=10; i++) {
@@ -1096,19 +938,7 @@ public class Game {
 		}
 		if(getPlayerState(pname)==3) { //monster werden
 			boolean monster = false;
-			//OLD CLASSES
-			/*if(itemId==397 && itemD==2) { Classswitcher.becomeZombie(this, player); monster=true; }
-			if(itemId==397 && itemD==0) { Classswitcher.becomeSkeleton(this, player); monster=true; }
-			if(itemId==397 && itemD==4) { Classswitcher.becomeCreeper(this, player); monster=true; }
-			if(itemId==2256) { Classswitcher.becomeWolf(this, player); monster=true; }
-			if(itemId==2257) { Classswitcher.becomeSpider(this, player); monster=true; }
-			if(itemId==2258) { Classswitcher.becomeIronGolem(this, player); monster=true; }
-			if(itemId==2259) { Classswitcher.becomeSnowGolem(this, player); monster=true; }
-			if(itemId==2260) { Classswitcher.becomeBroodmother(this, player); monster=true; }
-			if(itemId==2261) { Classswitcher.becomeEnderman(this, player); monster=true; }
-			if(itemId==2262) { Classswitcher.becomeCat(this, player); monster=true; }
-			if(itemId==2263) { Classswitcher.becomeHungryPig(this, player); monster=true; }*/
-
+			
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 				CustomMonster cm = DvZ.monsterManager.getMonster(i);
 				if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
@@ -1123,12 +953,6 @@ public class Game {
 			}
 		}
 		
-		//dwarves
-		/*if(getPlayerState(pname)==10 && itemId==340) Spellcontroller.spellBuildDwarf(this, player);
-		if(getPlayerState(pname)==11 && itemId==374) Spellcontroller.spellAlchDwarf(this, player);
-		if(getPlayerState(pname)==12 && itemId==347) Spellcontroller.spellBlackSDwarf(this, player);
-		if(getPlayerState(pname)==13 && itemId==297) Spellcontroller.spellTailorDwarf(this, player);*/
-		
 		//costum dwarves
 		for(int i=1; i<=10; i++) {
 			if(getPlayerState(pname)==9+i && itemId==DvZ.getClassFile().getInt("custom_d"+i+"_spell_item",0)) Spellcontroller.spellCustomDwarf(this, player, i);
@@ -1141,21 +965,6 @@ public class Game {
 		playerSpecialItemC(player, item, false, block, null);
 		
 		//Monster
-		//OLD CLASSES
-		/*if(getPlayerState(pname)==32 && itemId==289) Spellcontroller.spellCreeper(this, player);
-		if(getPlayerState(pname)==35 && itemId==265 && block!=null) Spellcontroller.spellIronGolemSmash(this, player, block);
-		if(getPlayerState(pname)==35 && itemId==341) Spellcontroller.spellIronGolemLeap(this, player);
-		if(getPlayerState(pname)==36 && itemId==353) Spellcontroller.spellSnowGolemSnow(this, player);
-		if(getPlayerState(pname)==36 && itemId==332) Spellcontroller.spellSnowGolemThrow(this, player);
-		if(getPlayerState(pname)==37 && itemId==349) Spellcontroller.spellBroodLay(this, player);
-		if(getPlayerState(pname)==37 && itemId==350) Spellcontroller.spellBroodRoar(this, player);
-		if(getPlayerState(pname)==38 && itemId==378) Spellcontroller.spellEnderBlink(this, player);
-		if(getPlayerState(pname)==38 && itemId==90) Spellcontroller.spellEnderPortal(this, player);
-		if(getPlayerState(pname)==38 && itemId==369) Spellcontroller.spellEnderReinforcePortal(this, player);
-		
-		if(getPlayerState(pname)==40 && block!=null) Spellcontroller.spellHungryPigEat(this, player, block, 3);
-		if(getPlayerState(pname)==41 && block!=null) Spellcontroller.spellHungryPigEat(this, player, block, 2);*/
-		
 		if(isMonster(pname) && itemId==358) Spellcontroller.spellTeleport(this, player);
 		if(isMonster(pname) && itemId==370) Spellcontroller.spellSuizide(this, player);
 		
@@ -1185,17 +994,6 @@ public class Game {
 	public void playerRCPlayer(Player player, ItemStack item, Player target) {
 		if(!isPlayer(player.getName())) return;
 		if(item==null) return;
-		//OLD CLASSES
-		/*int itemId = item.getTypeId();
-		int itemD = item.getDurability();
-
-		if(getPlayerState(player.getName())==34 && itemId==375) Spellcontroller.spellSpiderBite1(this, player, target);
-		if(getPlayerState(player.getName())==34 && itemId==373 && itemD==16452) Spellcontroller.spellSpiderBite2(this, player, target);
-		
-		if(getPlayerState(player.getName())==39 && itemId==351) Spellcontroller.spellDrainHunger(this, player, target, 2);
-		if(getPlayerState(player.getName())==39 && itemId==372) Spellcontroller.spellCatStealWeapon(this, player, target);
-	
-		if(getPlayerState(player.getName())==42) Spellcontroller.spellDrainHunger(this, player, target, 51);*/
 		
 		//custom items
 		playerSpecialItemC(player, item, false, null, target);

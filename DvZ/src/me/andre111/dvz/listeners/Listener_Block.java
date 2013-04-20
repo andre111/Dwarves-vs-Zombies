@@ -35,10 +35,6 @@ public class Listener_Block implements Listener {
 			return;
 		}
 		//fix für das platzieren von köpfen/Enderman das Portal zu platzieren - deaktiviert, da jetzt custom monster existieren
-		/*if(game.getPlayerState(player.getName())==30 || game.getPlayerState(player.getName())==31 || game.getPlayerState(player.getName())==32 || game.getPlayerState(player.getName())==38) {
-		    event.setCancelled(true);
-			return;
-		}*/
 		if(game.isMonster(player.getName())) {
 			int id = game.getPlayerState(player.getName()) - Game.monsterMin;
 			if(!DvZ.monsterManager.getMonster(id).isPlaceBlocks()) {
@@ -67,21 +63,6 @@ public class Listener_Block implements Listener {
 					player.sendMessage(DvZ.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));
 				}
 			}
-			//hungry pig - deaktiviert - custom monster
-			/*if(game.getPlayerState(player.getName())>=40 && game.getPlayerState(player.getName())<=41) {
-				player.giveExp(ammount);
-				
-				if(game.getPlayerState(player.getName())==40) {
-					if(player.getLevel()>=7 || (player.getLevel()==6 && player.getExpToLevel()<=ammount)) {
-						Classswitcher.becomeHungryPig2(game, player);
-					}
-				}
-				if(game.getPlayerState(player.getName())==41) {
-					if(player.getLevel()>=10 || (player.getLevel()==9 && player.getExpToLevel()<=ammount)) {
-						Classswitcher.becomeHungryPig3(game, player);
-					}
-				}
-			}*/
 		}
 	}
 }

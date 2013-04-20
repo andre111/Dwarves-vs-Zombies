@@ -90,7 +90,6 @@ public class MonsterManager {
 				itTemp.getCast().setCastVar(1, DvZ.getMonsterFile().getString("monsters."+mo+".spellitem"+id+".castVar1", ""));
 				//new method, for loading more than 2 cast vars
 				List<String> stList = DvZ.getMonsterFile().getStringList("monsters."+mo+".spellitem"+id+".castVars");
-				//List<Double> dbList = DvZ.getMonsterFile().getDoubleList("monsters."+mo+".spellitem"+id+".castVars");
 				for(int i=0; i<stList.size(); i++) {
 					itTemp.getCast().setCastVar(i, stList.get(i));
 					try {
@@ -101,9 +100,6 @@ public class MonsterManager {
 				}
 				//changed to string reader, because doublelist skips string
 				//-> numbers get messed up
-				/*for(int j=0; j<dbList.size(); j++) {
-					itTemp.getCast().setCastVar(j, dbList.get(j));
-				}*/
 				//id
 				itTemp.getCast().setId(itTemp.getId());
 			}

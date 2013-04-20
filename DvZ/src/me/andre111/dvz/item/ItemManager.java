@@ -123,7 +123,6 @@ public class ItemManager {
 				}
 				//new method, for loading more than 2 cast vars
 				List<String> stList = DvZ.getItemFile().getStringList(basename+"castVars");
-				//List<Double> dbList = DvZ.getMonsterFile().getDoubleList("items."+it+".castVars");
 				ItemSpell itS;
 				if(left) itS = itTemp.getCastL(id);
 				else itS = itTemp.getCastR(id);
@@ -138,10 +137,6 @@ public class ItemManager {
 				}
 				//changed to string reader, because doublelist skips string
 				//-> numbers get messed up
-				/*for(int j=0; j<dbList.size(); j++) {
-									itTemp.getCast().setCastVar(j, dbList.get(j));
-								}*/
-				//id
 			}
 		} catch (ClassNotFoundException e) {
 		} catch (InstantiationException e) {

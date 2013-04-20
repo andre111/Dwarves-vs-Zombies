@@ -48,16 +48,6 @@ public class DragonAttackManager {
 		for(int i=0; i<stK2.length; i++) {
 			loadAttack(stK2[i]);
 		}
-		
-		//Test attack
-		/*attacks = new DragonCustomAttack[1];
-		attacks[0] = new DragonCustomAttack();
-		attacks[0].setType(1);
-		attacks[0].setEffect(true);
-		attacks[0].setSpeed(5);
-		attacks[0].setEffectSpeed(1);
-		attacks[0].setFwColor(Color.RED);
-		attacks[0].setFwType(Type.BURST);*/
 	}
 	
 	private void loadDragon(String dp) {
