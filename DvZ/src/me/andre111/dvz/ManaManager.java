@@ -3,6 +3,9 @@ package me.andre111.dvz;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 public class ManaManager {
 	private HashMap<String, Integer> mana = new HashMap<String, Integer>();
 	private HashMap<String, Integer> manaRegen = new HashMap<String, Integer>();
@@ -18,6 +21,8 @@ public class ManaManager {
 			if(m<maxm) {
 				m += manaRegen.get(player);
 				if(m>maxm) m = maxm;
+				
+				changedMana(player, m);
 				
 				mana.put(player, m);
 			}
@@ -53,5 +58,18 @@ public class ManaManager {
 		if(value<0) value = 0;
 		
 		mana.put(player, value);
+		changedMana(player, value);
+	}
+	
+	//update mana stat
+	private void changedMana(String player, int ammount) {
+		Player p = Bukkit.getServer().getPlayer(player);
+		if(p!=null) {
+			if(p.isSneaking()) {
+				if(p.getScoreboard().getObjective("dvz_stats")!=null) {
+					p.getScoreboard().getObjective("dvz_stats").getScore(Bukkit.getOfflinePlayer("Mana")).setScore(ammount);
+				}
+			}
+		}
 	}
 }

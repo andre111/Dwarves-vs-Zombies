@@ -121,7 +121,7 @@ items:
        sounds: []
        cooldown: 5
        mana:
-         cost: 20
+         cost: 0
        casts: []
      rightclick:
        effects: []
