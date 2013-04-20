@@ -44,4 +44,14 @@ public class ManaManager {
 		
 		return mana.get(player);
 	}
+	
+	public void substractMana(String player, int ammount) {
+		int value = 0;
+		if(mana.containsKey(player)) value = mana.get(player);
+		
+		value -= ammount;
+		if(value<0) value = 0;
+		
+		mana.put(player, value);
+	}
 }

@@ -68,6 +68,8 @@ items:
        sounds:
          - "SPLASH:1:0.5:onHit"
        cooldown: 5
+       mana:
+         cost: 40
        casts:
          0:
            cast: "ItemLaunch"
@@ -94,6 +96,8 @@ items:
        sounds:
          - "ARROW_HIT:1:0.5:Caster"
        cooldown: 5
+       mana:
+         cost: 40
        casts:
          0:
            cast: "ItemLeap"
@@ -116,12 +120,16 @@ items:
        effects: []
        sounds: []
        cooldown: 5
+       mana:
+         cost: 20
        casts: []
      rightclick:
        effects: []
        sounds:
          - "BAT_IDLE:1:1:Caster"
        cooldown: 1
+       mana:
+         cost: 15
        casts:
          0:
            cast: "ItemDamage"

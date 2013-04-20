@@ -59,6 +59,7 @@ string_steal_weapon: "Steal Weapon"
 string_crystal_storage: "Crystal Storage"
 # Spell Messages
 string_wait: "You have to wait -0- Seconds!"
+string_needmana: "You need -0- Mana!"
 string_needexp: "You don't have enough exp!"
 string_iron_near: "An Iron Golem is nearby!"
 string_got_snow: "You got some Snowballs"

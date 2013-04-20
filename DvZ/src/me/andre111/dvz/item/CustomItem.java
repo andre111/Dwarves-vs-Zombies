@@ -25,6 +25,7 @@ public class CustomItem {
 	private ArrayList<String> soundsR = new ArrayList<String>();
 	//private ItemSpell castR;
 	private int cooldownR;
+	private int manaCostR;
 	
 	private ItemSpell[] castsR;
 	
@@ -32,12 +33,12 @@ public class CustomItem {
 	private ArrayList<String> soundsL = new ArrayList<String>();
 	//private ItemSpell castL;
 	private int cooldownL;
-	
+	private int manaCostL;
 	
 	private ItemSpell[] castsL;
 	
 	public void cast(Game game, boolean left, Player player) {
-		if(cooldownCheck(game, left, player)) return;
+		if(cooldownManaCheck(game, left, player)) return;
 		
 		/*ItemSpell castUse = castR;
 		if(left) castUse = castL;
@@ -69,7 +70,7 @@ public class CustomItem {
 		}
 	}
 	public void cast(Game game, boolean left, Player player, Block block) {
-		if(cooldownCheck(game, left, player)) return;
+		if(cooldownManaCheck(game, left, player)) return;
 		
 		/*ItemSpell castUse = castR;
 		if(left) castUse = castL;
@@ -103,7 +104,7 @@ public class CustomItem {
 		}
 	}
 	public void cast(Game game, boolean left, Player player, Player target) {
-		if(cooldownCheck(game, left, player)) return;
+		if(cooldownManaCheck(game, left, player)) return;
 		
 		/*ItemSpell castUse = castR;
 		if(left) castUse = castL;
@@ -152,13 +153,28 @@ public class CustomItem {
 	}*/
 	
 	//is the item currently on cooldown
-	private boolean cooldownCheck(Game game, boolean left, Player player) {
+	private boolean cooldownManaCheck(Game game, boolean left, Player player) {
+		//cooldown
 		int cd = game.getCustomCooldown(player.getName(), getCooldownName(left));
 		if(cd>0) {
 			player.sendMessage(DvZ.getLanguage().getString("string_wait", "You have to wait -0- Seconds!").replaceAll("-0-", ""+cd));
+			
 			return true;
 		}
 		
+		//mana
+		int cost = getManaCostR();
+		if(left) cost = getManaCostL();
+		
+		if(cost>0)
+		if(game.getManaManager().getMana(player.getName())<cost) {
+			player.sendMessage(DvZ.getLanguage().getString("string_needmana", "You need -0- Mana!").replaceAll("-0-", ""+cost));
+			return true;
+		}
+		
+		game.getManaManager().substractMana(player.getName(), cost);
+		
+		//everything ok
 		return false;
 	}
 	
@@ -275,6 +291,12 @@ public class CustomItem {
 	public void setCooldownR(int cooldownR) {
 		this.cooldownR = cooldownR;
 	}
+	public int getManaCostR() {
+		return manaCostR;
+	}
+	public void setManaCostR(int manaCostR) {
+		this.manaCostR = manaCostR;
+	}
 	public void addEffectL(String effect) {
 		effectsL.add(effect);
 	}
@@ -292,5 +314,11 @@ public class CustomItem {
 	}
 	public void setCooldownL(int cooldownL) {
 		this.cooldownL = cooldownL;
+	}
+	public int getManaCostL() {
+		return manaCostL;
+	}
+	public void setManaCostL(int manaCostL) {
+		this.manaCostL = manaCostL;
 	}
 }

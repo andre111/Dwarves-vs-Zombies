@@ -51,6 +51,7 @@ public class ItemManager {
 			itTemp.addSoundR(st);
 		}
 		itTemp.setCooldownR(DvZ.getItemFile().getInt("items."+it+".rightclick.cooldown", 0));
+		itTemp.setManaCostR(DvZ.getItemFile().getInt("items."+it+".rightclick.mana.cost", 0));
 		//leftclick
 		List<String> effectsl = DvZ.getItemFile().getStringList("items."+it+".leftclick.effects");
 		if(effectsl.size()>0)
@@ -63,6 +64,7 @@ public class ItemManager {
 			itTemp.addSoundL(st);
 		}
 		itTemp.setCooldownL(DvZ.getItemFile().getInt("items."+it+".leftclick.cooldown", 0));
+		itTemp.setManaCostL(DvZ.getItemFile().getInt("items."+it+".leftclick.mana.cost", 0));
 		
 		//Cast
 		//right

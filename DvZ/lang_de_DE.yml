@@ -59,6 +59,7 @@ string_steal_weapon: "Waffe klauen"
 string_crystal_storage: "Krystal Lager"
 # Spell Messages
 string_wait: "Du musst -0- Sekunden warten!"
+string_needmana: "Du brauchst -0- Mana!"
 string_needexp: "Du hast nicht genug Exp!"
 string_iron_near: "In Eisen Golem is nah!"
 string_got_snow: "Du hast ein paar Schneebälle gesammelt"
