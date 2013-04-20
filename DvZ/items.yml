@@ -45,6 +45,14 @@
 # castVar0: castOnSelf(1=true)
 # castVar1: damage(negative to heal)
 ######################################
+# "ItemCommand"
+# Execute command as the Player or console
+# -0- gets replaced by the casters name
+# -1- gets replaced by the target players name
+# (if no target target exists, all commands containing -1- are skipped!)
+# castVar0: console(1=true)
+# castVar1+: Commands
+######################################
 # ""
 # 
 #
