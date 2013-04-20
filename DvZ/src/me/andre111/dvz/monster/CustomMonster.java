@@ -41,6 +41,8 @@ public class CustomMonster {
 	//Cast check if it is the right item and right type and cooldown managment then cast
 	//###################################
 	public void spellCast(Game game, ItemStack item, Player player) {	
+		if(item==null) return;
+		
 		//normal cast
 		if(item.getTypeId()==ItemHandler.decodeItemId(item1.getItem()) && item1.getCast().getType()==0) {
 			if(game.getCountdown(player.getName(), item1.getId())==0) {
@@ -63,6 +65,8 @@ public class CustomMonster {
 		spellCastFarTargeted(game, item, player);
 	}
 	public void spellCast(Game game, ItemStack item, Player player, Block target) {	
+		if(item==null) return;
+		
 		if(item.getTypeId()==ItemHandler.decodeItemId(item1.getItem()) && (item1.getCast().getType()==1 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item1.getCast().getType()==0)) {
 			if(game.getCountdown(player.getName(), item1.getId())==0) {
 				game.setCountdown(player.getName(), item1.getId(), item1.getTime());
@@ -82,6 +86,8 @@ public class CustomMonster {
 		}
 	}
 	public void spellCast(Game game, ItemStack item, Player player, Player target) {
+		if(item==null) return;
+		
 		if(item.getTypeId()==ItemHandler.decodeItemId(item1.getItem()) && (item1.getCast().getType()==2 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item1.getCast().getType()==0)) {
 			if(game.getCountdown(player.getName(), item1.getId())==0) {
 				game.setCountdown(player.getName(), item1.getId(), item1.getTime());
