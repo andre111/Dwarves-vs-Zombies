@@ -462,7 +462,8 @@ public class CommandExecutorDvZ implements CommandExecutor {
 					if(game.getState()==1 && game.getPlayerState(player.getName())==1) {
 						game.removePlayer(player.getName());
 
-						player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+						if(DvZ.getStaticConfig().getString("use_lobby", "true").equals("true"))
+							player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 					}
 				}
 			}

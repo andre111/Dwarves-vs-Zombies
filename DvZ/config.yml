@@ -93,6 +93,8 @@ show_game_id: true
 # ----------------------------------------------------------------------------------
 # Lobby/Autostarting the Game
 # ----------------------------------------------------------------------------------
+# Whether to use a new world for the Lobby
+use_lobby: true
 # Players needed to automatically start the game(0 to disable)
 lobby_players: 20
 lobby_starttime: 60

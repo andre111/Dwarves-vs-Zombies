@@ -135,7 +135,8 @@ public class DvZ extends JavaPlugin {
 		    // Failed to submit the stats :-(
 		}
 		
-		Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Lobby"));
+		if(getConfig().getString("use_lobby", "true").equals("true"))
+			Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Lobby"));
 		File f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/");
 		if(!f.exists()) f.mkdirs();
 		for (int i=0; i<10; i++) {
@@ -331,7 +332,10 @@ public class DvZ extends JavaPlugin {
 			
 			for ( Player player : w.getPlayers() ) {
 				ItemHandler.clearInv(player);
-				player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
+				if(DvZ.getStaticConfig().getString("use_lobby", "true").equals("true"))
+					player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
+				else
+					player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 				player.sendMessage(getLanguage().getString("string_tp_reset", "World is resetting - You have been teleported to the Lobby"));
 			}
 		
@@ -442,7 +446,8 @@ public class DvZ extends JavaPlugin {
 	
 	public void joinGame(Player player, Game game, boolean autojoin) {
 		game.setPlayerState(player.getName(), 1);
-		player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
+		if(DvZ.getStaticConfig().getString("use_lobby", "true").equals("true"))
+			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 		ItemHandler.clearInv(player);
 
 		player.sendMessage(getLanguage().getString("string_self_added","You have been added to the game!"));
