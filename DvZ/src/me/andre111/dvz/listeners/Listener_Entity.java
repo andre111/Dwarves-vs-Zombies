@@ -273,7 +273,10 @@ public class Listener_Entity implements Listener {
 			//falling sand hit
 			if(entity.hasMetadata("dvz_falling_casting")) {
 				ItemLaunch il = (ItemLaunch) entity.getMetadata("dvz_falling_casting").get(0).value();
-				il.onHit(event.getBlock());
+				int gID = entity.getMetadata("dvz_falling_gameId").get(0).asInt();
+				String playern = entity.getMetadata("dvz_falling_playername").get(0).asString();
+				
+				il.onHit(plugin.getGame(gID), Bukkit.getServer().getPlayerExact(playern), event.getBlock());
 			}
 			//disable blocks from fallingsand
 			if(entity.hasMetadata("dvz_falling_noblock")) {

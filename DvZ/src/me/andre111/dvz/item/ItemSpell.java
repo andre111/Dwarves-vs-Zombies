@@ -49,7 +49,7 @@ public class ItemSpell {
 		return false;
 	}
 	//casted by another spell on that location
-	public boolean cast(Location loc) {
+	public boolean cast(Game game, Player player, Location loc) {
 		return false;
 	}
 	

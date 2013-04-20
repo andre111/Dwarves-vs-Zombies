@@ -72,6 +72,8 @@ public class ItemLaunch extends ItemSpell {
 		if(!block) fs.setMetadata("dvz_falling_noblock", new FixedMetadataValue(DvZ.instance, 0));
 		
 		fs.setMetadata("dvz_falling_casting", new FixedMetadataValue(DvZ.instance, this));
+		fs.setMetadata("dvz_falling_gameId", new FixedMetadataValue(DvZ.instance, DvZ.instance.getGameID(game)));
+		fs.setMetadata("dvz_falling_playername", new FixedMetadataValue(DvZ.instance, player.getName()));
 	
 		return true;
 	}
@@ -85,10 +87,10 @@ public class ItemLaunch extends ItemSpell {
 		return cast(game, player);
 	}
 	
-	public void onHit(Block block) {
+	public void onHit(Game game, Player player, Block block) {
 		//effects
 		getItem().createEffects(block.getLocation(), isLeft(), "onHit");
 		
-		onHit.cast(block.getLocation());
+		onHit.cast(game, player, block.getLocation());
 	}
 }

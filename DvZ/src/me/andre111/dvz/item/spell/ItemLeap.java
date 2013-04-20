@@ -44,7 +44,7 @@ public class ItemLeap extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Location loc) {
+	public boolean cast(Game game, Player player, Location loc) {
 		ArrayList<Player> players = new ArrayList<Player>();
 		for(Entity e : loc.getWorld().getEntities()) {
 			if(e instanceof Player) {
