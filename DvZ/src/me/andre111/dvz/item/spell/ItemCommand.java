@@ -25,54 +25,62 @@ public class ItemCommand extends ItemSpell {
 
 	@Override
 	public boolean cast(Game game, Player player) {
+		boolean succed = false;
 		for(String st : commands) {
 			if(!st.contains("-1-")) {
 				String command = st.replaceAll("-0-", player.getName());
+				succed = true;
 				if(console)
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
 				else
 					Bukkit.getServer().dispatchCommand(player, command);
 			}
 		}
-		return true;
+		return succed;
 	}
 	@Override
 	public boolean cast(Game game, Player player, Block block) {
+		boolean succed = false;
 		for(String st : commands) {
 			if(!st.contains("-1-")) {
 				String command = st.replaceAll("-0-", player.getName());
+				succed = true;
 				if(console)
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
 				else
 					Bukkit.getServer().dispatchCommand(player, command);
 			}
 		}
-		return true;
+		return succed;
 	}
 	@Override
 	public boolean cast(Game game, Player player, Player target) {
+		boolean succed = false;
 		for(String st : commands) {
 			String command = st.replaceAll("-0-", player.getName());
 			command = command.replaceAll("-1-", target.getName());
+			succed = true;
 			if(console)
 				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
 			else
 				Bukkit.getServer().dispatchCommand(player, command);
 		}
-		return true;
+		return succed;
 	}
 	@Override
 	//casted by another spell on that location
 	public boolean cast(Game game, Player player, Location loc) {
+		boolean succed = false;
 		for(String st : commands) {
 			if(!st.contains("-1-")) {
 				String command = st.replaceAll("-0-", player.getName());
+				succed = true;
 				if(console)
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
 				else
 					Bukkit.getServer().dispatchCommand(player, command);
 			}
 		}
-		return true;
+		return succed;
 	}
 }
