@@ -1045,7 +1045,7 @@ public class Game {
 	public void playerSpecialItemC(Player player, ItemStack item, boolean left, Block block, Player target) {
 		String pname = player.getName();
 		
-		if(isDwarf(pname)) {
+		if(isPlayer(pname)) {
 			ItemMeta im = item.getItemMeta();
 			if(im!=null)
 			if(im.hasDisplayName()) {
