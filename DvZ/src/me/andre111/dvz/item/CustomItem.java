@@ -51,19 +51,21 @@ public class CustomItem {
 		ItemSpell[] castsTemp = castsR;
 		if(left) castsTemp = castsL;
 		
-		boolean[] states = new boolean[castsTemp.length];
-		
-		int pos = 0;
-		for(ItemSpell castUse : castsTemp) {
-			if(castUse != null) {
-				//if(castUse.getType()==0) {
-					putOnCoolDown(game, left, player);
-					createEffects(player.getLocation(), left, "Caster");
-					states[pos] = castUse.cast(game, player, states);
-				//}
-			}
+		if(castsTemp != null) {
+			boolean[] states = new boolean[castsTemp.length];
 			
-			pos += 1;
+			int pos = 0;
+			for(ItemSpell castUse : castsTemp) {
+				if(castUse != null) {
+					//if(castUse.getType()==0) {
+						putOnCoolDown(game, left, player);
+						createEffects(player.getLocation(), left, "Caster");
+						states[pos] = castUse.cast(game, player, states);
+					//}
+				}
+				
+				pos += 1;
+			}
 		}
 	}
 	public void cast(Game game, boolean left, Player player, Block block) {
@@ -82,20 +84,22 @@ public class CustomItem {
 		ItemSpell[] castsTemp = castsR;
 		if(left) castsTemp = castsL;
 		
-		boolean[] states = new boolean[castsTemp.length];
-		
-		int pos = 0;
-		for(ItemSpell castUse : castsTemp) {
-			if(castUse != null) {
-				//if(castUse.getType()==1) {
-					putOnCoolDown(game, left, player);
-					createEffects(player.getLocation(), left, "Caster");
-					createEffects(block.getLocation(), left, "Target");
-					states[pos] = castUse.cast(game, player, block, states);
-				//} else cast(game, left, pos, player);
-			}
+		if(castsTemp != null) {
+			boolean[] states = new boolean[castsTemp.length];
 			
-			pos += 1;
+			int pos = 0;
+			for(ItemSpell castUse : castsTemp) {
+				if(castUse != null) {
+					//if(castUse.getType()==1) {
+						putOnCoolDown(game, left, player);
+						createEffects(player.getLocation(), left, "Caster");
+						createEffects(block.getLocation(), left, "Target");
+						states[pos] = castUse.cast(game, player, block, states);
+					//} else cast(game, left, pos, player);
+				}
+				
+				pos += 1;
+			}
 		}
 	}
 	public void cast(Game game, boolean left, Player player, Player target) {
@@ -114,20 +118,22 @@ public class CustomItem {
 		ItemSpell[] castsTemp = castsR;
 		if(left) castsTemp = castsL;
 		
+		if(castsTemp != null) {
 		boolean[] states = new boolean[castsTemp.length];
 		
 		int pos = 0;
-		for(ItemSpell castUse : castsTemp) {
-			if(castUse != null) {
-				//if(castUse.getType()==2) {
-					putOnCoolDown(game, left, player);
-					createEffects(player.getLocation(), left, "Caster");
-					createEffects(target.getLocation(), left, "Target");
-					states[pos] = castUse.cast(game, player, target, states);
-				//} else cast(game, left, pos, player);
+			for(ItemSpell castUse : castsTemp) {
+				if(castUse != null) {
+					//if(castUse.getType()==2) {
+						putOnCoolDown(game, left, player);
+						createEffects(player.getLocation(), left, "Caster");
+						createEffects(target.getLocation(), left, "Target");
+						states[pos] = castUse.cast(game, player, target, states);
+					//} else cast(game, left, pos, player);
+				}
+				
+				pos += 1;
 			}
-			
-			pos += 1;
 		}
 	}
 	
