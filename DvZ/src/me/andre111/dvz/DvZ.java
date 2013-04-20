@@ -162,7 +162,7 @@ public class DvZ extends JavaPlugin {
 		for(int i=0; i<games.length; i++) {
 			if(getConfig().getInt("game"+i, 1)==1) {
 				games[i] = new Game(this);
-				games[i].reset();
+				games[i].reset(false);
 			}
 		}
 		//

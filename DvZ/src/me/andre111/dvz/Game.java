@@ -157,12 +157,14 @@ public class Game {
 		}
 	}
 	
-	public void reset() {
+	public void reset(boolean callEvent) {
 		starting = false;
 		state = 1;
 		
-		DVZGameEndEvent event = new DVZGameEndEvent(this);
-		Bukkit.getServer().getPluginManager().callEvent(event);
+		if(callEvent) {
+			DVZGameEndEvent event = new DVZGameEndEvent(this);
+			Bukkit.getServer().getPluginManager().callEvent(event);
+		}
 		
 		for(String playern : playerstate.keySet()) {
 			Player player = Bukkit.getServer().getPlayerExact(playern);
@@ -440,7 +442,7 @@ public class Game {
 			if(lastdwarf!=null)
 				broadcastMessage(DvZ.getLanguage().getString("string_last_dwarf","Last standing Dwarf - §e-0-§f! Congratulations!").replaceAll("-0-", lastdwarf));
 			
-			reset();
+			reset(true);
 		}
 		//monument destroyed
 		boolean destr = false;
@@ -464,7 +466,7 @@ public class Game {
 		
 		if (destr) {
 			broadcastMessage(DvZ.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
-			reset();
+			reset(true);
 		}
 	}
 	

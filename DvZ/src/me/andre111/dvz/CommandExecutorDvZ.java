@@ -256,7 +256,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			Game game = getGameFromID(gameID, sender);
 			
 			if(game!=null) {
-				game.reset();
+				game.reset(true);
 			}
 			
 			return true;
