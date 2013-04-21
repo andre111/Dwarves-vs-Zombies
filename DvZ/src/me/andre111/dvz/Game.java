@@ -181,7 +181,7 @@ public class Game {
 			}
 		}
 		
-		String[] players = (String[]) playerstate.keySet().toArray();
+		String[] players = playerstate.keySet().toArray(new String[playerstate.keySet().size()]);
 		playerstate.clear();
 		dauer = 0;
 		ticker = 0;
