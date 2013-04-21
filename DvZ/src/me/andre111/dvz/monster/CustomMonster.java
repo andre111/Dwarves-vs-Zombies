@@ -46,6 +46,8 @@ public class CustomMonster {
 		if(item==null) return;
 		
 		//normal cast
+		if(item1!=null)
+		if(item1.getCast()!=null)
 		if(item.getTypeId()==ItemHandler.decodeItemId(item1.getItem()) && item1.getCast().getType()==0) {
 			if(game.getCountdown(player.getName(), item1.getId())==0) {
 				game.setCountdown(player.getName(), item1.getId(), item1.getTime());
@@ -54,7 +56,10 @@ public class CustomMonster {
 			} else {
 				player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), item1.getId())));
 			}
-		} else if(item.getTypeId()==ItemHandler.decodeItemId(item2.getItem()) && item2.getCast().getType()==0) {
+		}
+		if(item2!=null)
+		if(item2.getCast()!=null)
+		if(item.getTypeId()==ItemHandler.decodeItemId(item2.getItem()) && item2.getCast().getType()==0) {
 			if(game.getCountdown(player.getName(), item2.getId())==0) {
 				game.setCountdown(player.getName(), item2.getId(), item2.getTime());
 				//cast
@@ -69,6 +74,8 @@ public class CustomMonster {
 	public void spellCast(Game game, ItemStack item, Player player, Block target) {	
 		if(item==null) return;
 		
+		if(item1!=null)
+		if(item1.getCast()!=null)
 		if(item.getTypeId()==ItemHandler.decodeItemId(item1.getItem()) && (item1.getCast().getType()==1 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item1.getCast().getType()==0)) {
 			if(game.getCountdown(player.getName(), item1.getId())==0) {
 				game.setCountdown(player.getName(), item1.getId(), item1.getTime());
@@ -77,7 +84,10 @@ public class CustomMonster {
 			} else {
 				player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), item1.getId())));
 			}
-		} else if(item.getTypeId()==ItemHandler.decodeItemId(item2.getItem()) && (item2.getCast().getType()==1 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item2.getCast().getType()==0)) {
+		}
+		if(item2!=null)
+		if(item2.getCast()!=null)
+		if(item.getTypeId()==ItemHandler.decodeItemId(item2.getItem()) && (item2.getCast().getType()==1 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item2.getCast().getType()==0)) {
 			if(game.getCountdown(player.getName(), item2.getId())==0) {
 				game.setCountdown(player.getName(), item2.getId(), item2.getTime());
 				//cast
@@ -90,6 +100,8 @@ public class CustomMonster {
 	public void spellCast(Game game, ItemStack item, Player player, Player target) {
 		if(item==null) return;
 		
+		if(item1!=null)
+		if(item1.getCast()!=null)
 		if(item.getTypeId()==ItemHandler.decodeItemId(item1.getItem()) && (item1.getCast().getType()==2 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item1.getCast().getType()==0)) {
 			if(game.getCountdown(player.getName(), item1.getId())==0) {
 				game.setCountdown(player.getName(), item1.getId(), item1.getTime());
@@ -98,7 +110,10 @@ public class CustomMonster {
 			} else {
 				player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), item1.getId())));
 			}
-		} else if(item.getTypeId()==ItemHandler.decodeItemId(item2.getItem()) && (item2.getCast().getType()==2 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item2.getCast().getType()==0)) {
+		}
+		if(item2!=null)
+		if(item2.getCast()!=null)
+		if(item.getTypeId()==ItemHandler.decodeItemId(item2.getItem()) && (item2.getCast().getType()==2 /*TYPE 0 CAN ALSO BE ALL OTHER TYPES*/ || item2.getCast().getType()==0)) {
 			if(game.getCountdown(player.getName(), item2.getId())==0) {
 				game.setCountdown(player.getName(), item2.getId(), item2.getTime());
 				//cast
