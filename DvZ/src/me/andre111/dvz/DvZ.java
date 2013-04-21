@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.andre111.dvz.dragon.DragonAttackListener;
@@ -25,7 +26,7 @@ import me.andre111.dvz.utils.Metrics;
 import me.andre111.dvz.utils.Metrics.Graph;
 import me.andre111.dvz.utils.MovementStopper;
 import me.andre111.dvz.utils.WaitingMenu;
-import me.andre111.dvz.volatileCode.VolatileCodeHandler;
+import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -74,16 +75,24 @@ public class DvZ extends JavaPlugin {
 	
 	private ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
 	
-	//public World w_main;
-	private VolatileCodeHandler volatcode;
-	
 	public WaitingMenu waitm;
+	
+	 @Override
+	 public void onLoad() {
+		 logger = Logger.getLogger("Minecraft");
+
+		 // Dynamic package detection
+		 if (!DynamicClassFunctions.setPackages()) {
+			 logger.log(Level.WARNING, "NMS/OBC package could not be detected, using " + DynamicClassFunctions.nmsPackage + " and " + DynamicClassFunctions.obcPackage);
+		 }
+		 DynamicClassFunctions.setClasses();
+		 DynamicClassFunctions.setMethods();
+		 DynamicClassFunctions.setFields();
+	 }
 	
 	@Override
 	public void onEnable() {
 		DvZ.instance = this;
-		
-		logger = Logger.getLogger("Minecraft");
 		
 		initConfig();
 		
@@ -151,10 +160,6 @@ public class DvZ extends JavaPlugin {
 		new Listener_Block(this);
 		new Listener_Entity(this);
 		new Listener_Game(this);
-		volatcode = VolatileCodeHandler.createCorrectVersion(this);
-		if(volatcode==null) {
-			return;
-		}
 		
 		waitm = new WaitingMenu(this);
 		
@@ -344,9 +349,10 @@ public class DvZ extends JavaPlugin {
 					if(w!=null) {
 						File wf = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+getConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
 						
-						volatcode.bindRegionFiles();
-						volatcode.forceUnloadWorld(w);
-						volatcode.clearWorldReference(wname);
+						DynamicClassFunctions.bindRegionFiles();
+						DynamicClassFunctions.forceUnloadWorld(w);
+						DynamicClassFunctions.clearWorldReference(wname);
+						
 						FileHandler.deleteFolder(wf);
 						
 					}
