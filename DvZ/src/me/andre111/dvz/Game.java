@@ -181,6 +181,7 @@ public class Game {
 			}
 		}
 		
+		String[] players = (String[]) playerstate.keySet().toArray();
 		playerstate.clear();
 		dauer = 0;
 		ticker = 0;
@@ -209,6 +210,17 @@ public class Game {
 		customCooldown.clear();
 		
 		plugin.resetMainWorld(plugin.getGameID(this));
+		
+		//rejoin
+		if(plugin.getConfig().getString("auto_rejoin", "false").equals("true")) {
+			for(String playern : players) {
+				Player player = Bukkit.getServer().getPlayerExact(playern);
+				
+				if(player!=null) {
+					plugin.joinGame(player, this);
+				}
+			}
+		}
 	}
 	
 	//#######################################

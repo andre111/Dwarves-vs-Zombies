@@ -67,6 +67,8 @@ spawn_nopvp: 0
 # 0: disabled - 1: per Player - 2: One chest per game(for all dwarves, currently not saved)
 crystal_storage: 0
 autoadd_players: false
+# Automatically add all Players again when a game ends
+auto_rejoin: false
 monster_invulnarable: 30
 monster_suizidepill: true
 set_to_day: true
