@@ -105,8 +105,8 @@ string_tp_reset: "Welt wird resetet - Du wurdest zur Lobby teleportiert!"
 string_stats_killed_monsters: "Getötete Monster: "
 # Scoreboard
 scoreboard_stats: "Stats"
-scoreboard_mana: "Mana"
-scoreboard_dwarves: "§5Dwarves"
+scoreboard_mana: "§5Mana"
+scoreboard_dwarves: "Dwarves"
 scoreboard_monsters: "Monster"
 
 # ----------------------------------------------------------------------------------
