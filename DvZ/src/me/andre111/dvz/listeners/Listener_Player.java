@@ -38,8 +38,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.DisplaySlot;
 
+import pgDev.bukkit.DisguiseCraft.DisguiseCraft;
 import pgDev.bukkit.DisguiseCraft.api.PlayerUndisguiseEvent;
 import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
+import pgDev.bukkit.DisguiseCraft.listeners.PlayerInvalidInteractEvent;
 
 public class Listener_Player implements Listener  {
 	private DvZ plugin;
@@ -166,6 +168,24 @@ public class Listener_Player implements Listener  {
 			if(game.getPlayerState(player.getName())==Game.pickDwarf || game.getPlayerState(player.getName())==Game.pickMonster) {
 				event.setCancelled(true);
 			}
+		}
+	}
+	//rightclicking disguises
+	@EventHandler
+	public void onPlayerInvalidInteractEntity(PlayerInvalidInteractEvent event) {
+		//if not dedicated and the player is not in the game->ignore
+		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
+	
+		Player player = event.getPlayer();
+		Game game = plugin.getPlayerGame(player.getName());
+		
+		if (game!=null) {
+			DisguiseCraft dc = (DisguiseCraft) Bukkit.getPluginManager().getPlugin("DisguiseCraft"); //TODO - maybe a better way of getting Disguisecraft(or when the API changes use it)
+			
+			Player target = dc.disguiseIDs.get(event.getTarget());
+			ItemStack item = event.getPlayer().getItemInHand();
+			
+			game.playerRCPlayer(player, item, target);
 		}
 	}
 	
