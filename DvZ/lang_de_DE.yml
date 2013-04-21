@@ -103,6 +103,11 @@ string_save_succes: "Sicherung der Welt angelegt!"
 string_tp_reset: "Welt wird resetet - Du wurdest zur Lobby teleportiert!"
 # Stats
 string_stats_killed_monsters: "Getötete Monster: "
+# Scoreboard
+scoreboard_stats: "Stats"
+scoreboard_mana: "Mana"
+scoreboard_dwarves: "§5Dwarves"
+scoreboard_monsters: "Monster"
 
 # ----------------------------------------------------------------------------------
 # Outdated and not used config Options

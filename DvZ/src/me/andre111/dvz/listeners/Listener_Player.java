@@ -8,6 +8,7 @@ import java.util.Set;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.utils.ItemHandler;
 
@@ -36,7 +37,6 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.scoreboard.DisplaySlot;
 
 import pgDev.bukkit.DisguiseCraft.DisguiseCraft;
 import pgDev.bukkit.DisguiseCraft.api.PlayerUndisguiseEvent;
@@ -492,16 +492,9 @@ public class Listener_Player implements Listener  {
 		if(game==null) return;
 		
 		if(event.isSneaking()) {
-			p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-			if(p.getScoreboard().getObjective("dvz_stats")==null)
-				p.getScoreboard().registerNewObjective("dvz_stats", "dummy");
-			p.getScoreboard().getObjective("dvz_stats").setDisplaySlot(DisplaySlot.SIDEBAR);
-			p.getScoreboard().getObjective("dvz_stats").setDisplayName("Stats: ");
-			p.getScoreboard().getObjective("dvz_stats").getScore(Bukkit.getOfflinePlayer("Mana")).setScore(game.getManaManager().getMana(p.getName()));
+			StatManager.show(p);
 		} else {
-			if(p.getScoreboard().getObjective("dvz_stats")!=null)
-				p.getScoreboard().getObjective("dvz_stats").unregister();
-			p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+			StatManager.hide(p);
 		}
 	}
 }

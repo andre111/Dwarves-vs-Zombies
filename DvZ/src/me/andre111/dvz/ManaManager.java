@@ -3,9 +3,6 @@ package me.andre111.dvz;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 public class ManaManager {
 	private HashMap<String, Integer> mana = new HashMap<String, Integer>();
 	private HashMap<String, Integer> manaRegen = new HashMap<String, Integer>();
@@ -37,7 +34,10 @@ public class ManaManager {
 	
 	public void setMaxMana(String player, int maxM, boolean refill) {
 		maxMana.put(player, maxM);
-		if(refill) mana.put(player, maxM);
+		if(refill) {
+			mana.put(player, maxM);
+			changedMana(player, maxM);
+		}
 	}
 	
 	public void setManaRegen(String player, int regen) {
@@ -63,13 +63,6 @@ public class ManaManager {
 	
 	//update mana stat
 	private void changedMana(String player, int ammount) {
-		Player p = Bukkit.getServer().getPlayer(player);
-		if(p!=null) {
-			if(p.isSneaking()) {
-				if(p.getScoreboard().getObjective("dvz_stats")!=null) {
-					p.getScoreboard().getObjective("dvz_stats").getScore(Bukkit.getOfflinePlayer("Mana")).setScore(ammount);
-				}
-			}
-		}
+		StatManager.setStat(player, DvZ.getLanguage().getString("scoreboard_mana", "§5Mana"), ammount);
 	}
 }

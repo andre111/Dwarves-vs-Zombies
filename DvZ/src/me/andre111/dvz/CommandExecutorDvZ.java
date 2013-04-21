@@ -219,15 +219,14 @@ public class CommandExecutorDvZ implements CommandExecutor {
 					int monsoff = 0;
 					
 					for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
-						int state = e.getValue();
 						boolean online = false;
 						Player player = Bukkit.getServer().getPlayerExact(e.getKey());
 						if (player!=null) online = true;
 						
-						if (state>=10 && state<30) {
+						if (game.isDwarf(e.getKey())) {
 							if (online) dwarf++; else dwarfoff++;
 						}
-						if (state>=30 && state<50) {
+						if (game.isMonster(e.getKey())) {
 							if (online) mons++; else monsoff++;
 						}
 					}

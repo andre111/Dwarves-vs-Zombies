@@ -166,7 +166,7 @@ public class Game {
 			Bukkit.getServer().getPluginManager().callEvent(event);
 		}
 		
-		for(String playern : playerstate.keySet()) {
+		for(String playern : playerstate.keySet()) {			
 			Player player = Bukkit.getServer().getPlayerExact(playern);
 			
 			if(player!=null) {
@@ -178,7 +178,11 @@ public class Game {
 				}
 				//clear inventory
 				ItemHandler.clearInv(player);
+				
+				StatManager.hide(player);
 			}
+			
+			StatManager.resetPlayer(playern);
 		}
 		
 		String[] players = playerstate.keySet().toArray(new String[playerstate.keySet().size()]);
@@ -265,6 +269,9 @@ public class Game {
 			if (time<=0) {
 				dauer++;
 				ticker++;
+				
+				if(DvZ.getStaticConfig().getString("global_stats", "true").equals("true"))
+					updateGlobalStats();
 				
 				if (ticker==10) {
 					ticker = 0;
@@ -480,6 +487,23 @@ public class Game {
 			broadcastMessage(DvZ.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
 			reset(true);
 		}
+	}
+	
+	private void updateGlobalStats() {
+		int dwarf = 0;
+		int mons = 0;
+		
+		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
+			if (isDwarf(e.getKey())) {
+				dwarf++;
+			}
+			if (isMonster(e.getKey())) {
+				mons++;
+			}
+		}
+		
+		StatManager.setGlobalStat(DvZ.getLanguage().getString("scoreboard_dwarves", "Dwarves"), dwarf);
+		StatManager.setGlobalStat(DvZ.getLanguage().getString("scoreboard_monsters", "Monsters"), mons);
 	}
 	
 	private void initPlayerEffects() {

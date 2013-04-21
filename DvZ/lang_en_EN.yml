@@ -103,6 +103,11 @@ string_save_succes: "Saved a Copy of the World!"
 string_tp_reset: "World is resetting - You have been teleported to the Lobby"
 # Stats
 string_stats_killed_monsters: "Killed Monsters: "
+# Scoreboard
+scoreboard_stats: "Stats"
+scoreboard_mana: "§5Mana"
+scoreboard_dwarves: "Dwarves"
+scoreboard_monsters: "Monsters"
 
 # ----------------------------------------------------------------------------------
 # Outdated and not used config Options
