@@ -829,7 +829,10 @@ public class Game {
 				cd.setItemMeta(cim);
 				
 				if (rand.nextInt(100)<DvZ.getClassFile().getInt("custom_d"+i+"_chance",0)) {
-					inv.addItem(cd); 
+					//permissions
+					if(player.hasPermission("dvz.dwarves."+i)) {
+						inv.addItem(cd); 
+					}
 				}
 			}
 		}
@@ -872,8 +875,11 @@ public class Game {
 				cd.setItemMeta(cim);
 				
 				if (rand.nextInt(100)<DvZ.getClassFile().getInt("custom_d"+i+"_chance",0)) {
-					im.setOption(pos, cd, DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getClassFile().getString("custom_d"+i+"_name","")), "");
-					pos++;
+					//permissions
+					if(player.hasPermission("dvz.dwarves."+i)) {
+						im.setOption(pos, cd, DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getClassFile().getString("custom_d"+i+"_name","")), "");
+						pos++;
+					}
 				}
 			}
 			
@@ -904,7 +910,10 @@ public class Game {
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance()) {
-					inv.addItem(monsterItems[i]);
+					//permissions
+					if(player.hasPermission("dvz.monster."+i)) {
+						inv.addItem(monsterItems[i]);
+					}
 				}
 			}
 		}
@@ -948,8 +957,11 @@ public class Game {
 			int pos = 0;
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance()) {
-					icm.setOption(pos, monsterItems[i]); 
-					pos++;
+					//permissions
+					if(player.hasPermission("dvz.monster."+i)) {
+						icm.setOption(pos, monsterItems[i]); 
+						pos++;
+					}
 				}
 			}
 			
