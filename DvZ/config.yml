@@ -88,6 +88,8 @@ need_release: false
 time_release: 30
 dwarf_potion_exp: 2
 change_death_message: true
+# when no gameid is given on /dvz_join it will try to join a not running game
+join_free_game: true
 # Track some stats on items(currently only monsters killed)
 item_stats: true
 global_stats: true

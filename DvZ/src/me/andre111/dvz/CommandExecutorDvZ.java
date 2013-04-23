@@ -522,9 +522,27 @@ public class CommandExecutorDvZ implements CommandExecutor {
 	private Game getGameFromID(int gameID, CommandSender sender) {
 		Game game;
 		if(gameID==-1) {
+			int id = 0;
 			game = plugin.getGame(0);
+			
+			//searching for a game in the "Lobby state"
+			if(DvZ.getStaticConfig().getString("join_free_game", "true").equals("true")) {
+				if(game.getState()>1) {
+					for(int i=0; i<10; i++) {
+						Game g = plugin.getGame(i);
+						if(g!=null) {
+							if(g.getState()<2) {
+								id = i;
+								game = g;
+								break;
+							}
+						}
+					}
+				}
+			}
+			
 			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
-				sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+0));
+				sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+id));
 		} else {
 			game = plugin.getGame(gameID);
 			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
