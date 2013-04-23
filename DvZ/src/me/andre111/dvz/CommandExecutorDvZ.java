@@ -405,7 +405,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				return false;
 			}
 
-			Game game = getGameFromID(gameID, sender);
+			Game game = getGameFromIDSearchFree(gameID, sender);
 			
 			if(game!=null) {
 				if(!game.isPlayer(player.getName())) {
@@ -432,7 +432,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				return false;
 			}
 
-			Game game = getGameFromID(gameID, sender);
+			Game game = getGameFromIDSearchFree(gameID, sender);
 			
 			if(game!=null) {
 				if(!game.isPlayer(player.getName())) {
@@ -520,6 +520,23 @@ public class CommandExecutorDvZ implements CommandExecutor {
 	}
 	
 	private Game getGameFromID(int gameID, CommandSender sender) {
+		Game game;
+		if(gameID==-1) {
+			game = plugin.getGame(0);
+			
+			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
+				sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+0));
+		} else {
+			game = plugin.getGame(gameID);
+			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
+				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+gameID));
+				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replaceAll("-0-", ""+0));
+		}
+		
+		return game;
+	}
+	
+	private Game getGameFromIDSearchFree(int gameID, CommandSender sender) {
 		Game game;
 		if(gameID==-1) {
 			int id = 0;
