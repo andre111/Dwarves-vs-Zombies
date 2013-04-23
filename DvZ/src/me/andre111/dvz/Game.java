@@ -1371,11 +1371,11 @@ public class Game {
 	//Teleportiert alle Spieler zum Spawn der Mainwelt
 	//#######################################
 	public void teleportToMainWorld() {
+		World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"");
 		Object[] rplayers = playerstate.keySet().toArray();
 		for(int i=0; i<rplayers.length; i++) {
 			String playern = (String) rplayers[i];
 			Player player = Bukkit.getServer().getPlayerExact(playern);
-			World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"");
 			
 			if (player!=null && w!=null) {
 				player.teleport(w.getSpawnLocation());

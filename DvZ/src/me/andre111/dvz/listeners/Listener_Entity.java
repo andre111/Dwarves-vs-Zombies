@@ -218,7 +218,6 @@ public class Listener_Entity implements Listener {
 	@EventHandler
 	public void onEntityTeleport(EntityTeleportEvent event) {
 		if(event.getEntityType()==EntityType.PLAYER) {
-			System.out.println("Trigger");
 			World w = event.getTo().getWorld();
 			World fw = event.getFrom().getWorld();
 			World lobby = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby");
