@@ -155,6 +155,7 @@ permissions:
       description: Gives permission to all dwarf classes
       default: true
       children:
+         dvz.dwarves.0: true
          dvz.dwarves.1: true
          dvz.dwarves.2: true
          dvz.dwarves.3: true
@@ -165,6 +166,18 @@ permissions:
          dvz.dwarves.8: true
          dvz.dwarves.9: true
          dvz.dwarves.10: true
+         dvz.dwarves.11: true
+         dvz.dwarves.12: true
+         dvz.dwarves.13: true
+         dvz.dwarves.14: true
+         dvz.dwarves.15: true
+         dvz.dwarves.16: true
+         dvz.dwarves.17: true
+         dvz.dwarves.18: true
+         dvz.dwarves.19: true
+   dvz.dwarves.0:
+      description: Gives permission to the dwarf class
+      default: true
    dvz.dwarves.1:
       description: Gives permission to the dwarf class
       default: true
@@ -193,6 +206,33 @@ permissions:
       description: Gives permission to the dwarf class
       default: true
    dvz.dwarves.10:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.11:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.12:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.13:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.14:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.15:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.16:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.17:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.18:
+      description: Gives permission to the dwarf class
+      default: true
+   dvz.dwarves.19:
       description: Gives permission to the dwarf class
       default: true
    # monsters

@@ -9,6 +9,7 @@ import java.util.Random;
 
 import me.andre111.dvz.dragon.Dragon;
 import me.andre111.dvz.dragon.PlayerDragon;
+import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.event.DVZGameEndEvent;
 import me.andre111.dvz.event.DVZGameStartEvent;
 import me.andre111.dvz.item.CustomItem;
@@ -827,18 +828,22 @@ public class Game {
 		
 		resetCountdowns(player.getName());
 		
+		ItemStack[] dwarfItems = new ItemStack[DvZ.dwarfManager.getCount()];
+		
+		for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
+			dwarfItems[i] = new ItemStack(DvZ.dwarfManager.getDwarf(i).getClassItem(), 1, (short)DvZ.dwarfManager.getDwarf(i).getClassItemDamage());
+			ItemMeta cim = dwarfItems[i].getItemMeta();
+			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.dwarfManager.getDwarf(i).getName()));
+			dwarfItems[i].setItemMeta(cim);
+		}
+		
 		//costum dwarves
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
-			for(int i=1; i<=10; i++) {
-				ItemStack cd = new ItemStack(2255+i, 1);
-				ItemMeta cim = cd.getItemMeta();
-				cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getClassFile().getString("custom_d"+i+"_name","")));
-				cd.setItemMeta(cim);
-				
-				if (rand.nextInt(100)<DvZ.getClassFile().getInt("custom_d"+i+"_chance",0)) {
+			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
+				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance()) {
 					//permissions
 					if(player.hasPermission("dvz.dwarves."+i)) {
-						inv.addItem(cd); 
+						inv.addItem(dwarfItems[i]);
 					}
 				}
 			}
@@ -856,10 +861,21 @@ public class Game {
 	            	}
 	            	
 	            	boolean dwarf = false;
+	            	int itemId = event.getItemID();
+	            	int itemD = event.getItemDamage();
+	            	Player player = event.getPlayer();
 	    			
 	    			//costum dwarves
 	    			for(int i=1; i<=10; i++) {
 	    				if(event.getItemID()==2255+i) { Classswitcher.becomeCustomDwarf(game, event.getPlayer(), i); dwarf=true; }
+	    			}
+	    			
+	    			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
+	    				CustomDwarf cm = DvZ.dwarfManager.getDwarf(i);
+	    				if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
+	    					cm.becomeDwarf(game, player);
+	    					dwarf = true;
+	    				}
 	    			}
 	    			
 	    			if (dwarf) {
@@ -873,18 +889,14 @@ public class Game {
 	                //event.getPlayer().sendMessage("You have chosen " + event.getName());
 	            }
 	        },  plugin);
+
+			//adding
 			int pos = 0;
-			
-			for(int i=1; i<=10; i++) {
-				ItemStack cd = new ItemStack(2255+i, 1);
-				ItemMeta cim = cd.getItemMeta();
-				cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getClassFile().getString("custom_d"+i+"_name","")));
-				cd.setItemMeta(cim);
-				
-				if (rand.nextInt(100)<DvZ.getClassFile().getInt("custom_d"+i+"_chance",0)) {
+			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
+				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance()) {
 					//permissions
 					if(player.hasPermission("dvz.dwarves."+i)) {
-						im.setOption(pos, cd, DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.getClassFile().getString("custom_d"+i+"_name","")), "");
+						im.setOption(pos, dwarfItems[i]); 
 						pos++;
 					}
 				}
@@ -905,13 +917,11 @@ public class Game {
 		
 		ItemStack[] monsterItems = new ItemStack[DvZ.monsterManager.getCount()];
 		
-		if(plugin.getConfig().getString("new_classselection","true")!="true") {
-			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
-				monsterItems[i] = new ItemStack(DvZ.monsterManager.getMonster(i).getClassItem(), 1, (short)DvZ.monsterManager.getMonster(i).getClassItemDamage());
-				ItemMeta cim = monsterItems[i].getItemMeta();
-				cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.monsterManager.getMonster(i).getName()));
-				monsterItems[i].setItemMeta(cim);
-			}
+		for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
+			monsterItems[i] = new ItemStack(DvZ.monsterManager.getMonster(i).getClassItem(), 1, (short)DvZ.monsterManager.getMonster(i).getClassItemDamage());
+			ItemMeta cim = monsterItems[i].getItemMeta();
+			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.monsterManager.getMonster(i).getName()));
+			monsterItems[i].setItemMeta(cim);
 		}
 		
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
@@ -990,8 +1000,12 @@ public class Game {
 			boolean dwarf = false;
 			
 			//costum dwarves
-			for(int i=1; i<=10; i++) {
-				if(itemId==2255+i) { Classswitcher.becomeCustomDwarf(this, player, i); dwarf=true; }
+			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
+				CustomDwarf cm = DvZ.dwarfManager.getDwarf(i);
+				if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
+					cm.becomeDwarf(this, player);
+					dwarf = true;
+				}
 			}
 			
 			if (dwarf) {
@@ -1017,9 +1031,15 @@ public class Game {
 			}
 		}
 		
-		//costum dwarves
-		for(int i=1; i<=10; i++) {
-			if(getPlayerState(pname)==9+i && itemId==DvZ.getClassFile().getInt("custom_d"+i+"_spell_item",0)) Spellcontroller.spellCustomDwarf(this, player, i);
+		//custom dwarves - rightclick
+		int dId = getPlayerState(player.getName())-dwarfMin;
+		if(dId>=0 && dId<DvZ.monsterManager.getCount()) {
+			CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
+			if(cd.isSpellEnabled()) {
+				if(itemId==cd.getSpellItem()) {
+					cd.spell(this, player);
+				}
+			}
 		}
 		
 		if(isDwarf(pname) && itemId==121) Spellcontroller.spellDisablePortal(this, player);

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
+import me.andre111.dvz.dwarf.DwarfManager;
 import me.andre111.dvz.item.ItemManager;
 import me.andre111.dvz.listeners.Listener_Block;
 import me.andre111.dvz.listeners.Listener_Entity;
@@ -64,6 +65,7 @@ public class DvZ extends JavaPlugin {
 	public static Invulnerability inVul;
 	
 	public static MonsterManager monsterManager;
+	public static DwarfManager dwarfManager;
 	public static ItemManager itemManager;
 	
 	public static Logger logger;
@@ -132,6 +134,8 @@ public class DvZ extends JavaPlugin {
 		
 		monsterManager = new MonsterManager();
 		monsterManager.loadMonsters();
+		dwarfManager = new DwarfManager();
+		dwarfManager.loadDwarfes();
 		itemManager = new ItemManager();
 		itemManager.loadItems();
 		
