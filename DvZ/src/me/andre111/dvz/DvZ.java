@@ -40,6 +40,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+
 import pgDev.bukkit.DisguiseCraft.DisguiseCraft;
 import pgDev.bukkit.DisguiseCraft.api.DisguiseCraftAPI;
 import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
@@ -52,6 +55,7 @@ public class DvZ extends JavaPlugin {
 	public static int startedGames = 0;
 	private Lobby lobby;
 	public static DisguiseCraftAPI api;
+	public static ProtocolManager protocolManager;
 	
 	public static DragonAttackManager dragonAtManager;
 	public static DragonDeathListener dragonDeath;
@@ -98,14 +102,22 @@ public class DvZ extends JavaPlugin {
 		
 		//Disguisecraft check
 		if (this.getConfig().getString("disable_dcraft_check", "false")!="true") {
-		if (!Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
-		{
-			Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"DisguiseCraft could not be found, disabling...");
-			Bukkit.getPluginManager().disablePlugin(this);
-			return;
-		}
+			if (!Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
+			{
+				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"DisguiseCraft could not be found, disabling...");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
+			if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
+			{
+				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
 		}
 		DvZ.api = DisguiseCraft.getAPI();
+		DvZ.protocolManager = ProtocolLibrary.getProtocolManager();
+		
 		Spellcontroller.plugin = this;
 		Classswitcher.plugin = this;
 		ItemHandler.plugin = this;

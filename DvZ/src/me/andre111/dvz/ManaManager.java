@@ -19,7 +19,7 @@ public class ManaManager {
 				m += manaRegen.get(player);
 				if(m>maxm) m = maxm;
 				
-				changedMana(player, m);
+				changedMana(player, m, maxm);
 				
 				mana.put(player, m);
 			}
@@ -36,7 +36,7 @@ public class ManaManager {
 		maxMana.put(player, maxM);
 		if(refill) {
 			mana.put(player, maxM);
-			changedMana(player, maxM);
+			changedMana(player, maxM, maxM);
 		}
 	}
 	
@@ -58,11 +58,13 @@ public class ManaManager {
 		if(value<0) value = 0;
 		
 		mana.put(player, value);
-		changedMana(player, value);
+		changedMana(player, value, maxMana.get(player));
 	}
 	
 	//update mana stat
-	private void changedMana(String player, int ammount) {
-		StatManager.setStat(player, DvZ.getLanguage().getString("scoreboard_mana", "§5Mana"), ammount);
+	private void changedMana(String player, int ammount, int max) {
+		//StatManager.setStat(player, DvZ.getLanguage().getString("scoreboard_mana", "§5Mana"), ammount);
+		//new XP-Bar system
+		StatManager.setXPBarStat(player, ammount, (float)ammount/(float)max);
 	}
 }

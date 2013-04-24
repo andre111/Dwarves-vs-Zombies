@@ -4,7 +4,7 @@ version: 1.5.1
 website: http://andre111.bplaced.net/
 author: andre111
 
-softdepend: [DisguiseCraft]
+softdepend: [DisguiseCraft,ProtocolLib]
 
 commands:
    dvztest:

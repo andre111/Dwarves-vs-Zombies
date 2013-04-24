@@ -27,6 +27,7 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -496,5 +497,14 @@ public class Listener_Player implements Listener  {
 		} else {
 			StatManager.hide(p);
 		}
+	}
+	//update xpbarstat
+	@EventHandler
+	public void onPlayerExpChange(PlayerExpChangeEvent event) {
+		Player p  = event.getPlayer();
+		Game game = plugin.getPlayerGame(p.getName());
+		if(game==null) return;
+		
+		StatManager.updateXPBarStat(p);
 	}
 }
