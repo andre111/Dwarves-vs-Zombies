@@ -78,6 +78,7 @@ public class DvZ extends JavaPlugin {
 	private static FileConfiguration itemfile;
 	
 	private ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
+	private ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
 	
 	public WaitingMenu waitm;
 	
@@ -262,6 +263,10 @@ public class DvZ extends JavaPlugin {
 	
 		for(int id : DvZ.configfile.getIntegerList("disables_crafts")) {
 			disabledCrafts.add(id);
+		}
+		//type 2(new dvz needs more crafts to disable)
+		for(int id : DvZ.configfile.getIntegerList("disables_crafts_type2")) {
+			disabledCraftsType2.add(id);
 		}
 	}
 	
@@ -501,8 +506,13 @@ public class DvZ extends JavaPlugin {
 		}
 	}
 	
-	public boolean isCraftDisabled(int id) {
-		return disabledCrafts.contains(id);
+	public boolean isCraftDisabled(int id, int gameType) {
+		if (gameType==1)
+			return disabledCrafts.contains(id);
+		else if (gameType==2)
+			return disabledCraftsType2.contains(id);
+		else
+			return false;
 	}
 	
 	public static boolean isPathable(Block block) {

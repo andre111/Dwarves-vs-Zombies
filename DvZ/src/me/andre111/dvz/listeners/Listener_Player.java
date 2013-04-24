@@ -442,20 +442,20 @@ public class Listener_Player implements Listener  {
 	//Crafting
 	@EventHandler
 	public void onPrepareCraft(PrepareItemCraftEvent event) {
-		boolean disable = false;
+		Game game = null;
 		List<HumanEntity> hList = event.getViewers();
 		for(HumanEntity he : hList) {
 			if(plugin.getPlayerGame(he.getName())!=null) {
-				disable = true;
+				game = plugin.getPlayerGame(he.getName());
 				break;
 			}
 		}
 		
-		if(disable) {
+		if(game != null) {
 			ItemStack result = event.getRecipe().getResult();
 			int id = result.getTypeId();
 			
-			if(DvZ.instance.isCraftDisabled(id)) {
+			if(DvZ.instance.isCraftDisabled(id, game.getGameType())) {
 				event.getInventory().setResult(new ItemStack(Material.AIR));
 			}
 		}
@@ -464,20 +464,20 @@ public class Listener_Player implements Listener  {
 	public void onCraft(CraftItemEvent event) {
 		if(event.isCancelled()) return;
 		
-		boolean disable = false;
+		Game game = null;
 		List<HumanEntity> hList = event.getViewers();
 		for(HumanEntity he : hList) {
 			if(plugin.getPlayerGame(he.getName())!=null) {
-				disable = true;
+				game = plugin.getPlayerGame(he.getName());
 				break;
 			}
 		}
 		
-		if(disable) {
+		if(game != null) {
 			ItemStack result = event.getRecipe().getResult();
 			int id = result.getTypeId();
 			
-			if(DvZ.instance.isCraftDisabled(id)) {
+			if(DvZ.instance.isCraftDisabled(id, game.getGameType())) {
 				event.setCancelled(true);
 			}
 		}
