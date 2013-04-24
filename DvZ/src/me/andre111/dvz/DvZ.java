@@ -233,9 +233,12 @@ public class DvZ extends JavaPlugin {
 	
 	private void initConfig() {
 		if (!new File(getDataFolder(), "config.yml").exists()) {
-			saveResource("config.yml", false);
+			saveResource("config/default/config.yml", false);
+			try {
+				FileHandler.copyFolder(new File(getDataFolder(), "config/default/config.yml"), new File(getDataFolder(), "config.yml"));
+			} catch (IOException e) {}
 			log("Generating default config.");
-			saveDefaultConfig();
+			//saveDefaultConfig();
 		}
 		//language
 		if (!new File(getDataFolder(), "lang_en_EN.yml").exists()) {
@@ -246,16 +249,28 @@ public class DvZ extends JavaPlugin {
 		}
 		//Classes and stuff
 		if (!new File(getDataFolder(), "dragons.yml").exists()) {
-			saveResource("dragons.yml", false);
+			saveResource("config/default/dragons.yml", false);
+			try {
+				FileHandler.copyFolder(new File(getDataFolder(), "config/default/dragons.yml"), new File(getDataFolder(), "dragons.yml"));
+			} catch (IOException e) {}
 		}
 		if (!new File(getDataFolder(), "classes.yml").exists()) {
-			saveResource("classes.yml", false);
+			saveResource("config/default/classes.yml", false);
+			try {
+				FileHandler.copyFolder(new File(getDataFolder(), "config/default/classes.yml"), new File(getDataFolder(), "classes.yml"));
+			} catch (IOException e) {}
 		}
 		if (!new File(getDataFolder(), "monster.yml").exists()) {
-			saveResource("monster.yml", false);
+			saveResource("config/default/monster.yml", false);
+			try {
+				FileHandler.copyFolder(new File(getDataFolder(), "config/default/monster.yml"), new File(getDataFolder(), "monster.yml"));
+			} catch (IOException e) {}
 		}
 		if (!new File(getDataFolder(), "items.yml").exists()) {
-			saveResource("items.yml", false);
+			saveResource("config/default/items.yml", false);
+			try {
+				FileHandler.copyFolder(new File(getDataFolder(), "config/default/items.yml"), new File(getDataFolder(), "items.yml"));
+			} catch (IOException e) {}
 		}
 		DvZ.lang = this.getConfig().getString("language", "en_EN");
 		DvZ.langfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_"+lang+".yml"));
