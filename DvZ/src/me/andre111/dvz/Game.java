@@ -36,6 +36,9 @@ import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
 
 public class Game {
 	private DvZ plugin;
+	
+	private int gameType;
+	
 	private int state;
 	private int time;
 	private int dauer;
@@ -112,7 +115,9 @@ public class Game {
 	//#######################################
 	//Neues Spiel
 	//#######################################
-	public Game(DvZ p) {
+	public Game(DvZ p, int type) {
+		this.gameType = type;
+		
 		this.state = 1;
 		this.time = 30;//60;
 		this.plugin = p;
@@ -1448,6 +1453,10 @@ public class Game {
 		}
 		
 		return -1;
+	}
+	
+	public int getGameType() {
+		return gameType;
 	}
 	
 	public int getState() {

@@ -177,8 +177,9 @@ public class DvZ extends JavaPlugin {
 		
 		//init and reset games
 		for(int i=0; i<games.length; i++) {
-			if(getConfig().getInt("game"+i, 1)==1) {
-				games[i] = new Game(this);
+			int type = getConfig().getInt("game"+i, 1);
+			if(type>=1 && type<=2) {
+				games[i] = new Game(this, type);
 				games[i].reset(false);
 			}
 		}
