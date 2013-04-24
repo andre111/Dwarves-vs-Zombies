@@ -232,8 +232,9 @@ public class DvZ extends JavaPlugin {
 	}
 	
 	private void initConfig() {
+		exportConfigs();
+		
 		if (!new File(getDataFolder(), "config.yml").exists()) {
-			saveResource("config/default/config.yml", false);
 			try {
 				FileHandler.copyFolder(new File(getDataFolder(), "config/default/config.yml"), new File(getDataFolder(), "config.yml"));
 			} catch (IOException e) {}
@@ -249,25 +250,21 @@ public class DvZ extends JavaPlugin {
 		}
 		//Classes and stuff
 		if (!new File(getDataFolder(), "dragons.yml").exists()) {
-			saveResource("config/default/dragons.yml", false);
 			try {
 				FileHandler.copyFolder(new File(getDataFolder(), "config/default/dragons.yml"), new File(getDataFolder(), "dragons.yml"));
 			} catch (IOException e) {}
 		}
 		if (!new File(getDataFolder(), "classes.yml").exists()) {
-			saveResource("config/default/classes.yml", false);
 			try {
 				FileHandler.copyFolder(new File(getDataFolder(), "config/default/classes.yml"), new File(getDataFolder(), "classes.yml"));
 			} catch (IOException e) {}
 		}
 		if (!new File(getDataFolder(), "monster.yml").exists()) {
-			saveResource("config/default/monster.yml", false);
 			try {
 				FileHandler.copyFolder(new File(getDataFolder(), "config/default/monster.yml"), new File(getDataFolder(), "monster.yml"));
 			} catch (IOException e) {}
 		}
 		if (!new File(getDataFolder(), "items.yml").exists()) {
-			saveResource("config/default/items.yml", false);
 			try {
 				FileHandler.copyFolder(new File(getDataFolder(), "config/default/items.yml"), new File(getDataFolder(), "items.yml"));
 			} catch (IOException e) {}
@@ -287,6 +284,14 @@ public class DvZ extends JavaPlugin {
 		for(int id : DvZ.configfile.getIntegerList("disables_crafts_type2")) {
 			disabledCraftsType2.add(id);
 		}
+	}
+	
+	private void exportConfigs() {
+		saveResource("config/default/config.yml", true);
+		saveResource("config/default/dragons.yml", true);
+		saveResource("config/default/classes.yml", true);
+		saveResource("config/default/monster.yml", true);
+		saveResource("config/default/items.yml", true);
 	}
 	
 	public static FileConfiguration getLanguage() {
