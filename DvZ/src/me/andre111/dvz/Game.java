@@ -38,6 +38,8 @@ public class Game {
 	private DvZ plugin;
 	
 	private int gameType;
+	public static int GAMETYPE_OLD = 1;
+	public static int GAMETYPE_NEW = 2;
 	
 	private int state;
 	private int time;
