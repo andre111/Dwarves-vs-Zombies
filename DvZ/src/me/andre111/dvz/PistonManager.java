@@ -17,7 +17,6 @@ public class PistonManager {
 	private static int called = 0;
 	
 	public static void onPiston(BlockPistonExtendEvent event) {
-		System.out.println("P Event");
 		final List<Block> blist = event.getBlocks();
 		Location loc = event.getBlock().getLocation();
 		

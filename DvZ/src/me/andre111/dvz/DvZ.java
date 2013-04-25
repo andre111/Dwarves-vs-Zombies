@@ -78,6 +78,7 @@ public class DvZ extends JavaPlugin {
 	private static FileConfiguration classfile;
 	private static FileConfiguration monsterfile;
 	private static FileConfiguration itemfile;
+	private static FileConfiguration blockfile;
 	
 	private ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
 	private ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
@@ -138,6 +139,8 @@ public class DvZ extends JavaPlugin {
 		dwarfManager.loadDwarfes();
 		itemManager = new ItemManager();
 		itemManager.loadItems();
+		
+		BlockManager.loadConfig();
 		
 		try {
 		    Metrics metrics = new Metrics(this);
@@ -269,6 +272,11 @@ public class DvZ extends JavaPlugin {
 				FileHandler.copyFolder(new File(getDataFolder(), "config/default/items.yml"), new File(getDataFolder(), "items.yml"));
 			} catch (IOException e) {}
 		}
+		if (!new File(getDataFolder(), "blocks.yml").exists()) {
+			try {
+				FileHandler.copyFolder(new File(getDataFolder(), "config/default/blocks.yml"), new File(getDataFolder(), "blocks.yml"));
+			} catch (IOException e) {}
+		}
 		DvZ.lang = this.getConfig().getString("language", "en_EN");
 		DvZ.langfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_"+lang+".yml"));
 		DvZ.configfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
@@ -276,7 +284,23 @@ public class DvZ extends JavaPlugin {
 		DvZ.classfile =  YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "classes.yml"));
 		DvZ.monsterfile =  YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "monster.yml"));
 		DvZ.itemfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "items.yml"));
+		DvZ.blockfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "blocks.yml"));
 	
+		loadConfigs();
+	}
+	
+	private void exportConfigs() {
+		saveResource("config/default/config.yml", true);
+		saveResource("config/default/dragons.yml", true);
+		saveResource("config/default/classes.yml", true);
+		saveResource("config/default/monster.yml", true);
+		saveResource("config/default/items.yml", true);
+		saveResource("config/default/blocks.yml", true);
+	}
+	
+	private void loadConfigs() {
+		//disabled crafting recipies
+		//-----------------------------
 		for(int id : DvZ.configfile.getIntegerList("disables_crafts")) {
 			disabledCrafts.add(id);
 		}
@@ -286,34 +310,24 @@ public class DvZ extends JavaPlugin {
 		}
 	}
 	
-	private void exportConfigs() {
-		saveResource("config/default/config.yml", true);
-		saveResource("config/default/dragons.yml", true);
-		saveResource("config/default/classes.yml", true);
-		saveResource("config/default/monster.yml", true);
-		saveResource("config/default/items.yml", true);
-	}
-	
 	public static FileConfiguration getLanguage() {
 		return langfile;
 	}
-	
 	public static FileConfiguration getDragonsFile() {
 		return dragonsfile;
 	}
-	
 	public static FileConfiguration getClassFile() {
 		return classfile;
 	}
-	
 	public static FileConfiguration getMonsterFile() {
 		return monsterfile;
 	}
-	
 	public static FileConfiguration getItemFile() {
 		return itemfile;
 	}
-	
+	public static FileConfiguration getBlockFile() {
+		return blockfile;
+	}
 	public static FileConfiguration getStaticConfig() {
 		return configfile;
 	}
