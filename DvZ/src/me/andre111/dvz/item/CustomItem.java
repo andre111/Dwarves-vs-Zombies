@@ -183,6 +183,8 @@ public class CustomItem {
 				item.setType(Material.AIR);
 			else
 				item.setAmount(item.getAmount()-1);
+			
+			player.setItemInHand(item);
 		}
 		
 		//everything ok

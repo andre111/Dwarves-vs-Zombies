@@ -181,6 +181,17 @@ public class ItemHandler {
 		return true;
 	}
 	
+	public static boolean isArmorEmpty(Player player) {
+		for(ItemStack item : player.getInventory().getArmorContents())
+		{
+		    if(item != null)
+		    if(item.getAmount()>0)
+		      return false;
+		}
+		
+		return true;
+	}
+	
 	//###################################
 	//Inventory Helpers
 	//###################################

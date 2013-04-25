@@ -60,6 +60,21 @@
 # castVar1: originalID:originalData
 # castVar2: targetID:targetData
 ######################################
+# "ItemArmorCheck"
+# Check if an Player has armor
+#
+# castVar0: self(1=true) or target
+# castVar1: should have armor(1=true)
+######################################
+# "ItemArmorSet"
+# Sets the Armor of an player
+# (formated itemcodes)
+# castVar0: self(1=true) or target
+# castVar1: helmet
+# castVar2: chestpice
+# castVar3: leggins
+# castVar4: boots
+######################################
 # ""
 # 
 #
@@ -160,12 +175,11 @@ items:
            castVars:
              - 1
              - -2
-   # unfinished
    internDiamond:
      name: "Armor"
      lore: []
      id: 264
-     data: 1
+     data: 0
      useUp: true
      leftclick:
        effects: []
@@ -182,11 +196,20 @@ items:
          cost: 0
        casts:
          0:
-           cast: "ItemDamage"
+           cast: "ItemArmorCheck"
            require: -1
            castVars:
              - 0
              - 0
+         1:
+           cast: "ItemArmorSet"
+           require: 0
+           castVars:
+             - 0
+             - "310 1"
+             - "311 1"
+             - "312 1"
+             - "313 1"
    internConcrete:
      name: "Cement"
      lore: []
