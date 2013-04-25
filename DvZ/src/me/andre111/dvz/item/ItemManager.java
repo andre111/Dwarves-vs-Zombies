@@ -38,6 +38,7 @@ public class ItemManager {
 		}
 		itTemp.setID(DvZ.getItemFile().getInt("items."+it+".id", 0));
 		itTemp.setDamage(DvZ.getItemFile().getInt("items."+it+".data", 0));
+		itTemp.setUse(DvZ.getItemFile().getBoolean("items."+it+".useUp", false));
 		
 		//Rightclick
 		List<String> effects = DvZ.getItemFile().getStringList("items."+it+".rightclick.effects");

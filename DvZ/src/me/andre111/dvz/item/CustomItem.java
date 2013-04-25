@@ -7,6 +7,7 @@ import me.andre111.dvz.Game;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -20,6 +21,7 @@ public class CustomItem {
 	private int damage;
 	private String name;
 	private ArrayList<String> lore = new ArrayList<String>();
+	private boolean use;
 	
 	private ArrayList<String> effectsR = new ArrayList<String>();
 	private ArrayList<String> soundsR = new ArrayList<String>();
@@ -174,6 +176,15 @@ public class CustomItem {
 		
 		game.getManaManager().substractMana(player.getName(), cost);
 		
+		//substract items
+		if(isUse()) {
+			ItemStack item = player.getItemInHand();
+			if(item.getAmount()-1==0) 
+				item.setType(Material.AIR);
+			else
+				item.setAmount(item.getAmount()-1);
+		}
+		
 		//everything ok
 		return false;
 	}
@@ -272,6 +283,12 @@ public class CustomItem {
 	}
 	public void addLore(String nlore) {
 		lore.add(nlore);
+	}
+	public boolean isUse() {
+		return use;
+	}
+	public void setUse(boolean use) {
+		this.use = use;
 	}
 	public void addEffectR(String effect) {
 		effectsR.add(effect);
