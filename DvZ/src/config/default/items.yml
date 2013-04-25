@@ -224,7 +224,8 @@ items:
          cost: 0
        casts: []
      rightclick:
-       effects: []
+       effects: 
+         - "POTION_BREAK:8270:Caster"
        sounds: []
        cooldown: 0
        mana:
