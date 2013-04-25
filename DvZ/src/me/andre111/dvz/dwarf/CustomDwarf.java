@@ -9,6 +9,7 @@ import me.andre111.dvz.utils.ItemHandler;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -50,6 +51,8 @@ public class CustomDwarf {
 	private int pistonBlockAbove;
 	private int pistonBlockBelow;
 	private LinkedHashMap<Integer, Integer> pistonChange;
+	//rightclick
+	private ArrayList<String> transmuteItems;
 	
 	//become custom Monster
 	public void becomeDwarf(Game game, Player player) {
@@ -160,6 +163,32 @@ public class CustomDwarf {
 		} else {
 			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
+	}
+	
+	public boolean transmuteItemOnBlock(Game game, Player player, ItemStack item, Block block) {
+		for(String st : getTransmuteItems()) {
+			String[] split = st.split(" ");
+			
+			//is it the right item?
+			String[] itemSt = split[0].split(":");
+			if(Integer.parseInt(itemSt[0])==item.getTypeId() && Integer.parseInt(itemSt[1])==item.getDurability()) {
+				//right block clicked?
+				String[] bSt = split[1].split(":");
+				//also check block above(for fire and other not clickable blocks)
+				Block above = block.getRelative(0, 1, 0);
+				if((Integer.parseInt(bSt[0])==block.getTypeId() && Integer.parseInt(bSt[1])==block.getData()) 
+				  || (Integer.parseInt(bSt[0])==above.getTypeId() && Integer.parseInt(bSt[1])==above.getData())) {
+					//change item
+					String[] newItem = split[2].split(":");
+					item.setTypeId(Integer.parseInt(newItem[0]));
+					item.setDurability((short) Integer.parseInt(newItem[1]));
+					
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public int getId() {
@@ -351,5 +380,13 @@ public class CustomDwarf {
 
 	public void setPistonChange(LinkedHashMap<Integer, Integer> pistonChange) {
 		this.pistonChange = pistonChange;
+	}
+
+	public ArrayList<String> getTransmuteItems() {
+		return transmuteItems;
+	}
+
+	public void setTransmuteItems(ArrayList<String> transmuteItems) {
+		this.transmuteItems = transmuteItems;
 	}
 }

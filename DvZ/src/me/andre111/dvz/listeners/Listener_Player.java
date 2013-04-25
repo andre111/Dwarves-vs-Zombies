@@ -136,10 +136,10 @@ public class Listener_Player implements Listener  {
 			Action action = event.getAction();
 			ItemStack item = event.getItem();
 			if (action==Action.RIGHT_CLICK_AIR) {
-				game.playerRC(player, item, null);
+				game.playerRC(event, player, item, null);
 			}
 			else if(action==Action.RIGHT_CLICK_BLOCK) {
-				game.playerRC(player, item, event.getClickedBlock());
+				game.playerRC(event, player, item, event.getClickedBlock());
 			}
 			else if(action==Action.LEFT_CLICK_AIR) {
 				game.playerLC(player, item, null);

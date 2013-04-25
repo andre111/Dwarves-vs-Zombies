@@ -26,6 +26,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -1005,7 +1006,7 @@ public class Game {
 	//#######################################
 	//Spieler hat rechtsgeklickt
 	//#######################################
-	public void playerRC(Player player, ItemStack item, Block block) {
+	public void playerRC(PlayerInteractEvent event, Player player, ItemStack item, Block block) {
 		if(!isPlayer(player.getName())) return;
 		if(item==null) return;
 		int itemId = item.getTypeId();
@@ -1051,9 +1052,16 @@ public class Game {
 		int dId = getPlayerState(player.getName())-dwarfMin;
 		if(dId>=0 && dId<DvZ.monsterManager.getCount()) {
 			CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
+			//spell
 			if(cd.isSpellEnabled()) {
 				if(itemId==cd.getSpellItem()) {
 					cd.spell(this, player);
+				}
+			}
+			//transmute items
+			if(block!=null) {
+				if(cd.transmuteItemOnBlock(this, player, item, block)) {
+					event.setCancelled(true);
 				}
 			}
 		}

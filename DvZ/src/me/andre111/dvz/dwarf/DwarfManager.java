@@ -1,5 +1,6 @@
 package me.andre111.dvz.dwarf;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -83,6 +84,12 @@ public class DwarfManager {
 			pistonChange.put(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
 		}
 		dwTemp.setPistonChange(pistonChange);
+		
+		//itemtransmute
+		List<String> tSt = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmute");
+		ArrayList<String> tiSt = new ArrayList<String>();
+		tiSt.addAll(tSt);
+		dwTemp.setTransmuteItems(tiSt);
 		
 		dwarves[dwarfCounter] = dwTemp;
 		dwarfCounter++;

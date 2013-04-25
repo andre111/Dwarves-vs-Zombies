@@ -304,6 +304,55 @@ dwarves:
             - "53 126"
             - "126 85"
             - "85 35"
+      specialitems:
+         transmute: []
+   7: 
+      name: "Blacksmith Dwarf"
+      chatprefix: ""
+      chatsuffix: " the Blacksmith"
+      gameType: 2
+      classItem: 2262
+      classItemDamage: 0
+      classChance: 20
+      items: 
+         - "278 1"
+         - "277 1"
+         - "112 64"
+         - "380 1"
+         - "325 1"
+         - "29 1"
+         - "69 1"
+         - "263 1"
+      effects: []
+      damageBuff: 1
+      disabledDamage: []
+      manaMax: 100
+      manaRegen: 5
+      spell:
+         enable: false
+         time: 30
+         item: 340
+         name: ""
+         need:
+            id: 297
+            data: 0
+            count: 3
+         needString: ""
+         failString: ""
+         inventory: false
+         exp: 6
+         items: []
+      piston:
+         enable: true
+         aboveID: 112
+         belowID: 112
+         change:
+            - "41 57"
+      specialitems:
+         transmute: 
+            - "348:1 51:0 351:14"
+            - "351:14 118:3 41:0"
+            - "263:0 34:9 259:0"
 
  # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)

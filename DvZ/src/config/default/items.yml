@@ -211,13 +211,13 @@ items:
            cast: "ItemReplace"
            require: -1
            castVars:
-             - 3
+             - 2
              - "4:0"
              - "98:0"
          1:
            cast: "ItemReplace"
            require: -1
            castVars:
-             - 3
+             - 2
              - "98:2"
              - "98:0"

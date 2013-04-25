@@ -251,7 +251,11 @@ public class CustomItem {
 		if(it.getDurability()!=damage) return false;
 		ItemMeta im = it.getItemMeta();
 		if(!im.getDisplayName().equals(name)) return false;
-		if(!im.getLore().equals(lore)) return false;
+		if(im.hasLore()) {
+			if(!im.getLore().equals(lore)) return false;
+		} else {
+			if(lore.size()>0) return false;
+		}
 		
 		return true;
 	}
