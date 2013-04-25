@@ -16,6 +16,14 @@ effects:
 # WARNING: Do not change name or lore of custom Items or they will not work!
 # ----------------------------------------------------------------------------------
 
+# gameType:
+######################################
+# On which game should the class be availabe
+# 0: All
+# 1: Gametype 1
+# 2: Gametype 2
+######################################
+
 # disabledDamage:
 ######################################
 # List of Damagesources to disable for the monster
@@ -135,6 +143,7 @@ monsters:
      disguise: "Zombie"
      chatPrefix: ""
      chatSuffix: " the Zombie"
+     gameType: 0
      classItem: 383
      classItemDamage: 54
      classChance: 100
@@ -175,6 +184,7 @@ monsters:
      disguise: "Skeleton"
      chatPrefix: ""
      chatSuffix: " the Skeleton"
+     gameType: 0
      classItem: 383
      classItemDamage: 51
      classChance: 75
@@ -215,6 +225,7 @@ monsters:
      disguise: "Creeper"
      chatPrefix: ""
      chatSuffix: " the Creeper"
+     gameType: 0
      classItem: 383
      classItemDamage: 50
      classChance: 50
@@ -255,6 +266,7 @@ monsters:
      disguise: "Wolf"
      chatPrefix: ""
      chatSuffix: " the Wolf"
+     gameType: 0
      classItem: 383
      classItemDamage: 95
      classChance: 25
@@ -297,6 +309,7 @@ monsters:
      disguise: "Spider"
      chatPrefix: ""
      chatSuffix: " the Spider"
+     gameType: 0
      classItem: 383
      classItemDamage: 52
      classChance: 25
@@ -344,6 +357,7 @@ monsters:
      disguise: "IronGolem"
      chatPrefix: ""
      chatSuffix: " the IronGolem"
+     gameType: 0
      classItem: 383
      classItemDamage: 99
      classChance: 5
@@ -390,6 +404,7 @@ monsters:
      disguise: "Snowman"
      chatPrefix: ""
      chatSuffix: " the SnowGolem"
+     gameType: 0
      classItem: 383
      classItemDamage: 97
      classChance: 5
@@ -429,6 +444,7 @@ monsters:
      disguise: "Silverfish"
      chatPrefix: ""
      chatSuffix: " the Broodmother"
+     gameType: 0
      classItem: 383
      classItemDamage: 60
      classChance: 5
@@ -470,6 +486,7 @@ monsters:
      disguise: "Enderman"
      chatPrefix: ""
      chatSuffix: " the Enderman"
+     gameType: 0
      classItem: 383
      classItemDamage: 58
      classChance: 5
@@ -505,6 +522,7 @@ monsters:
      disguise: "Ocelot"
      chatPrefix: ""
      chatSuffix: " the Cat"
+     gameType: 0
      classItem: 383
      classItemDamage: 98
      classChance: 5
@@ -543,6 +561,7 @@ monsters:
 #     disguise: "Pig"
 #     chatPrefix: ""
 #     chatSuffix: " the Hungry Pig"
+#     gameType: 0
 #     classItem: 383
 #     classItemDamage: 57
 #     classChance: 5

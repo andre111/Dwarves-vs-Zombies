@@ -18,6 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class CustomDwarf {
 	private int id;
+	private int gameId;
 	private String name;
 	private String prefix;
 	private String suffix;
@@ -166,6 +167,12 @@ public class CustomDwarf {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getGameId() {
+		return gameId;
+	}
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
 	}
 	public String getName() {
 		return name;

@@ -15,11 +15,28 @@ effects:
 # WARNING: Do not change name or lore of custom Items or they will not work!
 # ----------------------------------------------------------------------------------
 
+# gameType:
+######################################
+# On which game should the class be availabe
+# 0: All
+# 1: Gametype 1
+# 2: Gametype 2
+######################################
+
+# disabledDamage:
+######################################
+# List of Damagesources to disable for the monster
+# currently available: 
+# contact(Cactus),drown,explosion,fall,fire,lava,poison,starve,wither
+# If you miss one just write a comment on the dev.bukkit page
+######################################
+
 dwarves:
    0: 
       name: "Builder Dwarf"
       chatprefix: ""
       chatsuffix: " the Builder"
+      gameType: 1
       classItem: 2256
       classItemDamage: 0
       classChance: 100
@@ -65,6 +82,7 @@ dwarves:
       name: "Alchemy Dwarf"
       chatprefix: ""
       chatsuffix: " the Alchemist"
+      gameType: 1
       classItem: 2257
       classItemDamage: 0
       classChance: 20
@@ -115,6 +133,7 @@ dwarves:
       name: "Blacksmith Dwarf"
       chatprefix: ""
       chatsuffix: " the Blacksmith"
+      gameType: 1
       classItem: 2258
       classItemDamage: 0
       classChance: 20
@@ -164,6 +183,7 @@ dwarves:
       name: "Tailor Dwarf"
       chatprefix: ""
       chatsuffix: " the Tailor"
+      gameType: 1
       classItem: 2259
       classItemDamage: 0
       classChance: 20

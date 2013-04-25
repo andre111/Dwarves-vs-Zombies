@@ -36,6 +36,7 @@ public class MonsterManager {
 		CustomMonster monTemp = new CustomMonster();
 		
 		monTemp.setId(monsterCounter);
+		monTemp.setGameId(DvZ.getMonsterFile().getInt("monsters."+mo+".gameType", 0));
 		monTemp.setName(DvZ.getMonsterFile().getString("monsters."+mo+".name", ""));
 		monTemp.setDisguise(DisguiseType.fromString(DvZ.getMonsterFile().getString("monsters."+mo+".disguise", "")));
 		monTemp.setPrefix(DvZ.getMonsterFile().getString("monsters."+mo+".chatPrefix", ""));

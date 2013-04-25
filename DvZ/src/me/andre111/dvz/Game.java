@@ -841,9 +841,13 @@ public class Game {
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
 				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance()) {
-					//permissions
-					if(player.hasPermission("dvz.dwarves."+i)) {
-						inv.addItem(dwarfItems[i]);
+					//game type
+					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
+					if(gID==0 || gID==getGameType()) {
+						//permissions
+						if(player.hasPermission("dvz.dwarves."+i)) {
+							inv.addItem(dwarfItems[i]);
+						}
 					}
 				}
 			}
@@ -894,10 +898,14 @@ public class Game {
 			int pos = 0;
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
 				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance()) {
-					//permissions
-					if(player.hasPermission("dvz.dwarves."+i)) {
-						im.setOption(pos, dwarfItems[i]); 
-						pos++;
+					//game type
+					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
+					if(gID==0 || gID==getGameType()) {
+						//permissions
+						if(player.hasPermission("dvz.dwarves."+i)) {
+							im.setOption(pos, dwarfItems[i]); 
+							pos++;
+						}
 					}
 				}
 			}
@@ -927,9 +935,13 @@ public class Game {
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance()) {
-					//permissions
-					if(player.hasPermission("dvz.monster."+i)) {
-						inv.addItem(monsterItems[i]);
+					//game type
+					int gID = DvZ.monsterManager.getMonster(i).getGameId();
+					if(gID==0 || gID==getGameType()) {
+						//permissions
+						if(player.hasPermission("dvz.monster."+i)) {
+							inv.addItem(monsterItems[i]);
+						}
 					}
 				}
 			}
@@ -974,10 +986,14 @@ public class Game {
 			int pos = 0;
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance()) {
-					//permissions
-					if(player.hasPermission("dvz.monster."+i)) {
-						icm.setOption(pos, monsterItems[i]); 
-						pos++;
+					//game type
+					int gID = DvZ.monsterManager.getMonster(i).getGameId();
+					if(gID==0 || gID==getGameType()) {
+						//permissions
+						if(player.hasPermission("dvz.monster."+i)) {
+							icm.setOption(pos, monsterItems[i]); 
+							pos++;
+						}
 					}
 				}
 			}

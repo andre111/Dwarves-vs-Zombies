@@ -34,6 +34,7 @@ public class DwarfManager {
 		CustomDwarf dwTemp = new CustomDwarf();
 		
 		dwTemp.setId(dwarfCounter);
+		dwTemp.setGameId(DvZ.getClassFile().getInt("dwarves."+dw+".gameType", 0));
 		dwTemp.setName(DvZ.getClassFile().getString("dwarves."+dw+".name", ""));
 		dwTemp.setPrefix(DvZ.getClassFile().getString("dwarves."+dw+".chatPrefix", ""));
 		dwTemp.setSuffix(DvZ.getClassFile().getString("dwarves."+dw+".chatSuffix", ""));
