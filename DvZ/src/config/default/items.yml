@@ -53,6 +53,13 @@
 # castVar0: console(1=true)
 # castVar1+: Commands
 ######################################
+# "ItemReplace"
+# Replace nearby blocks
+#
+# castVar0: Range(in Blocks)
+# castVar1: originalID:originalData
+# castVar2: targetID:targetData
+######################################
 # ""
 # 
 #
@@ -70,6 +77,7 @@ items:
        - "Right: Fireleap §f(5s cooldown)"
      id: 369
      data: 0
+     useUp: false
      leftclick:
        effects:
          - "ENDER_SIGNAL:0:onHit"
@@ -124,6 +132,7 @@ items:
        - "Right: Lifesteal(1 Heart) §f(3s cooldown)"
      id: 369
      data: 0
+     useUp: false
      leftclick:
        effects: []
        sounds: []
@@ -151,3 +160,64 @@ items:
            castVars:
              - 1
              - -2
+   # unfinished
+   internDiamond:
+     name: "Armor"
+     lore: []
+     id: 264
+     data: 1
+     useUp: true
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemDamage"
+           require: -1
+           castVars:
+             - 0
+             - 0
+   internConcrete:
+     name: "Cement"
+     lore: []
+     id: 351
+     data: 8
+     useUp: true
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemReplace"
+           require: -1
+           castVars:
+             - 3
+             - "4:0"
+             - "98:0"
+         1:
+           cast: "ItemReplace"
+           require: -1
+           castVars:
+             - 3
+             - "98:2"
+             - "98:0"
