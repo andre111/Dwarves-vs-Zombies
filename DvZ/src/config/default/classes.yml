@@ -226,6 +226,84 @@ dwarves:
          aboveID: 0
          belowID: 0
          change: []
+   4: 
+      name: "Builder Dwarf"
+      chatprefix: ""
+      chatsuffix: " the Builder"
+      gameType: 2
+      classItem: 2260
+      classItemDamage: 0
+      classChance: 100
+      items: 
+         - "278 1"
+         - "277 1"
+      effects: []
+      damageBuff: 1
+      disabledDamage: []
+      manaMax: 100
+      manaRegen: 5
+      spell:
+         enable: false
+         time: 30
+         item: 340
+         name: ""
+         need:
+            id: 297
+            data: 0
+            count: 3
+         needString: ""
+         failString: ""
+         inventory: false
+         exp: 6
+         items: []
+      piston:
+         enable: false
+         aboveID: 0
+         belowID: 0
+         change: []
+   5: 
+      name: "Lumberjack Dwarf"
+      chatprefix: ""
+      chatsuffix: " the Lumberjack"
+      gameType: 2
+      classItem: 2261
+      classItemDamage: 0
+      classChance: 20
+      items: 
+         - "278 1"
+         - "277 1"
+         - "279 1"
+         - "17 64"
+         - "29 3"
+         - "69 1"
+      effects: []
+      damageBuff: 1
+      disabledDamage: []
+      manaMax: 100
+      manaRegen: 5
+      spell:
+         enable: false
+         time: 30
+         item: 340
+         name: ""
+         need:
+            id: 297
+            data: 0
+            count: 3
+         needString: ""
+         failString: ""
+         inventory: false
+         exp: 6
+         items: []
+      piston:
+         enable: true
+         aboveID: 17
+         belowID: 17
+         change:
+            - "5 53"
+            - "53 126"
+            - "126 85"
+            - "85 35"
 
  # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)
