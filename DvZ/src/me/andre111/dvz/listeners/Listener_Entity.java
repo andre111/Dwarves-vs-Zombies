@@ -3,6 +3,7 @@ package me.andre111.dvz.listeners;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
+import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.item.spell.ItemLaunch;
 import me.andre111.dvz.monster.CustomMonster;
 
@@ -67,7 +68,7 @@ public class Listener_Entity implements Listener {
 			Player player = (Player) event.getEntity();
 			Game game = plugin.getPlayerGame(player.getName());
 			if(game!=null) {
-				if(game.isMonster(player.getName())) {
+				if(game.isMonster(player.getName()) || game.isDwarf(player.getName())) {
 					String damage = "";
 					
 					if(event.getCause() == DamageCause.CONTACT) {
@@ -91,11 +92,20 @@ public class Listener_Entity implements Listener {
 					}
 					
 					if(!damage.equals("")) {
-						int pid = game.getPlayerState(player.getName()) - Game.monsterMin;
-						CustomMonster cm = DvZ.monsterManager.getMonster(pid);
-						
-						if(cm.isDamageDisabled(damage)) {
-							event.setCancelled(true);
+						if(game.isMonster(player.getName())) {
+							int pid = game.getPlayerState(player.getName()) - Game.monsterMin;
+							CustomMonster cm = DvZ.monsterManager.getMonster(pid);
+							
+							if(cm.isDamageDisabled(damage)) {
+								event.setCancelled(true);
+							}
+						} else if(game.isDwarf(player.getName())) {
+							int pid = game.getPlayerState(player.getName()) - Game.dwarfMin;
+							CustomDwarf cd = DvZ.dwarfManager.getDwarf(pid);
+							
+							if(cd.isDamageDisabled(damage)) {
+								event.setCancelled(true);
+							}
 						}
 					}
 				}
@@ -168,6 +178,11 @@ public class Listener_Entity implements Listener {
 				if(game.isPlayer(dgm.getName())) {
 					if(/*game.getPlayerState(dgm.getName())==35 ||*/ game.isBuffed(dgm.getName())) {
 						event.setDamage(event.getDamage()*5);
+					}
+					//custom dwarf
+					if(game.isDwarf(dgm.getName())) {
+						int id = game.getPlayerState(dgm.getName()) - Game.dwarfMin;
+						event.setDamage((int) Math.round(event.getDamage()*DvZ.dwarfManager.getDwarf(id).getDamageBuff()));
 					}
 					//custom monster
 					if(game.isMonster(dgm.getName())) {
