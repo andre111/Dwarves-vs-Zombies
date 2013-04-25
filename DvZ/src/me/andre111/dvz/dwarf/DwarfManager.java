@@ -1,5 +1,6 @@
 package me.andre111.dvz.dwarf;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -69,6 +70,18 @@ public class DwarfManager {
 		dwTemp.setSpellExp(DvZ.getClassFile().getInt("dwarves."+dw+".spell.exp", 0));
 		List<String> spellItems = DvZ.getClassFile().getStringList("dwarves."+dw+".spell.items");
 		dwTemp.setSpellItems(spellItems.toArray(new String[spellItems.size()]));
+		
+		//piston
+		dwTemp.setPistonEnabled(DvZ.getClassFile().getBoolean("dwarves."+dw+".piston.enable", false));
+		dwTemp.setPistonBlockAbove(DvZ.getClassFile().getInt("dwarves."+dw+".piston.aboveID", 0));
+		dwTemp.setPistonBlockBelow(DvZ.getClassFile().getInt("dwarves."+dw+".piston.belowID", 0));
+		LinkedHashMap<Integer, Integer> pistonChange = new LinkedHashMap<Integer, Integer>();
+		List<String> pSt = DvZ.getClassFile().getStringList("dwarves."+dw+".piston.change");
+		for(String pString : pSt) {
+			String[] split = pString.split(" ");
+			pistonChange.put(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+		}
+		dwTemp.setPistonChange(pistonChange);
 		
 		dwarves[dwarfCounter] = dwTemp;
 		dwarfCounter++;

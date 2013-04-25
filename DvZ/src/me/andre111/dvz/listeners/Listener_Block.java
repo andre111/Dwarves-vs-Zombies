@@ -1,12 +1,9 @@
 package me.andre111.dvz.listeners;
 
-import java.util.List;
-
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.PistonManager;
 
-import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -73,17 +70,7 @@ public class Listener_Block implements Listener {
 	
 	//test for changing block when moved by a piston
 	@EventHandler
-	public void onPiston(BlockPistonExtendEvent event) {
-		final List<Block> blist = event.getBlocks();
-		
-		Bukkit.getScheduler().runTask(plugin, new Runnable() {
-			public void run() {
-				for(Block b : blist) {
-					if(b.getTypeId()==5) {
-						//b.setTypeId(3);
-					}
-				}
-			}
-		});
+	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
+		PistonManager.onPiston(event);
 	}
 }

@@ -56,6 +56,11 @@ dwarves:
             - "98:1 64 40"
             - "98:2 64 40"
             - "4 64 40"
+      piston:
+         enable: false
+         aboveID: 0
+         belowID: 0
+         change: []
    1: 
       name: "Alchemy Dwarf"
       chatprefix: ""
@@ -101,6 +106,11 @@ dwarves:
             - "335 5 20"
             - "354 5 20"
             - "373:8259 1 5"
+      piston:
+         enable: false
+         aboveID: 0
+         belowID: 0
+         change: []
    2: 
       name: "Blacksmith Dwarf"
       chatprefix: ""
@@ -145,6 +155,11 @@ dwarves:
             - "287 3 45"
             - "288 32 50"
             - "318 32 50"
+      piston:
+         enable: false
+         aboveID: 0
+         belowID: 0
+         change: []
    3: 
       name: "Tailor Dwarf"
       chatprefix: ""
@@ -186,6 +201,11 @@ dwarves:
             - "311 1:2 40"
             - "312 1:2 40"
             - "313 1:2 40"
+      piston:
+         enable: false
+         aboveID: 0
+         belowID: 0
+         change: []
 
  # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)

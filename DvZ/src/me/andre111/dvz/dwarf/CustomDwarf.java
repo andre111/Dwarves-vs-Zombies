@@ -1,6 +1,7 @@
 package me.andre111.dvz.dwarf;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
@@ -30,6 +31,7 @@ public class CustomDwarf {
 	private int maxMana;
 	private int manaRegen;
 	
+	//spells
 	private boolean spellEnabled;
 	private int spellTime;
 	private int spellItem;
@@ -42,6 +44,11 @@ public class CustomDwarf {
 	private boolean spellInv;
 	private int spellExp;
 	private String[] spellItems;
+	//piston
+	private boolean pistonEnabled;
+	private int pistonBlockAbove;
+	private int pistonBlockBelow;
+	private LinkedHashMap<Integer, Integer> pistonChange;
 	
 	//become custom Monster
 	public void becomeDwarf(Game game, Player player) {
@@ -306,5 +313,36 @@ public class CustomDwarf {
 	}
 	public void setSpellItems(String[] spellItems) {
 		this.spellItems = spellItems;
+	}
+	//pistons
+	public boolean isPistonEnabled() {
+		return pistonEnabled;
+	}
+	public void setPistonEnabled(boolean pistonEnabled) {
+		this.pistonEnabled = pistonEnabled;
+	}
+
+	public int getPistonBlockAbove() {
+		return pistonBlockAbove;
+	}
+
+	public void setPistonBlockAbove(int pistonBlockAbove) {
+		this.pistonBlockAbove = pistonBlockAbove;
+	}
+
+	public int getPistonBlockBelow() {
+		return pistonBlockBelow;
+	}
+
+	public void setPistonBlockBelow(int pistonBlockBelow) {
+		this.pistonBlockBelow = pistonBlockBelow;
+	}
+
+	public LinkedHashMap<Integer, Integer> getPistonChange() {
+		return pistonChange;
+	}
+
+	public void setPistonChange(LinkedHashMap<Integer, Integer> pistonChange) {
+		this.pistonChange = pistonChange;
 	}
 }
