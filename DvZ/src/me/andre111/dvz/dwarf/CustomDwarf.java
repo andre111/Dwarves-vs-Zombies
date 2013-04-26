@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -27,6 +28,7 @@ public class CustomDwarf {
 	private int classItemDamage;
 	private int classChance;
 	private String[] items;
+	private String[] crystalItems;
 	private String[] effects;
 	private double damageBuff;
 	private ArrayList<String> disabledDamage;
@@ -120,6 +122,18 @@ public class CustomDwarf {
 			im.setDisplayName(DvZ.getLanguage().getString("string_crystal_storage","Crystal Storage"));
 			it.setItemMeta(im);
 			inv.addItem(it);
+			
+			//crystalchest items
+			if(DvZ.getStaticConfig().getString("crystal_storage","0").equals("1")) {
+				Inventory cinv = game.getCrystalChest(player.getName());
+				
+				for(int i=0; i<crystalItems.length; i++) {
+					ItemStack cit = ItemHandler.decodeItem(crystalItems[i]);
+					if(cit!=null) {
+						cinv.addItem(cit);
+					}
+				}
+			}
 		}
 		
 		DvZ.updateInventory(player);
@@ -244,6 +258,12 @@ public class CustomDwarf {
 	}
 	public void setItems(String[] items) {
 		this.items = items;
+	}
+	public String[] getCrystalItems() {
+		return crystalItems;
+	}
+	public void setCrystalItems(String[] crystalItems) {
+		this.crystalItems = crystalItems;
 	}
 	public String[] getEffects() {
 		return effects;

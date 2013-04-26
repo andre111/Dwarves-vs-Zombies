@@ -245,3 +245,64 @@ items:
              - 2
              - "98:2"
              - "98:0"
+   # TODO - add effects/enchants
+   internDwarfSword:
+     name: "Dwarven Sword"
+     lore: []
+     id: 276
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+   internDwarfBow:
+     name: "Dwarven Short Bow"
+     lore: []
+     id: 261
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+   internDwarfPotion:
+     name: "Healing Potion"
+     lore: []
+     id: 373
+     data: 8197
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []

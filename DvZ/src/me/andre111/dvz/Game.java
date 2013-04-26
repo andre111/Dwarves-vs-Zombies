@@ -1068,11 +1068,7 @@ public class Game {
 		}
 		
 		if(isDwarf(pname) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
-		if(isDwarf(pname) && itemId==388) {
-			if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
-			
-			Spellcontroller.spellEnderChest(this, player, crystalPerPlayer.get(pname), eciTest);
-		}
+		if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname), eciTest);
 		
 		//custom items
 		playerSpecialItemC(player, item, false, block, null);
@@ -1289,7 +1285,7 @@ public class Game {
 	public boolean isDwarf(String player) {
 		if(playerstate.containsKey(player)) {
 			int pstate = playerstate.get(player);
-			if((pstate>=Game.dwarfMin && pstate<=Game.dwarfMin)
+			if((pstate>=Game.dwarfMin && pstate<=Game.dwarfMax)
 			  || pstate==Game.assasinState || pstate==Game.dragonWarrior) {
 				return true;
 			}
@@ -1504,6 +1500,12 @@ public class Game {
 		}
 		
 		return -1;
+	}
+	
+	public Inventory getCrystalChest(String pname) {
+		if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
+		
+		return crystalPerPlayer.get(pname);
 	}
 	
 	public int getGameType() {

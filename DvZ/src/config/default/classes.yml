@@ -50,6 +50,7 @@ dwarves:
          - "299 1"
          - "300 1"
          - "301 1"
+      crystalItems: []
       effects: []
       damageBuff: 1
       disabledDamage: []
@@ -94,6 +95,7 @@ dwarves:
          - "331 5"
          - "22 64"
          - "20 64"
+      crystalItems: []
       effects: []
       damageBuff: 1
       disabledDamage: []
@@ -147,6 +149,7 @@ dwarves:
          - "349 10"
          - "54 2"
          - "112 64"
+      crystalItems: []
       effects: []
       damageBuff: 1
       disabledDamage: []
@@ -197,6 +200,7 @@ dwarves:
          - "101 64"
          - "50 32"
          - "54 2"
+      crystalItems: []
       effects: []
       damageBuff: 1
       disabledDamage: []
@@ -237,6 +241,11 @@ dwarves:
       items: 
          - "278 1"
          - "277 1"
+      crystalItems:
+         - "internDwarfSword"
+         - "internDwarfBow"
+         - "internDwarfPotion"
+         - "65 64"
       effects: []
       damageBuff: 1
       disabledDamage: []
@@ -276,6 +285,11 @@ dwarves:
          - "17 64"
          - "29 3"
          - "69 1"
+      crystalItems:
+         - "internDwarfSword"
+         - "internDwarfBow"
+         - "internDwarfPotion"
+         - "65 64"
       effects: []
       damageBuff: 1
       disabledDamage: []
@@ -323,6 +337,11 @@ dwarves:
          - "29 1"
          - "69 1"
          - "263 1"
+      crystalItems:
+         - "internDwarfSword"
+         - "internDwarfBow"
+         - "internDwarfPotion"
+         - "65 64"
       effects: []
       damageBuff: 1
       disabledDamage: []

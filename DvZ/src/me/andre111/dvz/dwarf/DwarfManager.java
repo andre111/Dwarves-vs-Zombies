@@ -45,6 +45,8 @@ public class DwarfManager {
 		//items
 		List<String> items = DvZ.getClassFile().getStringList("dwarves."+dw+".items");
 		dwTemp.setItems(items.toArray(new String[items.size()]));
+		List<String> citems = DvZ.getClassFile().getStringList("dwarves."+dw+".crystalItems");
+		dwTemp.setCrystalItems(citems.toArray(new String[citems.size()]));
 		//effects
 		List<String> effects = DvZ.getClassFile().getStringList("dwarves."+dw+".effects");
 		dwTemp.setEffects(effects.toArray(new String[effects.size()]));
