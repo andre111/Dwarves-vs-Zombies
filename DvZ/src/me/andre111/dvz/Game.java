@@ -18,6 +18,7 @@ import me.andre111.dvz.utils.ExperienceUtils;
 import me.andre111.dvz.utils.GameOptionClickEventHandler;
 import me.andre111.dvz.utils.IconMenu;
 import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.dvz.utils.Slapi;
 
 import org.bukkit.Bukkit;
@@ -663,7 +664,7 @@ public class Game {
 				Player player = Bukkit.getServer().getPlayerExact(playern);
 				
 				if(player!=null) {
-					if(!hasHigherPotionEffect(player, id, level)) {
+					if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
 						player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), 3*20, level), true);
 					}
 				}
@@ -686,7 +687,7 @@ public class Game {
 						int id = effectDwarfAbove[i][0];
 						int level = effectDwarfAbove[i][1];
 						if(id!=-1)
-						if(!hasHigherPotionEffect(player, id, level)) {
+						if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
 							player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), 3*20, level), true);
 						}
 					}
@@ -695,27 +696,13 @@ public class Game {
 						int id = effectDwarfBelow[i][0];
 						int level = effectDwarfBelow[i][1];
 						if(id!=-1)
-						if(!hasHigherPotionEffect(player, id, level)) {
+						if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
 							player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), 3*20, level), true);
 						}
 					}
 				}
 			}
 		}
-	}
-	
-	private boolean hasHigherPotionEffect(Player player, int id, int level) {
-		if(player.hasPotionEffect(PotionEffectType.getById(id))) {
-			PotionEffect[] effects = (PotionEffect[]) player.getActivePotionEffects().toArray(new PotionEffect[player.getActivePotionEffects().size()]);
-			for(int i=0; i<effects.length; i++) {
-				if(effects[i].getType()==PotionEffectType.getById(id)) {
-					if(effects[i].getAmplifier()>level) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
 	}
 	
 	//#######################################

@@ -75,6 +75,12 @@
 # castVar3: leggins
 # castVar4: boots
 ######################################
+# "ItemEffect"
+# Adds one or more effects to an player
+#
+# castVar0: self(1=true)
+# castVar1+: effectID:duration:level
+######################################
 # ""
 # 
 #
