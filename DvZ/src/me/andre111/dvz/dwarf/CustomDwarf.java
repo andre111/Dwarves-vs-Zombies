@@ -116,25 +116,26 @@ public class CustomDwarf {
 		}
 		//
 		
-		if(!DvZ.getStaticConfig().getString("crystal_storage","0").equals("0")) {
+		//crstal chest is no longer a global config option
+		/*if(!DvZ.getStaticConfig().getString("crystal_storage","0").equals("0")) {
 			ItemStack it = new ItemStack(388, 1);
 			ItemMeta im = it.getItemMeta();
 			im.setDisplayName(DvZ.getLanguage().getString("string_crystal_storage","Crystal Storage"));
 			it.setItemMeta(im);
-			inv.addItem(it);
+			inv.addItem(it);*/
 			
-			//crystalchest items
-			if(DvZ.getStaticConfig().getString("crystal_storage","0").equals("1")) {
-				Inventory cinv = game.getCrystalChest(player.getName(), false);
-				
-				for(int i=0; i<crystalItems.length; i++) {
-					ItemStack cit = ItemHandler.decodeItem(crystalItems[i]);
-					if(cit!=null) {
-						cinv.addItem(cit);
-					}
+		//crystalchest items
+		//if(DvZ.getStaticConfig().getString("crystal_storage","0").equals("1")) {
+			Inventory cinv = game.getCrystalChest(player.getName(), false);
+
+			for(int i=0; i<crystalItems.length; i++) {
+				ItemStack cit = ItemHandler.decodeItem(crystalItems[i]);
+				if(cit!=null) {
+					cinv.addItem(cit);
 				}
 			}
-		}
+		//}
+		//}
 		
 		DvZ.updateInventory(player);
 	}

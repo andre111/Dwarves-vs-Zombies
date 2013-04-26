@@ -33,8 +33,7 @@ commands_onEnd: []
 friendly_fire: false
 # No PvP around Spawn(Range) 0=disabled
 spawn_nopvp: 0
-# 0: disabled - 1: per Player - 2: One chest per game(for all dwarves, currently not saved)
-crystal_storage: 1
+# crystal chest is no longer a global config option, but a custom item
 autoadd_players: false
 # Automatically add all Players again when a game ends
 auto_rejoin: false
@@ -221,6 +220,9 @@ disables_crafts_type2:
 # chance_enderman: 5
 # chance_cat: 5
 # chance_hungrypig: 5
+# 
+# crystal chest is no longer a global config option, but a custom item
+# crystal_storage: 1
 # 
 # CHANGED TO MONSTERS.YML
 # Hint: You should also change the name in the language file!

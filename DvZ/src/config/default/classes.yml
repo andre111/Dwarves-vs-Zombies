@@ -246,6 +246,7 @@ dwarves:
          - "internDwarfBow"
          - "internDwarfPotion"
          - "65 64"
+         - "crystalPerPlayer"
       effects: []
       damageBuff: 1
       disabledDamage: []
@@ -285,6 +286,7 @@ dwarves:
          - "17 64"
          - "29 3"
          - "69 1"
+         - "crystalPerPlayer"
       crystalItems:
          - "internDwarfSword"
          - "internDwarfBow"
@@ -337,6 +339,7 @@ dwarves:
          - "29 1"
          - "69 1"
          - "263 1"
+         - "crystalPerPlayer"
       crystalItems:
          - "internDwarfSword"
          - "internDwarfBow"

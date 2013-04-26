@@ -1055,7 +1055,8 @@ public class Game {
 		}
 		
 		if(isDwarf(pname) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
-		if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname, false), getCrystalChest(pname, true));
+		//crstal chest is no longer a global config option
+		//if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname, false), getCrystalChest(pname, true));
 		
 		//custom items
 		playerSpecialItemC(player, item, false, block, null);
