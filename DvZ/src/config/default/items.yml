@@ -188,7 +188,8 @@ items:
              - -2
    crystalPerPlayer:
      name: "Crystal Storage"
-     lore: []
+     lore: 
+       - "Right click to open your Crystal Storage"
      id: 388
      data: 0
      useUp: false
@@ -212,6 +213,39 @@ items:
            require: -1
            castVars:
              - 0
+         1:
+           cast: "ItemEffect"
+           require: -1
+           castVars:
+             - 1
+             - "15:60:0"
+   crystalGlobal:
+     name: "Crystal Storage"
+     lore:
+       - "Right click to open the global Crystal Storage"
+     id: 388
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds:
+         - "CHEST_OPEN:0.5:1:Caster"
+       cooldown: 0
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemCrystalStorage"
+           require: -1
+           castVars:
+             - 1
          1:
            cast: "ItemEffect"
            require: -1
