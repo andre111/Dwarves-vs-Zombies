@@ -61,7 +61,7 @@ public class Game {
 	public boolean monumentexists;
 	private String lastdwarf;
 	
-	private Inventory eciTest;
+	private Inventory globalCrystalChest;
 	private HashMap<String, Inventory> crystalPerPlayer = new HashMap<String, Inventory>();
 	
 	public HashMap<String, Integer> playerstate = new HashMap<String, Integer>();
@@ -142,7 +142,7 @@ public class Game {
 		
 		mana = new ManaManager();
 		
-		eciTest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		
 		plugin.waitm.close();
 		released = plugin.getConfig().getString("need_release", "false")=="false";
@@ -212,7 +212,7 @@ public class Game {
 		
 		mana.reset();
 		
-		eciTest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		
 		plugin.waitm.close();
 		released = plugin.getConfig().getString("need_release", "false")=="false";
@@ -1055,7 +1055,7 @@ public class Game {
 		}
 		
 		if(isDwarf(pname) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
-		if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname), eciTest);
+		if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname, false), getCrystalChest(pname, true));
 		
 		//custom items
 		playerSpecialItemC(player, item, false, block, null);
@@ -1489,10 +1489,14 @@ public class Game {
 		return -1;
 	}
 	
-	public Inventory getCrystalChest(String pname) {
-		if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
-		
-		return crystalPerPlayer.get(pname);
+	public Inventory getCrystalChest(String pname, boolean global) {
+		if(global) {
+			return globalCrystalChest;
+		} else {
+			if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
+			
+			return crystalPerPlayer.get(pname);
+		}
 	}
 	
 	public int getGameType() {

@@ -81,6 +81,11 @@
 # castVar0: self(1=true)
 # castVar1+: effectID:duration:level
 ######################################
+# "ItemCrystalStorage"
+# Opens the crystal storage
+#
+# castVar0: global(1=true, 0=per Player)
+######################################
 # ""
 # 
 #

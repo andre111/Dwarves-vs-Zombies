@@ -125,7 +125,7 @@ public class CustomDwarf {
 			
 			//crystalchest items
 			if(DvZ.getStaticConfig().getString("crystal_storage","0").equals("1")) {
-				Inventory cinv = game.getCrystalChest(player.getName());
+				Inventory cinv = game.getCrystalChest(player.getName(), false);
 				
 				for(int i=0; i<crystalItems.length; i++) {
 					ItemStack cit = ItemHandler.decodeItem(crystalItems[i]);
