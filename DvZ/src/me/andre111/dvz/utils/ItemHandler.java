@@ -152,8 +152,9 @@ public class ItemHandler {
 		inv.clear(inv.getSize() + 1);
 		inv.clear(inv.getSize() + 2);
 		inv.clear(inv.getSize() + 3);
-		if(plugin.getConfig().getString("crystal_storage", "0").equals("1"))
-			player.getEnderChest().clear();
+		//removed - crystal chest is no longer using enderchest
+		//if(plugin.getConfig().getString("crystal_storage", "0").equals("1"))
+		//	player.getEnderChest().clear();
 	}
 	
 	public static boolean isInvEmpty(Player player) {
@@ -169,14 +170,15 @@ public class ItemHandler {
 		    if(item.getAmount()>0)
 		      return false;
 		}
-		if(plugin.getConfig().getString("crystal_storage", "0").equals("1")) {
+		//removed - crystal chest is no longer using enderchest
+		/*if(plugin.getConfig().getString("crystal_storage", "0").equals("1")) {
 			for(ItemStack item : player.getEnderChest().getContents())
 			{
 			    if(item != null)
 			    if(item.getAmount()>0)
 			      return false;
 			}
-		}
+		}*/
 		
 		return true;
 	}

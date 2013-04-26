@@ -33,9 +33,8 @@ commands_onEnd: []
 friendly_fire: false
 # No PvP around Spawn(Range) 0=disabled
 spawn_nopvp: 0
-# WARNING: (Only when set to 1)This uses the Enderchest and deletes everything that is inside!
 # 0: disabled - 1: per Player - 2: One chest per game(for all dwarves, currently not saved)
-crystal_storage: 0
+crystal_storage: 1
 autoadd_players: false
 # Automatically add all Players again when a game ends
 auto_rejoin: false

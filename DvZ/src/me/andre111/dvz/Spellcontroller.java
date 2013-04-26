@@ -140,13 +140,13 @@ public class Spellcontroller {
 		}
 	}
 	
-	public static void spellEnderChest(Game game, Player player, Inventory chest) {
+	public static void spellEnderChest(Game game, Player player, Inventory chest, Inventory groupchest) {
 		if(plugin.getConfig().getString("crystal_storage", "0").equals("1")) {
-			player.openInventory(player.getEnderChest());
+			player.openInventory(chest);
 			player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*3, 0));
 			player.getWorld().playSound(player.getLocation(), Sound.CHEST_OPEN, 1, 1);
 		} else if(plugin.getConfig().getString("crystal_storage", "0").equals("2")) {
-			player.openInventory(chest);
+			player.openInventory(groupchest);
 			player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*3, 0));
 			player.getWorld().playSound(player.getLocation(), Sound.CHEST_OPEN, 1, 1);
 		}

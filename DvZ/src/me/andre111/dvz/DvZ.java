@@ -519,14 +519,12 @@ public class DvZ extends JavaPlugin {
 			if (getConfig().getString("autoadd_players","false")=="true" || autojoin) {
 				if(!game.released) {
 					game.setPlayerState(player.getName(), 2);
-					player.getInventory().clear();
 					player.sendMessage(getLanguage().getString("string_choose","Choose your class!"));
 					game.addDwarfItems(player);
 
 					game.broadcastMessage(getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replaceAll("-0-", player.getDisplayName()));
 				} else {
 					game.setPlayerState(player.getName(), 3);
-					player.getInventory().clear();
 					player.sendMessage(getLanguage().getString("string_choose","Choose your class!"));
 					game.addMonsterItems(player);
 

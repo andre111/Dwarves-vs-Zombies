@@ -61,6 +61,7 @@ public class Game {
 	private String lastdwarf;
 	
 	private Inventory eciTest;
+	private HashMap<String, Inventory> crystalPerPlayer = new HashMap<String, Inventory>();
 	
 	public HashMap<String, Integer> playerstate = new HashMap<String, Integer>();
 	//1 = nix
@@ -1067,7 +1068,11 @@ public class Game {
 		}
 		
 		if(isDwarf(pname) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
-		if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, eciTest);
+		if(isDwarf(pname) && itemId==388) {
+			if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
+			
+			Spellcontroller.spellEnderChest(this, player, crystalPerPlayer.get(pname), eciTest);
+		}
 		
 		//custom items
 		playerSpecialItemC(player, item, false, block, null);
