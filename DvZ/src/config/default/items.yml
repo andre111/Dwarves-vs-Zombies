@@ -97,10 +97,10 @@ items:
    firestaff:
      name: "Firestaff"
      lore:
-       - "§6The first custom item!"
-       - "§7This is just for testing"
-       - "Left: Splash §f(5s cooldown)"
-       - "Right: Fireleap §f(5s cooldown)"
+       - "&6The first custom item!"
+       - "&7This is just for testing"
+       - "Left: Splash &f(5s cooldown)"
+       - "Right: Fireleap &f(5s cooldown)"
      id: 369
      data: 0
      useUp: false
@@ -152,10 +152,10 @@ items:
    vampire:
      name: "Vampire"
      lore:
-       - "§6The second custom item!"
-       - "§7This is just for testing"
+       - "&6The second custom item!"
+       - "&7This is just for testing"
        - "Left: none"
-       - "Right: Lifesteal(1 Heart) §f(3s cooldown)"
+       - "Right: Lifesteal(1 Heart) &f(3s cooldown)"
      id: 369
      data: 0
      useUp: false

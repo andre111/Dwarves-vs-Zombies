@@ -2,7 +2,7 @@
 # Language/Texts
 # ----------------------------------------------------------------------------------
 # Welcome
-string_motd: "Willkommen auf diesem §1DvZ§f Server!"
+string_motd: "Willkommen auf diesem &1DvZ&f Server!"
 string_welcome: "Begrüßt -0- zu diesem Spiel!"
 string_autoadd: "-0- Automatisch als Dwarf zum Spiel hinzugefügt!"
 string_autoadd_m: "-0- Automatisch als Monster zum Spiel hinzugefügt!"
@@ -78,9 +78,9 @@ string_teleport_inactive: "Das Enderman Portal wurde deaktiviert!"
 string_teleport_success: "Du wurdest zum Enderman Portal teleportiert!"
 string_invulnarable: "Du bist für -0- unverwundbar!"
 # Lose
-string_lose_dwarf: "§4Game Over!§f Keine Dwarves mehr übrig!"
-string_lose_monument: "§4Game Over!§f Das Monument wurde zertört!"
-string_last_dwarf: "Letzter überlegender Dwarf - §e-0-§f! Gratulation!"
+string_lose_dwarf: "&4Game Over!&f Keine Dwarves mehr übrig!"
+string_lose_monument: "&4Game Over!&f Das Monument wurde zertört!"
+string_last_dwarf: "Letzter überlegender Dwarf - &e-0-&f! Gratulation!"
 string_destroy_monument: "Was machst du? Das ist deine Monument!"
 # Item Descriptions
 string_used_seconds: "Kann alle -0- Sekunden benutzt werden!"
@@ -105,7 +105,7 @@ string_tp_reset: "Welt wird resetet - Du wurdest zur Lobby teleportiert!"
 string_stats_killed_monsters: "Getötete Monster: "
 # Scoreboard
 scoreboard_stats: "Stats"
-scoreboard_mana: "§5Mana"
+scoreboard_mana: "&5Mana"
 scoreboard_dwarves: "Dwarves"
 scoreboard_monsters: "Monster"
 
@@ -138,5 +138,5 @@ scoreboard_monsters: "Monster"
 # string_need_clocks: "Du brauchst 3 Uhren! Schmelze Gold und Redstone und crafte es in Uhren!"
 # string_need_bread: "Du brauchst 3 Brote zum transmutieren! Benutze Knochenmehl um den Prozess zu beschleunigen!"
 #
-# string_chat_dwarf: "§3Dwarf§f>"
-# string_chat_monster: "§5Monster§f>"
+# string_chat_dwarf: "&3Dwarf&f>"
+# string_chat_monster: "&5Monster&f>"

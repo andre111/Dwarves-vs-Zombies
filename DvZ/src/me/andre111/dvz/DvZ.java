@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import me.andre111.dvz.config.DVZFileConfiguration;
 import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
@@ -37,7 +38,6 @@ import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -278,13 +278,13 @@ public class DvZ extends JavaPlugin {
 			} catch (IOException e) {}
 		}
 		DvZ.lang = this.getConfig().getString("language", "en_EN");
-		DvZ.langfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_"+lang+".yml"));
-		DvZ.configfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
-		DvZ.dragonsfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "dragons.yml"));
-		DvZ.classfile =  YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "classes.yml"));
-		DvZ.monsterfile =  YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "monster.yml"));
-		DvZ.itemfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "items.yml"));
-		DvZ.blockfile = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "blocks.yml"));
+		DvZ.langfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_"+lang+".yml"));
+		DvZ.configfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
+		DvZ.dragonsfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "dragons.yml"));
+		DvZ.classfile =  DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "classes.yml"));
+		DvZ.monsterfile =  DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "monster.yml"));
+		DvZ.itemfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "items.yml"));
+		DvZ.blockfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "blocks.yml"));
 	
 		loadConfigs();
 	}
