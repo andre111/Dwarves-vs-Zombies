@@ -241,12 +241,12 @@ dwarves:
       items: 
          - "278 1"
          - "277 1"
+         - "crystalPerPlayer"
       crystalItems:
          - "internDwarfSword"
          - "internDwarfBow"
          - "internDwarfPotion"
          - "65 64"
-         - "crystalPerPlayer"
       effects: []
       damageBuff: 1
       disabledDamage: []
