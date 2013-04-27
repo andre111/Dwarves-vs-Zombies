@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Random;
 
 import me.andre111.dvz.dragon.PlayerDragon;
+import me.andre111.dvz.generator.QuarryGenerator;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Slapi;
 
@@ -78,10 +79,11 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			
 			//Fireworks.spawnTest(player.getLocation());
 			
-			if(args.length>0)
+			/*if(args.length>0)
 				DvZ.dragonAtManager.castFromPlayer(player, Integer.parseInt(args[0]));
 			else
-				player.sendMessage("Please specify Dragonattck ID");
+				player.sendMessage("Please specify Dragonattck ID");*/
+			QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
 			
 			
 			//DvZ.disguiseP(player, new Disguise(0, "", DisguiseType.Spider));
