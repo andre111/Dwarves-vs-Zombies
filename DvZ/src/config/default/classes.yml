@@ -283,7 +283,7 @@ dwarves:
          - "278 1"
          - "277 1"
          - "279 1"
-         - "17 64"
+         - "155 64"
          - "29 3"
          - "69 1"
          - "crystalPerPlayer"
@@ -313,8 +313,8 @@ dwarves:
          items: []
       piston:
          enable: true
-         aboveID: 17
-         belowID: 17
+         aboveID: 155
+         belowID: 155
          change:
             - "5 53"
             - "53 126"
