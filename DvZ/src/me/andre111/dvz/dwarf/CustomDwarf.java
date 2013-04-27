@@ -2,6 +2,7 @@ package me.andre111.dvz.dwarf;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
@@ -52,7 +53,7 @@ public class CustomDwarf {
 	private boolean pistonEnabled;
 	private int pistonBlockAbove;
 	private int pistonBlockBelow;
-	private LinkedHashMap<Integer, Integer> pistonChange;
+	private List<String> pistonChange;
 	//rightclick
 	private ArrayList<String> transmuteItems;
 	
@@ -395,11 +396,11 @@ public class CustomDwarf {
 		this.pistonBlockBelow = pistonBlockBelow;
 	}
 
-	public LinkedHashMap<Integer, Integer> getPistonChange() {
+	public List<String> getPistonChange() {
 		return pistonChange;
 	}
 
-	public void setPistonChange(LinkedHashMap<Integer, Integer> pistonChange) {
+	public void setPistonChange(List<String> pistonChange) {
 		this.pistonChange = pistonChange;
 	}
 

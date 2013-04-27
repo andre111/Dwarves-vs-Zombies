@@ -64,19 +64,34 @@ public class PistonManager {
 		}
 	}
 	
-	private static void transform(BlockPistonExtendEvent event, final Location loc, final double maxD, final List<Block> blist, final LinkedHashMap<Integer, Integer> changeList) {
+	private static void transform(BlockPistonExtendEvent event, final Location loc, final double maxD, final List<Block> blist, final List<String> changeList) {
 		if(called>0) {
 			called -= 1;
 			return;
 		} else {
 			for(Block b : blist) {
-				for(Map.Entry<Integer, Integer> e : changeList.entrySet()) {
-					if(b.getTypeId()==e.getKey()) {
+				for(String st : changeList) {
+					int originalID = 1;
+					int originalData = 0;
+					int targetID = 1;
+					int targetData = 0;
+					
+					String split[] = st.split(" ");
+					String original[] = split[0].split(":");
+					originalID = Integer.parseInt(original[0]);
+					if(original.length>1) originalData = Integer.parseInt(original[1]);
+					
+					String target[] = split[1].split(":");
+					targetID = Integer.parseInt(target[0]);
+					if(target.length>1) targetData = Integer.parseInt(target[1]);
+					
+					if(b.getTypeId()==originalID && b.getData()==originalData) {
 						//in radius?
 						if(b.getLocation().distanceSquared(loc)<=maxD) {
 							called = 1;
 							//important -> disable cainreation before setting the block
-							b.setTypeId(e.getValue());
+							b.setTypeId(targetID);
+							b.setData((byte) targetData);
 							break;
 						}
 					}

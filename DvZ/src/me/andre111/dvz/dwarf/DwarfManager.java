@@ -79,13 +79,7 @@ public class DwarfManager {
 		dwTemp.setPistonEnabled(DvZ.getClassFile().getBoolean("dwarves."+dw+".piston.enable", false));
 		dwTemp.setPistonBlockAbove(DvZ.getClassFile().getInt("dwarves."+dw+".piston.aboveID", 0));
 		dwTemp.setPistonBlockBelow(DvZ.getClassFile().getInt("dwarves."+dw+".piston.belowID", 0));
-		LinkedHashMap<Integer, Integer> pistonChange = new LinkedHashMap<Integer, Integer>();
-		List<String> pSt = DvZ.getClassFile().getStringList("dwarves."+dw+".piston.change");
-		for(String pString : pSt) {
-			String[] split = pString.split(" ");
-			pistonChange.put(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
-		}
-		dwTemp.setPistonChange(pistonChange);
+		dwTemp.setPistonChange(DvZ.getClassFile().getStringList("dwarves."+dw+".piston.change"));
 		
 		//itemtransmute
 		List<String> tSt = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmute");
