@@ -143,6 +143,7 @@ public class Game {
 		mana = new ManaManager();
 		
 		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		crystalPerPlayer.clear();
 		
 		plugin.waitm.close();
 		released = plugin.getConfig().getString("need_release", "false")=="false";
@@ -213,6 +214,7 @@ public class Game {
 		mana.reset();
 		
 		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		crystalPerPlayer.clear();
 		
 		plugin.waitm.close();
 		released = plugin.getConfig().getString("need_release", "false")=="false";
