@@ -225,6 +225,9 @@ public class CustomDwarf {
 						item.setAmount(item.getAmount()-1);
 
 					player.setItemInHand(item);
+					
+					//update the invventory, because it is glitchy
+					DvZ.updateInventory(player);
 
 					return true;
 				}
@@ -282,6 +285,9 @@ public class CustomDwarf {
 						else
 							item.setAmount(item.getAmount()-1);
 						inv.setItem(i, item);
+						
+						//update the invventory, because it is glitchy
+						DvZ.updateInventory(player);
 						
 						//break for loop
 						i = 10000;
