@@ -49,13 +49,6 @@ public class PistonManager {
 				CustomDwarf cd = DvZ.dwarfManager.getDwarf(dSt);
 				
 				if(cd.isPistonEnabled()) {
-					if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=cd.getPistonBlockBelow()) {
-						return;
-					}
-					if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=cd.getPistonBlockAbove()) {
-						return;
-					}
-					
 					transform(event, loc, maxD, blist, cd.getPistonChange());
 				}
 			}
@@ -75,11 +68,19 @@ public class PistonManager {
 					int targetData = 0;
 					
 					String split[] = st.split(" ");
-					String original[] = split[0].split(":");
+					
+					if(loc.clone().subtract(0, 1, 0).getBlock().getTypeId()!=Integer.parseInt(split[0])) {
+						return;
+					}
+					if(loc.clone().subtract(0, -2, 0).getBlock().getTypeId()!=Integer.parseInt(split[1])) {
+						return;
+					}
+					
+					String original[] = split[2].split(":");
 					originalID = Integer.parseInt(original[0]);
 					if(original.length>1) originalData = Integer.parseInt(original[1]);
 					
-					String target[] = split[1].split(":");
+					String target[] = split[3].split(":");
 					targetID = Integer.parseInt(target[0]);
 					if(target.length>1) targetData = Integer.parseInt(target[1]);
 					

@@ -15,6 +15,14 @@ effects:
 # WARNING: Do not change name or lore of custom Items or they will not work!
 # ----------------------------------------------------------------------------------
 
+# transmuteRightClick and transmuteBlockBreak format:
+# 
+# "blockIdAbove;blockIdBelow;itemId:data;blockid:data;soundname_or-1:volume;item1;item2;..."
+# blockIdAbove;blockIdBelow are the blocks the house ust be build of and the player standing in
+
+# pistion change format:
+# "blockIdAbove blockIdBelow blockID:Data targetID:data
+
 # gameType:
 ######################################
 # On which game should the class be availabe
@@ -76,9 +84,10 @@ dwarves:
             - "4 64 40"
       piston:
          enable: false
-         aboveID: 0
-         belowID: 0
          change: []
+      specialitems:
+         transmuteRightClick: []
+         transmuteBlockBreak: []
    1: 
       name: "Alchemy Dwarf"
       chatprefix: ""
@@ -128,9 +137,10 @@ dwarves:
             - "373:8259 1 5"
       piston:
          enable: false
-         aboveID: 0
-         belowID: 0
          change: []
+      specialitems:
+         transmuteRightClick: []
+         transmuteBlockBreak: []
    2: 
       name: "Blacksmith Dwarf"
       chatprefix: ""
@@ -179,9 +189,10 @@ dwarves:
             - "318 32 50"
       piston:
          enable: false
-         aboveID: 0
-         belowID: 0
          change: []
+      specialitems:
+         transmuteRightClick: []
+         transmuteBlockBreak: []
    3: 
       name: "Tailor Dwarf"
       chatprefix: ""
@@ -227,9 +238,10 @@ dwarves:
             - "313 1:2 40"
       piston:
          enable: false
-         aboveID: 0
-         belowID: 0
          change: []
+      specialitems:
+         transmuteRightClick: []
+         transmuteBlockBreak: []
    4: 
       name: "Builder Dwarf"
       chatprefix: ""
@@ -268,9 +280,10 @@ dwarves:
          items: []
       piston:
          enable: false
-         aboveID: 0
-         belowID: 0
          change: []
+      specialitems:
+         transmuteRightClick: []
+         transmuteBlockBreak: []
    5: 
       name: "Lumberjack Dwarf"
       chatprefix: ""
@@ -313,15 +326,13 @@ dwarves:
          items: []
       piston:
          enable: true
-         aboveID: 155
-         belowID: 155
          change:
-            - "5 53"
-            - "53 126"
-            - "126 85"
-            - "85 35:12"
-            - "35:12 35:7"
-            - "35:7 35:8"
+            - "155 155 5 53"
+            - "155 155 53 126"
+            - "155 155 126 85"
+            - "155 155 85 35:12"
+            - "155 155 35:12 35:7"
+            - "155 155 35:7 35:8"
       specialitems:
          transmute: []
    7: 
@@ -367,21 +378,17 @@ dwarves:
          items: []
       piston:
          enable: false
-         aboveID: 112
-         belowID: 112
          change: []
       specialitems:
-         aboveID: 112
-         belowID: 112
          transmuteRightClick: 
-            # - "348:0;51:0;-1;371:0 1 50" its in transmuteBlockBreak now
-            - "371:0;34:9;ANVIL_LAND:0.2;351:14 1 25"
-            - "351:14;118:3;SWIM:0.2;266:0 1 75"
-            - "266:0;29:1;ANVIL_LAND:0.2;264 1 100 -1:0 Armor"
-            - "263:0;34:9;ANVIL_LAND:0.2;259:0"
+            # - "112;112;348:0;51:0;-1;371:0 1 50" its in transmuteBlockBreak now
+            - "112;112;371:0;34:9;ANVIL_LAND:0.2;351:14 1 25"
+            - "112;112;351:14;118:3;SWIM:0.2;266:0 1 75"
+            - "112;112;266:0;29:1;ANVIL_LAND:0.2;264 1 100 -1:0 Armor"
+            - "112;112;263:0;34:9;ANVIL_LAND:0.2;259:0"
          transmuteBlockBreak:
-            # - "348:0;51:0;-1;371:0 1 50" fire is broken right now
-            - "348:0;112:0;-1;371:0 1 50"
+            # - "112;112;348:0;51:0;-1;371:0 1 50" fire is broken right now
+            - "112;112;348:0;112:0;-1;371:0 1 50"
 
  # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)

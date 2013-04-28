@@ -76,13 +76,9 @@ public class DwarfManager {
 		
 		//piston
 		dwTemp.setPistonEnabled(DvZ.getClassFile().getBoolean("dwarves."+dw+".piston.enable", false));
-		dwTemp.setPistonBlockAbove(DvZ.getClassFile().getInt("dwarves."+dw+".piston.aboveID", 0));
-		dwTemp.setPistonBlockBelow(DvZ.getClassFile().getInt("dwarves."+dw+".piston.belowID", 0));
 		dwTemp.setPistonChange(DvZ.getClassFile().getStringList("dwarves."+dw+".piston.change"));
 		
 		//itemtransmute
-		dwTemp.setItemBlockAbove(DvZ.getClassFile().getInt("dwarves."+dw+".specialitems.aboveID", 0));
-		dwTemp.setItemBlockBelow(DvZ.getClassFile().getInt("dwarves."+dw+".specialitems.belowID", 0));
 		List<String> tSt = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmuteRightClick");
 		ArrayList<String> tiSt = new ArrayList<String>();
 		tiSt.addAll(tSt);

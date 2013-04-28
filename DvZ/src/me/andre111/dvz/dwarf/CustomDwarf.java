@@ -51,14 +51,10 @@ public class CustomDwarf {
 	private String[] spellItems;
 	//piston
 	private boolean pistonEnabled;
-	private int pistonBlockAbove;
-	private int pistonBlockBelow;
 	private List<String> pistonChange;
 	//rightclick
 	private ArrayList<String> transmuteItems;
 	private ArrayList<String> transmuteBreakItems;
-	private int itemBlockAbove;
-	private int itemBlockBelow;
 	
 	//become custom Monster
 	public void becomeDwarf(Game game, Player player) {
@@ -185,28 +181,28 @@ public class CustomDwarf {
 	}
 	
 	public boolean transmuteItemOnBlock(Game game, Player player, ItemStack item, Block block) {
-		//player block check
-		if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=getItemBlockBelow()) {
-			return false;
-		}
-		if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=getItemBlockAbove()) {
-			return false;
-		}
-		
 		for(String st : getTransmuteItems()) {
 			String[] split = st.split(";");
 			
+			//player block check
+			if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=Integer.parseInt(split[0])) {
+				continue;
+			}
+			if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=Integer.parseInt(split[1])) {
+				continue;
+			}
+			
 			//is it the right item?
-			String[] itemSt = split[0].split(":");
+			String[] itemSt = split[2].split(":");
 			if(Integer.parseInt(itemSt[0])==item.getTypeId() && Integer.parseInt(itemSt[1])==item.getDurability()) {
 				//right block clicked?
-				String[] bSt = split[1].split(":");
+				String[] bSt = split[3].split(":");
 				//also check block above(for fire and other not clickable blocks)
 				Block above = block.getRelative(0, 1, 0);
 				if((Integer.parseInt(bSt[0])==block.getTypeId() && Integer.parseInt(bSt[1])==block.getData()) 
 				  || (Integer.parseInt(bSt[0])==above.getTypeId() && Integer.parseInt(bSt[1])==above.getData())) {
 					//sound
-					String[] sound = split[2].split(":");
+					String[] sound = split[4].split(":");
 					String sId = "-1";
 					float volume = 1;
 					float pitch = 1;
@@ -220,7 +216,7 @@ public class CustomDwarf {
 					}
 					
 					//drop item
-					ItemStack it = ItemHandler.decodeItem(split[3]);
+					ItemStack it = ItemHandler.decodeItem(split[5]);
 					if(it!=null) {
 						player.getWorld().dropItemNaturally(player.getLocation(), it);
 					}
@@ -242,21 +238,21 @@ public class CustomDwarf {
 	}
 	
 	public boolean transmuteItemOnBreak(Game game, Player player, Block block) {
-		//player block check
-		if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=getItemBlockBelow()) {
-			return false;
-		}
-		if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=getItemBlockAbove()) {
-			return false;
-		}
-		
 		for(String st : getTransmuteBreakItems()) {
 			String[] split = st.split(";");
 			
-			String[] itemSt = split[0].split(":");
+			//player block check
+			if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=Integer.parseInt(split[0])) {
+				continue;
+			}
+			if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=Integer.parseInt(split[1])) {
+				continue;
+			}
+			
+			String[] itemSt = split[2].split(":");
 			PlayerInventory inv = player.getInventory();
 			//right block clicked?
-			String[] bSt = split[1].split(":");
+			String[] bSt = split[3].split(":");
 			if(Integer.parseInt(bSt[0])==block.getTypeId() && Integer.parseInt(bSt[1])==block.getData())  {
 				//whole inventory
 				for(int i=0; i<inv.getSize(); i++) {
@@ -264,7 +260,7 @@ public class CustomDwarf {
 					if(item!=null)
 					if(Integer.parseInt(itemSt[0])==item.getTypeId() && Integer.parseInt(itemSt[1])==item.getDurability()) {
 						//sound
-						String[] sound = split[2].split(":");
+						String[] sound = split[4].split(":");
 						String sId = "-1";
 						float volume = 1;
 						float pitch = 1;
@@ -278,7 +274,7 @@ public class CustomDwarf {
 						}
 						
 						//drop item
-						ItemStack it = ItemHandler.decodeItem(split[3]);
+						ItemStack it = ItemHandler.decodeItem(split[5]);
 						if(it!=null) {
 							player.getWorld().dropItemNaturally(player.getLocation(), it);
 						}
@@ -472,18 +468,6 @@ public class CustomDwarf {
 	public void setPistonEnabled(boolean pistonEnabled) {
 		this.pistonEnabled = pistonEnabled;
 	}
-	public int getPistonBlockAbove() {
-		return pistonBlockAbove;
-	}
-	public void setPistonBlockAbove(int pistonBlockAbove) {
-		this.pistonBlockAbove = pistonBlockAbove;
-	}
-	public int getPistonBlockBelow() {
-		return pistonBlockBelow;
-	}
-	public void setPistonBlockBelow(int pistonBlockBelow) {
-		this.pistonBlockBelow = pistonBlockBelow;
-	}
 	public List<String> getPistonChange() {
 		return pistonChange;
 	}
@@ -500,21 +484,7 @@ public class CustomDwarf {
 	public ArrayList<String> getTransmuteBreakItems() {
 		return transmuteBreakItems;
 	}
-
 	public void setTransmuteBreakItems(ArrayList<String> transmuteBreakItems) {
 		this.transmuteBreakItems = transmuteBreakItems;
-	}
-
-	public int getItemBlockAbove() {
-		return itemBlockAbove;
-	}
-	public void setItemBlockAbove(int itemBlockAbove) {
-		this.itemBlockAbove = itemBlockAbove;
-	}
-	public int getItemBlockBelow() {
-		return itemBlockBelow;
-	}
-	public void setItemBlockBelow(int itemBlockBelow) {
-		this.itemBlockBelow = itemBlockBelow;
 	}
 }

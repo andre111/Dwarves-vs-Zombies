@@ -299,7 +299,21 @@ items:
        cooldown: 0
        mana:
          cost: 0
-       casts: []
+       casts:
+         0:
+           cast: "ItemReplace"
+           require: -1
+           castVars:
+             - 2
+             - "4:0"
+             - "98:0"
+         1:
+           cast: "ItemReplace"
+           require: -1
+           castVars:
+             - 2
+             - "98:2"
+             - "98:0"
      rightclick:
        effects: 
          - "POTION_BREAK:8270:Caster"
