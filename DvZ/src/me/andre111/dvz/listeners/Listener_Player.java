@@ -17,6 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -147,6 +148,12 @@ public class Listener_Player implements Listener  {
 			}
 			else if(action==Action.LEFT_CLICK_BLOCK) {
 				game.playerLC(player, item, event.getClickedBlock());
+				
+				//"breaking" fire
+				Block relative = event.getClickedBlock().getRelative(event.getBlockFace());
+				if(relative.getType()==Material.FIRE) {
+					game.playerBreakBlock(player, relative);
+				}
 			}
 		}
 	}

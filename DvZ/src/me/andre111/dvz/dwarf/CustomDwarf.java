@@ -197,38 +197,35 @@ public class CustomDwarf {
 			if(Integer.parseInt(itemSt[0])==item.getTypeId() && Integer.parseInt(itemSt[1])==item.getDurability()) {
 				//right block clicked?
 				String[] bSt = split[3].split(":");
-				//also check block above(for fire and other not clickable blocks)
-				Block above = block.getRelative(0, 1, 0);
-				if((Integer.parseInt(bSt[0])==block.getTypeId() && Integer.parseInt(bSt[1])==block.getData()) 
-				  || (Integer.parseInt(bSt[0])==above.getTypeId() && Integer.parseInt(bSt[1])==above.getData())) {
+				if(Integer.parseInt(bSt[0])==block.getTypeId() && (Integer.parseInt(bSt[1])==block.getData() || Integer.parseInt(bSt[1])==-1)) {
 					//sound
 					String[] sound = split[4].split(":");
 					String sId = "-1";
 					float volume = 1;
 					float pitch = 1;
-					
+
 					sId = sound[0];
 					if(sound.length>1) volume = Float.parseFloat(sound[1]);
 					if(sound.length>2) pitch = Float.parseFloat(sound[2]);
-					
+
 					if(!sId.equals("-1")) {
 						player.getWorld().playSound(player.getLocation(), Sound.valueOf(sId), volume, pitch);
 					}
-					
+
 					//drop item
 					ItemStack it = ItemHandler.decodeItem(split[5]);
 					if(it!=null) {
 						player.getWorld().dropItemNaturally(player.getLocation(), it);
 					}
-					
+
 					//substract item
 					if(item.getAmount()-1<=0)
 						item.setTypeId(0);
 					else
 						item.setAmount(item.getAmount()-1);
-				
+
 					player.setItemInHand(item);
-					
+
 					return true;
 				}
 			}
@@ -253,7 +250,7 @@ public class CustomDwarf {
 			PlayerInventory inv = player.getInventory();
 			//right block clicked?
 			String[] bSt = split[3].split(":");
-			if(Integer.parseInt(bSt[0])==block.getTypeId() && Integer.parseInt(bSt[1])==block.getData())  {
+			if(Integer.parseInt(bSt[0])==block.getTypeId() && (Integer.parseInt(bSt[1])==block.getData() || Integer.parseInt(bSt[1])==-1))  {
 				//whole inventory
 				for(int i=0; i<inv.getSize(); i++) {
 					ItemStack item  = inv.getItem(i);

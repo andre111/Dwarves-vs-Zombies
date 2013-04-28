@@ -381,14 +381,13 @@ dwarves:
          change: []
       specialitems:
          transmuteRightClick: 
-            # - "112;112;348:0;51:0;-1;371:0 1 50" its in transmuteBlockBreak now
+            # - "112;112;348:0;51:-1;-1;371:0 1 50" its in transmuteBlockBreak now
             - "112;112;371:0;34:9;ANVIL_LAND:0.2;351:14 1 25"
             - "112;112;351:14;118:3;SWIM:0.2;266:0 1 75"
             - "112;112;266:0;29:1;ANVIL_LAND:0.2;264 1 100 -1:0 Armor"
             - "112;112;263:0;34:9;ANVIL_LAND:0.2;259:0"
          transmuteBlockBreak:
-            # - "112;112;348:0;51:0;-1;371:0 1 50" fire is broken right now
-            - "112;112;348:0;112:0;-1;371:0 1 50"
+            - "112;112;348:0;51:-1;-1;371:0 1 50"
 
  # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)
