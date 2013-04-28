@@ -81,10 +81,16 @@ public class DwarfManager {
 		dwTemp.setPistonChange(DvZ.getClassFile().getStringList("dwarves."+dw+".piston.change"));
 		
 		//itemtransmute
-		List<String> tSt = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmute");
+		dwTemp.setItemBlockAbove(DvZ.getClassFile().getInt("dwarves."+dw+".specialitems.aboveID", 0));
+		dwTemp.setItemBlockBelow(DvZ.getClassFile().getInt("dwarves."+dw+".specialitems.belowID", 0));
+		List<String> tSt = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmuteRightClick");
 		ArrayList<String> tiSt = new ArrayList<String>();
 		tiSt.addAll(tSt);
 		dwTemp.setTransmuteItems(tiSt);
+		List<String> tSt2 = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmuteBlockBreak");
+		ArrayList<String> tiSt2 = new ArrayList<String>();
+		tiSt2.addAll(tSt2);
+		dwTemp.setTransmuteBreakItems(tiSt2);
 		
 		dwarves[dwarfCounter] = dwTemp;
 		dwarfCounter++;

@@ -288,7 +288,7 @@ items:
              - "312 1"
              - "313 1"
    internConcrete:
-     name: "Cement"
+     name: "Dwarven Glue"
      lore: []
      id: 351
      data: 8

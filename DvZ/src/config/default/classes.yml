@@ -319,7 +319,9 @@ dwarves:
             - "5 53"
             - "53 126"
             - "126 85"
-            - "85 35"
+            - "85 35:12"
+            - "35:12 35:7"
+            - "35:7 35:8"
       specialitems:
          transmute: []
    7: 
@@ -338,7 +340,6 @@ dwarves:
          - "325 1"
          - "29 1"
          - "69 1"
-         - "263 1"
          - "crystalPerPlayer"
       crystalItems:
          - "internDwarfSword"
@@ -365,16 +366,22 @@ dwarves:
          exp: 6
          items: []
       piston:
-         enable: true
+         enable: false
          aboveID: 112
          belowID: 112
-         change:
-            - "41 57"
+         change: []
       specialitems:
-         transmute: 
-            - "348:1 51:0 351:14"
-            - "351:14 118:3 41:0"
-            - "263:0 34:9 259:0"
+         aboveID: 112
+         belowID: 112
+         transmuteRightClick: 
+            # - "348:0;51:0;-1;371:0 1 50" its in transmuteBlockBreak now
+            - "371:0;34:9;ANVIL_LAND:0.2;351:14 1 25"
+            - "351:14;118:3;SWIM:0.2;266:0 1 75"
+            - "266:0;29:1;ANVIL_LAND:0.2;264 1 100 -1:0 Armor"
+            - "263:0;34:9;ANVIL_LAND:0.2;259:0"
+         transmuteBlockBreak:
+            # - "348:0;51:0;-1;371:0 1 50" fire is broken right now
+            - "348:0;112:0;-1;371:0 1 50"
 
  # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)

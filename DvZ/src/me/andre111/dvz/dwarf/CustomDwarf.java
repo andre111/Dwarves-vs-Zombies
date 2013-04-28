@@ -8,6 +8,7 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.utils.ItemHandler;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -55,6 +56,9 @@ public class CustomDwarf {
 	private List<String> pistonChange;
 	//rightclick
 	private ArrayList<String> transmuteItems;
+	private ArrayList<String> transmuteBreakItems;
+	private int itemBlockAbove;
+	private int itemBlockBelow;
 	
 	//become custom Monster
 	public void becomeDwarf(Game game, Player player) {
@@ -181,8 +185,16 @@ public class CustomDwarf {
 	}
 	
 	public boolean transmuteItemOnBlock(Game game, Player player, ItemStack item, Block block) {
+		//player block check
+		if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=getItemBlockBelow()) {
+			return false;
+		}
+		if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=getItemBlockAbove()) {
+			return false;
+		}
+		
 		for(String st : getTransmuteItems()) {
-			String[] split = st.split(" ");
+			String[] split = st.split(";");
 			
 			//is it the right item?
 			String[] itemSt = split[0].split(":");
@@ -193,12 +205,94 @@ public class CustomDwarf {
 				Block above = block.getRelative(0, 1, 0);
 				if((Integer.parseInt(bSt[0])==block.getTypeId() && Integer.parseInt(bSt[1])==block.getData()) 
 				  || (Integer.parseInt(bSt[0])==above.getTypeId() && Integer.parseInt(bSt[1])==above.getData())) {
-					//change item
-					String[] newItem = split[2].split(":");
-					item.setTypeId(Integer.parseInt(newItem[0]));
-					item.setDurability((short) Integer.parseInt(newItem[1]));
+					//sound
+					String[] sound = split[2].split(":");
+					String sId = "-1";
+					float volume = 1;
+					float pitch = 1;
+					
+					sId = sound[0];
+					if(sound.length>1) volume = Float.parseFloat(sound[1]);
+					if(sound.length>2) pitch = Float.parseFloat(sound[2]);
+					
+					if(!sId.equals("-1")) {
+						player.getWorld().playSound(player.getLocation(), Sound.valueOf(sId), volume, pitch);
+					}
+					
+					//drop item
+					ItemStack it = ItemHandler.decodeItem(split[3]);
+					if(it!=null) {
+						player.getWorld().dropItemNaturally(player.getLocation(), it);
+					}
+					
+					//substract item
+					if(item.getAmount()-1<=0)
+						item.setTypeId(0);
+					else
+						item.setAmount(item.getAmount()-1);
+				
+					player.setItemInHand(item);
 					
 					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean transmuteItemOnBreak(Game game, Player player, Block block) {
+		//player block check
+		if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=getItemBlockBelow()) {
+			return false;
+		}
+		if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=getItemBlockAbove()) {
+			return false;
+		}
+		
+		for(String st : getTransmuteBreakItems()) {
+			String[] split = st.split(";");
+			
+			String[] itemSt = split[0].split(":");
+			PlayerInventory inv = player.getInventory();
+			//right block clicked?
+			String[] bSt = split[1].split(":");
+			if(Integer.parseInt(bSt[0])==block.getTypeId() && Integer.parseInt(bSt[1])==block.getData())  {
+				//whole inventory
+				for(int i=0; i<inv.getSize(); i++) {
+					ItemStack item  = inv.getItem(i);
+					if(item!=null)
+					if(Integer.parseInt(itemSt[0])==item.getTypeId() && Integer.parseInt(itemSt[1])==item.getDurability()) {
+						//sound
+						String[] sound = split[2].split(":");
+						String sId = "-1";
+						float volume = 1;
+						float pitch = 1;
+						
+						sId = sound[0];
+						if(sound.length>1) volume = Float.parseFloat(sound[1]);
+						if(sound.length>2) pitch = Float.parseFloat(sound[2]);
+						
+						if(!sId.equals("-1")) {
+							player.getWorld().playSound(player.getLocation(), Sound.valueOf(sId), volume, pitch);
+						}
+						
+						//drop item
+						ItemStack it = ItemHandler.decodeItem(split[3]);
+						if(it!=null) {
+							player.getWorld().dropItemNaturally(player.getLocation(), it);
+						}
+						
+						//substract item
+						if(item.getAmount()-1<=0)
+							item.setTypeId(0);
+						else
+							item.setAmount(item.getAmount()-1);
+						inv.setItem(i, item);
+						
+						//break for loop
+						i = 10000;
+					}
 				}
 			}
 		}
@@ -378,36 +472,49 @@ public class CustomDwarf {
 	public void setPistonEnabled(boolean pistonEnabled) {
 		this.pistonEnabled = pistonEnabled;
 	}
-
 	public int getPistonBlockAbove() {
 		return pistonBlockAbove;
 	}
-
 	public void setPistonBlockAbove(int pistonBlockAbove) {
 		this.pistonBlockAbove = pistonBlockAbove;
 	}
-
 	public int getPistonBlockBelow() {
 		return pistonBlockBelow;
 	}
-
 	public void setPistonBlockBelow(int pistonBlockBelow) {
 		this.pistonBlockBelow = pistonBlockBelow;
 	}
-
 	public List<String> getPistonChange() {
 		return pistonChange;
 	}
-
 	public void setPistonChange(List<String> pistonChange) {
 		this.pistonChange = pistonChange;
 	}
-
+	//items
 	public ArrayList<String> getTransmuteItems() {
 		return transmuteItems;
 	}
-
 	public void setTransmuteItems(ArrayList<String> transmuteItems) {
 		this.transmuteItems = transmuteItems;
+	}
+	public ArrayList<String> getTransmuteBreakItems() {
+		return transmuteBreakItems;
+	}
+
+	public void setTransmuteBreakItems(ArrayList<String> transmuteBreakItems) {
+		this.transmuteBreakItems = transmuteBreakItems;
+	}
+
+	public int getItemBlockAbove() {
+		return itemBlockAbove;
+	}
+	public void setItemBlockAbove(int itemBlockAbove) {
+		this.itemBlockAbove = itemBlockAbove;
+	}
+	public int getItemBlockBelow() {
+		return itemBlockBelow;
+	}
+	public void setItemBlockBelow(int itemBlockBelow) {
+		this.itemBlockBelow = itemBlockBelow;
 	}
 }

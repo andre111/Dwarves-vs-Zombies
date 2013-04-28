@@ -70,6 +70,7 @@ public class Listener_Block implements Listener {
 		
 		if(event.isCancelled()) return;
 		BlockManager.onBlockBreak(event);
+		game.playerBreakBlock(player, event.getBlock());
 	}
 	
 	//test for changing block when moved by a piston

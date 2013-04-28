@@ -1156,6 +1156,14 @@ public class Game {
 		}
 	}
 	
+	public void playerBreakBlock(Player player, Block block) {
+		if(isDwarf(player.getName())) {
+			int dId = getPlayerState(player.getName()) - Game.dwarfMin;
+			CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
+			cd.transmuteItemOnBreak(this, player, block);
+		}
+	}
+	
 	//#######################################
 	//Anfang des Spieles Spieler hizufügen
 	//#######################################
@@ -1479,6 +1487,7 @@ public class Game {
 		spell3time.put(player, 0);
 		spell4time.put(player, 0);
 		invultimer.remove(player);
+		crystalPerPlayer.remove(player);
 	}
 	
 	public void setCustomCooldown(String player, String name, int time) {
