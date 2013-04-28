@@ -19,10 +19,21 @@ public abstract class QuarryGenerator {
 		BasicGenerator.generateCylinder(world, x, y, z, radius+4, depth, 1, (byte) 0);
 		
 		//basic gravel stuff
-		boolean gravel = false; //true; //disbaled for testing
+		boolean gravel = true; //true; //disbaled for testing
 		BasicGenerator.generateCylinder(world, x, y, z, radius, depth, gravel ? 13 : 0, (byte) 0);
 	
+		//ores
 		generateOreRing(world, x, y, z, radius+1, depth);
+		
+		//top
+		if(gravel) {
+			generateTop(world, x, y, z, radius-2, depth, 2, 8);
+			generateTop(world, x, y, z, radius, depth, 2, 6);
+			generateTop(world, x, y, z, radius+2, depth, 2, 4);
+			generateTop(world, x, y-2, z, radius+4, depth, 3, 5);
+			generateTop(world, x, y-2, z, radius+5, depth, 2, 4);
+			generateTop(world, x, y-3, z, radius+6, depth, 2, 4);
+		}
 		
 		//Obsidian ladder pillar
 		if(radius>9) {
@@ -50,11 +61,12 @@ public abstract class QuarryGenerator {
 	private static void generateOreRing(World world, int x, int y, int z, int radius, int depth) {
 		int offset = 2;
 		
-		int chance = 50;
-		int ironChance = 30;
-		int goldChance = 15;
-		int redstoneChance = 15;
+		int chance = 90;
+		int ironChance = 50;
+		int goldChance = 30;
+		int redstoneChance = 20;
 		int diamondChance = 5;
+		int emeraldChance = 5;
 		
 		for(int xx=-radius; xx<=radius; xx++) {
 			for(int zz=-radius; zz<=radius; zz++) {
@@ -74,7 +86,7 @@ public abstract class QuarryGenerator {
 						int zOffset = -offset + rand.nextInt(offset*2+1);
 						
 						//chance
-						if(-yy+yOffset<=0 && rand.nextInt(100)<chance) {
+						if(-yy+yOffset<=0 && rand.nextInt(100)<chance && y2+yOffset>=0) {
 							Block block = world.getBlockAt(x2+xOffset, y2+yOffset, z2+zOffset);
 							if(block.getType()!=Material.BEDROCK) {
 								//random ores
@@ -83,10 +95,33 @@ public abstract class QuarryGenerator {
 								if(rand.nextInt(100)<ironChance) id = 15;
 								if(rand.nextInt(100)<goldChance) id = 14;
 								if(rand.nextInt(100)<redstoneChance) id = 73;
+								if(rand.nextInt(100)<emeraldChance) id = 129;
 								if(rand.nextInt(100)<diamondChance) id = 56;
 								
 								block.setTypeId(id);
 							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private static void generateTop(World world, int x, int y, int z, int radius, int depth, int minHeight, int maxHeight) {
+		for(int xx=-radius; xx<=radius; xx++) {
+			for(int zz=-radius; zz<=radius; zz++) {
+				//Check für radius
+				int size = (xx*xx) + (zz*zz);
+				if (size </*<=*/ (radius*radius)) {
+					int x2 = x + xx;
+					int z2 = z + zz;
+					
+					for(int yy=0; yy<=minHeight+rand.nextInt(maxHeight-minHeight); yy++) {
+						int y2 = y + yy;
+						
+						Block block = world.getBlockAt(x2, y2, z2);
+						if(block.getType()!=Material.BEDROCK) {
+							block.setTypeId(13);
 						}
 					}
 				}
