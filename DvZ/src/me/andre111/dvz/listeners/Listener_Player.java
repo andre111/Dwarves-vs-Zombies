@@ -9,6 +9,7 @@ import java.util.Set;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.StatManager;
+import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.utils.ItemHandler;
 
@@ -308,10 +309,11 @@ public class Listener_Player implements Listener  {
 			
 			int pstate = game.getPlayerState(player.getName());
 			if(pstate>=Game.dwarfMin && pstate<=Game.dwarfMax) {
-				int did = pstate - (Game.dwarfMin-1);
+				int did = pstate - Game.dwarfMin;
+				CustomDwarf cd = DvZ.dwarfManager.getDwarf(did);
 
-				String prefix = DvZ.getClassFile().getString("custom_d"+did+"_chatprefix","");
-				String suffix = DvZ.getClassFile().getString("custom_d"+did+"_chatsuffix","");
+				String prefix = cd.getPrefix();
+				String suffix = cd.getSuffix();
 				
 				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
 			}
