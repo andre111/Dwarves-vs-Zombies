@@ -10,6 +10,7 @@ import org.bukkit.util.Vector;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.item.ItemSpell;
+import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 public class ItemLaunch extends ItemSpell {
 	private int blockId = 1;
@@ -20,12 +21,15 @@ public class ItemLaunch extends ItemSpell {
 	private boolean drop = false;
 	private boolean block = false;
 	
+	private boolean damage = false;
+	private int hurt = 4;
+	
 	private ItemSpell onHit;
 	
 	@Override
 	public void setCastVar(int id, String var) {
 		//onHit
-		if(id==5) {
+		if(id==7) {
 			try {
 				if(!var.contains("me.andre111.dvz.item.spell.")) {
 					var = "me.andre111.dvz.item.spell." + var;
@@ -42,7 +46,7 @@ public class ItemLaunch extends ItemSpell {
 			}
 		} 
 		//castVars für onHit
-		else if(id>5) {
+		else if(id>7) {
 			if(onHit!=null) onHit.setCastVar(id-6, var);
 		}
 	}
@@ -54,8 +58,10 @@ public class ItemLaunch extends ItemSpell {
 		else if(id==2) power = var;
 		else if(id==3) drop = var==1;
 		else if(id==4) block = var==1;
+		else if(id==5) damage = var==1;
+		else if(id==6) hurt = (int) Math.round(var);
 		//castVars für onHit
-		else if(id>5) {
+		else if(id>7) {
 			if(onHit!=null) onHit.setCastVar(id-6, var);
 		}
 	}
@@ -70,6 +76,11 @@ public class ItemLaunch extends ItemSpell {
 		
 		fs.setDropItem(drop);
 		if(!block) fs.setMetadata("dvz_falling_noblock", new FixedMetadataValue(DvZ.instance, 0));
+		
+		//make it do damage
+		if(damage) {
+			DynamicClassFunctions.setFallingBlockHurtEntities(fs, hurt, hurt);
+		}
 		
 		fs.setMetadata("dvz_falling_casting", new FixedMetadataValue(DvZ.instance, this));
 		fs.setMetadata("dvz_falling_gameId", new FixedMetadataValue(DvZ.instance, DvZ.instance.getGameID(game)));

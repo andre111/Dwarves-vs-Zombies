@@ -38,6 +38,10 @@
 # castVar2: Power
 # castVar3: Create Item when not landing right(1=true)
 # castVar4: Create Block(1=true)
+# castVar5: do Damage(1=true)
+# castVar6: damage
+# castVar7: onHit(another cast)
+# castVar8+: onHit vars
 ######################################
 # "ItemDamage"
 # Damages or heals a Player
@@ -120,6 +124,8 @@ items:
              - 8
              - 0
              - 2
+             - 0
+             - 0
              - 0
              - 0
              - "ItemLeap"
