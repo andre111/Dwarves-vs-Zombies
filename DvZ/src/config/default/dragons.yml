@@ -325,6 +325,8 @@ attacks:
       castVars: 
          - 51
          - 2
+         - 1
+         - 2
       fx: 0
       fxSpeed: 1
       fxColorR: 139

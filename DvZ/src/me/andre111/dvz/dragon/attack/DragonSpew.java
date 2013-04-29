@@ -7,15 +7,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import me.andre111.dvz.dragon.DragonAttack;
+import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 public class DragonSpew extends DragonAttack {
 	private int blockID = 51;
 	private double power = 4;
+	private boolean damage = false;
+	private int hurt = 4;
 	
 	@Override
 	public void setCastVar(int id, double var) {
 		if(id==0) blockID = (int) Math.round(var);
 		else if(id==1) power = var;
+		else if(id==2) damage = (var==1);
+		else if(id==3) hurt = (int) Math.round(var);
 	}
 
 	
@@ -34,6 +39,11 @@ public class DragonSpew extends DragonAttack {
 			FallingBlock fb = entity.getWorld().spawnFallingBlock(entity.getLocation().clone().add(0, 1, 0), blockID, (byte)0);
 			fb.setDropItem(false);
 			fb.setVelocity(velocity);
+			
+			//make it do damage
+			if(damage) {
+				DynamicClassFunctions.setFallingBlockHurtEntities(fb, hurt, hurt);
+			}
 		}
 	}
 }

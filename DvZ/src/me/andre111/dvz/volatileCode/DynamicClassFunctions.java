@@ -16,6 +16,7 @@ import me.andre111.dvz.DvZ;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 
 public class DynamicClassFunctions {
@@ -46,6 +47,7 @@ public class DynamicClassFunctions {
 			// org.bukkit.craftbukkit
 			classes.put("CraftServer", Class.forName(obcPackage + ".CraftServer"));
 			classes.put("CraftWorld", Class.forName(obcPackage + ".CraftWorld"));
+			classes.put("CraftFallingSand", Class.forName(obcPackage + ".entity.CraftFallingSand"));
 			
 			// net.minecraft.server
 			classes.put("MinecraftServer", Class.forName(nmsPackage + ".MinecraftServer"));
@@ -53,6 +55,7 @@ public class DynamicClassFunctions {
 			classes.put("RegionFileCache", Class.forName(nmsPackage + ".RegionFileCache"));
 			classes.put("WorldData", Class.forName(nmsPackage + ".WorldData"));
 			classes.put("WorldServer", Class.forName(nmsPackage + ".WorldServer"));
+			classes.put("EntityFallingBlock", Class.forName(nmsPackage + ".EntityFallingBlock"));
 			
 			return true;
 		} catch (Exception e) {
@@ -67,6 +70,7 @@ public class DynamicClassFunctions {
 			// org.bukkit.craftbukkit
 			methods.put("CraftWorld.getHandle()", classes.get("CraftWorld").getDeclaredMethod("getHandle"));
 			methods.put("CraftServer.getServer()", classes.get("CraftServer").getDeclaredMethod("getServer"));
+			methods.put("CraftFallingSand.getHandle()", classes.get("CraftFallingSand").getDeclaredMethod("getHandle"));
 			
 			return true;
 		} catch (Exception e) {
@@ -81,7 +85,10 @@ public class DynamicClassFunctions {
 			fields.put("RegionFileCache.regionsByFilename", classes.get("RegionFileCache").getDeclaredField("a")); 		// obfuscated - regionsByFilename in RegionFileCache
 			fields.put("RegionFile.dataFile", classes.get("RegionFile").getDeclaredField("c"));							// obfuscated - dataFile in RegionFile
 			fields.put("WorldData.seed", classes.get("WorldData").getDeclaredField("seed"));
-			fields.put("WorldData.seed", classes.get("WorldData").getDeclaredField("seed"));
+			
+			fields.put("EntityFallingBlock.hurtEntities", classes.get("EntityFallingBlock").getDeclaredField("hurtEntities"));
+			fields.put("EntityFallingBlock.fallHurtAmount", classes.get("EntityFallingBlock").getDeclaredField("fallHurtAmount"));
+			fields.put("EntityFallingBlock.fallHurtMax", classes.get("EntityFallingBlock").getDeclaredField("fallHurtMax"));
 			
 			fields.put("MinecraftServer.worlds", classes.get("MinecraftServer").getDeclaredField("worlds"));
 			
@@ -205,5 +212,25 @@ public class DynamicClassFunctions {
 		}
 		
 		return null;
+	}
+
+	public static void setFallingBlockHurtEntities(FallingBlock block, float damage, int max) {
+		try {
+			Object efb = methods.get("CraftFallingSand.getHandle()").invoke(block);
+			
+			Field field = fields.get("EntityFallingBlock.hurtEntities");
+			field.setAccessible(true);
+			field.setBoolean(efb, true);
+			
+			field = fields.get("EntityFallingBlock.fallHurtAmount");
+			field.setAccessible(true);
+			field.setFloat(efb, damage);
+
+			field = fields.get("EntityFallingBlock.fallHurtMax");
+			field.setAccessible(true);
+			field.setInt(efb, max);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
