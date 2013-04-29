@@ -11,6 +11,7 @@ effects:
 # id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>
 # Name and Lore1,2,3 can contain spaces
 # to get Names without enchantments use -1 as the enchantmentid(ignoring it)
+# or use -10 to only get the glowing effect
 # Example: "257 1 100 -1:0 Hi i'm Named!,I also have a lore!,2,3"
 # WARNING: Do not change name or lore of custom Items or they will not work!
 # ----------------------------------------------------------------------------------
@@ -49,7 +50,7 @@ dwarves:
       classItemDamage: 0
       classChance: 100
       items: 
-         - "340 1"
+         - "340 1 100 -10:0 Get Building Blocks,&rCan be used every 30 seconds!"
          - "257 1"
          - "256 1"
          - "258 1"
@@ -97,7 +98,7 @@ dwarves:
       classItemDamage: 0
       classChance: 20
       items: 
-         - "340 1"
+         - "340 1 100 -10:0 Transmute Potions,&rCan be used every 30 seconds!"
          - "379 2"
          - "380 2"
          - "54 2"
@@ -150,7 +151,7 @@ dwarves:
       classItemDamage: 0
       classChance: 20
       items: 
-         - "340 1"
+         - "340 1 100 -10:0 Create Tools and Weapons,&rCan be used every 30 seconds!"
          - "257 1"
          - "74 8"
          - "14 24"
@@ -202,7 +203,7 @@ dwarves:
       classItemDamage: 0
       classChance: 20
       items: 
-         - "340 1"
+         - "340 1 100 -10:0 Create Armor,&rCan be used every 30 seconds!"
          - "293 1"
          - "352 10"
          - "295 30"
@@ -253,7 +254,7 @@ dwarves:
       items: 
          - "278 1"
          - "277 1"
-         - "crystalPerPlayer"
+         - "crystalPerPlayer 1 100 -10:0"
       crystalItems:
          - "internDwarfSword"
          - "internDwarfBow"
@@ -299,7 +300,7 @@ dwarves:
          - "155 64"
          - "29 3"
          - "69 1"
-         - "crystalPerPlayer"
+         - "crystalPerPlayer 1 100 -10:0"
       crystalItems:
          - "internDwarfSword"
          - "internDwarfBow"
@@ -351,7 +352,7 @@ dwarves:
          - "325 1"
          - "29 1"
          - "69 1"
-         - "crystalPerPlayer"
+         - "crystalPerPlayer 1 100 -10:0"
       crystalItems:
          - "internDwarfSword"
          - "internDwarfBow"

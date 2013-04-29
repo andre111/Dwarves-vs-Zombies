@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -28,6 +29,7 @@ public class ItemHandler {
 		int countmin = 1;
 		int countmax = -1;
 		int chance = 100;
+		boolean addGlow = false;
 		boolean exception = false;
 		ItemStack item = null;
 		String[] geteilt = str.split(" ");
@@ -75,8 +77,12 @@ public class ItemHandler {
 						if(split_e.length>0) eid = Integer.parseInt(split_e[0]);
 						if(split_e.length>1) elevel = Integer.parseInt(split_e[1]);
 
-						if(eid!=-1) {
+						if(eid>-1) {
 							item.addUnsafeEnchantment(Enchantment.getById(eid), elevel);
+						}
+						//glow only(-10)
+						else if(eid==-10) {
+							addGlow = true;
 						}
 					}
 				}
@@ -112,6 +118,10 @@ public class ItemHandler {
 					}
 
 					item.setItemMeta(itemM);
+				}
+				
+				if(addGlow) {
+					item = DynamicClassFunctions.addGlow(item);
 				}
 
 				return item;

@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -100,7 +99,8 @@ public class CustomDwarf {
 		for(int i=0; i<items.length; i++) {
 			ItemStack it = ItemHandler.decodeItem(items[i]);
 			if(it!=null) {
-				if(i == 0) {
+				//disabled, because it breaks the glow effect
+				/*if(i == 0) {
 					ItemMeta im = it.getItemMeta();
 						im.setDisplayName(getSpellName());
 						ArrayList<String> li = new ArrayList<String>();
@@ -110,7 +110,7 @@ public class CustomDwarf {
 						}
 						im.setLore(li);
 					it.setItemMeta(im);
-				}
+				}*/
 				inv.addItem(it);
 			}
 		}
