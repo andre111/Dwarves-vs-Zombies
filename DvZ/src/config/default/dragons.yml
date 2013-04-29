@@ -81,6 +81,8 @@ dragons:
 # Needs to be Type 0
 # castVar0: BlockID
 # castVar1: Velocity(Speed)
+# castVar2: do Damage(1=true)
+# castVar3: damage
 ######################################
 # 
 #
@@ -121,8 +123,9 @@ attacks:
       speed: 1
       stopAtCol: true
       cast: "DragonThrow"
-      castVar0: 3
-      castVar1: 2.75
+      castVars: 
+         - 3
+         - 2.75
       fx: 2
       fxSpeed: 1
       fxColorR: 255
@@ -145,8 +148,9 @@ attacks:
       speed: 3
       stopAtCol: true
       cast: "DragonIce"
-      castVar0: 3
-      castVar1: 20
+      castVars: 
+         - 3
+         - 20
       fx: 1
       fxSpeed: 1
       fxColorR: 0
@@ -168,8 +172,9 @@ attacks:
       speed: 1
       stopAtCol: true
       cast: "DragonDecoy"
-      castVar0: 5
-      castVar1: 1
+      castVars: 
+         - 5
+         - 1
       fx: 1
       fxSpeed: 1
       fxColorR: 0
@@ -193,8 +198,9 @@ attacks:
       speed: 1
       stopAtCol: true
       cast: "DragonExplode"
-      castVar0: 7
-      castVar1: 1
+      castVars: 
+         - 7
+         - 1
       fx: 1
       fxSpeed: 1
       fxColorR: 139
@@ -216,8 +222,9 @@ attacks:
       speed: 1
       stopAtCol: true
       cast: "DragonDamage"
-      castVar0: -20
-      castVar1: 0
+      castVars: 
+         - -20
+         - 0
       fx: 0
       fxSpeed: 1
       fxColorR: 0
@@ -241,8 +248,9 @@ attacks:
       speed: 1
       stopAtCol: true
       cast: "DragonPush"
-      castVar0: 6
-      castVar1: 4
+      castVars: 
+         - 6
+         - 4
       fx: 0
       fxSpeed: 1
       fxColorR: 0
@@ -266,8 +274,9 @@ attacks:
       speed: 3
       stopAtCol: false
       cast: "DragonExplode"
-      castVar0: 7
-      castVar1: 1
+      castVars: 
+         - 7
+         - 1
       fx: 3
       fxSpeed: 1
       fxColorR: 139
@@ -289,8 +298,9 @@ attacks:
       speed: 1
       stopAtCol: true
       cast: "DragonBite"
-      castVar0: 2
-      castVar1: 25
+      castVars: 
+         - 2
+         - 25
       fx: 0
       fxSpeed: 1
       fxColorR: 139
@@ -312,8 +322,9 @@ attacks:
       speed: 1
       stopAtCol: true
       cast: "DragonSpew"
-      castVar0: 51
-      castVar1: 2
+      castVars: 
+         - 51
+         - 2
       fx: 0
       fxSpeed: 1
       fxColorR: 139

@@ -82,6 +82,18 @@ public class DragonAttackManager {
 				//double
 				dcaTemp.getOnHit().setCastVar(0, DvZ.getDragonsFile().getDouble("attacks."+ap+".castVar0", 0));
 				dcaTemp.getOnHit().setCastVar(1, DvZ.getDragonsFile().getDouble("attacks."+ap+".castVar1", 0));
+				//new method, for loading more than 2 cast vars
+				List<String> stList = DvZ.getMonsterFile().getStringList("attacks."+ap+".castVars");
+				for(int i=0; i<stList.size(); i++) {
+					dcaTemp.getOnHit().setCastVar(i, stList.get(i));
+					try {
+						double d = Double.parseDouble(stList.get(i));
+						dcaTemp.getOnHit().setCastVar(i, d);
+					} catch (NumberFormatException  e) {
+					}
+				}
+				//changed to string reader, because doublelist skips string
+				//-> numbers get messed up
 			}
 		} catch (ClassNotFoundException e) {
 		} catch (InstantiationException e) {

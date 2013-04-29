@@ -103,4 +103,6 @@ public class DragonAttack implements Listener {
 	//set loaded vars from config
 	public void setCastVar(int id, double var) {
 	}
+	public void setCastVar(int id, String var) {
+	}
 }
