@@ -76,12 +76,14 @@ public class Game {
 	//TODO - use this vars everywhere
 	public static int pickDwarf = 2;
 	public static int pickMonster = 3;
+	
+	public static int assasinState = 5;
+	public static int dragonWarrior = 6;
+	
 	public static int dwarfMin = 10;
 	public static int dwarfMax = 29;
 	public static int monsterMin = 30;
 	public static int monsterMax = 49;
-	public static int assasinState = 90;
-	public static int dragonWarrior = 80;
 	public static int dragonMin = 100;
 	
 	private Dragon dragon;
@@ -425,7 +427,7 @@ public class Game {
 							int pstate = e.getValue();
 							
 							if (pstate==1) {
-								playerstate.put(players, 2);
+								playerstate.put(players, Game.pickDwarf);
 								Player player = Bukkit.getServer().getPlayer(players);
 								player.getInventory().clear();
 								player.sendMessage(DvZ.getLanguage().getString("string_choose","Choose your class!"));
@@ -454,17 +456,16 @@ public class Game {
 		int monsoff = 0;
 		
 		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
-			int state = e.getValue();
 			boolean online = false;
 			Player player = Bukkit.getServer().getPlayerExact(e.getKey());
 			if (player!=null) online = true;
 			
-			if (state>=10 && state<30) {
+			if (isDwarf(e.getKey())) {
 				if (online) dwarf++; //else dwarfoff++;
 				
 				lastdwarf = e.getKey();
 			}
-			if (state>=30 && state<50) {
+			if (isMonster(e.getKey())) {
 				if (online) mons++; else monsoff++;
 			}
 		}
@@ -659,10 +660,9 @@ public class Game {
 	
 	private void addMonsterEffect(int id, int level) {
 		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
-			int state = e.getValue();
 			String playern = e.getKey();
 			
-			if(state>=Game.monsterMin && state<=Game.monsterMax) {
+			if(isMonster(playern)) {
 				Player player = Bukkit.getServer().getPlayerExact(playern);
 				
 				if(player!=null) {
@@ -676,10 +676,9 @@ public class Game {
 	
 	private void addDwarfEffects() {
 		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
-			int state = e.getValue();
 			String playern = e.getKey();
 			
-			if(state>=Game.dwarfMin && state<=Game.dwarfMax) {
+			if(isDwarf(playern)) {
 				Player player = Bukkit.getServer().getPlayerExact(playern);
 				if(player!=null) {
 					int light = player.getLocation().getBlock().getLightLevel();
@@ -765,7 +764,7 @@ public class Game {
 			//if(player!=null) {
 				player.sendMessage(DvZ.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
 				
-				playerstate.put(player.getName(), 90);
+				playerstate.put(player.getName(), Game.assasinState);
 				
 				//time
 				int asstime = DvZ.getClassFile().getInt("assasin_time_minutes",5);
@@ -799,7 +798,7 @@ public class Game {
 	//#######################################
 	public void countdownEnd(String player, int countdown) {
 		//assasin
-		if(playerstate.get(player)==90) {
+		if(playerstate.get(player)==Game.assasinState) {
 			if(countdown==3) {
 				Player playern = Bukkit.getServer().getPlayerExact(player);
 				if(playern!=null) {

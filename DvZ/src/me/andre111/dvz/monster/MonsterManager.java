@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Set;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 
 import pgDev.bukkit.DisguiseCraft.disguise.DisguiseType;
 
@@ -21,12 +25,16 @@ public class MonsterManager {
 		ConfigurationSection as = df.getConfigurationSection("monsters");
 		Set<String> strings2 = as.getKeys(false);
 		String[] stK2 = strings2.toArray(new String[strings2.size()]);
-		//meax of 20 monsters
+		//change the limits for the dwarves/monsters
 		int length = stK2.length;
-		if(length>20) length = 20;
+		Game.monsterMax = Game.monsterMin + length;
+		Game.dragonMin = Game.monsterMax + 1;
 		//load monster
 		monsters = new CustomMonster[length];
 		for(int i=0; i<length; i++) {
+			Permission perm = new Permission("dvz.monster."+i, PermissionDefault.TRUE);
+			//perm.addParent("dvz.*", true); - broken?
+			Bukkit.getPluginManager().addPermission(perm);
 			loadMonster(stK2[i]);
 		}
 		

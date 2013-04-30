@@ -126,19 +126,19 @@ public class DvZ extends JavaPlugin {
 		Classswitcher.plugin = this;
 		ItemHandler.plugin = this;
 		
+		itemManager = new ItemManager();
+		itemManager.loadItems();
+		dwarfManager = new DwarfManager();
+		dwarfManager.loadDwarfes();
+		monsterManager = new MonsterManager();
+		monsterManager.loadMonsters();
+		
 		dragonAtManager = new DragonAttackManager();
 		dragonAtManager.loadAttacks();
 		dragonDeath = new DragonDeathListener(this);
 		attackListener = new DragonAttackListener(this);
 		moveStop = new MovementStopper(this);
 		inVul = new Invulnerability(this);
-		
-		monsterManager = new MonsterManager();
-		monsterManager.loadMonsters();
-		dwarfManager = new DwarfManager();
-		dwarfManager.loadDwarfes();
-		itemManager = new ItemManager();
-		itemManager.loadItems();
 		
 		BlockManager.loadConfig();
 		

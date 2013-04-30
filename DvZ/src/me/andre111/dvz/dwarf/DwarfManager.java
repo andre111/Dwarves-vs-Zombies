@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 
 public class DwarfManager {
 	private CustomDwarf[] dwarves;
@@ -20,12 +24,16 @@ public class DwarfManager {
 		ConfigurationSection as = df.getConfigurationSection("dwarves");
 		Set<String> strings2 = as.getKeys(false);
 		String[] stK2 = strings2.toArray(new String[strings2.size()]);
-		//meax of 20 dwarves
+		//change the limits for the dwarves/monsters
 		int length = stK2.length;
-		if(length>20) length = 20;
+		Game.dwarfMax = Game.dwarfMin+length;
+		Game.monsterMin = Game.dwarfMax + 1;
 		//load monster
 		dwarves = new CustomDwarf[length];
 		for(int i=0; i<length; i++) {
+			Permission perm = new Permission("dvz.dwarves."+i, PermissionDefault.TRUE);
+			//perm.addParent("dvz.*", true); - broken?
+			Bukkit.getPluginManager().addPermission(perm);
 			loadDwarf(stK2[i]);
 		}
 	}
