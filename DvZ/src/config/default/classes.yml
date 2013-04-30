@@ -180,7 +180,7 @@ dwarves:
          inventory: false
          exp: 6
          items:
-            - "340 10"
+            - "263 10"
             - "74 8"
             - "276 1 45"
             - "267 1 45"
