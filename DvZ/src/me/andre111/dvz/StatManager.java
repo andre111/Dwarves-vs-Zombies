@@ -87,6 +87,9 @@ public class StatManager {
 	}
 	//called, when to real xp changes(to hide the change)
 	public static void updateXPBarStat(Player player) {
+		//check if a countup is shown
+		if(counters.containsKey(player.getName())) return;
+		
 		if(xpBarShown.containsKey(player.getName())) {
 			if(xpBarShown.get(player.getName())) {
 				int level = xpBarLevel.get(player.getName());
