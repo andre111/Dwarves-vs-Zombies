@@ -129,6 +129,9 @@ public class CustomMonster {
 		MonsterAttack att = null;
 		int id = -1;
 		//default cooldown stuff
+		if(item1==null) return;
+		if(item1.getItem()==null) return;
+		if(item1.getCast()==null) return;
 		if(item.getTypeId()==ItemHandler.decodeItemId(item1.getItem()) && item1.getCast().getType()==3) {
 			if(game.getCountdown(player.getName(), item1.getId())==0) {
 				game.setCountdown(player.getName(), item1.getId(), item1.getTime());
