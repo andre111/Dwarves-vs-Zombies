@@ -22,6 +22,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -32,7 +33,9 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -515,5 +518,19 @@ public class Listener_Player implements Listener  {
 		if(game==null) return;
 		
 		StatManager.updateXPBarStat(p);
+	}
+	//update upcounters
+	@EventHandler(priority=EventPriority.MONITOR)
+	public void onPlayerItemHeld(PlayerItemHeldEvent event) {
+		if(event.isCancelled()) return;
+		
+		StatManager.interruptItem(event.getPlayer().getName());
+	}
+	@EventHandler(priority=EventPriority.MONITOR)
+	public void onPlayerMove(PlayerMoveEvent event) {
+		if(event.isCancelled()) return;
+		
+		if(event.getFrom().distanceSquared(event.getTo())>0.01)
+			StatManager.interruptItem(event.getPlayer().getName());
 	}
 }

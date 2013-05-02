@@ -1,8 +1,11 @@
 package me.andre111.dvz;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import me.andre111.dvz.iface.IUpCounter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,6 +19,11 @@ import com.comphenix.protocol.events.PacketContainer;
 public class StatManager {
 	private static HashMap<String, Scoreboard> stats = new HashMap<String, Scoreboard>();
 	private static String objectiveName = "dvz_stats";
+	
+	private static HashMap<String, IUpCounter> counters = new HashMap<String, IUpCounter>();
+	private static HashMap<String, String> countervars = new HashMap<String, String>();
+	private static HashMap<String, Integer> counterCurrent = new HashMap<String, Integer>();
+	private static boolean running = false;
 	
 	private static HashMap<String, Integer> xpBarLevel = new HashMap<String, Integer>();
 	private static HashMap<String, Float> xpBarXp = new HashMap<String, Float>();
@@ -132,6 +140,109 @@ public class StatManager {
 		try {
 			DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
 		} catch (InvocationTargetException e) {
+		}
+	}
+	
+	//UpCounter
+	public static void setCounter(String player, IUpCounter counter, String vars) {
+		if(!running) {
+			Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DvZ.instance, new Runnable() {
+				public void run() {
+					updateCounters();
+				}
+			}, 20, 20);
+			
+			running = true;
+		}
+		
+		if(counters.get(player)!=null)
+		if(!counters.get(player).countUPOverridable()) return;
+	
+		interruptCounter(player);
+		
+		counters.put(player, counter);
+		countervars.put(player, vars);
+		counterCurrent.put(player, 0);
+	}
+	public static void setCounterVars(String player, String vars) {
+		countervars.put(player, vars);
+	}
+	public static void interruptMove(String player) {
+		if(counters.containsKey(player)) {
+			IUpCounter counter = counters.get(player);
+			
+			if(counter.countUPinterruptMove()) {
+				counter.countUPinterrupt();
+				interruptCounter(player);
+			}
+		}
+	}
+	public static void interruptDamage(String player) {
+		if(counters.containsKey(player)) {
+			IUpCounter counter = counters.get(player);
+			
+			if(counter.countUPinterruptDamage()) {
+				counter.countUPinterrupt();
+				interruptCounter(player);
+			}
+		}
+	}
+	public static void interruptItem(String player) {
+		if(counters.containsKey(player)) {
+			IUpCounter counter = counters.get(player);
+			
+			if(counter.countUPinterruptItemChange()) {
+				counter.countUPinterrupt();
+				interruptCounter(player);
+			}
+		}
+	}
+	private static void interruptCounter(String player) {
+		counters.remove(player);
+		countervars.remove(player);
+		counterCurrent.remove(player);
+		
+		Player p = Bukkit.getServer().getPlayerExact(player);
+		if(p!=null) {
+			sendRealXP(p);
+		}
+	}
+	private static void updateCounters() {
+		ArrayList<String> remove = new ArrayList<String>();
+		
+		for(Map.Entry<String, IUpCounter> entry : counters.entrySet()) {
+			String player = entry.getKey();
+			IUpCounter counter = entry.getValue();
+			int cu = counterCurrent.get(player);
+			
+			cu += counter.countUPperSecond();
+			
+			//remove
+			if(cu>=counter.countUPgetMax()) {
+				counter.countUPfinish(countervars.get(player));
+				
+				Player p = Bukkit.getServer().getPlayerExact(player);
+				if(p!=null) {
+					sendRealXP(p);
+				}
+				
+				remove.add(player);
+			}
+			//send
+			else {
+				counterCurrent.put(player, cu);
+				
+				Player p = Bukkit.getServer().getPlayerExact(player);
+				if(p!=null) {
+					sendFakeXP(p, 0, ((float)cu)/counter.countUPgetMax());
+				}
+			}
+		}
+		//remove finished counters
+		for(String player : remove) {
+			counters.remove(player);
+			countervars.remove(player);
+			counterCurrent.remove(player);
 		}
 	}
 }

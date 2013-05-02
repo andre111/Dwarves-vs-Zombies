@@ -3,6 +3,7 @@ package me.andre111.dvz.listeners;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
+import me.andre111.dvz.StatManager;
 import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.item.spell.ItemLaunch;
 import me.andre111.dvz.monster.CustomMonster;
@@ -297,5 +298,14 @@ public class Listener_Entity implements Listener {
 				event.setCancelled(true);
 			}
 		}
+	}
+	
+	//update upcounters
+	@EventHandler(priority=EventPriority.MONITOR)
+	public void onEntityDamageEntityMonitor(EntityDamageByEntityEvent event) {
+		if (event.isCancelled()) return;
+		if(!(event.getEntity() instanceof Player)) return;
+
+		StatManager.interruptDamage(((Player) event.getEntity()).getName());
 	}
 }

@@ -40,6 +40,15 @@ public class ItemManager {
 		itTemp.setDamage(DvZ.getItemFile().getInt("items."+it+".data", 0));
 		itTemp.setUse(DvZ.getItemFile().getBoolean("items."+it+".useUp", false));
 		
+		//countup
+		itTemp.setHasCounter(DvZ.getItemFile().getBoolean("items."+it+".countup.enabled", false));
+		itTemp.setCounterMax(DvZ.getItemFile().getInt("items."+it+".countup.max", 0));
+		itTemp.setCounterStep(DvZ.getItemFile().getInt("items."+it+".countup.perSecond", 0));
+		itTemp.setCounterOverridable(DvZ.getItemFile().getBoolean("items."+it+".countup.overridable", true));
+		itTemp.setCounterInterruptMove(DvZ.getItemFile().getBoolean("items."+it+".countup.interrupt.move", true));
+		itTemp.setCounterInterruptDamage(DvZ.getItemFile().getBoolean("items."+it+".countup.interrupt.damage", true));
+		itTemp.setCounterInterruptItem(DvZ.getItemFile().getBoolean("items."+it+".countup.interrupt.itemSwitch", true));
+		
 		//Rightclick
 		List<String> effects = DvZ.getItemFile().getStringList("items."+it+".rightclick.effects");
 		if(effects.size()>0)

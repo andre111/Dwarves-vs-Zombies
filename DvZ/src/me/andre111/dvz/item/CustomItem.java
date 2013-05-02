@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.StatManager;
+import me.andre111.dvz.iface.IUpCounter;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,7 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CustomItem {
+public class CustomItem implements IUpCounter {
 	private String internalName;
 	
 	private int id;
@@ -22,6 +25,14 @@ public class CustomItem {
 	private String name;
 	private ArrayList<String> lore = new ArrayList<String>();
 	private boolean use;
+	
+	private boolean hasCounter;
+	private int counterMax;
+	private int counterStep;
+	private boolean counterOverridable;
+	private boolean counterInterruptMove;
+	private boolean counterInterruptDamage;
+	private boolean counterInterruptItem;
 	
 	private ArrayList<String> effectsR = new ArrayList<String>();
 	private ArrayList<String> soundsR = new ArrayList<String>();
@@ -42,15 +53,28 @@ public class CustomItem {
 	public void cast(Game game, boolean left, Player player) {
 		if(cooldownManaCheck(game, left, player)) return;
 		
-		/*ItemSpell castUse = castR;
-		if(left) castUse = castL;
+		castIntern(game, left, player, null, null);
+	}
+	public void cast(Game game, boolean left, Player player, Block block) {
+		if(cooldownManaCheck(game, left, player)) return;
 		
-		if(castUse.getType()==0) {
-			putOnCoolDown(game, left, player);
-			createEffects(player.getLocation(), left, "Caster");
-			castUse.cast(game, player);
-		} */
+		castIntern(game, left, player, block, null);
+	}
+	public void cast(Game game, boolean left, Player player, Player target) {
+		if(cooldownManaCheck(game, left, player)) return;
 		
+		castIntern(game, left, player, null, target);
+	}
+	
+	private void castIntern(Game game, boolean left, Player player, Block block, Player target) {
+		if(isHasCounter()) {
+			StatManager.setCounter(player.getName(), this, DvZ.instance.getGameID(game)+"::"+player.getName()+"::"+left);
+		} else {
+			castUse(game, left, player, block, target);
+		}
+	}
+	
+	private void castUse(Game game, boolean left, Player player, Block block, Player target) {
 		ItemSpell[] castsTemp = castsR;
 		if(left) castsTemp = castsL;
 		
@@ -62,77 +86,19 @@ public class CustomItem {
 				if(castUse != null) {
 					//if(castUse.getType()==0) {
 						putOnCoolDown(game, left, player);
+						if(block!=null) {
+							states[pos] = castUse.cast(game, player, block, states);
+							createEffects(block.getLocation(), left, "Target");
+						}
+						else if(target!=null) {
+							states[pos] = castUse.cast(game, player, target, states);
+							createEffects(target.getLocation(), left, "Target");
+						}
+						else {
+							states[pos] = castUse.cast(game, player, states);
+						}
 						createEffects(player.getLocation(), left, "Caster");
-						states[pos] = castUse.cast(game, player, states);
 					//}
-				}
-				
-				pos += 1;
-			}
-		}
-	}
-	public void cast(Game game, boolean left, Player player, Block block) {
-		if(cooldownManaCheck(game, left, player)) return;
-		
-		/*ItemSpell castUse = castR;
-		if(left) castUse = castL;
-		
-		if(castUse.getType()==1) {
-			putOnCoolDown(game, left, player);
-			createEffects(player.getLocation(), left, "Caster");
-			createEffects(block.getLocation(), left, "Target");
-			castUse.cast(game, player, block);
-		} else cast(game, left, player);*/
-		
-		ItemSpell[] castsTemp = castsR;
-		if(left) castsTemp = castsL;
-		
-		if(castsTemp != null) {
-			boolean[] states = new boolean[castsTemp.length];
-			
-			int pos = 0;
-			for(ItemSpell castUse : castsTemp) {
-				if(castUse != null) {
-					//if(castUse.getType()==1) {
-						putOnCoolDown(game, left, player);
-						createEffects(player.getLocation(), left, "Caster");
-						createEffects(block.getLocation(), left, "Target");
-						states[pos] = castUse.cast(game, player, block, states);
-					//} else cast(game, left, pos, player);
-				}
-				
-				pos += 1;
-			}
-		}
-	}
-	public void cast(Game game, boolean left, Player player, Player target) {
-		if(cooldownManaCheck(game, left, player)) return;
-		
-		/*ItemSpell castUse = castR;
-		if(left) castUse = castL;
-		
-		if(castUse.getType()==2) {
-			putOnCoolDown(game, left, player);
-			createEffects(player.getLocation(), left, "Caster");
-			createEffects(target.getLocation(), left, "Target");
-			castUse.cast(game, player, target);
-		} else cast(game, left, player);*/
-		
-		ItemSpell[] castsTemp = castsR;
-		if(left) castsTemp = castsL;
-		
-		if(castsTemp != null) {
-		boolean[] states = new boolean[castsTemp.length];
-		
-		int pos = 0;
-			for(ItemSpell castUse : castsTemp) {
-				if(castUse != null) {
-					//if(castUse.getType()==2) {
-						putOnCoolDown(game, left, player);
-						createEffects(player.getLocation(), left, "Caster");
-						createEffects(target.getLocation(), left, "Target");
-						states[pos] = castUse.cast(game, player, target, states);
-					//} else cast(game, left, pos, player);
 				}
 				
 				pos += 1;
@@ -300,6 +266,48 @@ public class CustomItem {
 	public void setUse(boolean use) {
 		this.use = use;
 	}
+	public boolean isHasCounter() {
+		return hasCounter;
+	}
+	public void setHasCounter(boolean hasCounter) {
+		this.hasCounter = hasCounter;
+	}
+	public int getCounterMax() {
+		return counterMax;
+	}
+	public void setCounterMax(int counterMax) {
+		this.counterMax = counterMax;
+	}
+	public int getCounterStep() {
+		return counterStep;
+	}
+	public void setCounterStep(int counterStep) {
+		this.counterStep = counterStep;
+	}
+	public boolean isCounterOverridable() {
+		return counterOverridable;
+	}
+	public void setCounterOverridable(boolean counterOverridable) {
+		this.counterOverridable = counterOverridable;
+	}
+	public boolean isCounterInterruptMove() {
+		return counterInterruptMove;
+	}
+	public void setCounterInterruptMove(boolean counterInterruptMove) {
+		this.counterInterruptMove = counterInterruptMove;
+	}
+	public boolean isCounterInterruptDamage() {
+		return counterInterruptDamage;
+	}
+	public void setCounterInterruptDamage(boolean counterInterruptDamage) {
+		this.counterInterruptDamage = counterInterruptDamage;
+	}
+	public boolean isCounterInterruptItem() {
+		return counterInterruptItem;
+	}
+	public void setCounterInterruptItem(boolean counterInterruptItem) {
+		this.counterInterruptItem = counterInterruptItem;
+	}
 	public void addEffectR(String effect) {
 		effectsR.add(effect);
 	}
@@ -347,5 +355,46 @@ public class CustomItem {
 	}
 	public void setManaCostL(int manaCostL) {
 		this.manaCostL = manaCostL;
+	}
+	
+	
+	//Upcounter methods and fields
+	@Override
+	public int countUPgetMax() {
+		return counterMax;
+	}
+	@Override
+	public int countUPperSecond() {
+		return counterStep;
+	}
+	@Override
+	public boolean countUPOverridable() {
+		return counterOverridable;
+	}
+	@Override
+	public boolean countUPinterruptMove() {
+		return counterInterruptMove;
+	}
+	@Override
+	public boolean countUPinterruptDamage() {
+		return counterInterruptDamage;
+	}
+	@Override
+	public boolean countUPinterruptItemChange() {
+		return counterInterruptItem;
+	}
+	@Override
+	public void countUPinterrupt() {}
+	@Override
+	public void countUPfinish(String vars) {
+		String[] split = vars.split("::");
+		
+		Game game = DvZ.instance.getGame(Integer.parseInt(split[0]));
+		Player player = Bukkit.getServer().getPlayerExact(split[1]);
+		boolean left = Boolean.parseBoolean(split[2]);
+		
+		if(player!=null && game!=null) {
+			castUse(game, left, player, null, null);
+		}
 	}
 }

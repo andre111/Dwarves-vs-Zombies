@@ -18,6 +18,20 @@
 
 # required is a number of the spell that needs to succed before using this(-1 = none)
 
+# -------
+# countup - can be used to countup before using the cast
+# WARNING: It cannot use any attack needing a target(block or player)
+# 
+# enabled: wether it is enable
+# max: the maximum count
+# perSecond: how much should get added per step
+# overridable: true
+# interrupt: wether it can be interrupted by the different "occurences"
+#   move: true
+#   damage: true
+#   itemSwitch: true
+# -------
+
 # Usable attacks(cast):
 ######################################
 # "ItemLeap"
@@ -443,6 +457,15 @@ items:
      id: 261
      data: 0
      useUp: false
+     countup:
+       enabled: true
+       max: 100
+       perSecond: 25
+       overridable: true
+       interrupt:
+         move: true
+         damage: true
+         itemSwitch: true
      leftclick:
        effects: []
        sounds: []
@@ -455,8 +478,14 @@ items:
        sounds: []
        cooldown: 0
        mana:
-         cost: 0
-       casts: []
+         cost: 10
+       casts:
+         0:
+           cast: "ItemGetItem"
+           require: -1
+           castVars:
+             - "262 5"
+             - 1
    internDwarfPotion:
      name: "Healing Potion"
      lore: []
