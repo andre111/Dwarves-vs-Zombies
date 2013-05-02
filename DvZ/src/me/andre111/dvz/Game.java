@@ -1038,19 +1038,21 @@ public class Game {
 		}
 		
 		//custom dwarves - rightclick
-		int dId = getPlayerState(player.getName())-dwarfMin;
-		if(dId>=0 && dId<DvZ.monsterManager.getCount()) {
-			CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
-			//spell
-			if(cd.isSpellEnabled()) {
-				if(itemId==cd.getSpellItem()) {
-					cd.spell(this, player);
+		if(isDwarf(player.getName())) {
+			int dId = getPlayerState(player.getName())-dwarfMin;
+			if(dId>=0 && dId<DvZ.monsterManager.getCount()) {
+				CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
+				//spell
+				if(cd.isSpellEnabled()) {
+					if(itemId==cd.getSpellItem()) {
+						cd.spell(this, player);
+					}
 				}
-			}
-			//transmute items
-			if(block!=null) {
-				if(cd.transmuteItemOnBlock(this, player, item, block)) {
-					event.setCancelled(true);
+				//transmute items
+				if(block!=null) {
+					if(cd.transmuteItemOnBlock(this, player, item, block)) {
+						event.setCancelled(true);
+					}
 				}
 			}
 		}
