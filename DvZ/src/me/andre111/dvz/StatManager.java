@@ -75,6 +75,9 @@ public class StatManager {
 		xpBarLevel.put(player, level);
 		xpBarXp.put(player, xp);
 		
+		//check if a countup is shown
+		if(counters.containsKey(player)) return;
+		
 		if(xpBarShown.containsKey(player)) {
 			if(xpBarShown.get(player)) {
 				Player p = Bukkit.getServer().getPlayerExact(player);
