@@ -1068,16 +1068,6 @@ public class Game {
 		if(isMonster(pname) && itemId==358) Spellcontroller.spellTeleport(this, player);
 		if(isMonster(pname) && itemId==370) Spellcontroller.spellSuizide(this, player);
 		
-		//custom monsters - rightclick
-		int mId = getPlayerState(player.getName())-monsterMin;
-		if(mId>=0 && mId<DvZ.monsterManager.getCount()) {
-			if(block!=null) {
-				DvZ.monsterManager.getMonster(mId).spellCast(this, item, player, block);
-			} else {
-				DvZ.monsterManager.getMonster(mId).spellCast(this, item, player);
-			}
-		}
-		
 		//dragon
 		if(dragon!=null) {
 			if(dragon instanceof PlayerDragon) {
@@ -1097,13 +1087,6 @@ public class Game {
 		
 		//custom items
 		playerSpecialItemC(player, item, false, null, target);
-		
-		String pname = player.getName();
-		//custom monsters - rightclick
-		int mId = getPlayerState(pname)-monsterMin;
-		if(mId>=0 && mId<DvZ.monsterManager.getCount()) {
-			DvZ.monsterManager.getMonster(mId).spellCast(this, item, player, target);
-		}
 	}
 	
 	//#######################################
@@ -1500,6 +1483,9 @@ public class Game {
 		}
 		
 		return -1;
+	}
+	public void resetCustomCooldown(String player, String name) {
+		customCooldown.remove(player+":"+name);
 	}
 	
 	public Inventory getCrystalChest(String pname, boolean global) {

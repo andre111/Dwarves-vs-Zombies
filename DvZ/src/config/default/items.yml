@@ -90,6 +90,79 @@
 #
 # castVar0: global(1=true, 0=per Player)
 ######################################
+# "ItemBlink"
+# Blinks(Teleports) to target Block
+# EffectPosition: Teleport
+# castVar0: maxRange
+# castVar1: reset cooldown when no target was found(=true)
+######################################
+# "ItemConfuse"
+# Confuses Player
+# (CONFUSION+BLINDNESS)
+# castVar0: Duration in ticks(20=1 second)
+# castVar1: Level
+######################################
+# "ItemDrop"
+# Makes the targeted Player drop his weapon
+######################################
+# "ItemExplode"
+# Creates an explosion
+#
+# castVar0: Power
+# castVar1: Kill Caster(0=No, 1=Yes)
+######################################
+# "ItemHunger"
+# Drains Hunger of targeted Player
+#
+# castVar0: Ammount(>50 -> all)
+######################################
+# "ItemGetItem"
+# Gives Items
+#
+# castVar0: Item(formated)
+# castVar1: Times
+######################################
+# "ItemsSnowballs"
+# Throw a barricade of snowballs
+#
+# castVar0: Required ammount
+# castVar1: You got not enough snowballs message
+# castVar2: Reset cooldown, when not enough snowballs(1=true)
+######################################
+# "ItemLay"
+# Lay Silverfish eggs in nearby ston blocks
+# (Requires an silverfish egg in inventory 383:60)
+# castVar0: Radius
+# castVar1: Message to display ""->No Message
+######################################
+# "ItemPortal"
+# Creates or reinforces the Enderman Portal
+######################################
+# "ItemPotions"
+# "Dropps" Potions on nearby players
+#
+# castVar0: Potionitem(formated) 
+# castVar1: Target_Player(0=dwarves,1=monsters)
+# castVar2: Range
+######################################
+# "ItemRoar"
+# Roars and makes silverfish call for help
+#
+# castVar0: Range
+# castVar1: Message to display ""->No Message
+######################################
+# "ItemSmash"
+# Smashes the block
+#
+# castVar0: Play Sound Effect(0=No, 1=Yes)
+# castVar1: reset Cooldown, when no block is targeted(1=true)
+######################################
+# ""
+# 
+#
+# castVar0:
+# castVar1:
+######################################
 # ""
 # 
 #
@@ -192,6 +265,7 @@ items:
            castVars:
              - 1
              - -2
+   # dwarves
    crystalPerPlayer:
      name: "Crystal Storage"
      lore: 
@@ -403,3 +477,353 @@ items:
        mana:
          cost: 0
        casts: []
+   # monsters
+   internCreeperExplode:
+     name: "Explode"
+     lore: 
+       - "Can be used every 10 seconds!"
+     id: 289
+     data: 10
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemExplode"
+           require: -1
+           castVars:
+             - 6
+             - 1
+   internSpiderConfuse:
+     name: "Confuse"
+     lore: 
+       - "Can be used every 0 seconds!"
+     id: 375
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemConfuse"
+           require: -1
+           castVars:
+             - 300
+             - 0
+   internSpiderPosion:
+     name: "Posion"
+     lore: 
+       - "Can be used every 0 seconds!"
+     id: 373
+     data: 16452
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemEffect"
+           require: -1
+           castVars:
+             - 0
+             - "19:60:4"
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+   internIronGolemSmash:
+     name: "Smash Blocks"
+     lore: 
+       - "Can be used every 1 second!"
+     id: 265
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 1
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemSmash"
+           require: -1
+           castVars:
+             - 1
+             - 1
+   internIronGolemLeap:
+     name: "Leap"
+     lore: 
+       - "Can be used every 30 seconds!"
+     id: 341
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 30
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemLeap"
+           require: -1
+           castVars:
+             - 4
+             - 1.5
+   internSnowGolemGet:
+     name: "Get Snow"
+     lore: 
+       - "Can be used every 60 seconds!"
+     id: 353
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 60
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemGetItem"
+           require: -1
+           castVars:
+             - "internSnowGolemBall 8:16"
+             - 20
+   internSnowGolemBall:
+     name: "Barricade"
+     lore: 
+       - "Can be used every 0 seconds!"
+     id: 332
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemSnowballs"
+           require: -1
+           castVars:
+             - 96
+             - "You need 96 Snowballs!"
+             - 1
+   internBroodmotherRoar:
+     name: "Roar"
+     lore: 
+       - "Can be used every 3 seconds!"
+     id: 350
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 3
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemRoar"
+           require: -1
+           castVars:
+             - 15
+             - "A Broodmother roars!"
+   internBroodmotherLay:
+     name: "Lay Eggs"
+     lore: 
+       - "Can be used every 3 seconds!"
+     id: 349
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 3
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemLay"
+           require: -1
+           castVars:
+             - 1
+             - "A Broodmother is laying her eggs!"
+   internEndermanBlink:
+     name: "Blink"
+     lore: 
+       - "Can be used every 18 seconds!"
+     id: 378
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects:
+         - "ENDER_SIGNAL:0:Caster"
+         - "ENDER_SIGNAL:0:Teleport"
+       sounds:
+         - "ENDERMAN_TELEPORT:1:1:Caster"
+       cooldown: 18
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemBlink"
+           require: -1
+           castVars:
+             - 75
+   internEndermanPortal:
+     name: "Create or Reinforce Portal"
+     lore: 
+       - "Can be used every 10 seconds!"
+     id: 90
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 10
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemPortal"
+           require: -1
+           castVars: []
+   internCatHunger:
+     name: "Drain Hunger"
+     lore: 
+       - "Can be used every 2 seconds!"
+     id: 351
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 2
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemHunger"
+           require: -1
+           castVars:
+             - 2
+   internCatSteal:
+     name: "Steal Weapon"
+     lore: 
+       - "Can be used every 2 seconds!"
+     id: 372
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 2
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemDrop"
+           require: -1
+           castVars: []

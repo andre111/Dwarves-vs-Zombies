@@ -205,6 +205,10 @@ public class CustomItem {
 		return "citem_"+name+"_"+lr;
 	}
 	
+	public void resetCoolDown(Game game, boolean left, Player player) {
+		game.resetCustomCooldown(player.getName(), getCooldownName(left));
+	}
+	
 	public void createEffects(Location loc, boolean left, String position) {
 		//effects
 		ArrayList<String> effects = effectsR;

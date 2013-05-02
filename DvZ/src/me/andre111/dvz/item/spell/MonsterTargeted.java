@@ -1,6 +1,7 @@
-package me.andre111.dvz.monster.attack;
+package me.andre111.dvz.item.spell;
 
-import java.util.List;
+//TODO - port to the ItemSpell system
+/*import java.util.List;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -13,9 +14,9 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.monster.MonsterAttack;
 import me.andre111.dvz.utils.Animation;
-import me.andre111.dvz.utils.Fireworks;
+import me.andre111.dvz.utils.Fireworks;*/
 
-public class MonsterTargeted extends MonsterAttack {
+public class MonsterTargeted {/*extends MonsterAttack {
 	protected MonsterAttack onHit = null;
 	private double range = 10;
 	protected boolean fx = true;
@@ -228,5 +229,5 @@ public class MonsterTargeted extends MonsterAttack {
 	@Override
 	public int getRange() {
 		return (int) Math.round(range);
-	}
+	}*/
 }

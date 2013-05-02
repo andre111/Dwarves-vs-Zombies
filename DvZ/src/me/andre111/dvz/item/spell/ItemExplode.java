@@ -1,24 +1,26 @@
-package me.andre111.dvz.monster.attack;
+package me.andre111.dvz.item.spell;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import me.andre111.dvz.Game;
-import me.andre111.dvz.monster.MonsterAttack;
+import me.andre111.dvz.item.ItemSpell;
 
-public class MonsterExplode extends MonsterAttack {
+public class ItemExplode extends ItemSpell {
 	private float power = 6F;
 	private boolean kill = true;
 	
+	@Override
 	public void setCastVar(int id, double var) {
 		if(id==0) power = (float) var;
 		else if(id==1) kill = (var==1);
 	}
 	
-	
-	public void spellCast(Game game, Player player) {	
+	@Override
+	public boolean cast(Game game, Player player) {	
 		World w = player.getWorld();
 		Location loc = player.getLocation();
 		
@@ -29,10 +31,21 @@ public class MonsterExplode extends MonsterAttack {
 		
 		w.createExplosion(loc, power);
 		w.createExplosion(loc, power);
+		
+		return true;
 	}
 	
 	@Override
-	public void spellCastOnLocation(Game game, Player player, Location target) {
+	public boolean cast(Game game, Player player, Block block) {
+		return cast(game, player);
+	}
+	@Override
+	public boolean cast(Game game, Player player, Player target) {
+		return cast(game, player);
+	}
+	
+	@Override
+	public boolean cast(Game game, Player player, Location target) {
 		World w = target.getWorld();
 		
 		if(kill) {
@@ -42,10 +55,7 @@ public class MonsterExplode extends MonsterAttack {
 		
 		w.createExplosion(target, power);
 		w.createExplosion(target, power);
-	}
-	
-	@Override
-	public int getType() {
-		return 0;
+		
+		return true;
 	}
 }

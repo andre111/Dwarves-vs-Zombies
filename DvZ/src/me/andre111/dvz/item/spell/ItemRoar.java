@@ -1,8 +1,9 @@
-package me.andre111.dvz.monster.attack;
+package me.andre111.dvz.item.spell;
 
 import java.util.List;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -11,9 +12,9 @@ import org.bukkit.entity.Silverfish;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.monster.MonsterAttack;
+import me.andre111.dvz.item.ItemSpell;
 
-public class MonsterRoar extends MonsterAttack {
+public class ItemRoar extends ItemSpell {
 	private double range;
 	private String message = "";
 	
@@ -28,31 +29,39 @@ public class MonsterRoar extends MonsterAttack {
 	}
 	
 	@Override
-	public void spellCast(Game game, Player player) {	
-		castAtEntity(game, player, player);
+	public boolean cast(Game game, Player player) {	
+		return castAtEntity(game, player, player);
 	}
-	
 	@Override
-	public void spellCastOnLocation(Game game, Player player, Location target) {
+	public boolean cast(Game game, Player player, Block block) {	
+		return cast(game, player);
+	}
+	@Override
+	public boolean cast(Game game, Player player, Player target) {	
+		return cast(game, player);
+	}
+	@Override
+	public boolean cast(Game game, Player player, Location target) {
 		Arrow a = (Arrow) target.getWorld().spawnEntity(target, EntityType.ARROW);
-		castAtEntity(game, a, player);
+		boolean success = castAtEntity(game, a, player);
 		a.remove();
+		
+		return success;
 	}
 	
-	private void castAtEntity(Game game, Entity ent, Player damage) {
+	private boolean castAtEntity(Game game, Entity ent, Player damage) {
+		boolean success = false;
 		List<Entity> entities = ent.getNearbyEntities(range, range, range);
         for (Entity e : entities) {
         	if (e instanceof Silverfish) {
         		((Silverfish)e).damage(0, damage);
+        		success = true;
         	}
         }
 		
         if(!message.equals(""))
         	game.broadcastMessage(DvZ.getLanguage().getString("string_brood_roar","A Broodmother roars!"));
-	}
-	
-	@Override
-	public int getType() {
-		return 0;
+        
+        return success;
 	}
 }

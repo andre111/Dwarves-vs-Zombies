@@ -35,82 +35,6 @@ effects:
 
 # Usable attacks(cast):
 ######################################
-# "MonsterExplode"
-# Creates an explosion
-#
-# castVar0: Power
-# castVar1: Kill Monster(0=No, 1=Yes)
-######################################
-# "MonsterConfuse"
-# Confuses Player
-# (CONFUSION+BLINDNESS)
-# castVar0: Duration in ticks(20=1 second)
-# castVar1: Level
-######################################
-# "MonsterPoison"
-# Posions Player
-#
-# castVar0: Duration in ticks(20=1 second)
-# castVar1: Level
-######################################
-# "MonsterSmash"
-# Smashes the block
-#
-# castVar0: Play Sound Effect(0=No, 1=Yes)
-######################################
-# "MonsterLeap"
-# Leaps in the air
-#
-# castVar0: forwardVelocity
-# castVar1: upwardVelocity
-######################################
-# "MonsterItem"
-# Gives Items
-#
-# castVar0: Item(formated)
-# castVar1: Times
-######################################
-# "MonsterSnowballs"
-# Throw a barricade of snowballs
-#
-# castVar0: Required ammount
-# castVar1: You got not enough snowballs message
-######################################
-# "MonsterRoar"
-# Roars and makes silverfish call for help
-#
-# castVar0: Range
-# castVar1: Message to display ""->No Message
-######################################
-# "MonsterLay"
-# Lay Silverfish eggs in nearby ston blocks
-# (Requires an silverfish egg in inventory 383:60)
-# castVar0: Radius
-# castVar1: Message to display ""->No Message
-######################################
-# "MonsterBlink"
-# Blinks(Teleports) to target Block
-#
-# castVar0: maxRange
-######################################
-# "MonsterPortal"
-# Creates or reinforces the Enderman Portal
-######################################
-# "MonsterHunger"
-# Drains Hunger of targeted Player
-#
-# castVar0: Ammount(>50 -> all)d
-######################################
-# "MonsterDrop"
-# Makes the targeted Player drop his weapon
-######################################
-# "MonsterPotions"
-# "Dropps" Potions on nearby players
-#
-# castVar0: Potionitem(formated) 
-# castVar1: Target_Player(0=dwarves,1=monsters)
-# castVar2: Range
-######################################
 # "MonsterTargeted"
 # Shoots a ray of fireworks towards to targeted
 # Block then casts an an attack there
@@ -123,12 +47,6 @@ effects:
 # castVar5: effect color Green
 # castVar6: effect color Blue
 # castVar7+: castvars for the onHit Attack
-######################################
-# "MonsterCommand"
-# Perform commands as the player
-# or as the console(OP)
-# castVar0: 0=player, 1=console
-# castVar1+: commands
 ######################################
 #
 #
@@ -166,20 +84,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 0
-       name: ""
-       getAtSpawn: false
-       time: 30
-       cast: ""
-       castVars: []
-     spellitem1:
-       item: 0
-       name: ""
-       getAtSpawn: false
-       time: 30
-       cast: ""
-       castVars: []
    1:
      name: "Skeleton"
      disguise: "Skeleton"
@@ -207,20 +111,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 0
-       name: ""
-       getAtSpawn: false
-       time: 30
-       cast: ""
-       castVars: []
-     spellitem1:
-       item: 0
-       name: ""
-       getAtSpawn: false
-       time: 30
-       cast: ""
-       castVars: []
    2:
      name: "Creeper"
      disguise: "Creeper"
@@ -231,6 +121,7 @@ monsters:
      classItemDamage: 50
      classChance: 50
      items: 
+       - "internCreeperExplode"
        - "320 64"
        - "298"
        - "299 1 100 3:3"
@@ -246,22 +137,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 289
-       name: "Explode"
-       getAtSpawn: true
-       time: 10
-       cast: "MonsterExplode"
-       castVars:
-         - 6
-         - 1
-     spellitem1:
-       item: 0
-       name: ""
-       getAtSpawn: false
-       time: 30
-       cast: ""
-       castVars: []
    3:
      name: "Wolf"
      disguise: "Wolf"
@@ -291,20 +166,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 0
-       name: ""
-       getAtSpawn: false
-       time: 30
-       cast: ""
-       castVars: []
-     spellitem1:
-       item: 0
-       name: ""
-       getAtSpawn: false
-       time: 30
-       cast: ""
-       castVars: []
    4:
      name: "Spider"
      disguise: "Spider"
@@ -315,6 +176,8 @@ monsters:
      classItemDamage: 52
      classChance: 25
      items: 
+       - "internSpiderConfuse"
+       - "internSpiderPosion 3"
        - "106 64"
        - "320 64"
        - "306"
@@ -335,24 +198,6 @@ monsters:
        - poison
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 375
-       name: "Confuse"
-       getAtSpawn: true
-       time: 0
-       cast: "MonsterConfuse"
-       castVars:
-         - 300
-         - 0
-     spellitem1:
-       item: "373:16452 3"
-       name: "Posion"
-       getAtSpawn: true
-       time: 0
-       cast: "MonsterPoison"
-       castVars:
-         - 60
-         - 4
    5:
      name: "IronGolem"
      disguise: "IronGolem"
@@ -363,6 +208,8 @@ monsters:
      classItemDamage: 99
      classChance: 5
      items: 
+       - "internIronGolemSmash"
+       - "internIronGolemLeap"
        - "320 64"
        - "298 1 100 0:3"
        - "299 1 100 0:3,3:3"
@@ -383,23 +230,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 265
-       name: "Smash Blocks"
-       getAtSpawn: true
-       time: 1
-       cast: "MonsterSmash"
-       castVars:
-         - 1
-     spellitem1:
-       item: 341
-       name: "Leap"
-       getAtSpawn: true
-       time: 30
-       cast: "MonsterLeap"
-       castVars:
-         - 4
-         - 1.5
    6:
      name: "SnowGolem"
      disguise: "Snowman"
@@ -410,6 +240,7 @@ monsters:
      classItemDamage: 97
      classChance: 5
      items: 
+       - "internSnowGolemGet"
        - "320 64"
        - "301 1 100 0:3"
      effects: []
@@ -422,24 +253,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 353
-       name: "Get Snow"
-       getAtSpawn: true
-       time: 60
-       cast: "MonsterItem"
-       castVars:
-         - "332 8:16"
-         - 20
-     spellitem1:
-       item: 332
-       name: "Barricade"
-       getAtSpawn: false
-       time: 0
-       cast: "MonsterSnowballs"
-       castVars:
-         - 96
-         - "You need 96 Snowballs!"
    7:
      name: "Broodmother"
      disguise: "Silverfish"
@@ -450,6 +263,8 @@ monsters:
      classItemDamage: 60
      classChance: 5
      items: 
+       - "internBroodmotherRoar"
+       - "internBroodmotherLay"
        - "256"
        - "320 64"
        - "383:60 5"
@@ -464,24 +279,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 350
-       name: "Roar"
-       getAtSpawn: true
-       time: 3
-       cast: "MonsterRoar"
-       castVars:
-         - 15
-         - "A Broodmother roars!"
-     spellitem1:
-       item: 349
-       name: "Lay Eggs"
-       getAtSpawn: true
-       time: 3
-       cast: "MonsterLay"
-       castVars:
-         - 1
-         - "A Broodmother is laying her eggs!"
    8:
      name: "Enderman"
      disguise: "Enderman"
@@ -492,6 +289,8 @@ monsters:
      classItemDamage: 58
      classChance: 5
      items: 
+       - "internEndermanBlink"
+       - "internEndermanPortal"
        - "320 1"
      effects: []
      placeBlocks: false
@@ -503,21 +302,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 378
-       name: "Blink"
-       getAtSpawn: true
-       time: 18
-       cast: "MonsterBlink"
-       castVars:
-         - 75
-     spellitem1:
-       item: 90
-       name: "Create or Reinforce Portal"
-       getAtSpawn: true
-       time: 10
-       cast: "MonsterPortal"
-       castVars: []
    9:
      name: "Cat"
      disguise: "Ocelot"
@@ -528,6 +312,8 @@ monsters:
      classItemDamage: 98
      classChance: 5
      items: 
+       - "internCatHunger"
+       - "internCatSteal"
        - "106 24"
        - "320 64"
      effects: []
@@ -540,21 +326,6 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
-     spellitem0:
-       item: 351
-       name: "Drain Hunger"
-       getAtSpawn: true
-       time: 2
-       cast: "MonsterHunger"
-       castVars:
-         - 2
-     spellitem1:
-       item: 372
-       name: "Steal Weapon"
-       getAtSpawn: true
-       time: 2
-       cast: "MonsterDrop"
-       castVars: []
 
 # DISABLED UNTIL I CAN FIND A GOOD WAY TO IMPLEMENT IT:
 #   10:
@@ -582,20 +353,3 @@ monsters:
 #       - starve
 #     manaMax: 100
 #     manaRegen: 5
-#     spellitem0:
-#       item: 0
-#       name: ""
-#       getAtSpawn: false
-#       time: 30
-#       cast: ""
-#       castVar0: 0
-#       castVar1: 0
-#     spellitem1:
-#       item: 0
-#       name: ""
-#       getAtSpawn: false
-#       time: 30
-#       cast: ""
-#       castVar0: 0
-#       castVar1: 0
-#       castVar1: 0

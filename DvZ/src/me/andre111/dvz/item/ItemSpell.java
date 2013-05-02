@@ -88,4 +88,7 @@ public class ItemSpell {
 	public CustomItem getItem() {
 		return DvZ.itemManager.getItemByName(getItemName());
 	}
+	public void resetCoolDown(Game game, Player player) {
+		getItem().resetCoolDown(game, isLeft(), player);
+	}
 }

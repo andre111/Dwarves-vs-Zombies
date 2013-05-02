@@ -1,9 +1,10 @@
-package me.andre111.dvz.monster.attack;
+package me.andre111.dvz.item.spell;
 
 import java.util.ArrayList;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -13,23 +14,43 @@ import org.bukkit.potion.PotionEffectType;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
-import me.andre111.dvz.monster.MonsterAttack;
+import me.andre111.dvz.item.ItemSpell;
 
-public class MonsterPortal extends MonsterAttack {
+public class ItemPortal extends ItemSpell {
+	
 	@Override
-	public void spellCast(Game game, Player player) {	
+	public boolean cast(Game game, Player player) {	
+		return castIntern(game, player, player.getLocation());
+	}
+	@Override
+	public boolean cast(Game game, Player player, Block block) {	
+		return cast(game, player);
+	}
+	@Override
+	public boolean cast(Game game, Player player, Player target) {	
+		return cast(game, player);
+	}
+	@Override
+	public boolean cast(Game game, Player player, Location target) {	
+		return castIntern(game, player, target);
+	}
+	
+	private boolean castIntern(Game game, Player player, Location loc) {
 		if(game.enderPortal!=null) {
 			if(!reinforePortal(game, player)) {
-				game.setCountdown(player.getName(), getId(), 0);
 				player.sendMessage(DvZ.getLanguage().getString("string_portal_exists","A Portal allready exists!"));
+				return false;
 			}
+			
+			return true;
 		} else {
-			createPortal(game, player);
+			createPortal(game, player, player.getLocation());
+			
+			return true;
 		}
 	}
 	
-	private void createPortal(Game game, Player player) {
-		Location loc = player.getLocation();
+	private void createPortal(Game game, Player player, Location loc) {
 		Location nloc = new Location(loc.getWorld(), loc.getBlockX()+0.5, loc.getBlockY()+10, loc.getBlockZ()+0.5);
 		World w = loc.getWorld();
 		
@@ -100,10 +121,5 @@ public class MonsterPortal extends MonsterAttack {
 			return true;
 		}
 		return false;
-	}
-	
-	@Override
-	public int getType() {
-		return 0;
 	}
 }
