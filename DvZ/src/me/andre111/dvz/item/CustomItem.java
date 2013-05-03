@@ -50,6 +50,8 @@ public class CustomItem implements IUpCounter {
 	
 	private ItemSpell[] castsL;
 	
+	//TODO - add option to ignore damage(for bows or swords or something)
+	
 	public void cast(Game game, boolean left, Player player) {
 		if(cooldownManaCheck(game, left, player)) return;
 		

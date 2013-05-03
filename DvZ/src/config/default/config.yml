@@ -64,6 +64,9 @@ item_stats: true
 global_stats: true
 show_game_id: true
 
+# Check for updates automatically
+updateCheck: true
+
 # ----------------------------------------------------------------------------------
 # Lobby/Autostarting the Game
 # ----------------------------------------------------------------------------------

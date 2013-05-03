@@ -11,6 +11,7 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.StatManager;
 import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.monster.CustomMonster;
+import me.andre111.dvz.update.DvZUpdateNotifier;
 import me.andre111.dvz.utils.ItemHandler;
 
 import org.bukkit.Bukkit;
@@ -59,6 +60,12 @@ public class Listener_Player implements Listener  {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
+		//notify updates update
+		if (DvZ.getStaticConfig().getString("updateCheck", "true").equals("true") && player.isOp()) {
+			plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new DvZUpdateNotifier(plugin, player));
+		}
+		
 		//if not dedicated and the player is not in the game->ignore
 		if(event.getPlayer().getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby") && (plugin.getPlayerGame(event.getPlayer().getName())==null && plugin.getConfig().getString("dedicated_mode","false")!="true"))
 			event.getPlayer().teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
@@ -66,7 +73,6 @@ public class Listener_Player implements Listener  {
 		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 		
 		event.setJoinMessage("");
-		Player player = event.getPlayer();
 		//TODO - maybe change to not always join game 0
 		if (plugin.getPlayerGame(player.getName())==null) {
 			plugin.getGame(0).addPlayer(player.getName());

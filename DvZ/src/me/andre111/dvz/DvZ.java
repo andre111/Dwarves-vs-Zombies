@@ -39,6 +39,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.protocol.ProtocolLibrary;
@@ -79,6 +80,7 @@ public class DvZ extends JavaPlugin {
 	private static FileConfiguration monsterfile;
 	private static FileConfiguration itemfile;
 	private static FileConfiguration blockfile;
+	public PluginDescriptionFile descriptionFile;
 	
 	private ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
 	private ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
@@ -88,6 +90,9 @@ public class DvZ extends JavaPlugin {
 	 @Override
 	 public void onLoad() {
 		 logger = Logger.getLogger("Minecraft");
+		 
+		 // Get plugin description
+		 descriptionFile = this.getDescription();
 
 		 // Dynamic package detection
 		 if (!DynamicClassFunctions.setPackages()) {
