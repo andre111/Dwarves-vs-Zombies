@@ -42,7 +42,7 @@ public class DVZFileConfiguration extends YamlConfiguration {
 			String[] split = st.split(":");
 			
 			String key = split[1];
-			st = DvZ.getLanguage().getString(key, "");
+			st = DvZ.getLanguage().getString(key, DvZ.getDefaultLanguage().getString(key, ""));
 			
 			//replace -0-,-1-,...
 			for(int i=2; i<split.length; i++) {

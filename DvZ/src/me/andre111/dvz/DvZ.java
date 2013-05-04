@@ -75,6 +75,7 @@ public class DvZ extends JavaPlugin {
 	private static String lang = "en_EN";
 	private static FileConfiguration configfile;
 	private static FileConfiguration langfile;
+	private static FileConfiguration enlangfile;
 	private static FileConfiguration dragonsfile;
 	private static FileConfiguration classfile;
 	private static FileConfiguration monsterfile;
@@ -284,6 +285,7 @@ public class DvZ extends JavaPlugin {
 		}
 		DvZ.lang = this.getConfig().getString("language", "en_EN");
 		DvZ.langfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_"+lang+".yml"));
+		DvZ.enlangfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_en_EN.yml"));
 		DvZ.configfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
 		DvZ.dragonsfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "dragons.yml"));
 		DvZ.classfile =  DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "classes.yml"));
@@ -317,6 +319,9 @@ public class DvZ extends JavaPlugin {
 	
 	public static FileConfiguration getLanguage() {
 		return langfile;
+	}
+	public static FileConfiguration getDefaultLanguage() {
+		return enlangfile;
 	}
 	public static FileConfiguration getDragonsFile() {
 		return dragonsfile;
