@@ -172,11 +172,10 @@
 # castVar0: Play Sound Effect(0=No, 1=Yes)
 # castVar1: reset Cooldown, when no block is targeted(1=true)
 ######################################
-# ""
-# 
+# "ItemSetDamage"
+# Set the Damage/Durability of the Spellitem
 #
-# castVar0:
-# castVar1:
+# castVar0: new Damage
 ######################################
 # ""
 # 
@@ -282,9 +281,9 @@ items:
              - -2
    # dwarves
    crystalPerPlayer:
-     name: "Crystal Storage"
+     name: "lang:string_crystal_storage"
      lore: 
-       - "Right click to open your Crystal Storage"
+       - "lang:string_crystal_storage_open"
      id: 388
      data: 0
      useUp: false
@@ -315,9 +314,9 @@ items:
              - 1
              - "15:60:0"
    crystalGlobal:
-     name: "Crystal Storage"
+     name: "lang:string_crystal_storage"
      lore:
-       - "Right click to open the global Crystal Storage"
+       - "lang:string_crystal_storage_global"
      id: 388
      data: 0
      useUp: false
@@ -348,7 +347,7 @@ items:
              - 1
              - "15:60:0"
    internDiamond:
-     name: "Armor"
+     name: "lang:string_default_item_armor"
      lore: []
      id: 264
      data: 0
@@ -383,7 +382,7 @@ items:
              - "312 1"
              - "313 1"
    internConcrete:
-     name: "Dwarven Glue"
+     name: "lang:string_default_item_glue"
      lore: []
      id: 351
      data: 8
@@ -433,7 +432,7 @@ items:
              - "98:0"
    # TODO - add effects/enchants
    internDwarfSword:
-     name: "Dwarven Sword"
+     name: "lang:string_default_item_sword"
      lore: []
      id: 276
      data: 0
@@ -454,12 +453,12 @@ items:
          cost: 0
        casts: []
    internDwarfBow:
-     name: "Dwarven Shortbow"
+     name: "lang:string_default_item_bow"
      lore: 
-       - "&6Primary - Craft Arrows and Repair Weapons &e(3.0s Cast)"
-       - "&6Secondary - Hold to deal up to &b4.5 &6Damage"
-       - "If there is one thing I hate more then Dragons and Zombies\""
-       - "it's those god damn tree camping Skeletons.\" &6- Sniktaw "
+       - "lang:string_default_item_bow_lore1"
+       - "lang:string_default_item_bow_lore2"
+       - "lang:string_default_item_bow_lore3"
+       - "lang:string_default_item_bow_lore4"
      id: 261
      data: 0
      useUp: false
@@ -496,9 +495,9 @@ items:
          cost: 0
        casts: []
    internDwarfPotion:
-     name: "Healing Ale"
+     name: "lang:string_default_item_potion"
      lore:
-       - "&6Primary - Heal yourself for 2 Hearts (Instant Cast)"
+       - "lang:string_default_item_potion_lore"
      id: 373
      data: 8197
      useUp: false
@@ -518,9 +517,9 @@ items:
        casts: []
    # monsters
    internCreeperExplode:
-     name: "Explode"
+     name: "lang:string_default_item_monster_explode"
      lore: 
-       - "Can be used every 10 seconds!"
+       - "lang:string_used_seconds:10"
      id: 289
      data: 10
      useUp: false
@@ -534,7 +533,7 @@ items:
      rightclick:
        effects: []
        sounds: []
-       cooldown: 0
+       cooldown: 10
        mana:
          cost: 0
        casts:
@@ -545,9 +544,9 @@ items:
              - 6
              - 1
    internSpiderConfuse:
-     name: "Confuse"
+     name: "lang:string_default_item_monster_confuse"
      lore: 
-       - "Can be used every 0 seconds!"
+       - "lang:string_used_seconds:0"
      id: 375
      data: 0
      useUp: false
@@ -572,9 +571,9 @@ items:
              - 300
              - 0
    internSpiderPosion:
-     name: "Posion"
+     name: "lang:string_default_item_monster_poison"
      lore: 
-       - "Can be used every 0 seconds!"
+       - "lang:string_used_seconds:0"
      id: 373
      data: 16452
      useUp: false
@@ -599,9 +598,9 @@ items:
          cost: 0
        casts: []
    internIronGolemSmash:
-     name: "Smash Blocks"
+     name: "lang:string_default_item_monster_smash"
      lore: 
-       - "Can be used every 1 second!"
+       - "lang:string_used_seconds:1"
      id: 265
      data: 0
      useUp: false
@@ -626,9 +625,9 @@ items:
              - 1
              - 1
    internIronGolemLeap:
-     name: "Leap"
+     name: "lang:string_default_item_monster_leap"
      lore: 
-       - "Can be used every 30 seconds!"
+       - "lang:string_used_seconds:30"
      id: 341
      data: 0
      useUp: false
@@ -653,9 +652,9 @@ items:
              - 4
              - 1.5
    internSnowGolemGet:
-     name: "Get Snow"
+     name: "lang:string_default_item_monster_snow"
      lore: 
-       - "Can be used every 60 seconds!"
+       - "lang:string_used_seconds:60"
      id: 353
      data: 0
      useUp: false
@@ -680,9 +679,9 @@ items:
              - "internSnowGolemBall 8:16"
              - 20
    internSnowGolemBall:
-     name: "Barricade"
+     name: "lang:string_default_item_monster_barricade"
      lore: 
-       - "Can be used every 0 seconds!"
+       - "lang:string_used_seconds:0"
      id: 332
      data: 0
      useUp: false
@@ -708,9 +707,9 @@ items:
              - "You need 96 Snowballs!"
              - 1
    internBroodmotherRoar:
-     name: "Roar"
+     name: "lang:string_default_item_monster_roar"
      lore: 
-       - "Can be used every 3 seconds!"
+       - "lang:string_used_seconds:3"
      id: 350
      data: 0
      useUp: false
@@ -735,9 +734,9 @@ items:
              - 15
              - "A Broodmother roars!"
    internBroodmotherLay:
-     name: "Lay Eggs"
+     name: "lang:string_default_item_monster_lay"
      lore: 
-       - "Can be used every 3 seconds!"
+       - "lang:string_used_seconds:3"
      id: 349
      data: 0
      useUp: false
@@ -762,9 +761,9 @@ items:
              - 1
              - "A Broodmother is laying her eggs!"
    internEndermanBlink:
-     name: "Blink"
+     name: "lang:string_default_item_monster_blink"
      lore: 
-       - "Can be used every 18 seconds!"
+       - "lang:string_used_seconds:18"
      id: 378
      data: 0
      useUp: false
@@ -791,9 +790,9 @@ items:
            castVars:
              - 75
    internEndermanPortal:
-     name: "Create or Reinforce Portal"
+     name: "lang:string_default_item_monster_portal"
      lore: 
-       - "Can be used every 10 seconds!"
+       - "lang:string_used_seconds:10"
      id: 90
      data: 0
      useUp: false
@@ -816,9 +815,9 @@ items:
            require: -1
            castVars: []
    internCatHunger:
-     name: "Drain Hunger"
+     name: "lang:string_default_item_monster_hunger"
      lore: 
-       - "Can be used every 2 seconds!"
+       - "lang:string_used_seconds:2"
      id: 351
      data: 0
      useUp: false
@@ -842,9 +841,9 @@ items:
            castVars:
              - 2
    internCatSteal:
-     name: "Steal Weapon"
+     name: "lang:string_default_item_monster_steal"
      lore: 
-       - "Can be used every 2 seconds!"
+       - "lang:string_used_seconds:2"
      id: 372
      data: 0
      useUp: false

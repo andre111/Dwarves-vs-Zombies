@@ -42,9 +42,9 @@ effects:
 
 dwarves:
    0: 
-      name: "Builder Dwarf"
+      name: "lang:string_default_builder"
       chatprefix: ""
-      chatsuffix: " the Builder"
+      chatsuffix: "lang:string_default_builder_suf"
       gameType: 1
       classItem: 2256
       classItemDamage: 0
@@ -69,7 +69,7 @@ dwarves:
          enable: true
          time: 30
          item: 340
-         name: "Get Building Blocks"
+         name: "lang:string_default_builder_spell"
          need:
             id: 0
             data: 0
@@ -90,9 +90,9 @@ dwarves:
          transmuteRightClick: []
          transmuteBlockBreak: []
    1: 
-      name: "Alchemy Dwarf"
+      name: "lang:string_default_alchemy"
       chatprefix: ""
-      chatsuffix: " the Alchemist"
+      chatsuffix: "lang:string_default_alchemy_suf"
       gameType: 1
       classItem: 2257
       classItemDamage: 0
@@ -115,13 +115,13 @@ dwarves:
          enable: true
          time: 30
          item: 340
-         name: "Transmute Potions"
+         name: "lang:string_default_alchemy_spell"
          need:
             id: 373
             data: 64
             count: 3
-         needString: "3 Mudane Potions"
-         failString: "You need 3 Mudane Potions to Transmute! Use Redstone and a Bottle of Water in a Brewing Stand"
+         needString: "lang:string_default_alchemy_need"
+         failString: "lang:string_default_alchemy_fail"
          inventory: false
          exp: 6
          items:
@@ -143,9 +143,9 @@ dwarves:
          transmuteRightClick: []
          transmuteBlockBreak: []
    2: 
-      name: "Blacksmith Dwarf"
+      name: "lang:string_default_blacksmith"
       chatprefix: ""
-      chatsuffix: " the Blacksmith"
+      chatsuffix: "lang:string_default_blacksmith_suf"
       gameType: 1
       classItem: 2258
       classItemDamage: 0
@@ -170,13 +170,13 @@ dwarves:
          enable: true
          time: 30
          item: 340
-         name: "Create Tools and Weapons"
+         name: "lang:string_default_blacksmith_spell"
          need:
             id: 347
             data: 0
             count: 3
-         needString: "3 Clocks"
-         failString: "You need 3 Gold Clocks! Smelt Gold and Redstone and craft them into clocks!"
+         needString: "lang:string_default_blacksmith_need"
+         failString: "lang:string_default_blacksmith_fail"
          inventory: false
          exp: 6
          items:
@@ -195,9 +195,9 @@ dwarves:
          transmuteRightClick: []
          transmuteBlockBreak: []
    3: 
-      name: "Tailor Dwarf"
+      name: "lang:string_default_tailor"
       chatprefix: ""
-      chatsuffix: " the Tailor"
+      chatsuffix: "lang:string_default_tailor_suf"
       gameType: 1
       classItem: 2259
       classItemDamage: 0
@@ -222,13 +222,13 @@ dwarves:
          enable: true
          time: 30
          item: 340
-         name: "Create Armor"
+         name: "lang:string_default_tailor_spell"
          need:
             id: 297
             data: 0
             count: 3
-         needString: "3 Bread"
-         failString: "You need 3 Bread to Transmute! Use Bonemeal to spead up the process!"
+         needString: "lang:string_default_tailor_need"
+         failString: "lang:string_default_tailor_fail"
          inventory: false
          exp: 6
          items:
@@ -244,9 +244,9 @@ dwarves:
          transmuteRightClick: []
          transmuteBlockBreak: []
    4: 
-      name: "Builder Dwarf"
+      name: "lang:string_default_newbuilder"
       chatprefix: ""
-      chatsuffix: " the Builder"
+      chatsuffix: "lang:string_default_newbuilder_suf"
       gameType: 2
       classItem: 2260
       classItemDamage: 0
@@ -286,9 +286,9 @@ dwarves:
          transmuteRightClick: []
          transmuteBlockBreak: []
    5: 
-      name: "Lumberjack Dwarf"
+      name: "lang:string_default_newlumberjack"
       chatprefix: ""
-      chatsuffix: " the Lumberjack"
+      chatsuffix: "lang:string_default_newlumberjack_suf"
       gameType: 2
       classItem: 2261
       classItemDamage: 0
@@ -337,9 +337,9 @@ dwarves:
       specialitems:
          transmute: []
    7: 
-      name: "Blacksmith Dwarf"
+      name: "lang:string_default_newblacksmith"
       chatprefix: ""
-      chatsuffix: " the Blacksmith"
+      chatsuffix: "lang:string_default_newblacksmith_suf"
       gameType: 2
       classItem: 2262
       classItemDamage: 0
