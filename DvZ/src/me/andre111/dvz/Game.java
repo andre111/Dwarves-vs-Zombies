@@ -252,13 +252,13 @@ public class Game {
 				infotimer = 0;
 				if (state==1) {
 					broadcastMessage(DvZ.getLanguage().getString("string_lobby_waiting","Waiting for the Game to start..."));
-					broadcastMessage(DvZ.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replaceAll("-0-", ""+playerstate.size()).replaceAll("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
+					broadcastMessage(DvZ.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replace("-0-", ""+playerstate.size()).replace("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
 				}
 			}
 		//Autostart{
 			if(lobby_Player>0) {
 				if(playerstate.size()>=lobby_Player) {
-					broadcastMessage(DvZ.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("lobby_starttime", 60)));
+					broadcastMessage(DvZ.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("lobby_starttime", 60)));
 					start(plugin.getConfig().getInt("lobby_starttime", 60));
 					
 					if(plugin.getConfig().getInt("lobby_playerperassasin", 10)>0) {
@@ -271,14 +271,14 @@ public class Game {
 		} else {
 			if (time>=0) time--;
 			
-			if (time==60*5) broadcastMessage(DvZ.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replaceAll("-0-", "5"));
-			else if (time==60) broadcastMessage(DvZ.getLanguage().getString("string_starting_minute","-0- Minute left!").replaceAll("-0-", "1"));
-			else if (time==10) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replaceAll("-0-", "10"));
-			else if (time==5) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replaceAll("-0-", "5"));
-			else if (time==4) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replaceAll("-0-", "4"));
-			else if (time==3) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replaceAll("-0-", "3"));
-			else if (time==2) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replaceAll("-0-", "2"));
-			else if (time==1) broadcastMessage(DvZ.getLanguage().getString("string_starting_second","-0- Second left!").replaceAll("-0-", "1"));
+			if (time==60*5) broadcastMessage(DvZ.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
+			else if (time==60) broadcastMessage(DvZ.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
+			else if (time==10) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "10"));
+			else if (time==5) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "5"));
+			else if (time==4) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "4"));
+			else if (time==3) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "3"));
+			else if (time==2) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "2"));
+			else if (time==1) broadcastMessage(DvZ.getLanguage().getString("string_starting_second","-0- Second left!").replace("-0-", "1"));
 			else if (time==0) startGame();//timeUp();
 			
 			if (time<=0) {
@@ -473,7 +473,7 @@ public class Game {
 		if (dwarf==0 && (mons>=1 || monsoff>=1)) {
 			broadcastMessage(DvZ.getLanguage().getString("string_lose_dwarf","§4Game Over!§f No more Dwarves!"));
 			if(lastdwarf!=null)
-				broadcastMessage(DvZ.getLanguage().getString("string_last_dwarf","Last standing Dwarf - §e-0-§f! Congratulations!").replaceAll("-0-", lastdwarf));
+				broadcastMessage(DvZ.getLanguage().getString("string_last_dwarf","Last standing Dwarf - §e-0-§f! Congratulations!").replace("-0-", lastdwarf));
 			
 			reset(true);
 		}
@@ -770,7 +770,7 @@ public class Game {
 				int asstime = DvZ.getClassFile().getInt("assasin_time_minutes",5);
 				if(asstime>0) {
 					spell3time.put(player.getName(), asstime*60);
-					player.sendMessage(DvZ.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replaceAll("-0-", ""+asstime));
+					player.sendMessage(DvZ.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
 				}
 				
 				//add assasin items to inventory
@@ -790,7 +790,7 @@ public class Game {
 				}*/
 			//}
 		}
-		broadcastMessage(DvZ.getLanguage().getString("string_assasins","-0- Assasins have been chosen!!").replaceAll("-0-", ""+count));
+		broadcastMessage(DvZ.getLanguage().getString("string_assasins","-0- Assasins have been chosen!!").replace("-0-", ""+count));
 	}
 	
 	//#######################################
@@ -823,7 +823,7 @@ public class Game {
 		for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
 			dwarfItems[i] = new ItemStack(DvZ.dwarfManager.getDwarf(i).getClassItem(), 1, (short)DvZ.dwarfManager.getDwarf(i).getClassItemDamage());
 			ItemMeta cim = dwarfItems[i].getItemMeta();
-			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.dwarfManager.getDwarf(i).getName()));
+			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.dwarfManager.getDwarf(i).getName()));
 			dwarfItems[i].setItemMeta(cim);
 		}
 		
@@ -918,7 +918,7 @@ public class Game {
 		for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 			monsterItems[i] = new ItemStack(DvZ.monsterManager.getMonster(i).getClassItem(), 1, (short)DvZ.monsterManager.getMonster(i).getClassItemDamage());
 			ItemMeta cim = monsterItems[i].getItemMeta();
-			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replaceAll("-0-", DvZ.monsterManager.getMonster(i).getName()));
+			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.monsterManager.getMonster(i).getName()));
 			monsterItems[i].setItemMeta(cim);
 		}
 		
@@ -1183,7 +1183,7 @@ public class Game {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, time*20, 4), false);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, time*20, 6), false);
 		
-		player.sendMessage(DvZ.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replaceAll("-0-", ""+time));
+		player.sendMessage(DvZ.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replace("-0-", ""+time));
 		
 		invultimer.put(player.getName(), time);
 	}
@@ -1197,7 +1197,7 @@ public class Game {
 			ItemMeta im = it.getItemMeta();
 			im.setDisplayName(DvZ.getLanguage().getString("string_spell_teleport","Teleport to Enderman Portal"));
 			ArrayList<String> li4 = new ArrayList<String>();
-			li4.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_teleport",15)));
+			li4.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_teleport",15)));
 			im.setLore(li4);
 			it.setItemMeta(im);
 			inv.addItem(it);

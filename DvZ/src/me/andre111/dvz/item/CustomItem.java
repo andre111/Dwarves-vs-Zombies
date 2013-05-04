@@ -141,7 +141,7 @@ public class CustomItem implements IUpCounter {
 		//cooldown
 		int cd = game.getCustomCooldown(player.getName(), getCooldownName(left));
 		if(cd>0) {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait", "You have to wait -0- Seconds!").replaceAll("-0-", ""+cd));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait", "You have to wait -0- Seconds!").replace("-0-", ""+cd));
 			
 			return true;
 		}
@@ -152,7 +152,7 @@ public class CustomItem implements IUpCounter {
 		
 		if(cost>0)
 		if(game.getManaManager().getMana(player.getName())<cost) {
-			player.sendMessage(DvZ.getLanguage().getString("string_needmana", "You need -0- Mana!").replaceAll("-0-", ""+cost));
+			player.sendMessage(DvZ.getLanguage().getString("string_needmana", "You need -0- Mana!").replace("-0-", ""+cost));
 			return true;
 		}
 		

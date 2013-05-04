@@ -64,7 +64,7 @@ public class CustomDwarf {
 		game.getManaManager().setMaxMana(player.getName(), getMaxMana(), true);
 		game.getManaManager().setManaRegen(player.getName(), getManaRegen());
 		
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", getName()));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		
 		ItemHandler.clearInv(player);
 		player.setTotalExperience(0);
@@ -106,9 +106,9 @@ public class CustomDwarf {
 					ItemMeta im = it.getItemMeta();
 						im.setDisplayName(getSpellName());
 						ArrayList<String> li = new ArrayList<String>();
-						li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+getSpellTime()));
+						li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+getSpellTime()));
 						if(!getSpellNeed().equals("")) {
-							li.add(DvZ.getLanguage().getString("string_need","You need -0- to use this!").replaceAll("-0-", getSpellNeed()));
+							li.add(DvZ.getLanguage().getString("string_need","You need -0- to use this!").replace("-0-", getSpellNeed()));
 						}
 						im.setLore(li);
 					it.setItemMeta(im);
@@ -186,7 +186,7 @@ public class CustomDwarf {
 					player.sendMessage(getSpellFail());
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	

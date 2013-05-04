@@ -70,7 +70,7 @@ public class Spellcontroller {
 				player.sendMessage(DvZ.getClassFile().getString("custom_d"+cd+"_spell_fail",""));
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class Spellcontroller {
 				player.sendMessage(DvZ.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 4)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
 		}
 	}
 	
@@ -168,7 +168,7 @@ public class Spellcontroller {
 			w.createExplosion(loc, 6);
 			w.createExplosion(loc, 6);
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -179,7 +179,7 @@ public class Spellcontroller {
 			target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 0));
 			target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 0));
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -189,7 +189,7 @@ public class Spellcontroller {
 			
 			target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, 4));
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 2)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
 		}
 	}
 	
@@ -202,7 +202,7 @@ public class Spellcontroller {
 			w.createExplosion(loc, 2);
 			w.playSound(loc, Sound.IRONGOLEM_THROW, 1, 1);
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -217,7 +217,7 @@ public class Spellcontroller {
             spellLeap(player, forwardVelocity, upwardVelocity, 1, true);
             jumping.add(player);
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 2)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
 		}
 	}
 	
@@ -252,7 +252,7 @@ public class Spellcontroller {
 			
 			DvZ.updateInventory(player);
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -277,7 +277,7 @@ public class Spellcontroller {
 				player.sendMessage(DvZ.getLanguage().getString("string_need_snow","You need 96 Snowballs!"));
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 2)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
 		}
 	}
 	
@@ -309,7 +309,7 @@ public class Spellcontroller {
 				player.sendMessage(DvZ.getLanguage().getString("string_need_egg","You need an Egg to Infect!"));
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -327,7 +327,7 @@ public class Spellcontroller {
 			
             game.broadcastMessage(DvZ.getLanguage().getString("string_brood_roar","A Broodmother roars!"));
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 2)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
 		}
 	}
 	
@@ -387,7 +387,7 @@ public class Spellcontroller {
 				game.setCountdown(player.getName(), 1, 0);
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -411,7 +411,7 @@ public class Spellcontroller {
 					ItemMeta im = it.getItemMeta();
 					im.setDisplayName(DvZ.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 					ArrayList<String> li = new ArrayList<String>();
-					li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_disableportal",3)));
+					li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_disableportal",3)));
 					im.setLore(li);
 					it.setItemMeta(im);
 					
@@ -424,7 +424,7 @@ public class Spellcontroller {
 				ItemMeta im = it.getItemMeta();
 				im.setDisplayName(DvZ.getLanguage().getString("string_spell_reinforce_portal","Reinforce Portal"));
 				ArrayList<String> li = new ArrayList<String>();
-				li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_reinforceenderportal",3)));
+				li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_reinforceenderportal",3)));
 				im.setLore(li);
 				it.setItemMeta(im);
 				player.getInventory().addItem(it);
@@ -440,7 +440,7 @@ public class Spellcontroller {
 				game.broadcastMessage(DvZ.getLanguage().getString("string_portal_create","An Enderman has created a Portal!"));
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 2)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
 		}
 	}
 	
@@ -458,7 +458,7 @@ public class Spellcontroller {
 					ItemMeta im = it.getItemMeta();
 					im.setDisplayName(DvZ.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 					ArrayList<String> li = new ArrayList<String>();
-					li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_disableportal",3)));
+					li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_disableportal",3)));
 					im.setLore(li);
 					it.setItemMeta(im);
 					
@@ -474,7 +474,7 @@ public class Spellcontroller {
 				game.broadcastMessage(DvZ.getLanguage().getString("string_portal_reinforce","The Portal has been reinforced!"));
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 3)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 3)));
 		}
 	}
 	
@@ -495,7 +495,7 @@ public class Spellcontroller {
 				player.sendMessage(DvZ.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 4)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
 		}
 	}
 	
@@ -514,7 +514,7 @@ public class Spellcontroller {
 				target.setSaturation(0);
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	
@@ -528,7 +528,7 @@ public class Spellcontroller {
 				target.getWorld().dropItemNaturally(target.getLocation(), held);
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replaceAll("-0-", ""+game.getCountdown(player.getName(), 1)));
+			player.sendMessage(DvZ.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
 		}
 	}
 	

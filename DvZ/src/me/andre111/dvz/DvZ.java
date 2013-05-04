@@ -527,13 +527,13 @@ public class DvZ extends JavaPlugin {
 					player.sendMessage(getLanguage().getString("string_choose","Choose your class!"));
 					game.addDwarfItems(player);
 
-					game.broadcastMessage(getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replaceAll("-0-", player.getDisplayName()));
+					game.broadcastMessage(getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 				} else {
 					game.setPlayerState(player.getName(), 3);
 					player.sendMessage(getLanguage().getString("string_choose","Choose your class!"));
 					game.addMonsterItems(player);
 
-					game.broadcastMessage(getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replaceAll("-0-", player.getDisplayName()));
+					game.broadcastMessage(getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
 				}
 			}
 		}

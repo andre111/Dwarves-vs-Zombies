@@ -62,7 +62,7 @@ public class ItemPortal extends ItemSpell {
 			ItemMeta im = it.getItemMeta();
 			im.setDisplayName(DvZ.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 			ArrayList<String> li = new ArrayList<String>();
-			li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+DvZ.getStaticConfig().getInt("spelltime_disableportal",3)));
+			li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+DvZ.getStaticConfig().getInt("spelltime_disableportal",3)));
 			im.setLore(li);
 			it.setItemMeta(im);
 			
@@ -76,7 +76,7 @@ public class ItemPortal extends ItemSpell {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_reinforce_portal","Reinforce Portal"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_reinforceenderportal",3)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_reinforceenderportal",3)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		player.getInventory().addItem(it);*/
@@ -103,7 +103,7 @@ public class ItemPortal extends ItemSpell {
 				ItemMeta im = it.getItemMeta();
 				im.setDisplayName(DvZ.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 				ArrayList<String> li = new ArrayList<String>();
-				li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+DvZ.getStaticConfig().getInt("spelltime_disableportal",3)));
+				li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+DvZ.getStaticConfig().getInt("spelltime_disableportal",3)));
 				im.setLore(li);
 				it.setItemMeta(im);
 				

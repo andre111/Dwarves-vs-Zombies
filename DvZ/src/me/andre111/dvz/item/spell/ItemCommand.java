@@ -28,7 +28,7 @@ public class ItemCommand extends ItemSpell {
 		boolean succed = false;
 		for(String st : commands) {
 			if(!st.contains("-1-")) {
-				String command = st.replaceAll("-0-", player.getName());
+				String command = st.replace("-0-", player.getName());
 				succed = true;
 				if(console)
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
@@ -43,7 +43,7 @@ public class ItemCommand extends ItemSpell {
 		boolean succed = false;
 		for(String st : commands) {
 			if(!st.contains("-1-")) {
-				String command = st.replaceAll("-0-", player.getName());
+				String command = st.replace("-0-", player.getName());
 				succed = true;
 				if(console)
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
@@ -57,8 +57,8 @@ public class ItemCommand extends ItemSpell {
 	public boolean cast(Game game, Player player, Player target) {
 		boolean succed = false;
 		for(String st : commands) {
-			String command = st.replaceAll("-0-", player.getName());
-			command = command.replaceAll("-1-", target.getName());
+			String command = st.replace("-0-", player.getName());
+			command = command.replace("-1-", target.getName());
 			succed = true;
 			if(console)
 				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
@@ -73,7 +73,7 @@ public class ItemCommand extends ItemSpell {
 		boolean succed = false;
 		for(String st : commands) {
 			if(!st.contains("-1-")) {
-				String command = st.replaceAll("-0-", player.getName());
+				String command = st.replace("-0-", player.getName());
 				succed = true;
 				if(console)
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command);

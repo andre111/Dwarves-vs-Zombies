@@ -82,7 +82,7 @@ public class Listener_Player implements Listener  {
 			player.sendMessage("--------------------------------");
 			player.sendMessage("Plugin by andre111");
 			
-			event.setJoinMessage(DvZ.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replaceAll("-0-", player.getDisplayName()));
+			event.setJoinMessage(DvZ.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
 			
 			//dedicated mode and game not started -> teleport to the lobby
 			if(plugin.getGame(0).getState()==1 && plugin.getConfig().getString("dedicated_mode","false")=="true") {
@@ -99,14 +99,14 @@ public class Listener_Player implements Listener  {
 						player.sendMessage(DvZ.getLanguage().getString("string_choose","Choose your class!"));
 						plugin.getGame(0).addDwarfItems(player);
 						
-						plugin.getGame(0).broadcastMessage(DvZ.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replaceAll("-0-", player.getDisplayName()));
+						plugin.getGame(0).broadcastMessage(DvZ.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 					} else {
 						plugin.getGame(0).setPlayerState(player.getName(), 3);
 						ItemHandler.clearInv(player);
 						player.sendMessage(DvZ.getLanguage().getString("string_choose","Choose your class!"));
 						plugin.getGame(0).addMonsterItems(player);
 						
-						plugin.getGame(0).broadcastMessage(DvZ.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replaceAll("-0-", player.getDisplayName()));
+						plugin.getGame(0).broadcastMessage(DvZ.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
 					}
 				}
 			}
@@ -116,7 +116,7 @@ public class Listener_Player implements Listener  {
 			CustomMonster cm = DvZ.monsterManager.getMonster(pstate-Game.monsterMin);
 			if(cm!=null) {
 				DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", cm.getDisguise()));
-				player.sendMessage(DvZ.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replaceAll("-0-", cm.getName()));
+				player.sendMessage(DvZ.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replace("-0-", cm.getName()));
 			}
 			//player leave during start
 			if(pstate==1 && plugin.getPlayerGame(player.getName()).getState()>1) {
@@ -394,7 +394,7 @@ public class Listener_Player implements Listener  {
 				if (game.isMonster(k.getName())) {
 					//TODO - change monstername
 					if (plugin.getConfig().getString("change_death_message", "true").equals("true")) {
-						event.setDeathMessage(ChatColor.YELLOW+DvZ.getLanguage().getString("string_chat_death", "-0- was killed by a monster!").replaceAll("-0-", p.getName()));
+						event.setDeathMessage(ChatColor.YELLOW+DvZ.getLanguage().getString("string_chat_death", "-0- was killed by a monster!").replace("-0-", p.getName()));
 					}
 				}
 			//is Monster
@@ -410,7 +410,7 @@ public class Listener_Player implements Listener  {
 							if(im.hasLore()) {
 								String lore1 = im.getLore().get(0);
 								if(lore1.startsWith(DvZ.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: "))) {
-									int count = Integer.parseInt(lore1.replaceAll(DvZ.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: "), ""));
+									int count = Integer.parseInt(lore1.replace(DvZ.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: "), ""));
 									count += 1;
 									ArrayList<String> li = new ArrayList<String>();
 									li.add(DvZ.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: ")+count);

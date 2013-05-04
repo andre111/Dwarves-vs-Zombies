@@ -26,7 +26,7 @@ public class Classswitcher {
 		game.resetCountdowns(player.getName());
 		game.getManaManager().setMaxMana(player.getName(), DvZ.getClassFile().getInt("custom_d"+cd+"_mana_max", 0), true);
 		game.getManaManager().setManaRegen(player.getName(), DvZ.getClassFile().getInt("custom_d"+cd+"_mana_regen", 0));
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getClassFile().getString("custom_d"+cd+"_name","")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getClassFile().getString("custom_d"+cd+"_name","")));
 		
 		ItemHandler.clearInv(player);
 		player.setTotalExperience(0);
@@ -44,9 +44,9 @@ public class Classswitcher {
 					ItemMeta im = it.getItemMeta();
 					im.setDisplayName(DvZ.getClassFile().getString("custom_d"+cd+"_spell_name",""));
 					ArrayList<String> li = new ArrayList<String>();
-					li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+DvZ.getClassFile().getInt("custom_d"+cd+"_spell_time",30)));
+					li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+DvZ.getClassFile().getInt("custom_d"+cd+"_spell_time",30)));
 					if(DvZ.getClassFile().getString("custom_d"+cd+"_spell_hasstring","false")=="true") {
-						li.add(DvZ.getLanguage().getString("string_need","You need -0- to use this!").replaceAll("-0-", ""+DvZ.getClassFile().getString("custom_d"+cd+"_spell_string","")));
+						li.add(DvZ.getLanguage().getString("string_need","You need -0- to use this!").replace("-0-", ""+DvZ.getClassFile().getString("custom_d"+cd+"_spell_string","")));
 					}
 					im.setLore(li);
 					it.setItemMeta(im);
@@ -94,7 +94,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 30);
 		
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_zombie","Zombie")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_zombie","Zombie")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Zombie));
 		
 		PlayerInventory inv = player.getInventory();
@@ -122,7 +122,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 31);
 
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_skeleton","Skeleton")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_skeleton","Skeleton")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Skeleton));
 		
 		
@@ -154,7 +154,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 32);
 
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_creeper","Creeper")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_creeper","Creeper")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Creeper));
 		
 		
@@ -164,7 +164,7 @@ public class Classswitcher {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_explode","Explode"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_creeper",10)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_creeper",10)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -185,7 +185,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 33);
 		
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_wolf","Wolf")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_wolf","Wolf")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Wolf));
 		
 		
@@ -221,7 +221,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 34);
 		
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_spider","Spider")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_spider","Spider")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Spider));
 		
 		
@@ -234,7 +234,7 @@ public class Classswitcher {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_confuse","Confuse"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_spiderbite1",0)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_spiderbite1",0)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -261,7 +261,7 @@ public class Classswitcher {
 		becomeMonster(game, player, false);
 		game.setPlayerState(player.getName(), 35);
 
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_iron","IronGolem")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_iron","IronGolem")));
 		if(plugin.getConfig().getString("change_golem_to_blaze","false")=="true")
 			DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Blaze));
 		else
@@ -280,7 +280,7 @@ public class Classswitcher {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_smash","Smash Blocks"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_ironsmash",1)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_ironsmash",1)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -288,7 +288,7 @@ public class Classswitcher {
 		im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_leap","Leap"));
 		ArrayList<String> li2 = new ArrayList<String>();
-		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_ironjump",30)));
+		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_ironjump",30)));
 		im.setLore(li2);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -322,7 +322,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 36);
 
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_snow","SnowGolem")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_snow","SnowGolem")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Snowman));
 		
 		
@@ -332,7 +332,7 @@ public class Classswitcher {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_snow","Get Snow"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_snowgolem",60)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_snowgolem",60)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -345,7 +345,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 37);
 
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_brood","Broodmother")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_brood","Broodmother")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Silverfish));
 		
 		
@@ -355,7 +355,7 @@ public class Classswitcher {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_roar","Roar"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_broodroar",3)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_broodroar",3)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -363,8 +363,8 @@ public class Classswitcher {
 		im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_lay","Lay Eggs"));
 		ArrayList<String> li2 = new ArrayList<String>();
-		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_broodlay",3)));
-		li.add(DvZ.getLanguage().getString("string_need","You need -0- to use this!").replaceAll("-0-", ""+DvZ.getLanguage().getString("string_egg","an Egg")));
+		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_broodlay",3)));
+		li.add(DvZ.getLanguage().getString("string_need","You need -0- to use this!").replace("-0-", ""+DvZ.getLanguage().getString("string_egg","an Egg")));
 		im.setLore(li2);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -380,7 +380,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 38);
 
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_enderman","Enderman")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_enderman","Enderman")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Enderman));
 		
 		
@@ -390,7 +390,7 @@ public class Classswitcher {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_blink","Blink"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_enderblink",18)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_enderblink",18)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -398,7 +398,7 @@ public class Classswitcher {
 		im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_spell_portal","Create Portal"));
 		ArrayList<String> li2 = new ArrayList<String>();
-		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_enderportal",10)));
+		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_enderportal",10)));
 		im.setLore(li2);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -411,7 +411,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 39);
 
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_cat","Cat")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_cat","Cat")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Ocelot));
 		
 		
@@ -421,7 +421,7 @@ public class Classswitcher {
 		ItemMeta im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_drain_hunger","Drain Hunger"));
 		ArrayList<String> li = new ArrayList<String>();
-		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_drain_hunger",2)));
+		li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_drain_hunger",2)));
 		im.setLore(li);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -429,7 +429,7 @@ public class Classswitcher {
 		im = it.getItemMeta();
 		im.setDisplayName(DvZ.getLanguage().getString("string_steal_weapon","Steal Weapon"));
 		ArrayList<String> li2 = new ArrayList<String>();
-		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replaceAll("-0-", ""+plugin.getConfig().getInt("spelltime_steal_weapon",2)));
+		li2.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_steal_weapon",2)));
 		im.setLore(li2);
 		it.setItemMeta(im);
 		inv.addItem(it);
@@ -443,7 +443,7 @@ public class Classswitcher {
 		becomeMonster(game, player);
 		game.setPlayerState(player.getName(), 40);
 		
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_hungrypig","Hungry Pig")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_hungrypig","Hungry Pig")));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Pig));
 		
 		
@@ -467,7 +467,7 @@ public class Classswitcher {
 	public static void becomeHungryPig2(Game game, Player player) {
 		game.setPlayerState(player.getName(), 41);
 		game.resetCountdowns(player.getName());
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_hungrypig","Hungry Pig")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_hungrypig","Hungry Pig")));
 		DvZ.api.undisguisePlayer(player);
 		DvZ.api.disguisePlayer(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.Pig));
 		
@@ -488,7 +488,7 @@ public class Classswitcher {
 	public static void becomeHungryPig3(Game game, Player player) {
 		game.setPlayerState(player.getName(), 42);
 		game.resetCountdowns(player.getName());
-		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replaceAll("-0-", DvZ.getLanguage().getString("string_hungrypig","Hungry Pig")));
+		player.sendMessage(DvZ.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", DvZ.getLanguage().getString("string_hungrypig","Hungry Pig")));
 		DvZ.api.undisguisePlayer(player);
 		DvZ.api.disguisePlayer(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.PigZombie));
 		

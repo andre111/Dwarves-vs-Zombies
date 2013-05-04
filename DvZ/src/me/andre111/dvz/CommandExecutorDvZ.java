@@ -143,8 +143,8 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				sender.sendMessage(DvZ.getLanguage().getString("string_using_dummy","Using dummy Game"));
 			} else {
 				Game game = plugin.getGame(gameID);
-				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+gameID));
-				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replaceAll("-0-", ""+0));
+				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
+				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 				
 				if(game!=null) game.spawnDwarves = player.getLocation();
 			}
@@ -178,8 +178,8 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				sender.sendMessage(DvZ.getLanguage().getString("string_using_dummy","Using dummy Game"));
 			} else {
 				Game game = plugin.getGame(gameID);
-				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+gameID));
-				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replaceAll("-0-", ""+0));
+				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
+				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 				
 				if(game!=null) game.spawnMonsters = player.getLocation();
 			}
@@ -211,7 +211,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 					if(!game.getStarting()) {
 						sender.sendMessage(DvZ.getLanguage().getString("string_game_notrunning","No Game running!"));
 					} else {
-						sender.sendMessage(DvZ.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replaceAll("-0-", ""+game.getStartTime()));
+						sender.sendMessage(DvZ.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+game.getStartTime()));
 					}
 				} else {
 					int dwarf = 0;
@@ -240,8 +240,8 @@ public class CommandExecutorDvZ implements CommandExecutor {
 					minutes = (int)Math.floor((seconds-(hours*60*60))/60.0);
 					seconds = seconds-(minutes*60)-(hours*60*60);
 					
-					sender.sendMessage(DvZ.getLanguage().getString("string_game_running","Game running for -0- Hours -1- Minutes -2- Seconds!").replaceAll("-0-", ""+hours).replaceAll("-1-", ""+minutes).replaceAll("-2-", ""+seconds));
-					sender.sendMessage(DvZ.getLanguage().getString("string_game_count","-0- (-1- Offline) Dwarves and -2-(-3- Offline) Monsters!").replaceAll("-0-", ""+dwarf).replaceAll("-1-", ""+dwarfoff).replaceAll("-2-", ""+mons).replaceAll("-3-", ""+monsoff));
+					sender.sendMessage(DvZ.getLanguage().getString("string_game_running","Game running for -0- Hours -1- Minutes -2- Seconds!").replace("-0-", ""+hours).replace("-1-", ""+minutes).replace("-2-", ""+seconds));
+					sender.sendMessage(DvZ.getLanguage().getString("string_game_count","-0- (-1- Offline) Dwarves and -2-(-3- Offline) Monsters!").replace("-0-", ""+dwarf).replace("-1-", ""+dwarfoff).replace("-2-", ""+mons).replace("-3-", ""+monsoff));
 				}
 			}
 			return true;
@@ -282,8 +282,8 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				plugin.getDummy().createMonument(true);
 			} else {
 				Game game = plugin.getGame(gameID);
-				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+gameID));
-				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replaceAll("-0-", ""+0));
+				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
+				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 				
 				if(game!=null) {
 					game.monument = player.getLocation();
@@ -326,7 +326,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 					dID = (new Random()).nextInt(DvZ.dragonAtManager.getMaxDragonCount()+1);
 					player.sendMessage(DvZ.getLanguage().getString("string_random_dragon", "Choosing a random Dragon!"));
 				}
-				player.sendMessage(DvZ.getLanguage().getString("string_become_dragon", "You became the -0-!").replaceAll("-0-", DvZ.dragonAtManager.getDragon(dID).getName()));
+				player.sendMessage(DvZ.getLanguage().getString("string_become_dragon", "You became the -0-!").replace("-0-", DvZ.dragonAtManager.getDragon(dID).getName()));
 				
 				PlayerDragon dragon = new PlayerDragon(player);
 				
@@ -367,7 +367,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 					game.addDwarfItems(player);
 					
 					player.sendMessage(DvZ.getLanguage().getString("string_self_added","You have been added to the game!"));
-					sender.sendMessage(DvZ.getLanguage().getString("string_player_added","Added -0- to the game!").replaceAll("-0-", args[1]));
+					sender.sendMessage(DvZ.getLanguage().getString("string_player_added","Added -0- to the game!").replace("-0-", args[1]));
 				} else {
 					sender.sendMessage(DvZ.getLanguage().getString("string_noplayer","No Player found with that Name!"));
 				}
@@ -526,12 +526,12 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			game = plugin.getGame(0);
 			
 			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
-				sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+0));
+				sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+0));
 		} else {
 			game = plugin.getGame(gameID);
 			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
-				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+gameID));
-				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replaceAll("-0-", ""+0));
+				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
+				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 		}
 		
 		return game;
@@ -560,12 +560,12 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			}
 			
 			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
-				sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+id));
+				sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+id));
 		} else {
 			game = plugin.getGame(gameID);
 			if(DvZ.getStaticConfig().getString("show_game_id","true")=="true")
-				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replaceAll("-0-", ""+gameID));
-				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replaceAll("-0-", ""+0));
+				if(game!=null) sender.sendMessage(DvZ.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
+				else sender.sendMessage(DvZ.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 		}
 		
 		return game;
