@@ -487,6 +487,11 @@ items:
            castVars:
              - "262 5"
              - 1
+         1:
+           cast: "ItemSetDamage"
+           require: -1
+           castVars:
+             - 0
      rightclick:
        effects: []
        sounds: []
