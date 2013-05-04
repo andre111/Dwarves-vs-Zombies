@@ -250,13 +250,6 @@ public class DvZ extends JavaPlugin {
 			log("Generating default config.");
 			//saveDefaultConfig();
 		}
-		//language
-		if (!new File(getDataFolder(), "lang_en_EN.yml").exists()) {
-			saveResource("lang_en_EN.yml", false);
-		}
-		if (!new File(getDataFolder(), "lang_de_DE.yml").exists()) {
-			saveResource("lang_de_DE.yml", false);
-		}
 		//Classes and stuff
 		if (!new File(getDataFolder(), "dragons.yml").exists()) {
 			try {
@@ -284,8 +277,8 @@ public class DvZ extends JavaPlugin {
 			} catch (IOException e) {}
 		}
 		DvZ.lang = this.getConfig().getString("language", "en_EN");
-		DvZ.langfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_"+lang+".yml"));
-		DvZ.enlangfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang_en_EN.yml"));
+		DvZ.langfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang/lang_"+lang+".yml"));
+		DvZ.enlangfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang/lang_en_EN.yml"));
 		DvZ.configfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
 		DvZ.dragonsfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "dragons.yml"));
 		DvZ.classfile =  DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "classes.yml"));
@@ -303,6 +296,9 @@ public class DvZ extends JavaPlugin {
 		saveResource("config/default/monster.yml", true);
 		saveResource("config/default/items.yml", true);
 		saveResource("config/default/blocks.yml", true);
+		//language
+		saveResource("lang/lang_en_EN.yml", true);
+		saveResource("lang/lang_de_DE.yml", true);
 	}
 	
 	private void loadConfigs() {
