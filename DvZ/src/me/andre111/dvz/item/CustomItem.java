@@ -52,19 +52,34 @@ public class CustomItem implements IUpCounter {
 	private ItemSpell[] castsL;
 
 	public void cast(Game game, boolean left, Player player) {
-		if(cooldownManaCheck(game, left, player)) return;
+		ItemSpell[] castsTemp = castsR;
+		if(left) castsTemp = castsL;
 		
-		castIntern(game, left, player, null, null);
+		if(castsTemp != null) {
+			if(cooldownManaCheck(game, left, player)) return;
+		
+			castIntern(game, left, player, null, null);
+		}
 	}
 	public void cast(Game game, boolean left, Player player, Block block) {
-		if(cooldownManaCheck(game, left, player)) return;
+		ItemSpell[] castsTemp = castsR;
+		if(left) castsTemp = castsL;
 		
-		castIntern(game, left, player, block, null);
+		if(castsTemp != null) {
+			if(cooldownManaCheck(game, left, player)) return;
+			
+			castIntern(game, left, player, block, null);
+		}
 	}
 	public void cast(Game game, boolean left, Player player, Player target) {
-		if(cooldownManaCheck(game, left, player)) return;
+		ItemSpell[] castsTemp = castsR;
+		if(left) castsTemp = castsL;
 		
-		castIntern(game, left, player, null, target);
+		if(castsTemp != null) {
+			if(cooldownManaCheck(game, left, player)) return;
+		
+			castIntern(game, left, player, null, target);
+		}
 	}
 	
 	private void castIntern(Game game, boolean left, Player player, Block block, Player target) {
