@@ -257,7 +257,7 @@ dwarves:
          - "crystalPerPlayer 1 100 -10:0"
       crystalItems:
          - "internDwarfSword"
-         - "internDwarfBow"
+         - "internDwarfBow 1 100 48:7"
          - "internDwarfPotion"
          - "65 64"
       effects: []
@@ -303,7 +303,7 @@ dwarves:
          - "crystalPerPlayer 1 100 -10:0"
       crystalItems:
          - "internDwarfSword"
-         - "internDwarfBow"
+         - "internDwarfBow 1 100 48:7"
          - "internDwarfPotion"
          - "65 64"
       effects: []
@@ -355,7 +355,7 @@ dwarves:
          - "crystalPerPlayer 1 100 -10:0"
       crystalItems:
          - "internDwarfSword"
-         - "internDwarfBow"
+         - "internDwarfBow 1 100 48:7"
          - "internDwarfPotion"
          - "65 64"
       effects: []

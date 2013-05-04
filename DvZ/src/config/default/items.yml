@@ -454,16 +454,20 @@ items:
          cost: 0
        casts: []
    internDwarfBow:
-     name: "Dwarven Short Bow"
-     lore: []
+     name: "Dwarven Shortbow"
+     lore: 
+       - "&6Primary - Craft Arrows and Repair Weapons &e(3.0s Cast)"
+       - "&6Secondary - Hold to deal up to &b4.5 &6Damage"
+       - "If there is one thing I hate more then Dragons and Zombies\""
+       - "it's those god damn tree camping Skeletons.\" &6- Sniktaw "
      id: 261
      data: 0
      useUp: false
      ignoreDamage: true
      countup:
        enabled: true
-       max: 100
-       perSecond: 25
+       max: 90
+       perSecond: 30
        overridable: true
        interrupt:
          move: true
@@ -492,8 +496,9 @@ items:
          cost: 0
        casts: []
    internDwarfPotion:
-     name: "Healing Potion"
-     lore: []
+     name: "Healing Ale"
+     lore:
+       - "&6Primary - Heal yourself for 2 Hearts (Instant Cast)"
      id: 373
      data: 8197
      useUp: false
