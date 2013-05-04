@@ -28,6 +28,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -524,6 +526,25 @@ public class Listener_Player implements Listener  {
 		if(game==null) return;
 		
 		StatManager.updateXPBarStat(p);
+	}
+	//update xp
+	@EventHandler
+	public void onPlayerInventoryOpen(InventoryOpenEvent event) {
+		if(event.isCancelled()) return;
+		
+		Player p  = (Player) event.getPlayer();
+		Game game = plugin.getPlayerGame(p.getName());
+		if(game==null) return;
+		
+		StatManager.onInventoryOpen(p);
+	}
+	@EventHandler
+	public void onPlayerInventoryClose(InventoryCloseEvent event) {
+		Player p  = (Player) event.getPlayer();
+		Game game = plugin.getPlayerGame(p.getName());
+		if(game==null) return;
+		
+		StatManager.onInventoryClose(p);
 	}
 	//update upcounters
 	@EventHandler(priority=EventPriority.MONITOR)

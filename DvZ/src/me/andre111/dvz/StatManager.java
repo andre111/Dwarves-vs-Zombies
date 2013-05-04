@@ -47,11 +47,14 @@ public class StatManager {
 	}
 	//Hide them
 	public static void hide(Player player) {
-		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-		
-		//xp-bar
-		xpBarShown.put(player.getName(), false);
-		sendRealXP(player);
+		//don't hide when always shown s enabled
+		if(!DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+			player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+			
+			//xp-bar
+			xpBarShown.put(player.getName(), false);
+			sendRealXP(player);
+		}
 	}
 	
 	//set a stat of a Player
@@ -63,6 +66,12 @@ public class StatManager {
 		}
 		
 		sc.getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(value);
+		
+		//show stats, when they should always show
+		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+			Player p = Bukkit.getPlayer(player);
+			if(p!=null) show(p);
+		}
 	}
 	//set a stat for all Players
 	public static void setGlobalStat(String stat, int value) {
@@ -77,6 +86,12 @@ public class StatManager {
 		
 		//check if a countup is shown
 		if(counters.containsKey(player)) return;
+		
+		//show stats, when they should always show
+		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+			Player p = Bukkit.getPlayer(player);
+			if(p!=null) show(p);
+		}
 		
 		if(xpBarShown.containsKey(player)) {
 			if(xpBarShown.get(player)) {
@@ -93,6 +108,11 @@ public class StatManager {
 		//check if a countup is shown
 		if(counters.containsKey(player.getName())) return;
 		
+		//show stats, when they should always show
+		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+			show(player);
+		}
+
 		if(xpBarShown.containsKey(player.getName())) {
 			if(xpBarShown.get(player.getName())) {
 				int level = xpBarLevel.get(player.getName());
@@ -102,6 +122,18 @@ public class StatManager {
 			}
 		}
 	}
+	
+	public static void onInventoryOpen(Player player) {
+		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+			sendRealXP(player);
+		}
+	}
+	public static void onInventoryClose(Player player) {
+		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+			show(player);
+		}
+	}
+	
 	//reset stats for a Player
 	public static void resetPlayer(String player) {
 		stats.remove(player);
@@ -211,6 +243,11 @@ public class StatManager {
 		Player p = Bukkit.getServer().getPlayerExact(player);
 		if(p!=null) {
 			sendRealXP(p);
+			
+			//show stats, when they should always show
+			if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+				show(p);
+			}
 		}
 	}
 	private static void updateCounters() {
@@ -230,6 +267,11 @@ public class StatManager {
 				Player p = Bukkit.getServer().getPlayerExact(player);
 				if(p!=null) {
 					sendRealXP(p);
+					
+					//show stats, when they should always show
+					if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+						show(p);
+					}
 				}
 				
 				remove.add(player);

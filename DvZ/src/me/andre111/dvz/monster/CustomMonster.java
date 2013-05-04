@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import me.andre111.dvz.Classswitcher;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.StatManager;
 import me.andre111.dvz.utils.ItemHandler;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -35,7 +37,7 @@ public class CustomMonster {
 	private int manaRegen;
 	
 	//become custom Monster
-	public void becomeMonster(Game game, Player player) {
+	public void becomeMonster(Game game, final Player player) {
 		Classswitcher.becomeMonster(game, player, true);
 		game.setPlayerState(player.getName(), id+Game.monsterMin);
 		game.getManaManager().setMaxMana(player.getName(), getMaxMana(), true);
@@ -80,6 +82,14 @@ public class CustomMonster {
 		//
 		
 		DvZ.updateInventory(player);
+		
+		//update stats
+		Bukkit.getScheduler().runTaskLater(DvZ.instance, new Runnable() {
+			public void run() {
+				StatManager.show(player);
+				StatManager.hide(player);
+			}
+		}, 2);
 	}
 	
 	//ALL THEM GETTERS AND SETTERS

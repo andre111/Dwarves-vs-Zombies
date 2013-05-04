@@ -5,8 +5,10 @@ import java.util.List;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.StatManager;
 import me.andre111.dvz.utils.ItemHandler;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -56,7 +58,7 @@ public class CustomDwarf {
 	private ArrayList<String> transmuteBreakItems;
 	
 	//become custom Monster
-	public void becomeDwarf(Game game, Player player) {
+	public void becomeDwarf(Game game, final Player player) {
 		game.setPlayerState(player.getName(), id+Game.dwarfMin);
 		game.resetCountdowns(player.getName());
 		game.getManaManager().setMaxMana(player.getName(), getMaxMana(), true);
@@ -138,6 +140,14 @@ public class CustomDwarf {
 		//}
 		
 		DvZ.updateInventory(player);
+		
+		//update stats
+		Bukkit.getScheduler().runTaskLater(DvZ.instance, new Runnable() {
+			public void run() {
+				StatManager.show(player);
+				StatManager.hide(player);
+			}
+		}, 2);
 	}
 	
 	public void spell(Game game, Player player) {
