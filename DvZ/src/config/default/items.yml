@@ -437,6 +437,7 @@ items:
      id: 276
      data: 0
      useUp: false
+     ignoreDamage: true
      leftclick:
        effects: []
        sounds: []
@@ -457,6 +458,7 @@ items:
      id: 261
      data: 0
      useUp: false
+     ignoreDamage: true
      countup:
        enabled: true
        max: 100
@@ -471,13 +473,6 @@ items:
        sounds: []
        cooldown: 0
        mana:
-         cost: 0
-       casts: []
-     rightclick:
-       effects: []
-       sounds: []
-       cooldown: 0
-       mana:
          cost: 10
        casts:
          0:
@@ -486,6 +481,13 @@ items:
            castVars:
              - "262 5"
              - 1
+     rightclick:
+       effects: []
+       sounds: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
    internDwarfPotion:
      name: "Healing Potion"
      lore: []

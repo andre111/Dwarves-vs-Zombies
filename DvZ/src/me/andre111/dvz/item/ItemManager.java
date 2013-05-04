@@ -39,6 +39,7 @@ public class ItemManager {
 		itTemp.setID(DvZ.getItemFile().getInt("items."+it+".id", 0));
 		itTemp.setDamage(DvZ.getItemFile().getInt("items."+it+".data", 0));
 		itTemp.setUse(DvZ.getItemFile().getBoolean("items."+it+".useUp", false));
+		itTemp.setIgnoreDamage(DvZ.getItemFile().getBoolean("items."+it+".ignoreDamage", false));
 		
 		//countup
 		itTemp.setHasCounter(DvZ.getItemFile().getBoolean("items."+it+".countup.enabled", false));

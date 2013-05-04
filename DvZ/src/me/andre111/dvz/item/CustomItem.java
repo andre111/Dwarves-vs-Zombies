@@ -25,6 +25,7 @@ public class CustomItem implements IUpCounter {
 	private String name;
 	private ArrayList<String> lore = new ArrayList<String>();
 	private boolean use;
+	private boolean ignoreDamage;
 	
 	private boolean hasCounter;
 	private int counterMax;
@@ -49,9 +50,7 @@ public class CustomItem implements IUpCounter {
 	private int manaCostL;
 	
 	private ItemSpell[] castsL;
-	
-	//TODO - add option to ignore damage(for bows or swords or something)
-	
+
 	public void cast(Game game, boolean left, Player player) {
 		if(cooldownManaCheck(game, left, player)) return;
 		
@@ -222,7 +221,7 @@ public class CustomItem implements IUpCounter {
 	}
 	public boolean isThisItem(ItemStack it) {
 		if(it.getTypeId()!=id) return false;
-		if(it.getDurability()!=damage) return false;
+		if(!ignoreDamage && it.getDurability()!=damage) return false;
 		ItemMeta im = it.getItemMeta();
 		if(!im.getDisplayName().equals(name)) return false;
 		if(im.hasLore()) {
@@ -267,6 +266,12 @@ public class CustomItem implements IUpCounter {
 	}
 	public void setUse(boolean use) {
 		this.use = use;
+	}
+	public boolean isIgnoreDamage() {
+		return ignoreDamage;
+	}
+	public void setIgnoreDamage(boolean ignoreDamage) {
+		this.ignoreDamage = ignoreDamage;
 	}
 	public boolean isHasCounter() {
 		return hasCounter;
