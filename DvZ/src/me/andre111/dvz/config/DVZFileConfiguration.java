@@ -6,21 +6,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.andre111.dvz.DvZ;
+
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class DVZFileConfiguration extends YamlConfiguration {
 
-	//Replace colorcodes
+	//handle strings
 	@Override
 	public String getString(String path) {
-		return ChatColor.translateAlternateColorCodes('&', super.getString(path));
+		return modifyString(super.getString(path));
 	}
 	
 	@Override
 	public String getString(String path, String def) {
-		return ChatColor.translateAlternateColorCodes('&', super.getString(path, def));
+		return modifyString(super.getString(path, def));
 	}
 	
 	@Override
@@ -28,12 +30,33 @@ public class DVZFileConfiguration extends YamlConfiguration {
 		List<String> list = new ArrayList<String>();
 		
 		for(String st : super.getStringList(path)) {
-			list.add(ChatColor.translateAlternateColorCodes('&', st));
+			list.add(modifyString(st));
 		}
 		
 		return list;
 	}
 	
+	private String modifyString(String st) {
+		//Language support
+		if(st.startsWith("lang:")) {
+			String[] split = st.split(":");
+			
+			String key = split[1];
+			st = DvZ.getLanguage().getString(key, "");
+			
+			//replace -0-,-1-,...
+			for(int i=2; i<split.length; i++) {
+				st = st.replace("-"+(i-2)+"-", split[i]);
+			}
+		}
+		
+		//Replace colorcodes
+		st = ChatColor.translateAlternateColorCodes('&', st);
+		
+		return st;
+	}
+	
+	//loading the config as a DVZFileConfiguration
 	public static DVZFileConfiguration loadConfiguration(File file) {
 		DVZFileConfiguration instance = new DVZFileConfiguration();
 		try {
