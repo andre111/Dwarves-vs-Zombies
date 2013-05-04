@@ -391,7 +391,29 @@ public class CustomItem implements IUpCounter {
 		return counterInterruptItem;
 	}
 	@Override
-	public void countUPinterrupt() {}
+	public void countUPincrease(String vars) {
+		String[] split = vars.split("::");
+		
+		Game game = DvZ.instance.getGame(Integer.parseInt(split[0]));
+		Player player = Bukkit.getServer().getPlayerExact(split[1]);
+		boolean left = Boolean.parseBoolean(split[2]);
+		
+		if(player!=null && game!=null) {
+			createEffects(player.getLocation(), left, "CounterStep");
+		}
+	}
+	@Override
+	public void countUPinterrupt(String vars) {
+		String[] split = vars.split("::");
+		
+		Game game = DvZ.instance.getGame(Integer.parseInt(split[0]));
+		Player player = Bukkit.getServer().getPlayerExact(split[1]);
+		boolean left = Boolean.parseBoolean(split[2]);
+		
+		if(player!=null && game!=null) {
+			createEffects(player.getLocation(), left, "CounterInterrupt");
+		}
+	}
 	@Override
 	public void countUPfinish(String vars) {
 		String[] split = vars.split("::");
@@ -401,6 +423,8 @@ public class CustomItem implements IUpCounter {
 		boolean left = Boolean.parseBoolean(split[2]);
 		
 		if(player!=null && game!=null) {
+			createEffects(player.getLocation(), left, "CounterFinish");
+			
 			castUse(game, left, player, null, null);
 		}
 	}

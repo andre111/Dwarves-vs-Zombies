@@ -164,7 +164,7 @@ public class StatManager {
 		if(counters.get(player)!=null)
 		if(!counters.get(player).countUPOverridable()) return;
 	
-		interruptCounter(player);
+		interruptCounter(counters.get(player), player);
 		
 		counters.put(player, counter);
 		countervars.put(player, vars);
@@ -178,8 +178,7 @@ public class StatManager {
 			IUpCounter counter = counters.get(player);
 			
 			if(counter.countUPinterruptMove()) {
-				counter.countUPinterrupt();
-				interruptCounter(player);
+				interruptCounter(counter, player);
 			}
 		}
 	}
@@ -188,8 +187,7 @@ public class StatManager {
 			IUpCounter counter = counters.get(player);
 			
 			if(counter.countUPinterruptDamage()) {
-				counter.countUPinterrupt();
-				interruptCounter(player);
+				interruptCounter(counter, player);
 			}
 		}
 	}
@@ -198,12 +196,14 @@ public class StatManager {
 			IUpCounter counter = counters.get(player);
 			
 			if(counter.countUPinterruptItemChange()) {
-				counter.countUPinterrupt();
-				interruptCounter(player);
+				interruptCounter(counter, player);
 			}
 		}
 	}
-	private static void interruptCounter(String player) {
+	private static void interruptCounter(IUpCounter counter, String player) {
+		if(counter!=null)
+			counter.countUPinterrupt(countervars.get(player));
+		
 		counters.remove(player);
 		countervars.remove(player);
 		counterCurrent.remove(player);
@@ -237,6 +237,7 @@ public class StatManager {
 			//send
 			else {
 				counterCurrent.put(player, cu);
+				counter.countUPincrease(countervars.get(player));
 				
 				Player p = Bukkit.getServer().getPlayerExact(player);
 				if(p!=null) {

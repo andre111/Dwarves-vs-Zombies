@@ -10,7 +10,8 @@ public interface IUpCounter {
 	public boolean countUPinterruptDamage();
 	public boolean countUPinterruptItemChange();
 
-	public void countUPinterrupt();
+	public void countUPincrease(String vars);
+	public void countUPinterrupt(String vars);
 
 	public void countUPfinish(String vars);
 }

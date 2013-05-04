@@ -14,6 +14,7 @@
 # org.bukkit.Sound
 # -------
 # position can be: Caster,Target or something specified by the ItemSpell
+# and when an counter is used: CounterStep,CounterInterrupt,CounterFinish
 # default: Caster
 
 # required is a number of the spell that needs to succed before using this(-1 = none)
@@ -470,7 +471,9 @@ items:
          itemSwitch: true
      leftclick:
        effects: []
-       sounds: []
+       sounds:
+         - "ANVIL_USE:0.2:1:CounterStep"
+         - "NOTE_PLING:1:2:CounterFinish"
        cooldown: 0
        mana:
          cost: 10
