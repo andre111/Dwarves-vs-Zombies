@@ -28,6 +28,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
@@ -552,6 +553,15 @@ public class Listener_Player implements Listener  {
 		if(event.isCancelled()) return;
 		
 		StatManager.interruptItem(event.getPlayer().getName());
+	}
+	@EventHandler(priority=EventPriority.MONITOR)
+	public void onPlayerInventoryChange(InventoryClickEvent event) {
+		if(event.isCancelled()) return;
+		
+		Player p = (Player) event.getWhoClicked();
+		if(event.getSlot()==p.getInventory().getHeldItemSlot()) {
+			StatManager.interruptItem(p.getName());
+		}
 	}
 	@EventHandler(priority=EventPriority.MONITOR)
 	public void onPlayerMove(PlayerMoveEvent event) {
