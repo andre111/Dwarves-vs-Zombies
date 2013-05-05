@@ -87,9 +87,6 @@ string_destroy_monument: "What are you trying to do? This is your monument!"
 # Item Descriptions
 string_used_seconds: "Can be used every -0- Seconds!"
 string_need: "You need -0- to use this!"
-# string_potions: "3 Mudane Potions"
-# string_clocks: "3 Clocks"
-# string_bread: "3 Bread"
 string_egg: "an Egg"
 # Admin changes
 string_player_added: "Added -0- to the game!"
@@ -184,35 +181,3 @@ string_default_item_monster_blink: "Blink"
 string_default_item_monster_portal: "Create or Reinforce Portal"
 string_default_item_monster_hunger: "Drain Hunger"
 string_default_item_monster_steal: "Steal Weapon"
-
-# ----------------------------------------------------------------------------------
-# Outdated and not used config Options
-# ----------------------------------------------------------------------------------
-# LOCATED IN CLASSES.YML AND MONSTERS.YML
-# string_builder: "Builder Dwarf"
-# string_alchemy: "Alchemy Dwarf"
-# string_blacksmith: "Blacksmith Dwarf"
-# string_tailor: "Tailor Dwarf"
-# string_zombie: "Zombie"
-# string_skeleton: "Skeleton"
-# string_creeper: "Creeper"
-# string_wolf: "Wolf"
-# string_spider: "Spider"
-# string_iron: "IronGolem"
-# string_snow: "SnowGolem"
-# string_brood: "Broodmother"
-# string_enderman: "Enderman"
-# string_cat: "Cat"
-# string_hungrypig: "Hungry Pig"
-# 
-# string_spell_blocks: "Get Building Blocks"
-# string_spell_potions: "Transmute Potions"
-# string_spell_tools: "Create Tools and Weapons"
-# string_spell_armor: "Create Armor"
-# 
-# string_need_potions: "You need 3 Mudane Potions to Transmute! Use Redstone and a Bottle of Water in a Brewing Stand"
-# string_need_clocks: "You need 3 Gold Clocks! Smelt Gold and Redstone and craft them into clocks!"
-# string_need_bread: "You need 3 Bread to Transmute! Use Bonemeal to spead up the process!"
-# 
-# string_chat_dwarf: "&3Dwarf&f>"
-# string_chat_monster: "&5Monster&f>"

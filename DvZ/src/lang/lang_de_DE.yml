@@ -87,9 +87,6 @@ string_destroy_monument: "Was machst du? Das ist deine Monument!"
 # Item Descriptions
 string_used_seconds: "Kann alle -0- Sekunden benutzt werden!"
 string_need: "Du brauchst -0- um dies zu nutzen!"
-# string_potions: "3 Mudane Tränke"
-# string_clocks: "3 Uhren"
-# string_bread: "3 Brote"
 string_egg: "ein Ei"
 # Admin changes
 string_player_added: "-0- zum Spiel hinzugefügt!"
@@ -184,35 +181,3 @@ string_default_item_monster_blink: "teleport"
 string_default_item_monster_portal: "Erschaffe oder Erneuere Portal"
 string_default_item_monster_hunger: "Hunger abziehen"
 string_default_item_monster_steal: "Klaue Waffe"
-
-# ----------------------------------------------------------------------------------
-# Outdated and not used config Options
-# ----------------------------------------------------------------------------------
-# LOCATED IN CLASSES.YML AND MONSTERS.YML"
-# string_builder: "Bauarbeiter Dwarf"
-# string_alchemy: "Alchemy Dwarf"
-# string_blacksmith: "Schmied Dwarf"
-# string_tailor: "Schneider Dwarf"
-# string_zombie: "Zombie"
-# string_skeleton: "Skelet"
-# string_creeper: "Creeper"
-# string_wolf: "Wolf"
-# string_spider: "Spinne"
-# string_iron: "Eisen Golem"
-# string_snow: "Schnee Golem"
-# string_brood: "Brutmutter"
-# string_enderman: "Enderman"
-# string_cat: "Katze"
-# string_hungrypig: "Hungriges Schwein"
-# 
-# string_spell_blocks: "Bekomme Bau Blöcke"
-# string_spell_potions: "Transmutiere Tränke"
-# string_spell_tools: "Schmiede Werkzeuge und Waffen"
-# string_spell_armor: "Erschaffe Rüstung"
-# 
-# string_need_potions: "Du brauchst 3 Mudane Tränke zum transmutieren! Verwende Redstone und eine Wasserflasch in einem Brau Stand"
-# string_need_clocks: "Du brauchst 3 Uhren! Schmelze Gold und Redstone und crafte es in Uhren!"
-# string_need_bread: "Du brauchst 3 Brote zum transmutieren! Benutze Knochenmehl um den Prozess zu beschleunigen!"
-#
-# string_chat_dwarf: "&3Dwarf&f>"
-# string_chat_monster: "&5Monster&f>"
