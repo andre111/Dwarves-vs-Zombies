@@ -62,7 +62,7 @@ monsters:
      disguise: "Zombie"
      chatPrefix: ""
      chatSuffix: "lang:string_default_zombie_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 54
      classChance: 100
@@ -89,7 +89,7 @@ monsters:
      disguise: "Skeleton"
      chatPrefix: ""
      chatSuffix: "lang:string_default_skeleton_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 51
      classChance: 75
@@ -116,7 +116,7 @@ monsters:
      disguise: "Creeper"
      chatPrefix: ""
      chatSuffix: "lang:string_default_creeper_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 50
      classChance: 50
@@ -142,7 +142,7 @@ monsters:
      disguise: "Wolf"
      chatPrefix: ""
      chatSuffix: "lang:string_default_wolf_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 95
      classChance: 25
@@ -171,7 +171,7 @@ monsters:
      disguise: "Spider"
      chatPrefix: ""
      chatSuffix: "lang:string_default_spider_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 52
      classChance: 25
@@ -203,7 +203,7 @@ monsters:
      disguise: "IronGolem"
      chatPrefix: ""
      chatSuffix: "lang:string_default_irongolem_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 99
      classChance: 5
@@ -235,7 +235,7 @@ monsters:
      disguise: "Snowman"
      chatPrefix: ""
      chatSuffix: "lang:string_default_snowgolem_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 97
      classChance: 5
@@ -258,7 +258,7 @@ monsters:
      disguise: "Silverfish"
      chatPrefix: ""
      chatSuffix: "lang:string_default_broodmother_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 60
      classChance: 5
@@ -284,7 +284,7 @@ monsters:
      disguise: "Enderman"
      chatPrefix: ""
      chatSuffix: "lang:string_default_enderman_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 58
      classChance: 5
@@ -307,7 +307,7 @@ monsters:
      disguise: "Ocelot"
      chatPrefix: ""
      chatSuffix: "lang:string_default_cat_suf"
-     gameType: 0
+     gameType: 1
      classItem: 383
      classItemDamage: 98
      classChance: 5
@@ -316,6 +316,85 @@ monsters:
        - "internCatSteal"
        - "106 24"
        - "320 64"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     manaMax: 100
+     manaRegen: 5
+   10:
+     name: "lang:string_default_zombie"
+     disguise: "Zombie"
+     chatPrefix: ""
+     chatSuffix: "lang:string_default_zombie_suf"
+     gameType: 2
+     classItem: 2256
+     classItemDamage: 0
+     classChance: 100
+     items: 
+       - "267 1 100 16:2"
+       - "373:16421 2"
+       - "320 64"
+       - "306"
+       - "307 1 100 3:3"
+       - "308"
+       - "309"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     manaMax: 100
+     manaRegen: 5
+   11:
+     name: "lang:string_default_skeleton"
+     disguise: "Skeleton"
+     chatPrefix: ""
+     chatSuffix: "lang:string_default_skeleton_suf"
+     gameType: 2
+     classItem: 2257
+     classItemDamage: 0
+     classChance: 75
+     items: 
+       - "261 1 100 48:1,50:1,51:1,49:1"
+       - "262 64"
+       - "320 64"
+       - "298"
+       - "299 1 100 3:3"
+       - "300"
+       - "301"
+     effects: []
+     placeBlocks: false
+     damageBuff: 1
+     disabledDamage:
+       - explosion
+       - fire
+       - drown
+       - starve
+     manaMax: 100
+     manaRegen: 5
+   12:
+     name: "lang:string_default_creeper"
+     disguise: "Creeper"
+     chatPrefix: ""
+     chatSuffix: "lang:string_default_creeper_suf"
+     gameType: 2
+     classItem: 2258
+     classItemDamage: 0
+     classChance: 50
+     items: 
+       - "320 64"
+       - "298"
+       - "299 1 100 3:3"
+       - "300"
+       - "301"
      effects: []
      placeBlocks: false
      damageBuff: 1
