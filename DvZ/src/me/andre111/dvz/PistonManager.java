@@ -29,7 +29,7 @@ public class PistonManager {
 		}
 		
 		if(player!=null) {
-			//TODO - maybe not use gametypes, but only add the abilities of the new dvz
+			//not use gametypes, but only add the abilities of the new dvz
 			//is game of the new type
 			Game game = DvZ.instance.getPlayerGame(player.getName());
 			if(game!=null) {
