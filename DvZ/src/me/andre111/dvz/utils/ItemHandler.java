@@ -149,7 +149,15 @@ public class ItemHandler {
 		//id
 		if(geteilt.length>0) {
 			String[] id_d = geteilt[0].split(":");
-			if(id_d.length>0) id = Integer.parseInt(id_d[0]);
+			if(id_d.length>0) id = Integer.parseInt(id_d[0]); {
+				try {
+					id = Integer.parseInt(id_d[0]);
+				} catch (NumberFormatException e) {
+					//custom items
+					if(DvZ.itemManager.getItemStackByName(id_d[0])!=null)
+						id = DvZ.itemManager.getItemStackByName(id_d[0]).getTypeId();
+				}
+			}
 		}
 		
 		return id;
