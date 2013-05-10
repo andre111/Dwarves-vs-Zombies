@@ -3,6 +3,7 @@
 # To configure Monster classes look into monsters.yml
 # To configure Dragon/Attacks look into dragons.yml
 # To configure Specialitems look into items.yml
+# To configure Blockdrops look into blocks.yml
 # ----------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------
@@ -184,52 +185,3 @@ disables_crafts_type2:
   - 351
   - 354
   - 355
-
-
-# ----------------------------------------------------------------------------------
-# Outdated and not used config Options
-# ----------------------------------------------------------------------------------
-# MOVED TO CLASSES.YML AND MONSTERS.YML
-# spelltime_builder: 30
-# spelltime_alchemy: 30
-# spelltime_blacksmith: 30
-# spelltime_tailor: 30
-# spelltime_creeper: 10
-# spelltime_spiderbite1: 0
-# spelltime_spiderbite2: 0
-# spelltime_ironsmash: 1
-# spelltime_ironjump: 30
-# spelltime_snowgolem: 60
-# spelltime_snowgolemthrow: 0
-# spelltime_broodlay: 3
-# spelltime_broodroar: 3
-# spelltime_enderblink: 18
-# spelltime_enderportal: 10
-# spelltime_reinforceenderportal: 3
-# spelltime_disableportal: 3
-# spelltime_drain_hunger: 2
-# spelltime_steal_weapon: 2
-# 
-# MOVED TO CLASSES.YML AND MONSTERS.YML
-# chance_builder: 100
-# chance_alchemy: 20
-# chance_blacksmith: 20
-# chance_tailor: 20
-# chance_zombie: 100
-# chance_skeleton: 75
-# chance_creeper: 50
-# chance_wolf: 25
-# chance_spider: 25
-# chance_irongolem: 5
-# chance_snowgolem: 5
-# chance_broodmother: 5
-# chance_enderman: 5
-# chance_cat: 5
-# chance_hungrypig: 5
-# 
-# crystal chest is no longer a global config option, but a custom item
-# crystal_storage: 1
-# 
-# CHANGED TO MONSTERS.YML
-# Hint: You should also change the name in the language file!
-# change_golem_to_blaze: false
