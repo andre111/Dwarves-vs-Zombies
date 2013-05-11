@@ -4,11 +4,14 @@ import java.util.Map;
 import java.util.Random;
 
 import me.andre111.dvz.dragon.PlayerDragon;
+import me.andre111.dvz.generator.ChunkGeneratorDvZ;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Slapi;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -67,9 +70,12 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			
 			//Spellcontroller.spellEnderChest(plugin.game, player);
 			
-			player.getInventory().clear();
+			/*player.getInventory().clear();
 			plugin.getPlayerGame(player.getName()).setPlayerState(player.getName(), 3);
-			plugin.getPlayerGame(player.getName()).addMonsterItems(player);
+			plugin.getPlayerGame(player.getName()).addMonsterItems(player);*/
+			
+			World wtest = Bukkit.getServer().createWorld((new WorldCreator("dvztesting").generator(new ChunkGeneratorDvZ())));
+			player.teleport(wtest.getSpawnLocation());
 			
 			//Spellcontroller.spellItemTrow(player, player);
 			
