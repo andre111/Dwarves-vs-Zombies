@@ -48,8 +48,10 @@ public abstract class QuarryGenerator {
 					
 					Block block = world.getBlockAt(x2, y2, z2);
 					if(block.getType()!=Material.BEDROCK && rand.nextInt(100)<40 || yy==offset/*first row*/) {
-						block.setTypeId(65);
-						block.setData((byte) 5);
+						if(y2>0) {
+							block.setTypeId(65);
+							block.setData((byte) 5);
+						}
 					} else {
 						block.setTypeId(0);
 					}
