@@ -53,7 +53,9 @@ public abstract class QuarryGenerator {
 							block.setData((byte) 5);
 						}
 					} else {
-						block.setTypeId(0);
+						if(y2>0) {
+							block.setTypeId(0);
+						}
 					}
 				}
 			}

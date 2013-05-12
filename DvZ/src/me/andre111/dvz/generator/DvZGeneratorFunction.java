@@ -19,10 +19,16 @@ public class DvZGeneratorFunction {
 	}*/
 
 	public static double get(int x, int z, long seed) {
+		//seed
+		x += seed;
+		z += seed;
+		
 		double calc;
 
 		calc =
-				+Math.sin(normalise(seed))
+				//seed
+				Math.sin(normalise(seed))
+				
 				+Math.sin(normalise(x/4))
 				+Math.sin(normalise(z/5))
 				+Math.sin(normalise(x-z))
@@ -35,7 +41,7 @@ public class DvZGeneratorFunction {
 								+Math.sin(normalise(x)))
 								+Math.sin(normalise((x+z)/4))
 								+Math.sin(normalise((int) (x+Math.sin(normalise(z)*Math.sin(normalise(x))))));
-
+				
 		calc = Math.abs(calc/6);
 		
 		calc = calc * 0.40;
@@ -43,12 +49,6 @@ public class DvZGeneratorFunction {
 		
 		if(calc>1)
 			calc = 1;
-		
-		/*if(calc<0.5) {
-			calc += 0.25;
-			if(calc>0.5)
-				calc = 0.5;
-		}*/
 		
 		return calc;
 	}

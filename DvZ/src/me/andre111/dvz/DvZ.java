@@ -15,6 +15,7 @@ import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
 import me.andre111.dvz.dwarf.DwarfManager;
+import me.andre111.dvz.generator.DvZWorldProvider;
 import me.andre111.dvz.item.ItemManager;
 import me.andre111.dvz.listeners.Listener_Block;
 import me.andre111.dvz.listeners.Listener_Entity;
@@ -186,6 +187,7 @@ public class DvZ extends JavaPlugin {
 		new Listener_Block(this);
 		new Listener_Entity(this);
 		new Listener_Game(this);
+		new DvZWorldProvider(this);
 		
 		waitm = new WaitingMenu(this);
 		

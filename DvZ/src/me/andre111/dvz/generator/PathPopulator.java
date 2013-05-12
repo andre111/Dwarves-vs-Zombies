@@ -8,7 +8,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
 
-public class GravelPathPopulator extends BlockPopulator {
+public class PathPopulator extends BlockPopulator {
 	private int halfsize = 2;
 
 	@Override
@@ -44,8 +44,8 @@ public class GravelPathPopulator extends BlockPopulator {
 						//}
 						
 						//set gravel
-						if(highest.getRelative(0, -1, 0).getType()!=Material.GRAVEL) {
-							highest.setType(Material.GRAVEL);
+						if(highest.getRelative(0, -1, 0).getType()!=DVZGeneratorPositions.PATH_MATERIAL) {
+							highest.setType(DVZGeneratorPositions.PATH_MATERIAL);
 							
 							//pilars
 							if(shouldFence(highest.getRelative(0, -1, 0).getType())) {

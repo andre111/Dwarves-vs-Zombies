@@ -9,7 +9,7 @@ import org.bukkit.generator.BlockPopulator;
 
 public class TreeLogPopulator extends BlockPopulator {
 	private int treeHeight = 3;
-	private int treeCount = 10;
+	private int treeCount = 14;
 	private int chunckChance = 25;
 
 	@Override
@@ -33,12 +33,27 @@ public class TreeLogPopulator extends BlockPopulator {
             int i1;
 
             Material mat = world.getBlockAt(xB, yB-1, zB).getType();
+            //trees
             if(mat==Material.GRASS ||
                mat==Material.DIRT ||
                mat==Material.LONG_GRASS) {
 	            for (i1 = yB; i1 <= yB + 1 + height; ++i1) {
 	                world.getBlockAt(xB, i1, zB).setType(Material.LOG);
+	                world.getBlockAt(xB, i1, zB).setData((byte) 0);
 	            }
+            }
+            //catus
+            if(mat==Material.SAND) {
+            	if(world.getBlockAt(xB-1, yB, zB).getType()==Material.AIR &&
+            		world.getBlockAt(xB+1, yB, zB).getType()==Material.AIR &&
+            		world.getBlockAt(xB, yB, zB-1).getType()==Material.AIR &&
+            		world.getBlockAt(xB, yB, zB+1).getType()==Material.AIR
+            	) {
+	            	for (i1 = yB; i1 <= yB + 1 + height; ++i1) {
+	            		world.getBlockAt(xB, i1, zB).setType(Material.CACTUS);
+	            		world.getBlockAt(xB, i1, zB).setData((byte) 0);
+	            	}
+            	}
             }
         } else {
             return;

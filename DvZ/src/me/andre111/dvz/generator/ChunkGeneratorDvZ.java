@@ -12,6 +12,8 @@ import org.bukkit.generator.ChunkGenerator;
 
 public class ChunkGeneratorDvZ extends ChunkGenerator {
 	byte[] result;
+	
+	private int waterlevel = 56;
 
 	//This needs to be set to return true to override minecraft's default behaviour
 	@Override
@@ -48,7 +50,7 @@ public class ChunkGeneratorDvZ extends ChunkGenerator {
 				}
 				//water and sand
 				yt = y;
-				for(y-=3; y<64; y++) {
+				for(y-=3; y<waterlevel; y++) {
 					if(y<yt)
 						result[xyzToByte(x,y,z)] = (byte) Material.SAND.getId();
 					else
@@ -64,10 +66,10 @@ public class ChunkGeneratorDvZ extends ChunkGenerator {
     public List<BlockPopulator> getDefaultPopulators(World world) {
         return Arrays.asList(
         		(BlockPopulator)new SpawnPopulator(), 
-        		new TallGrassPopulator(),
+        		new BiomePopulator(),
         		new TreeLogPopulator(),
         		new DwarfPopulator(),
-        		new GravelPathPopulator());
+        		new PathPopulator());
     }
 	
 	@Override
