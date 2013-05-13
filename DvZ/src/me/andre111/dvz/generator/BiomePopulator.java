@@ -14,8 +14,8 @@ public class BiomePopulator extends BlockPopulator {
 	private static int RED_CHANCE = 1;
 	private static int DEAD_CHANCE = 1;
 	private static int DEAD_CHANCE2 = 25;
-	private static int LILLY_CHANCE = 1;
-	private static int LILLY_CHANCE2 = 25;
+	private static int LILY_CHANCE = 1;
+	private static int LILY_CHANCE2 = 25;
 
 	@Override
 	public void populate(World world, Random random, Chunk source) {
@@ -66,8 +66,8 @@ public class BiomePopulator extends BlockPopulator {
 					//waterlily
 					if(highest.getType()==Material.STATIONARY_WATER) {
 						if(highest.getHumidity()>0.8) {
-							if(random.nextInt(100)<LILLY_CHANCE) 
-							if(random.nextInt(100)<LILLY_CHANCE2) {
+							if(random.nextInt(100)<LILY_CHANCE) 
+							if(random.nextInt(100)<LILY_CHANCE2) {
 								world.getBlockAt(centerX+x, highest.getY()+1, centerZ+z).setType(Material.WATER_LILY);
 							}
 						}
