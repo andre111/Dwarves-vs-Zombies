@@ -1,4 +1,5 @@
-
+# block drop syntax: 
+# "blockid:data;sound_or_-1;item1;item2;..."
 
 blocks:
    drop:
