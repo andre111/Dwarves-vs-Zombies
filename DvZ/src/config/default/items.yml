@@ -164,6 +164,12 @@
 #
 # castVar0: new Damage
 ######################################
+# "ItemEffectLightning"
+# Creates a lightning
+#
+# castVar0:
+# castVar1:
+######################################
 # ""
 # 
 #
@@ -191,7 +197,7 @@
 # Creates a Sound
 # (Look at org.bukkit.Sound)
 # Vars:
-# name:data
+# name:volume:pitch
 ######################################
 # ""
 # 
