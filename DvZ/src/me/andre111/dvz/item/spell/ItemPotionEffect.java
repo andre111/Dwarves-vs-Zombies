@@ -12,7 +12,7 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.item.ItemSpell;
 import me.andre111.dvz.utils.PlayerHandler;
 
-public class ItemEffect extends ItemSpell {
+public class ItemPotionEffect extends ItemSpell {
 	private boolean self = true;
 	private ArrayList<String> effects = new ArrayList<String>();
 	

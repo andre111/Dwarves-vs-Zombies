@@ -8,10 +8,8 @@ import me.andre111.dvz.StatManager;
 import me.andre111.dvz.iface.IUpCounter;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,16 +33,16 @@ public class CustomItem implements IUpCounter {
 	private boolean counterInterruptDamage;
 	private boolean counterInterruptItem;
 	
-	private ArrayList<String> effectsR = new ArrayList<String>();
-	private ArrayList<String> soundsR = new ArrayList<String>();
+	
+	private ArrayList<ItemEffect> effectR = new ArrayList<ItemEffect>();
 	//private ItemSpell castR;
 	private int cooldownR;
 	private int manaCostR;
 	
 	private ItemSpell[] castsR;
 	
-	private ArrayList<String> effectsL = new ArrayList<String>();
-	private ArrayList<String> soundsL = new ArrayList<String>();
+
+	private ArrayList<ItemEffect> effectL = new ArrayList<ItemEffect>();
 	//private ItemSpell castL;
 	private int cooldownL;
 	private int manaCostL;
@@ -193,34 +191,13 @@ public class CustomItem implements IUpCounter {
 	
 	public void createEffects(Location loc, boolean left, String position) {
 		//effects
-		ArrayList<String> effects = effectsR;
-		if(left) effects = effectsL;
+		ArrayList<ItemEffect> effects = effectR;
+		if(left) effects = effectL;
 		
-		for(String st : effects) {
-			String[] split = st.split(":");
-			int dt = 0;
-			String cst = "Caster";
-			if(split.length>1) dt = Integer.parseInt(split[1]);
-			if(split.length>2) cst = split[2];
-			
-			if(cst.equals(position))
-				loc.getWorld().playEffect(loc, Effect.valueOf(split[0]), dt);
-		}
-		//sounds
-		ArrayList<String> sounds = soundsR;
-		if(left) sounds = soundsL;
-		
-		for(String st : sounds) {
-			String[] split = st.split(":");
-			float volume = 1F;
-			float pitch = 1F;
-			String cst = "Caster";
-			if(split.length>1) volume = Float.parseFloat(split[1]);
-			if(split.length>2) pitch = Float.parseFloat(split[2]);
-			if(split.length>3) cst = split[3];
-
-			if(cst.equals(position))
-				loc.getWorld().playSound(loc, Sound.valueOf(split[0]), volume, pitch);
+		for(ItemEffect st : effects) {
+			if(st!=null)
+			if(st.getLocation().equals(position))
+				st.play(loc);
 		}
 	}
 	
@@ -330,11 +307,8 @@ public class CustomItem implements IUpCounter {
 	public void setCounterInterruptItem(boolean counterInterruptItem) {
 		this.counterInterruptItem = counterInterruptItem;
 	}
-	public void addEffectR(String effect) {
-		effectsR.add(effect);
-	}
-	public void addSoundR(String sound) {
-		soundsR.add(sound);
+	public void addEffectR(ItemEffect effect) {
+		effectR.add(effect);
 	}
 	public ItemSpell getCastR(int pos) {
 		return castsR[pos];
@@ -354,11 +328,8 @@ public class CustomItem implements IUpCounter {
 	public void setManaCostR(int manaCostR) {
 		this.manaCostR = manaCostR;
 	}
-	public void addEffectL(String effect) {
-		effectsL.add(effect);
-	}
-	public void addSoundL(String sound) {
-		soundsL.add(sound);
+	public void addEffectL(ItemEffect effect) {
+		effectL.add(effect);
 	}
 	public ItemSpell getCastL(int pos) {
 		return castsL[pos];

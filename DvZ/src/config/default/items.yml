@@ -4,19 +4,6 @@
 # id,data,name and lore
 # and lore can not be canged in normal minecraft!
 
-
-# -------
-# Effectsyntax: effect_name:data:<position>
-# Soundsyntax: sound_name:volume:pitch:<position>
-# -------
-# Effect and Sound Names can be found in the Bukkit Javadoc
-# org.bukkit.Effect
-# org.bukkit.Sound
-# -------
-# position can be: Caster,Target or something specified by the ItemSpell
-# and when an counter is used: CounterStep,CounterInterrupt,CounterFinish
-# default: Caster
-
 # required is a number of the spell that needs to succed before using this(-1 = none)
 
 # -------
@@ -184,6 +171,35 @@
 # castVar1:
 ######################################
 
+
+# -------
+# Effectsyntax: effectlocation effect <optionalData>
+# -------
+# position can be: Caster,Target or something specified by the ItemSpell
+# and when an counter is used: CounterStep,CounterInterrupt,CounterFinish
+# default: Caster
+
+# Usable effects:
+######################################
+# "ItemEffectNormal"
+# Creates a normal Minecraft Effect
+# (Look at org.bukkit.Effect)
+# Vars:
+# name:data
+######################################
+# "ItemEffectSound"
+# Creates a Sound
+# (Look at org.bukkit.Sound)
+# Vars:
+# name:data
+######################################
+# ""
+# 
+#
+# Vars:
+# 
+######################################
+
 items:
    firestaff:
      name: "Firestaff"
@@ -197,9 +213,8 @@ items:
      useUp: false
      leftclick:
        effects:
-         - "ENDER_SIGNAL:0:onHit"
-       sounds:
-         - "SPLASH:1:0.5:onHit"
+         - "onHit ItemEffectNormal ENDER_SIGNAL:0"
+         - "onHit ItemEffectSound SPLASH:1:0.5"
        cooldown: 5
        mana:
          cost: 40
@@ -223,13 +238,12 @@ items:
              - 2
      rightclick:
        effects:
-         - "MOBSPAWNER_FLAMES:0:Caster"
-         - "MOBSPAWNER_FLAMES:0:Caster"
-         - "MOBSPAWNER_FLAMES:0:Caster"
-         - "MOBSPAWNER_FLAMES:0:Caster"
-         - "MOBSPAWNER_FLAMES:0:Caster"
-       sounds:
-         - "ARROW_HIT:1:0.5:Caster"
+         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
+         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
+         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
+         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
+         - "Caster ItemEffectNormal MOBSPAWNER_FLAMES:0"
+         - "Caster ItemEffectSound ARROW_HIT:1:0.5"
        cooldown: 5
        mana:
          cost: 40
@@ -254,15 +268,13 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 5
        mana:
          cost: 0
        casts: []
      rightclick:
-       effects: []
-       sounds:
-         - "BAT_IDLE:1:1:Caster"
+       effects:
+         - "Caster ItemEffectSound BAT_IDLE:1:0.5"
        cooldown: 1
        mana:
          cost: 15
@@ -289,15 +301,13 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
-       effects: []
-       sounds:
-         - "CHEST_OPEN:0.5:1:Caster"
+       effects: 
+         - "Caster ItemEffectSound CHEST_OPEN:0.5:1"
        cooldown: 0
        mana:
          cost: 0
@@ -308,7 +318,7 @@ items:
            castVars:
              - 0
          1:
-           cast: "ItemEffect"
+           cast: "ItemPotionEffect"
            require: -1
            castVars:
              - 1
@@ -328,9 +338,8 @@ items:
          cost: 0
        casts: []
      rightclick:
-       effects: []
-       sounds:
-         - "CHEST_OPEN:0.5:1:Caster"
+       effects: 
+         - "Caster ItemEffectSound CHEST_OPEN:0.5:1"
        cooldown: 0
        mana:
          cost: 0
@@ -341,7 +350,7 @@ items:
            castVars:
              - 1
          1:
-           cast: "ItemEffect"
+           cast: "ItemPotionEffect"
            require: -1
            castVars:
              - 1
@@ -354,14 +363,12 @@ items:
      useUp: true
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -389,7 +396,6 @@ items:
      useUp: true
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -410,8 +416,7 @@ items:
              - "98:0"
      rightclick:
        effects: 
-         - "POTION_BREAK:8270:Caster"
-       sounds: []
+         - "Caster ItemEffectNormal POTION_BREAK:8270"
        cooldown: 0
        mana:
          cost: 0
@@ -440,7 +445,6 @@ items:
      ignoreDamage: true
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -473,10 +477,9 @@ items:
          damage: true
          itemSwitch: true
      leftclick:
-       effects: []
-       sounds:
-         - "ANVIL_USE:0.2:1:CounterStep"
-         - "NOTE_PLING:1:2:CounterFinish"
+       effects:
+         - "CounterStep ItemEffectSound ANVIL_USE:0.2:1"
+         - "CounterFinish ItemEffectSound NOTE_PLING:1:2"
        cooldown: 0
        mana:
          cost: 10
@@ -494,7 +497,6 @@ items:
              - 0
      rightclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -508,14 +510,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -530,14 +530,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 10
        mana:
          cost: 0
@@ -557,14 +555,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -584,7 +580,6 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -597,7 +592,6 @@ items:
              - "19:60:4"
      rightclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -611,14 +605,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 1
        mana:
          cost: 0
@@ -638,14 +630,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 30
        mana:
          cost: 0
@@ -665,14 +655,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 60
        mana:
          cost: 0
@@ -692,14 +680,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -720,14 +706,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 3
        mana:
          cost: 0
@@ -747,14 +731,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 3
        mana:
          cost: 0
@@ -774,17 +756,15 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects:
-         - "ENDER_SIGNAL:0:Caster"
-         - "ENDER_SIGNAL:0:Teleport"
-       sounds:
-         - "ENDERMAN_TELEPORT:1:1:Caster"
+         - "Caster ItemEffectNormal ENDER_SIGNAL:0"
+         - "Caster ItemEffectSound ENDERMAN_TELEPORT:1.1"
+         - "Teleport ItemEffectNormal ENDER_SIGNAL:0"
        cooldown: 18
        mana:
          cost: 0
@@ -803,14 +783,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 10
        mana:
          cost: 0
@@ -828,14 +806,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 2
        mana:
          cost: 0
@@ -854,14 +830,12 @@ items:
      useUp: false
      leftclick:
        effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
        effects: []
-       sounds: []
        cooldown: 2
        mana:
          cost: 0

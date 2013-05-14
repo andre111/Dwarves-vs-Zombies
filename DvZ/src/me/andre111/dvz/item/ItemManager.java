@@ -54,12 +54,7 @@ public class ItemManager {
 		List<String> effects = DvZ.getItemFile().getStringList("items."+it+".rightclick.effects");
 		if(effects.size()>0)
 		for(String st : effects) {
-			itTemp.addEffectR(st);
-		}
-		List<String> sounds = DvZ.getItemFile().getStringList("items."+it+".rightclick.sounds");
-		if(sounds.size()>0)
-		for(String st : sounds) {
-			itTemp.addSoundR(st);
+			itTemp.addEffectR(getItemEffect(st));
 		}
 		itTemp.setCooldownR(DvZ.getItemFile().getInt("items."+it+".rightclick.cooldown", 0));
 		itTemp.setManaCostR(DvZ.getItemFile().getInt("items."+it+".rightclick.mana.cost", 0));
@@ -67,12 +62,7 @@ public class ItemManager {
 		List<String> effectsl = DvZ.getItemFile().getStringList("items."+it+".leftclick.effects");
 		if(effectsl.size()>0)
 		for(String st : effectsl) {
-			itTemp.addEffectL(st);
-		}
-		List<String> soundsl = DvZ.getItemFile().getStringList("items."+it+".leftclick.sounds");
-		if(soundsl.size()>0)
-		for(String st : soundsl) {
-			itTemp.addSoundL(st);
+			itTemp.addEffectL(getItemEffect(st));
 		}
 		itTemp.setCooldownL(DvZ.getItemFile().getInt("items."+it+".leftclick.cooldown", 0));
 		itTemp.setManaCostL(DvZ.getItemFile().getInt("items."+it+".leftclick.mana.cost", 0));
@@ -160,6 +150,36 @@ public class ItemManager {
 		} else {
 			if(itTemp.getCastR(id)==null) itTemp.setCastR(new ItemSpell(), id);
 		}
+	}
+	
+	private ItemEffect getItemEffect(String st) {
+		ItemEffect effect = null;
+		
+		//effect
+		String[] split = st.split(" ");
+		if(split.length>1) {
+			try {
+				if(!split[1].contains("me.andre111.dvz.item.effect.")) {
+					split[1] = "me.andre111.dvz.item.effect." + split[1];
+				}
+				Class<?> c = Class.forName(split[1]);
+				if(c.getSuperclass().equals(ItemEffect.class)) {
+					effect = (ItemEffect) c.newInstance();
+				}
+			} catch (ClassNotFoundException e) {
+			} catch (InstantiationException e) {
+			} catch (IllegalAccessException e) {
+			}
+		}
+		
+		//location
+		if(split.length>0 && effect!=null)
+			effect.setLocation(split[0]);
+		//vars
+		if(split.length>2 && effect!=null)
+			effect.setVars(split[2]);
+		
+		return effect;
 	}
 	
 	public ItemStack getItemStackByName(String name) {
