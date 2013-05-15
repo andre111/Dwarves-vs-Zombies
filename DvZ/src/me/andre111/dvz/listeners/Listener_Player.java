@@ -193,21 +193,27 @@ public class Listener_Player implements Listener  {
 	}
 	//rightclicking disguises
 	@EventHandler
-	public void onPlayerInvalidInteractEntity(PlayerInvalidInteractEvent event) {
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-	
-		Player player = event.getPlayer();
-		Game game = plugin.getPlayerGame(player.getName());
-		
-		if (game!=null) {
-			DisguiseCraft dc = (DisguiseCraft) Bukkit.getPluginManager().getPlugin("DisguiseCraft"); //TODO - maybe a better way of getting Disguisecraft(or when the API changes use it)
+	public void onPlayerInvalidInteractEntity(final PlayerInvalidInteractEvent event) {
+		Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			public void run() {
+				//if not dedicated and the player is not in the game->ignore
+				if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 			
-			Player target = dc.disguiseIDs.get(event.getTarget());
-			ItemStack item = event.getPlayer().getItemInHand();
-			
-			game.playerRCPlayer(player, item, target);
-		}
+				Player player = event.getPlayer();
+				if(player!=null) {
+					Game game = plugin.getPlayerGame(player.getName());
+					
+					if (game!=null) {
+						DisguiseCraft dc = (DisguiseCraft) Bukkit.getPluginManager().getPlugin("DisguiseCraft"); //TODO - maybe a better way of getting Disguisecraft(or when the API changes use it)
+						
+						Player target = dc.disguiseIDs.get(event.getTarget());
+						ItemStack item = event.getPlayer().getItemInHand();
+						
+						game.playerRCPlayer(player, item, target);
+					}
+				}
+			}
+		});
 	}
 	
 	@EventHandler
@@ -266,7 +272,8 @@ public class Listener_Player implements Listener  {
 		//if not dedicated and the player is not in the game->ignore
 		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 		
-		final Player player = event.getPlayer();
+		Player player = event.getPlayer();
+		final String pname = player.getName();
 		final Game game = plugin.getPlayerGame(player.getName());
 		
 		if (game!=null) {
@@ -277,17 +284,25 @@ public class Listener_Player implements Listener  {
 				player.removePotionEffect(pet.getType());
 			}
 			
-			int pstate = game.getPlayerState(player.getName());
-			if((pstate>=Game.dwarfMin && pstate<=Game.monsterMax) || pstate==Game.assasinState || pstate==Game.dragonWarrior) {
+			if(game.isDwarf(pname) || game.isMonster(pname)) {
+				//deaths
+				if(game.isDwarf(pname)) {
+					game.deaths++;
+				}
 				
 				//respawn at spawnpoint of dvzworld
 				final World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(game)+"");
 				if(game.spawnMonsters!=null) event.setRespawnLocation(game.spawnMonsters);
 				else event.setRespawnLocation(w.getSpawnLocation());
+				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						if(game.spawnMonsters!=null) player.teleport(game.spawnMonsters);
-						else player.teleport(w.getSpawnLocation());
+						Player player = Bukkit.getPlayerExact(pname);
+						
+						if(player!=null) {
+							if(game.spawnMonsters!=null) player.teleport(game.spawnMonsters);
+							else player.teleport(w.getSpawnLocation());
+						}
 					}
 				}, 1);
 				
@@ -296,20 +311,20 @@ public class Listener_Player implements Listener  {
 	
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						game.addMonsterItems(player);
+						Player player = Bukkit.getPlayerExact(pname);
+						
+						if(player!=null) {
+							ItemHandler.clearInv(player);
+						
+							game.addMonsterItems(player);
+							
+							if (DvZ.api.isDisguised(player)) 
+								DvZ.api.undisguisePlayer(player);
+						}
 					}
 				}, 1);
 				
-				ItemHandler.clearInv(player);
-				
-				//deaths
-				if(game.isDwarf(player.getName())) {
-					game.deaths++;
-				}
 			}
-			
-			if (DvZ.api.isDisguised(player)) 
-				DvZ.api.undisguisePlayer(player);
 		}
 	}
 	
@@ -525,7 +540,7 @@ public class Listener_Player implements Listener  {
 		Player p  = event.getPlayer();
 		Game game = plugin.getPlayerGame(p.getName());
 		if(game==null) return;
-		
+
 		StatManager.updateXPBarStat(p);
 	}
 	//update xp

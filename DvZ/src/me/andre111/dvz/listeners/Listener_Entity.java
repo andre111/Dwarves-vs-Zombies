@@ -56,6 +56,7 @@ public class Listener_Entity implements Listener {
 	@EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
 		if (event.isCancelled()) return;
+		
 		if (event.getCause() == DamageCause.FALL && event.getEntity() instanceof Player && Spellcontroller.jumpingNormal.contains((Player)event.getEntity())) {
 			event.setCancelled(true);
 			Spellcontroller.jumpingNormal.remove((Player)event.getEntity());
@@ -65,6 +66,7 @@ public class Listener_Entity implements Listener {
 			}
 		}
 		//disabled monster damage
+		if (event.isCancelled()) return;
 		if(event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			Game game = plugin.getPlayerGame(player.getName());
