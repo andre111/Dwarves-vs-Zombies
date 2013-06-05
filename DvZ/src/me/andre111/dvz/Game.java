@@ -68,11 +68,11 @@ public class Game {
 	//1 = nix
 	//2 = choose dwarf
 	//3 = choose monster
-	//10 - 29 = dwarves
-	//30 - 49 = monsters
-	//80 = dragon warrior
-	//90 = assasin
-	//100 - ?? = dragon
+	//5 = dragon warrior
+	//6 = assasin
+	//10 - ?? = dwarves
+	//?? - ?? = monsters
+	//?? - ?? = dragon
 	//TODO - use this vars everywhere
 	public static int pickDwarf = 2;
 	public static int pickMonster = 3;
@@ -1144,7 +1144,9 @@ public class Game {
 		if(isDwarf(player.getName())) {
 			int dId = getPlayerState(player.getName()) - Game.dwarfMin;
 			CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
-			cd.transmuteItemOnBreak(this, player, block);
+			
+			if(cd != null)
+				cd.transmuteItemOnBreak(this, player, block);
 		}
 	}
 	

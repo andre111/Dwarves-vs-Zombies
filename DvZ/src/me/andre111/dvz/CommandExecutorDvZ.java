@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Random;
 
 import me.andre111.dvz.dragon.PlayerDragon;
-import me.andre111.dvz.generator.DvZWorldProvider;
+import me.andre111.dvz.generator.QuarryGenerator;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Slapi;
 
@@ -72,7 +72,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			plugin.getPlayerGame(player.getName()).setPlayerState(player.getName(), 3);
 			plugin.getPlayerGame(player.getName()).addMonsterItems(player);*/
 			
-			player.teleport(DvZWorldProvider.generateNewWorld().getSpawnLocation());
+			//player.teleport(DvZWorldProvider.generateNewWorld().getSpawnLocation());
 			
 			//Spellcontroller.spellItemTrow(player, player);
 			
@@ -85,7 +85,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				DvZ.dragonAtManager.castFromPlayer(player, Integer.parseInt(args[0]));
 			else
 				player.sendMessage("Please specify Dragonattck ID");*/
-			//QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
+			QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
 			
 			
 			//DvZ.disguiseP(player, new Disguise(0, "", DisguiseType.Spider));

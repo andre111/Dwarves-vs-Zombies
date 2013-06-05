@@ -280,11 +280,23 @@ dwarves:
          exp: 6
          items: []
       piston:
-         enable: false
-         change: []
+         enable: true
+         change:
+            - "155 155 5 53"
+            - "155 155 53 126"
+            - "155 155 126 85"
+            - "155 155 85 35:12"
+            - "155 155 35:12 35:7"
+            - "155 155 35:7 35:8"
       specialitems:
-         transmuteRightClick: []
-         transmuteBlockBreak: []
+         transmuteRightClick: 
+            # - "112;112;348:0;51:-1;-1;371:0 1 50" its in transmuteBlockBreak now
+            - "112;112;371:0;34:9;ANVIL_LAND:0.2;351:14 1 25"
+            - "112;112;351:14;118:3;SWIM:0.2;266:0 1 75"
+            - "112;112;266:0;29:1;ANVIL_LAND:0.2;264 1 100 -1:0 Armor"
+            - "112;112;263:0;34:9;ANVIL_LAND:0.2;259:0"
+         transmuteBlockBreak:
+            - "112;112;348:0;51:-1;-1;371:0 1 50"
    5: 
       name: "lang:string_default_newlumberjack"
       chatprefix: ""
@@ -335,7 +347,14 @@ dwarves:
             - "155 155 35:12 35:7"
             - "155 155 35:7 35:8"
       specialitems:
-         transmute: []
+         transmuteRightClick: 
+            # - "112;112;348:0;51:-1;-1;371:0 1 50" its in transmuteBlockBreak now
+            - "112;112;371:0;34:9;ANVIL_LAND:0.2;351:14 1 25"
+            - "112;112;351:14;118:3;SWIM:0.2;266:0 1 75"
+            - "112;112;266:0;29:1;ANVIL_LAND:0.2;264 1 100 -1:0 Armor"
+            - "112;112;263:0;34:9;ANVIL_LAND:0.2;259:0"
+         transmuteBlockBreak:
+            - "112;112;348:0;51:-1;-1;371:0 1 50"
    7: 
       name: "lang:string_default_newblacksmith"
       chatprefix: ""
@@ -378,8 +397,14 @@ dwarves:
          exp: 6
          items: []
       piston:
-         enable: false
-         change: []
+         enable: true
+         change:
+            - "155 155 5 53"
+            - "155 155 53 126"
+            - "155 155 126 85"
+            - "155 155 85 35:12"
+            - "155 155 35:12 35:7"
+            - "155 155 35:7 35:8"
       specialitems:
          transmuteRightClick: 
             # - "112;112;348:0;51:-1;-1;371:0 1 50" its in transmuteBlockBreak now

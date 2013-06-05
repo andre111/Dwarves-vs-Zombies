@@ -106,7 +106,7 @@ public class Listener_Entity implements Listener {
 							int pid = game.getPlayerState(player.getName()) - Game.dwarfMin;
 							CustomDwarf cd = DvZ.dwarfManager.getDwarf(pid);
 							
-							if(cd.isDamageDisabled(damage)) {
+							if(cd != null && cd.isDamageDisabled(damage)) {
 								event.setCancelled(true);
 							}
 						}
