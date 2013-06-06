@@ -283,8 +283,8 @@ public class Listener_Player implements Listener  {
 			for(PotionEffect pet : player.getActivePotionEffects()) {
 				player.removePotionEffect(pet.getType());
 			}
-			
-			if(game.isDwarf(pname, true) || game.isMonster(pname)) {
+																	//fis for getting killed when chosing monsterclass
+			if(game.isDwarf(pname, true) || game.isMonster(pname) || game.getPlayerState(pname)==Game.pickMonster) {
 				//deaths
 				if(game.isDwarf(pname, true)) {
 					game.deaths++;
