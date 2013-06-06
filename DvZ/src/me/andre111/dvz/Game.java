@@ -192,6 +192,9 @@ public class Game {
 				}
 				//clear inventory
 				ItemHandler.clearInv(player);
+				//reset health
+				player.setMaxHealth(20);
+				player.setHealth(20);
 				
 				StatManager.hide(player);
 			}
@@ -430,6 +433,8 @@ public class Game {
 								playerstate.put(players, Game.pickDwarf);
 								Player player = Bukkit.getServer().getPlayer(players);
 								player.getInventory().clear();
+								player.setMaxHealth(20);
+								player.setHealth(20);
 								player.sendMessage(DvZ.getLanguage().getString("string_choose","Choose your class!"));
 								addDwarfItems(player);
 							}
@@ -460,7 +465,7 @@ public class Game {
 			Player player = Bukkit.getServer().getPlayerExact(e.getKey());
 			if (player!=null) online = true;
 			
-			if (isDwarf(e.getKey())) {
+			if (isDwarf(e.getKey(), true)) {
 				if (online) dwarf++; //else dwarfoff++;
 				
 				lastdwarf = e.getKey();
@@ -508,7 +513,7 @@ public class Game {
 		int mons = 0;
 		
 		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
-			if (isDwarf(e.getKey())) {
+			if (isDwarf(e.getKey(), true)) {
 				dwarf++;
 			}
 			if (isMonster(e.getKey())) {
@@ -678,7 +683,7 @@ public class Game {
 		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
 			String playern = e.getKey();
 			
-			if(isDwarf(playern)) {
+			if(isDwarf(playern, true)) {
 				Player player = Bukkit.getServer().getPlayerExact(playern);
 				if(player!=null) {
 					int light = player.getLocation().getBlock().getLightLevel();
@@ -1038,7 +1043,7 @@ public class Game {
 		}
 		
 		//custom dwarves - rightclick
-		if(isDwarf(player.getName())) {
+		if(isDwarf(player.getName(), false)) {
 			int dId = getPlayerState(player.getName())-dwarfMin;
 			if(dId>=0 && dId<DvZ.monsterManager.getCount()) {
 				CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
@@ -1057,7 +1062,7 @@ public class Game {
 			}
 		}
 		
-		if(isDwarf(pname) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
+		if(isDwarf(pname, true) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
 		//crstal chest is no longer a global config option
 		//if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname, false), getCrystalChest(pname, true));
 		
@@ -1102,7 +1107,7 @@ public class Game {
 		//custom items
 		playerSpecialItemC(player, item, true, block, null);
 		
-		if(itemId == 373 && isDwarf(pname)) {
+		if(itemId == 373 && isDwarf(pname, true)) {
 			//changed from old hacky potionhandler to new bukkit functionallity
 			if(ExperienceUtils.getCurrentExp(player)>=plugin.getConfig().getInt("dwarf_potion_exp", 2)) {
 				ExperienceUtils.changeExp(player, -plugin.getConfig().getInt("dwarf_potion_exp", 2));
@@ -1145,7 +1150,7 @@ public class Game {
 	}
 	
 	public void playerBreakBlock(Player player, Block block) {
-		if(isDwarf(player.getName())) {
+		if(isDwarf(player.getName(), false)) {
 			int dId = getPlayerState(player.getName()) - Game.dwarfMin;
 			CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
 			
@@ -1270,11 +1275,15 @@ public class Game {
 		else
 			return 0;
 	}
-	public boolean isDwarf(String player) {
+	public boolean isDwarf(String player, boolean assassins) {
 		if(playerstate.containsKey(player)) {
 			int pstate = playerstate.get(player);
 			if((pstate>=Game.dwarfMin && pstate<=Game.dwarfMax)
-			  || pstate==Game.assasinState || pstate==Game.dragonWarrior) {
+			  || pstate==Game.dragonWarrior) {
+				return true;
+			}
+			
+			if(assassins && pstate==Game.assasinState) {
 				return true;
 			}
 		}

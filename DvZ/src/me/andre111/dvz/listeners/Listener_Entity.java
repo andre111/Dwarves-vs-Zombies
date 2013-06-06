@@ -71,7 +71,7 @@ public class Listener_Entity implements Listener {
 			Player player = (Player) event.getEntity();
 			Game game = plugin.getPlayerGame(player.getName());
 			if(game!=null) {
-				if(game.isMonster(player.getName()) || game.isDwarf(player.getName())) {
+				if(game.isMonster(player.getName()) || game.isDwarf(player.getName(), true)) {
 					String damage = "";
 					
 					if(event.getCause() == DamageCause.CONTACT) {
@@ -102,7 +102,7 @@ public class Listener_Entity implements Listener {
 							if(cm.isDamageDisabled(damage)) {
 								event.setCancelled(true);
 							}
-						} else if(game.isDwarf(player.getName())) {
+						} else if(game.isDwarf(player.getName(), true)) {
 							int pid = game.getPlayerState(player.getName()) - Game.dwarfMin;
 							CustomDwarf cd = DvZ.dwarfManager.getDwarf(pid);
 							
@@ -127,7 +127,7 @@ public class Listener_Entity implements Listener {
 				if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
 					String player = ((Player)event.getEntity()).getName();
 					String damager = ((Player)event.getDamager()).getName();
-					if((game.isDwarf(player) && game.isDwarf(damager)) ||
+					if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
 					   (game.isMonster(player) && game.isMonster(damager))) {
 						event.setCancelled(true);
 						return;
@@ -152,7 +152,7 @@ public class Listener_Entity implements Listener {
 					if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
 						String player = ((Player)event.getEntity()).getName();
 						String damager = ((Player)((Arrow)event.getDamager()).getShooter()).getName();
-						if((game.isDwarf(player) && game.isDwarf(damager)) ||
+						if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
 								   (game.isMonster(player) && game.isMonster(damager))) {
 							event.setCancelled(true);
 							return;
@@ -183,7 +183,7 @@ public class Listener_Entity implements Listener {
 						event.setDamage(event.getDamage()*5);
 					}
 					//custom dwarf
-					if(game.isDwarf(dgm.getName())) {
+					if(game.isDwarf(dgm.getName(), false)) {
 						int id = game.getPlayerState(dgm.getName()) - Game.dwarfMin;
 						event.setDamage((int) Math.round(event.getDamage()*DvZ.dwarfManager.getDwarf(id).getDamageBuff()));
 					}
@@ -226,7 +226,7 @@ public class Listener_Entity implements Listener {
 	    
 	    Game game = plugin.getPlayerGame(damager.getName());
 	    if (game!=null) {
-	    	if(game.isDwarf(player.getName()) && game.getPlayerState(damager.getName())==Game.assasinState) {
+	    	if(game.isDwarf(player.getName(), true) && game.getPlayerState(damager.getName())==Game.assasinState) {
 	    		game.setCountdown(damager.getName(), 3, -1);
 	    	}
 	    }

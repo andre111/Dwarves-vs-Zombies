@@ -60,7 +60,7 @@ public class Listener_Block implements Listener {
 		Game game = plugin.getPlayerGame(player.getName());
 		if (game!=null) {
 			//dwarves/assasins
-			if(game.isDwarf(player.getName())) {
+			if(game.isDwarf(player.getName(), true)) {
 				if (game.isMonument(event.getBlock())) {
 					event.setCancelled(true);
 					player.sendMessage(DvZ.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));

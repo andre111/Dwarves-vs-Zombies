@@ -284,9 +284,9 @@ public class Listener_Player implements Listener  {
 				player.removePotionEffect(pet.getType());
 			}
 			
-			if(game.isDwarf(pname) || game.isMonster(pname)) {
+			if(game.isDwarf(pname, true) || game.isMonster(pname)) {
 				//deaths
-				if(game.isDwarf(pname)) {
+				if(game.isDwarf(pname, true)) {
 					game.deaths++;
 				}
 				
@@ -405,7 +405,7 @@ public class Listener_Player implements Listener  {
 		Game game = plugin.getPlayerGame(p.getName());
 		if(game!=null) {
 			//Is dwarv
-			if (game.isDwarf(p.getName())) {
+			if (game.isDwarf(p.getName(), true)) {
 				//Is killer monster
 				if (game.isMonster(k.getName())) {
 					//TODO - change monstername
@@ -416,7 +416,7 @@ public class Listener_Player implements Listener  {
 			//is Monster
 			} else if(game.isMonster(p.getName())) {
 				//Is killer dwarv
-				if (game.isDwarf(k.getName())) {
+				if (game.isDwarf(k.getName(), true)) {
 					//Item stats
 					//----
 					if (plugin.getConfig().getString("item_stats", "true").equals("true")) {

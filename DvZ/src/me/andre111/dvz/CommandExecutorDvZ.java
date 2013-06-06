@@ -230,7 +230,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 						Player player = Bukkit.getServer().getPlayerExact(e.getKey());
 						if (player!=null) online = true;
 						
-						if (game.isDwarf(e.getKey())) {
+						if (game.isDwarf(e.getKey(), true)) {
 							if (online) dwarf++; else dwarfoff++;
 						}
 						if (game.isMonster(e.getKey())) {
