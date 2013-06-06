@@ -856,3 +856,38 @@ items:
            cast: "ItemDrop"
            require: -1
            castVars: []
+   internCreeperExplodeNew:
+     name: "lang:string_default_item_monster_explode"
+     lore: 
+       - "lang:string_used_seconds:10"
+       - "lang:string_cast_time:3"
+     id: 289
+     data: 12
+     useUp: false
+     countup:
+       enabled: true
+       max: 90
+       perSecond: 30
+       overridable: true
+       interrupt:
+         move: false
+         damage: true
+         itemSwitch: true
+     leftclick:
+       effects: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       cooldown: 10
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemExplode"
+           require: -1
+           castVars:
+             - 6
+             - 1

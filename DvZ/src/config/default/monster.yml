@@ -390,6 +390,7 @@ monsters:
      classItemDamage: 0
      classChance: 50
      items: 
+       - "internCreeperExplodeNew 1"
        - "320 64"
        - "298"
        - "299 1 100 3:3"

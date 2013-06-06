@@ -86,6 +86,7 @@ string_last_dwarf: "Last standing Dwarf - &e-0-&f! Congratulations!"
 string_destroy_monument: "What are you trying to do? This is your monument!"
 # Item Descriptions
 string_used_seconds: "Can be used every -0- Seconds!"
+string_cast_time: "(-0- seconds Cast)"
 string_need: "You need -0- to use this!"
 string_egg: "an Egg"
 # Admin changes
