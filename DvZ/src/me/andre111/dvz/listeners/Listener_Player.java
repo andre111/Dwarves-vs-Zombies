@@ -575,7 +575,7 @@ public class Listener_Player implements Listener  {
 		
 		Player p = (Player) event.getWhoClicked();
 		if(event.getSlot()==p.getInventory().getHeldItemSlot()) {
-			StatManager.interruptItem(p.getName());
+			StatManager.interruptDamage(p.getName());
 		}
 	}
 	@EventHandler(priority=EventPriority.MONITOR)
@@ -583,6 +583,6 @@ public class Listener_Player implements Listener  {
 		if(event.isCancelled()) return;
 		
 		if(event.getFrom().distanceSquared(event.getTo())>0.01)
-			StatManager.interruptItem(event.getPlayer().getName());
+			StatManager.interruptMove(event.getPlayer().getName());
 	}
 }
