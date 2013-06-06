@@ -230,7 +230,7 @@ public class Listener_Player implements Listener  {
 		}
 		Game game = plugin.getPlayerGame(player.getName());
 		if (game!=null) {
-			if(game.getPlayerState(player.getName())<10) {
+			if(game.getPlayerState(player.getName())<4) {
 				event.setCancelled(true);
 				return;
 			}
@@ -255,7 +255,7 @@ public class Listener_Player implements Listener  {
 		}
 		Game game = plugin.getPlayerGame(player.getName());
 		if (game!=null) {
-			if(game.getPlayerState(player.getName())<10 && !player.isOp()) {
+			if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
 				event.setCancelled(true);
 				return;
 			}

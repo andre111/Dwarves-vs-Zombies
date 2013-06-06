@@ -33,7 +33,7 @@ public class Listener_Block implements Listener {
 			event.setCancelled(true);
 			return;
 		}
-		if(game.getPlayerState(player.getName())<10 && !player.isOp()) {
+		if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
 			event.setCancelled(true);
 			return;
 		}
