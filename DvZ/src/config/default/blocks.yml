@@ -36,3 +36,6 @@ blocks:
          # "spells"
          - "35:8;-1;351:8 1:3 100 -1:0 Dwarven Glue"
          # - "57:0;-1;264 1 100 -1:0 Armor" - disabled, now in the class
+   infiniteCake:
+      gameType1: false
+      gameType2: true

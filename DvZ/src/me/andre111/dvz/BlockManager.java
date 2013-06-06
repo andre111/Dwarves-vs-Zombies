@@ -8,17 +8,24 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class BlockManager {
 	private static ArrayList<String> gameType1 = new ArrayList<String>();
 	private static ArrayList<String> gameType2 = new ArrayList<String>();
+	
+	private static boolean infiniteCake1;
+	private static boolean infiniteCake2;
 
 	public static void loadConfig() {
 		 gameType1.addAll(DvZ.getBlockFile().getStringList("blocks.drop.gameType1"));
+		 infiniteCake1 = DvZ.getBlockFile().getBoolean("blocks.infiniteCake.gameType1");
 		 
 		 gameType2.addAll(DvZ.getBlockFile().getStringList("blocks.drop.gameType2"));
+		 infiniteCake2 = DvZ.getBlockFile().getBoolean("blocks.infiniteCake.gameType2");
 	}
 	
 	public static void onBlockBreak(BlockBreakEvent event) {
@@ -58,6 +65,30 @@ public class BlockManager {
 						block.getWorld().dropItemNaturally(block.getLocation(), it);
 					}
 				}
+			}
+		}
+	}
+	
+	//infinite cake
+	public static void onInteract(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		Game game = DvZ.instance.getPlayerGame(player.getName());
+		
+		if(game!=null) {
+			int gType = game.getGameType();
+			cakeEaten(event, gType);
+		}
+	}
+	
+	private static void cakeEaten(PlayerInteractEvent event, int gameType) {
+		if(gameType==1 && !infiniteCake1) return;
+		if(gameType==2 && !infiniteCake2) return;
+		
+		if(event.getAction()==Action.RIGHT_CLICK_BLOCK) {
+			Block block = event.getClickedBlock();
+			
+			if(block.getType()==Material.CAKE_BLOCK) {
+				block.setData((byte) 0, true);
 			}
 		}
 	}

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import me.andre111.dvz.BlockManager;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.StatManager;
@@ -147,6 +148,8 @@ public class Listener_Player implements Listener  {
 				event.setCancelled(true);
 			}
 			
+			BlockManager.onInteract(event);
+			
 			Action action = event.getAction();
 			ItemStack item = event.getItem();
 			if (action==Action.RIGHT_CLICK_AIR) {
@@ -283,7 +286,7 @@ public class Listener_Player implements Listener  {
 			for(PotionEffect pet : player.getActivePotionEffects()) {
 				player.removePotionEffect(pet.getType());
 			}
-																	//fis for getting killed when chosing monsterclass
+																	//fix for getting killed when chosing monsterclass
 			if(game.isDwarf(pname, true) || game.isMonster(pname) || game.getPlayerState(pname)==Game.pickMonster) {
 				//deaths
 				if(game.isDwarf(pname, true)) {
