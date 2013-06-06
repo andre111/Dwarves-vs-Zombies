@@ -1,5 +1,6 @@
 package me.andre111.dvz.item;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -191,14 +192,16 @@ public class ItemManager {
 		
 		return null;
 	}
-	public CustomItem getItemByDisplayName(String name) {
+	public List<CustomItem> getItemByDisplayName(String name) {
+		ArrayList<CustomItem> itemList = new ArrayList<CustomItem>();
+		
 		for(int i=0; i<items.length; i++) {
 			if(name.equals(items[i].getName())) {
-				return items[i];
+				itemList.add(items[i]);
 			}
 		}
 		
-		return null;
+		return itemList;
 	}
 	public CustomItem getItemByName(String name) {
 		for(int i=0; i<items.length; i++) {

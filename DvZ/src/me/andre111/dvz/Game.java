@@ -1125,15 +1125,19 @@ public class Game {
 			ItemMeta im = item.getItemMeta();
 			if(im!=null)
 			if(im.hasDisplayName()) {
-				CustomItem ci = DvZ.itemManager.getItemByDisplayName(im.getDisplayName());
-				if(ci!=null) {
-					if(ci.isThisItem(item)) {
-						if(block!=null)
-							ci.cast(this, left, player, block);
-						else if(target!=null)
-							ci.cast(this, left, player, target);
-						else
-							ci.cast(this, left, player);
+				List<CustomItem> cil = DvZ.itemManager.getItemByDisplayName(im.getDisplayName());
+				if(cil!=null) {
+					for(int i=0; i<cil.size(); i++) {
+						CustomItem ci = cil.get(i);
+						
+						if(ci.isThisItem(item)) {
+							if(block!=null)
+								ci.cast(this, left, player, block);
+							else if(target!=null)
+								ci.cast(this, left, player, target);
+							else
+								ci.cast(this, left, player);
+						}
 					}
 				}
 			}
