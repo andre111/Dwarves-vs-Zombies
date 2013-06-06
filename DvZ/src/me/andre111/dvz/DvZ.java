@@ -219,6 +219,7 @@ public class DvZ extends JavaPlugin {
 		getCommand("dvz_saveworld").setExecutor(command);
 		getCommand("dvz_createworld").setExecutor(command);
 		getCommand("dvz_release").setExecutor(command);
+		getCommand("dvz_give").setExecutor(command);
 		
 		//Run Main Game Managment
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {

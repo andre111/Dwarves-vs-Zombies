@@ -14,6 +14,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 //import pgDev.bukkit.DisguiseCraft.api.DisguiseCraftAPI;
 //import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
@@ -50,7 +51,9 @@ public class CommandExecutorDvZ implements CommandExecutor {
 	
 	private boolean onCommandIntern(CommandSender sender, Command command, String label, String[] args) {
 		int gameID = -1;
-		if(args.length>0) gameID = Integer.parseInt(args[0].replace("+", ""));
+		try {
+			if(args.length>0) gameID = Integer.parseInt(args[0].replace("+", ""));
+		} catch (Exception e) {}
 		
 		//Only testing some stuff
 		if (command.getName().equalsIgnoreCase("dvztest")) {
@@ -520,6 +523,46 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			
 			return true;
 		}
+		//Release the monsters
+		if (command.getName().equalsIgnoreCase("dvz_give")) {
+			if(!sender.hasPermission("dvz.give")) {
+				sender.sendMessage("You don't have the Permission to do that!");
+				return false;
+			}
+
+			//get the player
+			if(args.length>0) {
+				Player player = Bukkit.getServer().getPlayerExact(args[0]);
+				
+				if(player!=null) {
+					//recombine all other arguments
+					String itemSt = "";
+					int ii = 1;
+					while(args.length>ii) {
+						itemSt = itemSt + " " + args[ii];
+						ii++;
+					}
+					
+					//get the tem
+					ItemStack it = ItemHandler.decodeItem(itemSt);
+					if(it!=null) {
+						player.getInventory().addItem(it);
+						
+						return true;
+					} else {
+						sender.sendMessage("Could not decode Itemstring: "+itemSt);
+						return false;
+					}
+				} else {
+					sender.sendMessage("Player "+args[0]+" not found!");
+					return false;
+				}
+			} else {
+				sender.sendMessage("Please specify a player to give the item to!");
+				return false;
+			}
+		}
+		
 		return false;
 	}
 	

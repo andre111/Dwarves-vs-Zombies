@@ -91,6 +91,11 @@ commands:
       aliases: [d_release]
       usage: /<command> [gameID_default_0]
       permission: dvz.release
+   dvz_give:
+      description: Gives Items from formated Strings
+      aliases: [d_give]
+      usage: /<command> [player] [formated_item]
+      permission: dvz.give
 
 permissions:
    dvz.*:
@@ -109,6 +114,7 @@ permissions:
          dvz.leave: true
          dvz.save: true
          dvz.release: true
+         dvz.give: true
    dvz.start:
       description: Starting the Game
       default: op
@@ -144,6 +150,9 @@ permissions:
       default: op
    dvz.release:
       description: Releases the Monsters
+      default: op
+   dvz.give:
+      description: Gives Items from formated Strings
       default: op
    dvz.test:
       description: Testing some stuff(do not use this)
