@@ -1,5 +1,6 @@
 package me.andre111.dvz.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -9,6 +10,10 @@ public class Slapi
 {
     public static void save(Object obj, String path) throws Exception
     {
+    	//exist check
+    	File f = new File(path);
+    	if(!f.exists()) f.mkdirs();
+    	
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
         oos.writeObject(obj);
         oos.flush();
