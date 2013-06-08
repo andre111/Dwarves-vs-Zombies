@@ -11,7 +11,7 @@ public class Slapi
     public static void save(Object obj, String path) throws Exception
     {
     	//exist check
-    	File f = new File(path);
+    	File f = (new File(path)).getParentFile();
     	if(!f.exists()) f.mkdirs();
     	
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
