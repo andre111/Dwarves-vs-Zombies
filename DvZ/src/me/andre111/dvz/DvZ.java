@@ -24,6 +24,7 @@ import me.andre111.dvz.listeners.Listener_Player;
 import me.andre111.dvz.monster.MonsterManager;
 import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.Invulnerability;
+import me.andre111.dvz.utils.Item3DHandler;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Metrics;
 import me.andre111.dvz.utils.Metrics.Graph;
@@ -65,6 +66,8 @@ public class DvZ extends JavaPlugin {
 	public static DragonAttackListener attackListener;
 	public static MovementStopper moveStop;
 	public static Invulnerability inVul;
+	public static Item3DHandler item3DHandler;
+	public static ItemStandManager itemStandManager;
 	
 	public static MonsterManager monsterManager;
 	public static DwarfManager dwarfManager;
@@ -146,6 +149,8 @@ public class DvZ extends JavaPlugin {
 		attackListener = new DragonAttackListener(this);
 		moveStop = new MovementStopper(this);
 		inVul = new Invulnerability(this);
+		item3DHandler = new Item3DHandler(this);
+		itemStandManager = new ItemStandManager();
 		
 		BlockManager.loadConfig();
 		
@@ -202,24 +207,9 @@ public class DvZ extends JavaPlugin {
 		//
 		
 		CommandExecutorDvZ command = new CommandExecutorDvZ(this);
-		getCommand("dvztest").setExecutor(command);
-		getCommand("dvz").setExecutor(command);
-		getCommand("dvz_start").setExecutor(command);
-		getCommand("dvz_dwarf").setExecutor(command);
-		getCommand("dvz_monster").setExecutor(command);
-		getCommand("dvz_info").setExecutor(command);
-		getCommand("dvz_reset").setExecutor(command);
-		getCommand("dvz_monument").setExecutor(command);
-		getCommand("dvz_dragon").setExecutor(command);
-		getCommand("dvz_add").setExecutor(command);
-		getCommand("dvz_assasin").setExecutor(command);
-		getCommand("dvz_join").setExecutor(command);
-		getCommand("dvz_joini").setExecutor(command);
-		getCommand("dvz_leave").setExecutor(command);
-		getCommand("dvz_saveworld").setExecutor(command);
-		getCommand("dvz_createworld").setExecutor(command);
-		getCommand("dvz_release").setExecutor(command);
-		getCommand("dvz_give").setExecutor(command);
+		for(String st : getDescription().getCommands().keySet()) {
+			getCommand(st).setExecutor(command);
+		}
 		
 		//Run Main Game Managment
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
@@ -236,7 +226,8 @@ public class DvZ extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		
+		//remove all zombies
+		item3DHandler.removeAll();
 	}
 	
 	public static void log(String s) {

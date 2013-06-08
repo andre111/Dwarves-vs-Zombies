@@ -96,6 +96,11 @@ commands:
       aliases: [d_give]
       usage: /<command> [player] [formated_item]
       permission: dvz.give
+   dvz_itemstand:
+      description: Creates a 3D Itemstand at your postition
+      aliases: [d_itemstand,dvz_stand,d_stand]
+      usage: /<command> [once_player] [display_item] [formated_item]
+      permission: dvz.itemstand
 
 permissions:
    dvz.*:
@@ -115,6 +120,7 @@ permissions:
          dvz.save: true
          dvz.release: true
          dvz.give: true
+         dvz.itemstand: true
    dvz.start:
       description: Starting the Game
       default: op
@@ -153,6 +159,9 @@ permissions:
       default: op
    dvz.give:
       description: Gives Items from formated Strings
+      default: op
+   dvz.itemstand:
+      description: Creates a 3D Itemstand at your postition
       default: op
    dvz.test:
       description: Testing some stuff(do not use this)

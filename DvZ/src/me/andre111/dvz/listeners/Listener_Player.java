@@ -65,6 +65,9 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		//respawn fake zombies
+		DvZ.item3DHandler.respawnAll(player);
+		
 		//notify updates update
 		if (DvZ.getStaticConfig().getString("updateCheck", "true").equals("true") && player.isOp()) {
 			plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new DvZUpdateNotifier(plugin, player));
@@ -200,7 +203,7 @@ public class Listener_Player implements Listener  {
 		Bukkit.getScheduler().runTask(plugin, new Runnable() {
 			public void run() {
 				//if not dedicated and the player is not in the game->ignore
-				if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
+				//if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 			
 				Player player = event.getPlayer();
 				if(player!=null) {
@@ -214,6 +217,9 @@ public class Listener_Player implements Listener  {
 						
 						game.playerRCPlayer(player, item, target);
 					}
+					
+					//clicking on "3D-Items"
+					DvZ.item3DHandler.clickOnInvalidEntity(player, event.getTarget());
 				}
 			}
 		});

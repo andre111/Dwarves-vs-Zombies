@@ -440,6 +440,8 @@ public class Game {
 							}
 						}
 						
+						DvZ.itemStandManager.loadStands(w, new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+w.getName()+"/dvz/itemstands/"));
+						
 						endTask();
 					}
 			    }
@@ -1339,9 +1341,15 @@ public class Game {
 		File wf = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"/");
 		
 		if(wf.exists()) {
-			final File spawnD = new File(wf, "dvz_spawn_d.dat");
-			final File spawnM = new File(wf, "dvz_spawn_m.dat");
-			final File monF = new File(wf, "dvz_mon.dat");
+			final File spawnD = (new File(wf+"/dvz/", "dvz_spawn_d.dat").exists()) ?
+					new File(wf+"/dvz/", "dvz_spawn_d.dat")
+					: new File(wf, "dvz_spawn_d.dat");
+			final File spawnM = (new File(wf+"/dvz/", "dvz_spawn_m.dat").exists()) ?
+					new File(wf+"/dvz/", "dvz_spawn_m.dat")
+					: new File(wf, "dvz_spawn_m.dat");
+			final File monF = (new File(wf+"/dvz/", "dvz_mon.dat").exists()) ?
+					new File(wf+"/dvz/", "dvz_mon.dat")
+					: new File(wf, "dvz_mon.dat");		
 			
 			final int gtemp = plugin.getGameID(this);
 			

@@ -1,15 +1,17 @@
 package me.andre111.dvz;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Random;
 
 import me.andre111.dvz.dragon.PlayerDragon;
-import me.andre111.dvz.generator.QuarryGenerator;
+import me.andre111.dvz.utils.Item3DHandler.Item3DRunnable;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Slapi;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -48,7 +50,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			return onCommandIntern(sender, command, label, args);
 		}
 	}
-	
+	//World test = null;
 	private boolean onCommandIntern(CommandSender sender, Command command, String label, String[] args) {
 		int gameID = -1;
 		try {
@@ -74,8 +76,10 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			/*player.getInventory().clear();
 			plugin.getPlayerGame(player.getName()).setPlayerState(player.getName(), 3);
 			plugin.getPlayerGame(player.getName()).addMonsterItems(player);*/
-			
-			//player.teleport(DvZWorldProvider.generateNewWorld().getSpawnLocation());
+			/*if(test==null) {
+				test = DvZWorldProvider.generateNewWorld();
+			}
+			player.teleport(test.getSpawnLocation());*/
 			
 			//Spellcontroller.spellItemTrow(player, player);
 			
@@ -88,8 +92,16 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				DvZ.dragonAtManager.castFromPlayer(player, Integer.parseInt(args[0]));
 			else
 				player.sendMessage("Please specify Dragonattck ID");*/
-			QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
+			//QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
 			
+			final int itemID = (args.length>0) ? Integer.parseInt(args[0]) : Material.DIAMOND_SWORD.getId();
+			//final String rand = ""+ (new Random()).nextInt(100);
+			DvZ.item3DHandler.spawnAroundBlock(player, player.getLocation().clone().add(1, 0, 0), itemID, new Item3DRunnable() {
+				@Override
+				public void run(Player player) {
+					player.getWorld().dropItemNaturally(player.getLocation().clone().add(0, 1, 0), new ItemStack(itemID));
+				}
+			});
 			
 			//DvZ.disguiseP(player, new Disguise(0, "", DisguiseType.Spider));
 			return true;
@@ -157,7 +169,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			
 			player.sendMessage(DvZ.getLanguage().getString("string_setspawn_dwarf","Set Dwarf Spawn to your current Location!"));
 			
-			String path = Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz_spawn_d.dat";
+			String path = Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/dvz_spawn_d.dat";
 			Location loc = player.getLocation();
 			try {
 				Slapi.save(loc.getX()+":"+loc.getY()+":"+loc.getZ()+":"+loc.getPitch()+":"+loc.getYaw(), path);
@@ -192,7 +204,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			
 			player.sendMessage(DvZ.getLanguage().getString("string_setspawn_monster","Set Monster Spawn to your current Location!"));
 			
-			String path = Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz_spawn_m.dat";
+			String path = Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/dvz_spawn_m.dat";
 			Location loc = player.getLocation();
 			try {
 				Slapi.save(loc.getX()+":"+loc.getY()+":"+loc.getZ()+":"+loc.getPitch()+":"+loc.getYaw(), path);
@@ -299,7 +311,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				}
 			}
 			
-			String path = Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz_mon.dat";
+			String path = Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/dvz_mon.dat";
 			try {
 				Slapi.save(player.getLocation().getBlockX()+":"+player.getLocation().getBlockY()+":"+player.getLocation().getBlockZ(), path);
 			} catch (Exception e) {
@@ -523,7 +535,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			
 			return true;
 		}
-		//Release the monsters
+		//Give special items
 		if (command.getName().equalsIgnoreCase("dvz_give")) {
 			if(!sender.hasPermission("dvz.give")) {
 				sender.sendMessage("You don't have the Permission to do that!");
@@ -559,6 +571,49 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				}
 			} else {
 				sender.sendMessage("Please specify a player to give the item to!");
+				return false;
+			}
+		}
+		
+		//Give special items
+		if (command.getName().equalsIgnoreCase("dvz_itemstand")) {
+			if(!sender.hasPermission("dvz.itemstand")) {
+				sender.sendMessage("You don't have the Permission to do that!");
+				return false;
+			}
+			if (!(sender instanceof Player)) {
+				sender.sendMessage("Y U NO PLAYER??!111");
+				return true;
+			}
+			Player player = (Player)sender;
+
+			//get the player
+			if(args.length>0) {
+				if(args.length>1) {
+					if(args.length>2) {
+						boolean once = Boolean.parseBoolean(args[0]);
+						int itemID = Integer.parseInt(args[1]);
+						
+						//recombine all other arguments
+						String itemSt = "";
+						int ii = 2;
+						while(args.length>ii) {
+							itemSt = itemSt + " " + args[ii];
+							ii++;
+						}
+						
+						//get the item
+						DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/itemstands/"), player.getLocation(), itemID, once, itemSt);
+					} else {
+						sender.sendMessage("Please specify a formated Item to give!");
+						return false;
+					}
+				} else {
+					sender.sendMessage("Please specify a display Item ID!");
+					return false;
+				}
+			} else {
+				sender.sendMessage("Please specify a if it should be once per Player!");
 				return false;
 			}
 		}
