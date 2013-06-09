@@ -43,8 +43,8 @@ effects:
 dwarves:
    0: 
       name: "lang:string_default_builder"
-      chatprefix: ""
-      chatsuffix: "lang:string_default_builder_suf"
+      chatPrefix: ""
+      chatSuffix: "lang:string_default_builder_suf"
       gameType: 1
       classItem: 2256
       classItemDamage: 0
@@ -91,8 +91,8 @@ dwarves:
          transmuteBlockBreak: []
    1: 
       name: "lang:string_default_alchemy"
-      chatprefix: ""
-      chatsuffix: "lang:string_default_alchemy_suf"
+      chatPrefix: ""
+      chatSuffix: "lang:string_default_alchemy_suf"
       gameType: 1
       classItem: 2257
       classItemDamage: 0
@@ -144,8 +144,8 @@ dwarves:
          transmuteBlockBreak: []
    2: 
       name: "lang:string_default_blacksmith"
-      chatprefix: ""
-      chatsuffix: "lang:string_default_blacksmith_suf"
+      chatPrefix: ""
+      chatSuffix: "lang:string_default_blacksmith_suf"
       gameType: 1
       classItem: 2258
       classItemDamage: 0
@@ -196,8 +196,8 @@ dwarves:
          transmuteBlockBreak: []
    3: 
       name: "lang:string_default_tailor"
-      chatprefix: ""
-      chatsuffix: "lang:string_default_tailor_suf"
+      chatPrefix: ""
+      chatSuffix: "lang:string_default_tailor_suf"
       gameType: 1
       classItem: 2259
       classItemDamage: 0
@@ -245,8 +245,8 @@ dwarves:
          transmuteBlockBreak: []
    4: 
       name: "lang:string_default_newbuilder"
-      chatprefix: ""
-      chatsuffix: "lang:string_default_newbuilder_suf"
+      chatPrefix: ""
+      chatSuffix: "lang:string_default_newbuilder_suf"
       gameType: 2
       classItem: 2260
       classItemDamage: 0
@@ -299,8 +299,8 @@ dwarves:
             - "112;112;348:0;51:-1;-1;371:0 1 50"
    5: 
       name: "lang:string_default_newlumberjack"
-      chatprefix: ""
-      chatsuffix: "lang:string_default_newlumberjack_suf"
+      chatPrefix: ""
+      chatSuffix: "lang:string_default_newlumberjack_suf"
       gameType: 2
       classItem: 2261
       classItemDamage: 0
@@ -357,8 +357,8 @@ dwarves:
             - "112;112;348:0;51:-1;-1;371:0 1 50"
    7: 
       name: "lang:string_default_newblacksmith"
-      chatprefix: ""
-      chatsuffix: "lang:string_default_newblacksmith_suf"
+      chatPrefix: ""
+      chatSuffix: "lang:string_default_newblacksmith_suf"
       gameType: 2
       classItem: 2262
       classItemDamage: 0
