@@ -102,8 +102,7 @@ public class IconMenu implements Listener {
 
 					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 						public void run() {
-							if(p.getInventory().getTitle().equals(name))
-								p.closeInventory();
+							p.closeInventory();
 						}
 					}, DELAY);
 				}

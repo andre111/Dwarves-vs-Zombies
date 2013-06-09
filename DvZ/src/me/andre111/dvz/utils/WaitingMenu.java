@@ -27,6 +27,7 @@ public class WaitingMenu implements Listener {
 	}
 	
 	private HashMap<String, Boolean> selfOverride = new HashMap<String, Boolean>();
+	private HashMap<String, Boolean> taskRunning = new HashMap<String, Boolean>();
 	
 	@EventHandler(priority=EventPriority.MONITOR)
 	public void onInventoryClose(InventoryCloseEvent event) {
@@ -42,10 +43,20 @@ public class WaitingMenu implements Listener {
 			}
 			
 			if(!closed) {
+				//Safety for not running more than one task per tick
+				if(taskRunning.containsKey(p.getName())) {
+					if(taskRunning.get(p.getName())) {
+						return;
+					}
+				}
+				taskRunning.put(p.getName(), true);
+				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
 						selfOverride.put(p.getName(), true);
 						open(p);
+						
+						taskRunning.put(p.getName(), false);
 					}
 				}, DELAY);
 			}
