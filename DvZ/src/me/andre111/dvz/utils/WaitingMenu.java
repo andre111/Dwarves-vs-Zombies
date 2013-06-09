@@ -1,5 +1,7 @@
 package me.andre111.dvz.utils;
 
+import java.util.HashMap;
+
 import me.andre111.dvz.DvZ;
 
 import org.bukkit.Bukkit;
@@ -22,13 +24,25 @@ public class WaitingMenu implements Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
+	private HashMap<String, Boolean> selfOverride = new HashMap<String, Boolean>();
+	
 	@EventHandler(priority=EventPriority.MONITOR)
-	public void onInventoryClose(InventoryCloseEvent event) {
+	public void onInventoryClose(final InventoryCloseEvent event) {
 		if (event.getInventory().getTitle().equals(name)) {
+			final Player p = (Player) event.getPlayer();
+			
+			//safety for selfoveriding and infinite loops
+			if(selfOverride.containsKey(p.getName())) {
+				if(selfOverride.get(p.getName())) {
+					selfOverride.put(p.getName(), false);
+					return;
+				}
+			}
+			
 			if(!closed) {
-				final Player p = (Player) event.getPlayer();
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
+						selfOverride.put(p.getName(), true);
 						open(p);
 					}
 				}, 1);
@@ -69,5 +83,7 @@ public class WaitingMenu implements Listener {
 				p.closeInventory();
 			}
 		}
+		
+		selfOverride.clear();
 	}
 }

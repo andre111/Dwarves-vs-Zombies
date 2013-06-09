@@ -331,7 +331,7 @@ public class Listener_Player implements Listener  {
 								DvZ.api.undisguisePlayer(player);
 						}
 					}
-				}, 1);
+				}, 2);
 				
 			}
 		}

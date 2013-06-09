@@ -874,7 +874,7 @@ public class Game {
 	            	boolean dwarf = false;
 	            	int itemId = event.getItemID();
 	            	int itemD = event.getItemDamage();
-	            	Player player = event.getPlayer();
+	            	final Player player = event.getPlayer();
 	    			
 	    			//costum dwarves
 	    			for(int i=1; i<=10; i++) {
@@ -890,9 +890,13 @@ public class Game {
 	    			}
 	    			
 	    			if (dwarf) {
-	    				if(spawnDwarves!=null) {
-	    					event.getPlayer().teleport(spawnDwarves);
-	    				}
+	    				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+							public void run() {
+								if(spawnDwarves!=null) {
+			    					player.teleport(spawnDwarves);
+			    				}
+							}
+						}, 1);
 	    				
 	    				event.setWillClose(true);
 	                    event.setWillDestroy(true);
@@ -968,7 +972,7 @@ public class Game {
 	            	boolean monster = false;
 	            	int itemId = event.getItemID();
 	            	int itemD = event.getItemDamage();
-	            	Player player = event.getPlayer();
+	            	final Player player = event.getPlayer();
 	            	
 	    			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 	    				CustomMonster cm = DvZ.monsterManager.getMonster(i);
@@ -979,9 +983,13 @@ public class Game {
 	    			}
 	    			
 	    			if (monster) {
-	    				if(spawnMonsters!=null) {
-	    					player.teleport(spawnMonsters);
-	    				}
+	    				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+							public void run() {
+								if(spawnMonsters!=null) {
+			    					player.teleport(spawnMonsters);
+			    				}
+							}
+						}, 1);
 	    				
 	    				event.setWillClose(true);
 	                    event.setWillDestroy(true);

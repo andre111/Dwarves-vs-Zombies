@@ -37,7 +37,11 @@ public class StatManager {
 			stats.put(player.getName(), sc);
 		}
 			
-		player.setScoreboard(sc);
+		try {
+			player.setScoreboard(sc);
+		} catch(Exception e) {
+			return;
+		}
 		
 		//xp-bar
 		xpBarShown.put(player.getName(), true);
@@ -128,7 +132,7 @@ public class StatManager {
 			sendRealXP(player);
 		}
 	}
-	public static void onInventoryClose(Player player) {
+	public static void onInventoryClose(final Player player) {
 		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 			show(player);
 		}
