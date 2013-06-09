@@ -22,6 +22,7 @@ import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.utils.WaitingMenu;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -437,6 +438,7 @@ public class Game {
 								player.getInventory().clear();
 								player.setMaxHealth(20);
 								player.setHealth(20);
+								player.setGameMode(GameMode.SURVIVAL);
 								player.sendMessage(DvZ.getLanguage().getString("string_choose","Choose your class!"));
 								addDwarfItems(player);
 							}
