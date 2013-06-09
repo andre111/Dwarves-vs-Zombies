@@ -17,6 +17,8 @@ public class WaitingMenu implements Listener {
 	private String name;
 	private DvZ plugin;
 	
+	private static int DELAY = 1;
+	
 	public WaitingMenu(DvZ plugin, String add) {
 		this.plugin = plugin;
 		this.closed = false;
@@ -27,7 +29,7 @@ public class WaitingMenu implements Listener {
 	private HashMap<String, Boolean> selfOverride = new HashMap<String, Boolean>();
 	
 	@EventHandler(priority=EventPriority.MONITOR)
-	public void onInventoryClose(final InventoryCloseEvent event) {
+	public void onInventoryClose(InventoryCloseEvent event) {
 		if (event.getInventory().getTitle().equals(name)) {
 			final Player p = (Player) event.getPlayer();
 			
@@ -45,7 +47,7 @@ public class WaitingMenu implements Listener {
 						selfOverride.put(p.getName(), true);
 						open(p);
 					}
-				}, 1);
+				}, DELAY);
 			}
 		}
 	}

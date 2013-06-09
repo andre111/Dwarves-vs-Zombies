@@ -870,6 +870,11 @@ public class Game {
 			}
 		}
 		
+		//disable clicking when monsters are not released
+		if(isMonster(player.getName()) && !released) {
+			return;
+		}
+		
 		//custom dwarves - rightclick
 		if(isDwarf(player.getName(), false)) {
 			int dId = getPlayerState(player.getName())-dwarfMin;
@@ -918,6 +923,11 @@ public class Game {
 		if(!isPlayer(player.getName())) return;
 		if(item==null) return;
 		
+		//disable clicking when monsters are not released
+		if(isMonster(player.getName()) && !released) {
+			return;
+		}
+		
 		//custom items
 		playerSpecialItemC(player, item, false, null, target);
 	}
@@ -931,6 +941,11 @@ public class Game {
 		int itemId = item.getTypeId();
 		//int itemD = item.getDurability();
 		String pname = player.getName();
+		
+		//disable clicking when monsters are not released
+		if(isMonster(player.getName()) && !released) {
+			return;
+		}
 		
 		//custom items
 		playerSpecialItemC(player, item, true, block, null);

@@ -72,7 +72,7 @@ public class IconMenu implements Listener {
 	}
 
 	@EventHandler(priority=EventPriority.MONITOR)
-	void onInventoryClose(InventoryCloseEvent event) {
+	public void onInventoryClose(InventoryCloseEvent event) {
 		if (event.getInventory().getTitle().equals(name)) {
 			if(!closed) {
 				final Player p = (Player) event.getPlayer();
@@ -88,7 +88,7 @@ public class IconMenu implements Listener {
 	}
 
 	@EventHandler(priority=EventPriority.MONITOR)
-	void onInventoryClick(InventoryClickEvent event) {
+	public void onInventoryClick(InventoryClickEvent event) {
 		if (event.getInventory().getTitle().equals(name)) {
 			event.setCancelled(true);
 			int slot = event.getRawSlot();
