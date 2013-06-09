@@ -67,6 +67,7 @@ public class DvZ extends JavaPlugin {
 	public static Invulnerability inVul;
 	public static Item3DHandler item3DHandler;
 	public static ItemStandManager itemStandManager;
+	public static EffectManager effectManager;
 	
 	public static MonsterManager monsterManager;
 	public static DwarfManager dwarfManager;
@@ -149,6 +150,8 @@ public class DvZ extends JavaPlugin {
 		inVul = new Invulnerability(this);
 		item3DHandler = new Item3DHandler(this);
 		itemStandManager = new ItemStandManager();
+		effectManager = new EffectManager();
+		effectManager.loadEffects();
 		
 		BlockManager.loadConfig();
 		
