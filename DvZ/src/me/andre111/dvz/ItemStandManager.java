@@ -27,7 +27,7 @@ public class ItemStandManager {
 		while(f.exists()) {
 			try {
 				String st = (String) Slapi.load(f.getAbsolutePath());
-				String[] split = st.split("|");
+				String[] split = st.split("//");
 				
 				int x = Integer.parseInt(split[0]);
 				int y = Integer.parseInt(split[1]);
@@ -41,6 +41,7 @@ public class ItemStandManager {
 				createStand(loc, itemID, once, item);
 			} catch (Exception e) {
 				DvZ.log("Could not read Itemstandinfo!");
+				e.printStackTrace();
 			}
 			
 			count++;
@@ -55,7 +56,7 @@ public class ItemStandManager {
 		int y = loc.getBlockY();
 		int z = loc.getBlockZ();
 		
-		String save = x+"|"+y+"|"+z+"|"+itemID+"|"+once+"|"+formatedItem;
+		String save = x+"//"+y+"//"+z+"//"+itemID+"//"+once+"//"+formatedItem;
 		
 		File f = new File(directory, "0.dat");
 		int count = 0;
@@ -77,8 +78,6 @@ public class ItemStandManager {
 	}*/
 	
 	private void createStand(Location loc, final int itemID, final boolean once, final String formatedItem) {
-		
-		
 		DvZ.item3DHandler.spawnAroundBlock(null, loc, itemID, new Item3DRunnable() {
 			private ArrayList<String> players = new ArrayList<String>();
 			
