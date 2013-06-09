@@ -603,7 +603,12 @@ public class CommandExecutorDvZ implements CommandExecutor {
 						}
 						
 						//get the item
-						DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/itemstands/"), player.getLocation(), itemID, once, itemSt);
+						if(ItemHandler.decodeItem(itemSt)!=null) {
+							DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/itemstands/"), player.getLocation(), itemID, once, itemSt);
+						} else {
+							sender.sendMessage("Could not decode Itemstring: "+itemSt);
+							return false;
+						}
 					} else {
 						sender.sendMessage("Please specify a formated Item to give!");
 						return false;

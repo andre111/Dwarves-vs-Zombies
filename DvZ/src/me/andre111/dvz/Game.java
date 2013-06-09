@@ -20,6 +20,7 @@ import me.andre111.dvz.utils.IconMenu;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.dvz.utils.Slapi;
+import me.andre111.dvz.utils.WaitingMenu;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -86,6 +87,8 @@ public class Game {
 	public static int monsterMax = 49;
 	public static int dragonMin = 100;
 	
+	public WaitingMenu waitm;
+	
 	private Dragon dragon;
 	
 	private HashMap<String, Integer> spell1time = new HashMap<String, Integer>();
@@ -147,7 +150,12 @@ public class Game {
 		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
 		
-		plugin.waitm.close();
+		String wadd = "";
+		for(int i=0; i<p.getGameID(this); i++) {
+			wadd = wadd + " ";
+		}
+		waitm = new WaitingMenu(p, wadd);
+		waitm.close();
 		released = plugin.getConfig().getString("need_release", "false")=="false";
 		
 		initPlayerEffects();
@@ -221,7 +229,8 @@ public class Game {
 		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
 		
-		plugin.waitm.close();
+		waitm.releaseAll();
+		waitm.close();
 		released = plugin.getConfig().getString("need_release", "false")=="false";
 		
 		spell1time.clear();
@@ -293,6 +302,7 @@ public class Game {
 				
 				if (ticker==10) {
 					ticker = 0;
+					teleportUnreleased();
 					checkLoose();
 				}
 				if(ticker%2==0) {
@@ -1406,11 +1416,37 @@ public class Game {
 			Player player = Bukkit.getServer().getPlayerExact(playern);
 
 			if(player!=null) {
-				plugin.waitm.release(player);
+				waitm.release(player);
 			}
 		}
 		
 		broadcastMessage(DvZ.getLanguage().getString("string_release", "The Monsters have been released!"));
+	}
+	
+	//teleport unreleased monsters back to their spawn
+	public void teleportUnreleased() {
+		if(released) return;
+		
+		Object[] rplayers = playerstate.keySet().toArray();
+		for(int i=0; i<rplayers.length; i++) {
+			String playern = (String) rplayers[i];
+			if(isMonster(playern)) {
+				Player player = Bukkit.getServer().getPlayerExact(playern);
+	
+				if(player!=null) {
+					Location loc = player.getLocation();
+					Location target = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"").getSpawnLocation();
+					
+					if(spawnMonsters!=null) {
+						target = spawnMonsters;
+					}
+					
+					if(loc.distanceSquared(target)>2) {
+						player.teleport(target);
+					}
+				}
+			}
+		}
 	}
 	
 	public void setDragon(Dragon dragon2) {

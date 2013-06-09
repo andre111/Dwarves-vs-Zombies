@@ -29,7 +29,6 @@ import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Metrics;
 import me.andre111.dvz.utils.Metrics.Graph;
 import me.andre111.dvz.utils.MovementStopper;
-import me.andre111.dvz.utils.WaitingMenu;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.Bukkit;
@@ -90,23 +89,22 @@ public class DvZ extends JavaPlugin {
 	private ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
 	private ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
 	
-	public WaitingMenu waitm;
 	
-	 @Override
-	 public void onLoad() {
-		 logger = Logger.getLogger("Minecraft");
-		 
-		 // Get plugin description
-		 descriptionFile = this.getDescription();
+	@Override
+	public void onLoad() {
+		logger = Logger.getLogger("Minecraft");
 
-		 // Dynamic package detection
-		 if (!DynamicClassFunctions.setPackages()) {
-			 logger.log(Level.WARNING, "NMS/OBC package could not be detected, using " + DynamicClassFunctions.nmsPackage + " and " + DynamicClassFunctions.obcPackage);
-		 }
-		 DynamicClassFunctions.setClasses();
-		 DynamicClassFunctions.setMethods();
-		 DynamicClassFunctions.setFields();
-	 }
+		// Get plugin description
+		descriptionFile = this.getDescription();
+
+		// Dynamic package detection
+		if (!DynamicClassFunctions.setPackages()) {
+			logger.log(Level.WARNING, "NMS/OBC package could not be detected, using " + DynamicClassFunctions.nmsPackage + " and " + DynamicClassFunctions.obcPackage);
+		}
+		DynamicClassFunctions.setClasses();
+		DynamicClassFunctions.setMethods();
+		DynamicClassFunctions.setFields();
+	}
 	
 	@Override
 	public void onEnable() {
@@ -194,8 +192,6 @@ public class DvZ extends JavaPlugin {
 		new Listener_Game(this);
 		new DvZWorldProvider(this);
 		
-		waitm = new WaitingMenu(this);
-		
 		//init and reset games
 		for(int i=0; i<games.length; i++) {
 			int type = getConfig().getInt("game"+i, 1);
@@ -228,6 +224,13 @@ public class DvZ extends JavaPlugin {
 	public void onDisable() {
 		//remove all zombies
 		item3DHandler.removeAll();
+		
+		//remove all release inventories
+		for(int i=0; i<games.length; i++) {
+			if (games[i]!=null) {
+				games[i].reset(false);
+			}
+		}
 	}
 	
 	public static void log(String s) {

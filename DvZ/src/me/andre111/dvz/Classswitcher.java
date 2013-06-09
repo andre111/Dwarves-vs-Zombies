@@ -84,7 +84,7 @@ public class Classswitcher {
 		if(!game.released) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(game.getPlugin(), new Runnable() {
 				public void run() {
-					game.getPlugin().waitm.open(player);
+					game.waitm.open(player);
 				}
 			}, 2);
 		}

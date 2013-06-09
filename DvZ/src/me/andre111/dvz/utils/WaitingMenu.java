@@ -15,10 +15,10 @@ public class WaitingMenu implements Listener {
 	private String name;
 	private DvZ plugin;
 	
-	public WaitingMenu(DvZ plugin) {
+	public WaitingMenu(DvZ plugin, String add) {
 		this.plugin = plugin;
 		this.closed = false;
-		this.name = DvZ.getLanguage().getString("string_wait_release", "Waiting for release...");
+		this.name = DvZ.getLanguage().getString("string_wait_release", "Waiting for release..."+add);
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
@@ -57,7 +57,17 @@ public class WaitingMenu implements Listener {
                 	//player.openInventory(player.getEnderChest());
                 }
             }, 1);
-			player.sendMessage("WARNING: If your Inventory keeps reverting, please relog - thats a Bug in Bukkit with closeInventory()");
+			//player.sendMessage("WARNING: If your Inventory keeps reverting, please relog - thats a Bug in Bukkit with closeInventory()");
+		}
+	}
+	
+	//WARNING: Only for server reload, else use release(Player player)
+	public void releaseAll() {
+		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+			closed = true;
+			if(p.getOpenInventory().getTitle().equals(name)) {
+				p.closeInventory();
+			}
 		}
 	}
 }
