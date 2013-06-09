@@ -5,22 +5,17 @@ import java.util.Map;
 import java.util.Random;
 
 import me.andre111.dvz.dragon.PlayerDragon;
-import me.andre111.dvz.utils.Item3DHandler.Item3DRunnable;
+import me.andre111.dvz.generator.QuarryGenerator;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Slapi;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-//import pgDev.bukkit.DisguiseCraft.api.DisguiseCraftAPI;
-//import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
-//import pgDev.bukkit.DisguiseCraft.disguise.DisguiseType;
 
 public class CommandExecutorDvZ implements CommandExecutor {
 	private DvZ plugin;
@@ -92,16 +87,16 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				DvZ.dragonAtManager.castFromPlayer(player, Integer.parseInt(args[0]));
 			else
 				player.sendMessage("Please specify Dragonattck ID");*/
-			//QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
+			QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
 			
-			final int itemID = (args.length>0) ? Integer.parseInt(args[0]) : Material.DIAMOND_SWORD.getId();
+			/*final int itemID = (args.length>0) ? Integer.parseInt(args[0]) : Material.DIAMOND_SWORD.getId();
 			//final String rand = ""+ (new Random()).nextInt(100);
 			DvZ.item3DHandler.spawnAroundBlock(player, player.getLocation().clone().add(1, 0, 0), itemID, new Item3DRunnable() {
 				@Override
 				public void run(Player player) {
 					player.getWorld().dropItemNaturally(player.getLocation().clone().add(0, 1, 0), new ItemStack(itemID));
 				}
-			});
+			});*/
 			
 			//DvZ.disguiseP(player, new Disguise(0, "", DisguiseType.Spider));
 			return true;

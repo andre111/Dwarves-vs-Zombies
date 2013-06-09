@@ -38,7 +38,8 @@ public class ItemSmash extends ItemSpell {
 		World w = block.getWorld();
 		Location loc = block.getLocation();
 		w.createExplosion(loc, 2);
-		w.getBlockAt(loc).setTypeId(0);
+		//that will break anything-removed
+		//w.getBlockAt(loc).setTypeId(0);
 		if(playSound)
 			w.playSound(loc, Sound.IRONGOLEM_THROW, 1, 1);
 		
