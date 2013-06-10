@@ -7,7 +7,7 @@
 # ----------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------
-# Game config(0=disabled, 1=old/standart dvz, 2=not implemented
+# Game config(0=disabled, 1=old/standart dvz, 2=newer dvz, 3=alternating) (this description is for the default configs)
 # ----------------------------------------------------------------------------------
 game0: 1
 game1: 0
