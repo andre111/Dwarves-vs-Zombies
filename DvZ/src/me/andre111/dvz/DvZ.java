@@ -297,7 +297,12 @@ public class DvZ extends JavaPlugin {
 		saveResource("config/default/items.yml", true);
 		saveResource("config/default/blocks.yml", true);
 		//language
-		saveResource("lang/lang_en_EN.yml", true);
+		for(String st : Language.getPossibleLanguages()) {
+			if(getResource("lang/lang_"+st+".yml")!=null)
+				saveResource("lang/lang_"+st+".yml", true);
+			if(getResource("lang/unfinished/lang_"+st+".yml")!=null)
+				saveResource("lang/unfinished/lang_"+st+".yml", true);
+		}
 	}
 	
 	private void loadConfigs() {
