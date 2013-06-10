@@ -122,6 +122,9 @@ public class Game {
 	//#######################################
 	public Game(DvZ p, int type) {
 		this.gameType = type;
+		//change between the two versions
+		if(type==3)
+			this.gameType = (new Random()).nextInt(2)+1;
 		
 		this.state = 1;
 		this.time = 30;//60;
@@ -202,6 +205,10 @@ public class Game {
 			
 			StatManager.resetPlayer(playern);
 		}
+		
+		//change between the two versions
+		if(DvZ.getStaticConfig().getInt("game"+plugin.getGameID(this), 1)==3)
+			this.gameType = 3 - this.gameType;
 		
 		String[] players = playerstate.keySet().toArray(new String[playerstate.keySet().size()]);
 		playerstate.clear();
