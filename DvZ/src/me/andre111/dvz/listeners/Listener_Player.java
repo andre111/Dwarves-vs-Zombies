@@ -536,6 +536,8 @@ public class Listener_Player implements Listener  {
 		Player p  = event.getPlayer();
 		Game game = plugin.getPlayerGame(p.getName());
 		if(game==null) return;
+		//don't spam packets when the monsters are not released->WaitingMEnu
+		if(game.isMonster(p.getName()) && !game.released) return;
 		
 		if(event.isSneaking()) {
 			StatManager.show(p);
@@ -560,6 +562,8 @@ public class Listener_Player implements Listener  {
 		Player p  = (Player) event.getPlayer();
 		Game game = plugin.getPlayerGame(p.getName());
 		if(game==null) return;
+		//don't spam packets when the monsters are not released->WaitingMEnu
+		if(game.isMonster(p.getName()) && !game.released) return;
 		
 		StatManager.onInventoryOpen(p);
 	}
@@ -568,6 +572,8 @@ public class Listener_Player implements Listener  {
 		Player p  = (Player) event.getPlayer();
 		Game game = plugin.getPlayerGame(p.getName());
 		if(game==null) return;
+		//don't spam packets when the monsters are not released->WaitingMEnu
+		if(game.isMonster(p.getName()) && !game.released) return;
 		
 		StatManager.onInventoryClose(p);
 	}
