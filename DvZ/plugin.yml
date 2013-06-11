@@ -101,6 +101,11 @@ commands:
       aliases: [d_itemstand,dvz_stand,d_stand]
       usage: /<command> [once_player] [display_item] [formated_item]
       permission: dvz.itemstand
+   dvz_quarry:
+      description: Creates a quarry at your location - WARNING! Can not be undone!
+      aliases: [d_quarry]
+      usage: /<command> [radius]
+      permission: dvz.quarry
 
 permissions:
    dvz.*:
@@ -121,6 +126,7 @@ permissions:
          dvz.release: true
          dvz.give: true
          dvz.itemstand: true
+         dvz.quarry: true
    dvz.start:
       description: Starting the Game
       default: op
@@ -162,6 +168,9 @@ permissions:
       default: op
    dvz.itemstand:
       description: Creates a 3D Itemstand at your postition
+      default: op
+   dvz.quarry:
+      description: Creates a quarry at your location - WARNING! Can not be undone!
       default: op
    dvz.test:
       description: Testing some stuff(do not use this)

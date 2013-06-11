@@ -68,9 +68,9 @@ public class CommandExecutorDvZ implements CommandExecutor {
 			
 			//Spellcontroller.spellEnderChest(plugin.game, player);
 			
-			/*player.getInventory().clear();
+			player.getInventory().clear();
 			plugin.getPlayerGame(player.getName()).setPlayerState(player.getName(), 3);
-			plugin.getPlayerGame(player.getName()).addMonsterItems(player);*/
+			plugin.getPlayerGame(player.getName()).addMonsterItems(player);
 			/*if(test==null) {
 				test = DvZWorldProvider.generateNewWorld();
 			}
@@ -87,7 +87,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				DvZ.dragonAtManager.castFromPlayer(player, Integer.parseInt(args[0]));
 			else
 				player.sendMessage("Please specify Dragonattck ID");*/
-			QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
+			//QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), 12, 60);
 			
 			/*final int itemID = (args.length>0) ? Integer.parseInt(args[0]) : Material.DIAMOND_SWORD.getId();
 			//final String rand = ""+ (new Random()).nextInt(100);
@@ -569,7 +569,6 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				return false;
 			}
 		}
-		
 		//Give special items
 		if (command.getName().equalsIgnoreCase("dvz_itemstand")) {
 			if(!sender.hasPermission("dvz.itemstand")) {
@@ -617,6 +616,30 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				sender.sendMessage("Please specify a if it should be once per Player!");
 				return false;
 			}
+		}
+		//Give special items
+		if (command.getName().equalsIgnoreCase("dvz_quarry")) {
+			if(!sender.hasPermission("dvz.quarry")) {
+				sender.sendMessage("You don't have the Permission to do that!");
+				return false;
+			}
+			if (!(sender instanceof Player)) {
+				sender.sendMessage("Y U NO PLAYER??!111");
+				return true;
+			}
+			Player player = (Player)sender;
+			if(args.length<1) {
+				player.sendMessage("Please specify a radius!");
+				return false;
+			}
+			int radius = Integer.parseInt(args[0]);
+			
+			Location loc = player.getLocation();
+			QuarryGenerator.generateQuarry(player.getLocation().clone().subtract(0, 1, 0), radius, 200);
+			
+			player.teleport(loc.clone().add(0, 10, 0));
+			
+			return true;
 		}
 		
 		return false;
