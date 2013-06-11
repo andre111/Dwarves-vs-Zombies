@@ -597,7 +597,10 @@ public class Listener_Player implements Listener  {
 	public void onPlayerMove(PlayerMoveEvent event) {
 		if(event.isCancelled()) return;
 		
-		if(event.getFrom().distanceSquared(event.getTo())>0.01)
-			StatManager.interruptMove(event.getPlayer().getName());
+		try {
+			if(event.getFrom().distanceSquared(event.getTo())>0.01)
+				StatManager.interruptMove(event.getPlayer().getName());
+		} catch(Exception e) {
+		}
 	}
 }
