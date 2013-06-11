@@ -28,7 +28,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTeleportEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class Listener_Entity implements Listener {
 	private DvZ plugin;
@@ -245,29 +244,6 @@ public class Listener_Entity implements Listener {
 				//TODO - disable to toquestion wich game to join
 				//plugin.getGame(0).addPlayer(((Player)event.getEntity()).getName());
 				//((Player)event.getEntity()).sendMessage(plugin.getLanguage().getString("string_self_added", "You have been added to the game!"));
-			}
-		}
-	}
-	
-	//Potionsnowballs
-	@EventHandler
-	public void onProjectileHit(ProjectileHitEvent event) {
-		if((event.getEntity() instanceof Snowball)) {
-			//Potions Snowballs
-			if (event.getEntity().getFallDistance() == Spellcontroller.identifierp1) {
-				Spellcontroller.spellPotion(event.getEntity().getLocation(), 1, 3);
-			}
-			if (event.getEntity().getFallDistance() == Spellcontroller.identifierp2) {
-				Spellcontroller.spellPotion(event.getEntity().getLocation(), 2, 3);
-			}
-			if (event.getEntity().getFallDistance() == Spellcontroller.identifierp3) {
-				Spellcontroller.spellPotion(event.getEntity().getLocation(), 3, 3);
-			}
-			if (event.getEntity().getFallDistance() == Spellcontroller.identifierp4) {
-				Spellcontroller.spellPotion(event.getEntity().getLocation(), 4, 3);
-			}
-			if (event.getEntity().getFallDistance() == Spellcontroller.identifierp5) {
-				Spellcontroller.spellPotion(event.getEntity().getLocation(), 5, 3);
 			}
 		}
 	}

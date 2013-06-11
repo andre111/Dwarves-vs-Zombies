@@ -692,11 +692,6 @@ public class Game {
 	            	int itemD = event.getItemDamage();
 	            	final Player player = event.getPlayer();
 	    			
-	    			//costum dwarves
-	    			for(int i=1; i<=10; i++) {
-	    				if(event.getItemID()==2255+i) { Classswitcher.becomeCustomDwarf(game, event.getPlayer(), i); dwarf=true; }
-	    			}
-	    			
 	    			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
 	    				CustomDwarf cm = DvZ.dwarfManager.getDwarf(i);
 	    				if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
