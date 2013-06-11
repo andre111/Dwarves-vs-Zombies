@@ -5,7 +5,7 @@ effects:
         6: "15 0" 
 
 # ----------------------------------------------------------------------------------
-# Costum Dwarves
+# Custom Dwarves
 # ----------------------------------------------------------------------------------
 # Item Format:
 # id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>

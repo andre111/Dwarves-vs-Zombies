@@ -4,18 +4,14 @@ import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
-
-public class IconMenu implements Listener {
+//TODO - stil broken -> Listener allready Listening
+public class IconMenu {
 	private static long DELAY = 5L;
 	
 	private String name;
@@ -37,7 +33,8 @@ public class IconMenu implements Listener {
 		this.optionNames = new String[size];
 		this.optionIcons = new ItemStack[size];
 		this.closed = false;
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		
+		IconMenuHandler.instance.register(this);
 	}
 
 	public IconMenu setOption(int position, ItemStack icon, String name, String... info) {
@@ -64,14 +61,13 @@ public class IconMenu implements Listener {
 	}
 
 	public void destroy() {
-		HandlerList.unregisterAll(this);
+		IconMenuHandler.instance.unregister(this);
 		handler = null;
 		plugin = null;
 		optionNames = null;
 		optionIcons = null;
 	}
 
-	@EventHandler(priority=EventPriority.MONITOR)
 	public void onInventoryClose(InventoryCloseEvent event) {
 		if (event.getInventory().getTitle().equals(name)) {
 			if(!closed) {
@@ -87,7 +83,6 @@ public class IconMenu implements Listener {
 		}
 	}
 
-	@EventHandler(priority=EventPriority.MONITOR)
 	public void onInventoryClick(InventoryClickEvent event) {
 		if (event.getInventory().getTitle().equals(name)) {
 			event.setCancelled(true);

@@ -23,6 +23,7 @@ import me.andre111.dvz.listeners.Listener_Game;
 import me.andre111.dvz.listeners.Listener_Player;
 import me.andre111.dvz.monster.MonsterManager;
 import me.andre111.dvz.utils.FileHandler;
+import me.andre111.dvz.utils.IconMenuHandler;
 import me.andre111.dvz.utils.Invulnerability;
 import me.andre111.dvz.utils.Item3DHandler;
 import me.andre111.dvz.utils.ItemHandler;
@@ -134,6 +135,7 @@ public class DvZ extends JavaPlugin {
 		Spellcontroller.plugin = this;
 		Classswitcher.plugin = this;
 		ItemHandler.plugin = this;
+		IconMenuHandler.instance = new IconMenuHandler(this);
 		
 		itemManager = new ItemManager();
 		itemManager.loadItems();
