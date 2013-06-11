@@ -443,12 +443,14 @@ public class Game {
 							if (pstate==1) {
 								playerstate.put(players, Game.pickDwarf);
 								Player player = Bukkit.getServer().getPlayer(players);
-								player.getInventory().clear();
-								player.setMaxHealth(20);
-								player.setHealth(20);
-								player.setGameMode(GameMode.SURVIVAL);
-								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
-								addDwarfItems(player);
+								if(player!=null) {
+									player.getInventory().clear();
+									player.setMaxHealth(20);
+									player.setHealth(20);
+									player.setGameMode(GameMode.SURVIVAL);
+									player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+									addDwarfItems(player);
+								}
 							}
 						}
 						
