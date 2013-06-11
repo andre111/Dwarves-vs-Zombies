@@ -189,6 +189,11 @@ public class DvZ extends JavaPlugin {
 				games[i] = new Game(this, type);
 				games[i].reset(false);
 			}
+			//altenerating gametype
+			if(type==3) {
+				games[i] = new Game(this, 1);
+				games[i].reset(false);
+			}
 		}
 		//
 		
