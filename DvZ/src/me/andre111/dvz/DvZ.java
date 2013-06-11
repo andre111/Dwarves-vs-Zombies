@@ -183,6 +183,10 @@ public class DvZ extends JavaPlugin {
 			Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Lobby"));
 		File f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/");
 		if(!f.exists()) f.mkdirs();
+		f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/Type1/");
+		if(!f.exists()) f.mkdirs();
+		f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/Type2/");
+		if(!f.exists()) f.mkdirs();
 		for (int i=0; i<10; i++) {
 			File f2 = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Main"+i+"/");
 			if(f2.exists()) FileHandler.deleteFolder(f2);
@@ -366,7 +370,7 @@ public class DvZ extends JavaPlugin {
 	public void createWorld(CommandSender sender, String name) {
 		File world = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+name+"/");
 		
-		String free = getFreeWorld();
+		String free = getFreeWorld("");
 		
 		File cworld = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/"+free+"/");
 		boolean failed = false;
@@ -382,16 +386,16 @@ public class DvZ extends JavaPlugin {
 			sender.sendMessage(getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
 		}
 		
-		maxWorld = getFreeWorld();
+		maxWorld = getFreeWorld("");
 	}
 	
-	private String getFreeWorld() {
+	private String getFreeWorld(String add) {
 		int akt = 0;
 		
 		File f;
 		do {
 			akt++;
-			f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/"+akt+"/");
+			f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+akt+"/");
 		} while(f.exists());
 		
 		return ""+akt;
@@ -432,17 +436,37 @@ public class DvZ extends JavaPlugin {
 	//TODO - Neue Main Welt generieren
 	private Random mapRandom = new Random();
 	private String maxWorld = "";
+	private String maxWorldType1 = "";
+	private String maxWorldType2 = "";
 	public void newMainWorld(final int id) {
+		int gameType = games[id].gameType;
+		
 		if(maxWorld.equals("")) {
-			maxWorld = getFreeWorld();
+			maxWorld = getFreeWorld("");
+		}
+		if(maxWorldType1.equals("")) {
+			maxWorldType1 = getFreeWorld("Type1/");
+		}
+		if(maxWorldType2.equals("")) {
+			maxWorldType2 = getFreeWorld("Type2/");
 		}
 		
-		int max = Integer.parseInt(maxWorld)-1;
+		int extra = Integer.parseInt(maxWorldType1)-1;
+		if(gameType==2) extra = Integer.parseInt(maxWorldType2)-1;
+		
+		int normal = Integer.parseInt(maxWorld)-1;
+		int max = normal + extra;
 		
 		if(max>0) {
 			int pos = mapRandom.nextInt(max)+1;
+			String add = "";
+			if(pos>normal+1) {
+				pos = pos - normal;
+				add = "Type1/";
+				if(gameType==2) add = "Type2/";
+			}
 			
-			File worldfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/"+pos+"/");
+			File worldfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+pos+"/");
 			File mainfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
 			try {
 				FileHandler.copyFolder(worldfile, mainfile);

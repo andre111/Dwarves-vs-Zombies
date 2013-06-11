@@ -41,7 +41,7 @@ import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
 public class Game {
 	private DvZ plugin;
 	
-	private int gameType;
+	public int gameType;
 	public static int GAMETYPE_OLD = 1;
 	public static int GAMETYPE_NEW = 2;
 	
