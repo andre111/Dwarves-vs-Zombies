@@ -1265,6 +1265,11 @@ public class Game {
 	public void teleportUnreleased() {
 		if(released) return;
 		
+		int minutes = (int) Math.floor(releasetime/60);
+		int seconds = releasetime - minutes*60;
+		String message = DvZ.getLanguage().getString("string_release_wait", "&cMonsters are not released yet!");
+		String message2 = DvZ.getLanguage().getString("string_release_time", "&cMaximum Time until release: &6-0- Minutes -1- Seconds").replace("-0-", ""+minutes).replace("-1-", ""+seconds);
+		
 		Object[] rplayers = playerstate.keySet().toArray();
 		for(int i=0; i<rplayers.length; i++) {
 			String playern = (String) rplayers[i];
@@ -1272,6 +1277,9 @@ public class Game {
 				Player player = Bukkit.getServer().getPlayerExact(playern);
 	
 				if(player!=null) {
+					player.sendMessage(message);
+					player.sendMessage(message2);
+					
 					Location loc = player.getLocation();
 					Location target = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"").getSpawnLocation();
 					

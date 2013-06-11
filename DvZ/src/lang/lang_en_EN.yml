@@ -27,6 +27,8 @@ string_lobby_waiting: "Waiting for the Game to start..."
 string_lobby_players: "-0-/-1- Players for Game to start!"
 string_wait_release: "Waiting for release..."
 string_release: "The Monsters have been released!"
+string_release_wait: "&cMonsters are not released yet!"
+string_release_time: "&cMaximum Time until release: &6-0- Minutes -1- Seconds"
 # Chat
 string_chat_death: "-0- was killed by a monster!"
 # Classes

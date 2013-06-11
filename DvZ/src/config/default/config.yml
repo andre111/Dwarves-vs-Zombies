@@ -55,7 +55,7 @@ dedicated_chat: true
 # Monster have to wait until Assasins are choosen or /dvz_release was used
 need_release: false
 # Time(in Minutes) until monsters are released(0=disabled - WARNING: if you have need_release=true and time_release=0 you HAVE TO use /dvz_release or the monsters cann't do anything)
-time_release: 30
+time_release: 20
 dwarf_potion_exp: 2
 change_death_message: true
 # when no gameid is given on /dvz_join it will try to join a not running game
