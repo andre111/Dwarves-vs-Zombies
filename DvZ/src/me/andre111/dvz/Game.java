@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.dragon.Dragon;
 import me.andre111.dvz.dragon.PlayerDragon;
 import me.andre111.dvz.dwarf.CustomDwarf;
@@ -144,7 +145,7 @@ public class Game {
 		
 		mana = new ManaManager();
 		
-		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		globalCrystalChest = Bukkit.createInventory(null, 27, ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
 		
 		String wadd = "";
@@ -207,7 +208,7 @@ public class Game {
 		}
 		
 		//change between the two versions
-		if(DvZ.getStaticConfig().getInt("game"+plugin.getGameID(this), 1)==3)
+		if(ConfigManager.getStaticConfig().getInt("game"+plugin.getGameID(this), 1)==3)
 			this.gameType = 3 - this.gameType;
 		
 		String[] players = playerstate.keySet().toArray(new String[playerstate.keySet().size()]);
@@ -226,7 +227,7 @@ public class Game {
 		
 		mana.reset();
 		
-		globalCrystalChest = Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		globalCrystalChest = Bukkit.createInventory(null, 27, ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
 		
 		waitm.releaseAll();
@@ -263,14 +264,14 @@ public class Game {
 			if(infotimer++>=30) {
 				infotimer = 0;
 				if (state==1) {
-					broadcastMessage(DvZ.getLanguage().getString("string_lobby_waiting","Waiting for the Game to start..."));
-					broadcastMessage(DvZ.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replace("-0-", ""+playerstate.size()).replace("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
+					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_waiting","Waiting for the Game to start..."));
+					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replace("-0-", ""+playerstate.size()).replace("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
 				}
 			}
 		//Autostart{
 			if(lobby_Player>0) {
 				if(playerstate.size()>=lobby_Player) {
-					broadcastMessage(DvZ.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("lobby_starttime", 60)));
+					broadcastMessage(ConfigManager.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("lobby_starttime", 60)));
 					start(plugin.getConfig().getInt("lobby_starttime", 60));
 					
 					if(plugin.getConfig().getInt("lobby_playerperassasin", 10)>0) {
@@ -283,21 +284,21 @@ public class Game {
 		} else {
 			if (time>=0) time--;
 			
-			if (time==60*5) broadcastMessage(DvZ.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
-			else if (time==60) broadcastMessage(DvZ.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
-			else if (time==10) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "10"));
-			else if (time==5) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "5"));
-			else if (time==4) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "4"));
-			else if (time==3) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "3"));
-			else if (time==2) broadcastMessage(DvZ.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "2"));
-			else if (time==1) broadcastMessage(DvZ.getLanguage().getString("string_starting_second","-0- Second left!").replace("-0-", "1"));
+			if (time==60*5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
+			else if (time==60) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
+			else if (time==10) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "10"));
+			else if (time==5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "5"));
+			else if (time==4) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "4"));
+			else if (time==3) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "3"));
+			else if (time==2) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "2"));
+			else if (time==1) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_second","-0- Second left!").replace("-0-", "1"));
 			else if (time==0) startGame();//timeUp();
 			
 			if (time<=0) {
 				dauer++;
 				ticker++;
 				
-				if(DvZ.getStaticConfig().getString("global_stats", "true").equals("true"))
+				if(ConfigManager.getStaticConfig().getString("global_stats", "true").equals("true"))
 					updateGlobalStats();
 				
 				if (ticker==10) {
@@ -446,7 +447,7 @@ public class Game {
 								player.setMaxHealth(20);
 								player.setHealth(20);
 								player.setGameMode(GameMode.SURVIVAL);
-								player.sendMessage(DvZ.getLanguage().getString("string_choose","Choose your class!"));
+								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 								addDwarfItems(player);
 							}
 						}
@@ -489,9 +490,9 @@ public class Game {
 		}
 		
 		if (dwarf==0 && (mons>=1 || monsoff>=1)) {
-			broadcastMessage(DvZ.getLanguage().getString("string_lose_dwarf","§4Game Over!§f No more Dwarves!"));
+			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_dwarf","§4Game Over!§f No more Dwarves!"));
 			if(lastdwarf!=null)
-				broadcastMessage(DvZ.getLanguage().getString("string_last_dwarf","Last standing Dwarf - §e-0-§f! Congratulations!").replace("-0-", lastdwarf));
+				broadcastMessage(ConfigManager.getLanguage().getString("string_last_dwarf","Last standing Dwarf - §e-0-§f! Congratulations!").replace("-0-", lastdwarf));
 			
 			reset(true);
 		}
@@ -516,7 +517,7 @@ public class Game {
 		}
 		
 		if (destr) {
-			broadcastMessage(DvZ.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
+			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
 			reset(true);
 		}
 	}
@@ -534,8 +535,8 @@ public class Game {
 			}
 		}
 		
-		StatManager.setGlobalStat(DvZ.getLanguage().getString("scoreboard_dwarves", "Dwarves"), dwarf);
-		StatManager.setGlobalStat(DvZ.getLanguage().getString("scoreboard_monsters", "Monsters"), mons);
+		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_dwarves", "Dwarves"), dwarf);
+		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_monsters", "Monsters"), mons);
 	}
 	
 	//#######################################
@@ -584,7 +585,7 @@ public class Game {
 					}
 				}
 				if (ammountPlayers<count) {
-					broadcastMessage(DvZ.getLanguage().getString("string_no_assasins","No Assasins have been chosen - Because there where not enough online Dwarves!!"));
+					broadcastMessage(ConfigManager.getLanguage().getString("string_no_assasins","No Assasins have been chosen - Because there where not enough online Dwarves!!"));
 					return;
 				}
 			while(!(playerstate.get(playern)>=dwarfMin && playerstate.get(playern)<=dwarfMax) || player==null) {
@@ -594,20 +595,20 @@ public class Game {
 			
 			//Player player = Bukkit.getServer().getPlayerExact(playern);
 			//if(player!=null) {
-				player.sendMessage(DvZ.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
+				player.sendMessage(ConfigManager.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
 				
 				playerstate.put(player.getName(), Game.assasinState);
 				
 				//time
-				int asstime = DvZ.getClassFile().getInt("assasin_time_minutes",5);
+				int asstime = ConfigManager.getClassFile().getInt("assasin_time_minutes",5);
 				if(asstime>0) {
 					spell3time.put(player.getName(), asstime*60);
-					player.sendMessage(DvZ.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
+					player.sendMessage(ConfigManager.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
 				}
 				
 				//add assasin items to inventory
 				PlayerInventory inv = player.getInventory();
-				List<String> itemstrings = DvZ.getClassFile().getStringList("assasin_items");
+				List<String> itemstrings = ConfigManager.getClassFile().getStringList("assasin_items");
 				for(int j=0; j<itemstrings.size(); j++) {
 					ItemStack it = ItemHandler.decodeItem(itemstrings.get(j));
 					if(it!=null) {
@@ -622,7 +623,7 @@ public class Game {
 				}*/
 			//}
 		}
-		broadcastMessage(DvZ.getLanguage().getString("string_assasins","-0- Assasins have been chosen!!").replace("-0-", ""+count));
+		broadcastMessage(ConfigManager.getLanguage().getString("string_assasins","-0- Assasins have been chosen!!").replace("-0-", ""+count));
 	}
 	
 	//#######################################
@@ -635,7 +636,7 @@ public class Game {
 				Player playern = Bukkit.getServer().getPlayerExact(player);
 				if(playern!=null) {
 					playern.damage(1000);
-					playern.sendMessage(DvZ.getLanguage().getString("string_assasin_timeup","Your time is up!"));
+					playern.sendMessage(ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
 				}
 			}
 		}
@@ -655,7 +656,7 @@ public class Game {
 		for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
 			dwarfItems[i] = new ItemStack(DvZ.dwarfManager.getDwarf(i).getClassItem(), 1, (short)DvZ.dwarfManager.getDwarf(i).getClassItemDamage());
 			ItemMeta cim = dwarfItems[i].getItemMeta();
-			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.dwarfManager.getDwarf(i).getName()));
+			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.dwarfManager.getDwarf(i).getName()));
 			dwarfItems[i].setItemMeta(cim);
 		}
 		
@@ -676,7 +677,7 @@ public class Game {
 		}
 		else
 		{
-			IconMenu im = new IconMenu(player.getName()+" - "+DvZ.getLanguage().getString("string_choose","Choose your class!"), 9, new GameOptionClickEventHandler(this) {
+			IconMenu im = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 9, new GameOptionClickEventHandler(this) {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
@@ -754,7 +755,7 @@ public class Game {
 		for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 			monsterItems[i] = new ItemStack(DvZ.monsterManager.getMonster(i).getClassItem(), 1, (short)DvZ.monsterManager.getMonster(i).getClassItemDamage());
 			ItemMeta cim = monsterItems[i].getItemMeta();
-			cim.setDisplayName(DvZ.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.monsterManager.getMonster(i).getName()));
+			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.monsterManager.getMonster(i).getName()));
 			monsterItems[i].setItemMeta(cim);
 		}
 		
@@ -774,7 +775,7 @@ public class Game {
 		}
 		else
 		{
-			IconMenu icm = new IconMenu(player.getName()+" - "+DvZ.getLanguage().getString("string_choose","Choose your class!"), 18, new GameOptionClickEventHandler(this) {
+			IconMenu icm = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 18, new GameOptionClickEventHandler(this) {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
@@ -964,7 +965,7 @@ public class Game {
 				ThrownPotion thrp = player.launchProjectile(ThrownPotion.class);
 				thrp.setItem(item);
 			} else {
-				player.sendMessage(DvZ.getLanguage().getString("string_needexp","You don't have enough exp!"));
+				player.sendMessage(ConfigManager.getLanguage().getString("string_needexp","You don't have enough exp!"));
 			}
 			//Spellcontroller.spellLaunchPotion(this, player, itemD);
 		}
@@ -1044,7 +1045,7 @@ public class Game {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, time*20, 4), false);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, time*20, 6), false);
 		
-		player.sendMessage(DvZ.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replace("-0-", ""+time));
+		player.sendMessage(ConfigManager.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replace("-0-", ""+time));
 		
 		invultimer.put(player.getName(), time);
 	}
@@ -1056,9 +1057,9 @@ public class Game {
 			
 			ItemStack it = new ItemStack(358, 1);
 			ItemMeta im = it.getItemMeta();
-			im.setDisplayName(DvZ.getLanguage().getString("string_spell_teleport","Teleport to Enderman Portal"));
+			im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_teleport","Teleport to Enderman Portal"));
 			ArrayList<String> li4 = new ArrayList<String>();
-			li4.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_teleport",15)));
+			li4.add(ConfigManager.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("spelltime_teleport",15)));
 			im.setLore(li4);
 			it.setItemMeta(im);
 			inv.addItem(it);
@@ -1066,7 +1067,7 @@ public class Game {
 			if(plugin.getConfig().getString("monster_suizidepill", "true")=="true") {
 				it = new ItemStack(370, 1);
 				im = it.getItemMeta();
-				im.setDisplayName(DvZ.getLanguage().getString("string_spell_suizide","Suizidepill"));
+				im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_suizide","Suizidepill"));
 				it.setItemMeta(im);
 				inv.addItem(it);
 			}
@@ -1258,7 +1259,7 @@ public class Game {
 			}
 		}
 		
-		broadcastMessage(DvZ.getLanguage().getString("string_release", "The Monsters have been released!"));
+		broadcastMessage(ConfigManager.getLanguage().getString("string_release", "The Monsters have been released!"));
 	}
 	
 	//teleport unreleased monsters back to their spawn
@@ -1267,8 +1268,8 @@ public class Game {
 		
 		int minutes = (int) Math.floor(releasetime/60);
 		int seconds = releasetime - minutes*60;
-		String message = DvZ.getLanguage().getString("string_release_wait", "&cMonsters are not released yet!");
-		String message2 = DvZ.getLanguage().getString("string_release_time", "&cMaximum Time until release: &6-0- Minutes -1- Seconds").replace("-0-", ""+minutes).replace("-1-", ""+seconds);
+		String message = ConfigManager.getLanguage().getString("string_release_wait", "&cMonsters are not released yet!");
+		String message2 = ConfigManager.getLanguage().getString("string_release_time", "&cMaximum Time until release: &6-0- Minutes -1- Seconds").replace("-0-", ""+minutes).replace("-1-", ""+seconds);
 		
 		Object[] rplayers = playerstate.keySet().toArray();
 		for(int i=0; i<rplayers.length; i++) {
@@ -1397,7 +1398,7 @@ public class Game {
 		if(global) {
 			return globalCrystalChest;
 		} else {
-			if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, DvZ.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
+			if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
 			
 			return crystalPerPlayer.get(pname);
 		}

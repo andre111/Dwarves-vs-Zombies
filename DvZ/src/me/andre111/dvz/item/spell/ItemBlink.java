@@ -9,6 +9,7 @@ import org.bukkit.util.BlockIterator;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.item.ItemSpell;
 
 public class ItemBlink extends ItemSpell {
@@ -62,17 +63,17 @@ public class ItemBlink extends ItemSpell {
 				loc.setYaw(player.getLocation().getYaw());
 				player.teleport(loc);
 				getItem().createEffects(loc.clone(), isLeft(), "Teleport");
-				player.sendMessage(DvZ.getLanguage().getString("string_blink","You blink away!"));
+				player.sendMessage(ConfigManager.getLanguage().getString("string_blink","You blink away!"));
 				return true;
 			} else {
-				player.sendMessage(DvZ.getLanguage().getString("string_cannot_blink","You cannot blink there!"));
+				player.sendMessage(ConfigManager.getLanguage().getString("string_cannot_blink","You cannot blink there!"));
 				if(isReset) {
 					resetCoolDown(game, player);
 				}
 				return false;
 			}
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_cannot_blink","You cannot blink there!"));
+			player.sendMessage(ConfigManager.getLanguage().getString("string_cannot_blink","You cannot blink there!"));
 			if(isReset) {
 				resetCoolDown(game, player);
 			}
@@ -100,7 +101,7 @@ public class ItemBlink extends ItemSpell {
 			player.getWorld().playEffect(player.getLocation(), Effect.ENDER_SIGNAL, 0);
 			player.teleport(loc);
 			player.getWorld().playEffect(player.getLocation(), Effect.ENDER_SIGNAL, 0);
-			player.sendMessage(DvZ.getLanguage().getString("string_blink","You blink away!"));
+			player.sendMessage(ConfigManager.getLanguage().getString("string_blink","You blink away!"));
 			
 			return true;
 		}

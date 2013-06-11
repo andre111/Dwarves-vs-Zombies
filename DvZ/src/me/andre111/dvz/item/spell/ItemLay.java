@@ -1,8 +1,8 @@
 package me.andre111.dvz.item.spell;
 
-import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.item.ItemSpell;
 
 import org.bukkit.Location;
@@ -67,7 +67,7 @@ public class ItemLay extends ItemSpell {
 			
 			return true;
 		} else {
-			player.sendMessage(DvZ.getLanguage().getString("string_need_egg","You need an Egg to Infect!"));
+			player.sendMessage(ConfigManager.getLanguage().getString("string_need_egg","You need an Egg to Infect!"));
 			
 			return false;
 		}

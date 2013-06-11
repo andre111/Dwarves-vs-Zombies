@@ -2,6 +2,7 @@ package me.andre111.dvz;
 
 import java.util.ArrayList;
 
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.ItemHandler;
 
 import org.bukkit.Material;
@@ -21,11 +22,11 @@ public class BlockManager {
 	private static boolean infiniteCake2;
 
 	public static void loadConfig() {
-		 gameType1.addAll(DvZ.getBlockFile().getStringList("blocks.drop.gameType1"));
-		 infiniteCake1 = DvZ.getBlockFile().getBoolean("blocks.infiniteCake.gameType1");
+		 gameType1.addAll(ConfigManager.getBlockFile().getStringList("blocks.drop.gameType1"));
+		 infiniteCake1 = ConfigManager.getBlockFile().getBoolean("blocks.infiniteCake.gameType1");
 		 
-		 gameType2.addAll(DvZ.getBlockFile().getStringList("blocks.drop.gameType2"));
-		 infiniteCake2 = DvZ.getBlockFile().getBoolean("blocks.infiniteCake.gameType2");
+		 gameType2.addAll(ConfigManager.getBlockFile().getStringList("blocks.drop.gameType2"));
+		 infiniteCake2 = ConfigManager.getBlockFile().getBoolean("blocks.infiniteCake.gameType2");
 	}
 	
 	public static void onBlockBreak(BlockBreakEvent event) {

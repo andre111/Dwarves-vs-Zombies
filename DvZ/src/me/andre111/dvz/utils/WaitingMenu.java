@@ -3,6 +3,7 @@ package me.andre111.dvz.utils;
 import java.util.HashMap;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public class WaitingMenu implements Listener {
 	public WaitingMenu(DvZ plugin, String add) {
 		this.plugin = plugin;
 		this.closed = false;
-		this.name = DvZ.getLanguage().getString("string_wait_release", "Waiting for release..."+add);
+		this.name = ConfigManager.getLanguage().getString("string_wait_release", "Waiting for release..."+add);
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	

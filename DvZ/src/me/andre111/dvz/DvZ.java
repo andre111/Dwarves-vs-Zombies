@@ -2,12 +2,11 @@ package me.andre111.dvz;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import me.andre111.dvz.config.DVZFileConfiguration;
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
@@ -34,7 +33,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -72,19 +70,7 @@ public class DvZ extends JavaPlugin {
 	public static Logger logger;
 	public static String prefix = "[Dwarves vs Zombies] ";
 	
-	private static String lang = "en_EN";
-	private static FileConfiguration configfile;
-	private static FileConfiguration langfile;
-	private static FileConfiguration enlangfile;
-	private static FileConfiguration dragonsfile;
-	private static FileConfiguration classfile;
-	private static FileConfiguration monsterfile;
-	private static FileConfiguration itemfile;
-	private static FileConfiguration blockfile;
 	public PluginDescriptionFile descriptionFile;
-	
-	private ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
-	private ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
 	
 	
 	@Override
@@ -107,7 +93,7 @@ public class DvZ extends JavaPlugin {
 	public void onEnable() {
 		DvZ.instance = this;
 		
-		initConfig();
+		ConfigManager.initConfig(this);
 		
 		//Disguisecraft check
 		if (this.getConfig().getString("disable_dcraft_check", "false")!="true") {
@@ -241,108 +227,6 @@ public class DvZ extends JavaPlugin {
 		logger.info(prefix+s);
 	}
 	
-	private void initConfig() {
-		exportConfigs();
-		
-		if (!new File(getDataFolder(), "config.yml").exists()) {
-			try {
-				FileHandler.copyFolder(new File(getDataFolder(), "config/default/config.yml"), new File(getDataFolder(), "config.yml"));
-			} catch (IOException e) {}
-			log("Generating default config.");
-			//saveDefaultConfig();
-		}
-		//Classes and stuff
-		if (!new File(getDataFolder(), "dragons.yml").exists()) {
-			try {
-				FileHandler.copyFolder(new File(getDataFolder(), "config/default/dragons.yml"), new File(getDataFolder(), "dragons.yml"));
-			} catch (IOException e) {}
-		}
-		if (!new File(getDataFolder(), "classes.yml").exists()) {
-			try {
-				FileHandler.copyFolder(new File(getDataFolder(), "config/default/classes.yml"), new File(getDataFolder(), "classes.yml"));
-			} catch (IOException e) {}
-		}
-		if (!new File(getDataFolder(), "monster.yml").exists()) {
-			try {
-				FileHandler.copyFolder(new File(getDataFolder(), "config/default/monster.yml"), new File(getDataFolder(), "monster.yml"));
-			} catch (IOException e) {}
-		}
-		if (!new File(getDataFolder(), "items.yml").exists()) {
-			try {
-				FileHandler.copyFolder(new File(getDataFolder(), "config/default/items.yml"), new File(getDataFolder(), "items.yml"));
-			} catch (IOException e) {}
-		}
-		if (!new File(getDataFolder(), "blocks.yml").exists()) {
-			try {
-				FileHandler.copyFolder(new File(getDataFolder(), "config/default/blocks.yml"), new File(getDataFolder(), "blocks.yml"));
-			} catch (IOException e) {}
-		}
-		DvZ.lang = this.getConfig().getString("language", "en_EN");
-		DvZ.langfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang/lang_"+lang+".yml"));
-		DvZ.enlangfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang/lang_en_EN.yml"));
-		DvZ.configfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
-		DvZ.dragonsfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "dragons.yml"));
-		DvZ.classfile =  DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "classes.yml"));
-		DvZ.monsterfile =  DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "monster.yml"));
-		DvZ.itemfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "items.yml"));
-		DvZ.blockfile = DVZFileConfiguration.loadConfiguration(new File(this.getDataFolder(), "blocks.yml"));
-	
-		loadConfigs();
-	}
-	
-	private void exportConfigs() {
-		saveResource("config/default/config.yml", true);
-		saveResource("config/default/dragons.yml", true);
-		saveResource("config/default/classes.yml", true);
-		saveResource("config/default/monster.yml", true);
-		saveResource("config/default/items.yml", true);
-		saveResource("config/default/blocks.yml", true);
-		//language
-		for(String st : Language.getPossibleLanguages()) {
-			if(getResource("lang/lang_"+st+".yml")!=null)
-				saveResource("lang/lang_"+st+".yml", true);
-			if(getResource("lang/unfinished/lang_"+st+".yml")!=null)
-				saveResource("lang/unfinished/lang_"+st+".yml", true);
-		}
-	}
-	
-	private void loadConfigs() {
-		//disabled crafting recipies
-		//-----------------------------
-		for(int id : DvZ.configfile.getIntegerList("disables_crafts")) {
-			disabledCrafts.add(id);
-		}
-		//type 2(new dvz needs more crafts to disable)
-		for(int id : DvZ.configfile.getIntegerList("disables_crafts_type2")) {
-			disabledCraftsType2.add(id);
-		}
-	}
-	
-	public static FileConfiguration getLanguage() {
-		return langfile;
-	}
-	public static FileConfiguration getDefaultLanguage() {
-		return enlangfile;
-	}
-	public static FileConfiguration getDragonsFile() {
-		return dragonsfile;
-	}
-	public static FileConfiguration getClassFile() {
-		return classfile;
-	}
-	public static FileConfiguration getMonsterFile() {
-		return monsterfile;
-	}
-	public static FileConfiguration getItemFile() {
-		return itemfile;
-	}
-	public static FileConfiguration getBlockFile() {
-		return blockfile;
-	}
-	public static FileConfiguration getStaticConfig() {
-		return configfile;
-	}
-	
 	//TODO - remove temporary workaround
 	@SuppressWarnings("deprecation")
 	public static void updateInventory(Player player) {
@@ -406,27 +290,27 @@ public class DvZ extends JavaPlugin {
 	
 	public void joinGame(Player player, Game game, boolean autojoin) {
 		game.setPlayerState(player.getName(), 1);
-		if(DvZ.getStaticConfig().getString("use_lobby", "true").equals("true"))
+		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
 			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 		ItemHandler.clearInv(player);
 
-		player.sendMessage(getLanguage().getString("string_self_added","You have been added to the game!"));
+		player.sendMessage(ConfigManager.getLanguage().getString("string_self_added","You have been added to the game!"));
 
 		//autoadd player
 		if(game.getState()>1) {
 			if (getConfig().getString("autoadd_players","false")=="true" || autojoin) {
 				if(!game.released) {
 					game.setPlayerState(player.getName(), 2);
-					player.sendMessage(getLanguage().getString("string_choose","Choose your class!"));
+					player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 					game.addDwarfItems(player);
 
-					game.broadcastMessage(getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
+					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 				} else {
 					game.setPlayerState(player.getName(), 3);
-					player.sendMessage(getLanguage().getString("string_choose","Choose your class!"));
+					player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 					game.addMonsterItems(player);
 
-					game.broadcastMessage(getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
+					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
 				}
 			}
 		}
@@ -438,15 +322,6 @@ public class DvZ extends JavaPlugin {
 		} else {
 			api.disguisePlayer(player, disguise);
 		}
-	}
-	
-	public boolean isCraftDisabled(int id, int gameType) {
-		if (gameType==1)
-			return disabledCrafts.contains(id);
-		else if (gameType==2)
-			return disabledCraftsType2.contains(id);
-		else
-			return false;
 	}
 	
 	public static boolean isPathable(Block block) {

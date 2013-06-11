@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -18,7 +18,7 @@ public class DwarfManager {
 	private int dwarfCounter;
 	
 	public void loadDwarfes() {
-		FileConfiguration df = DvZ.getClassFile();
+		FileConfiguration df = ConfigManager.getClassFile();
 		//dwarves
 		dwarfCounter = 0;
 		ConfigurationSection as = df.getConfigurationSection("dwarves");
@@ -42,56 +42,56 @@ public class DwarfManager {
 		CustomDwarf dwTemp = new CustomDwarf();
 		
 		dwTemp.setId(dwarfCounter);
-		dwTemp.setGameId(DvZ.getClassFile().getInt("dwarves."+dw+".gameType", 0));
-		dwTemp.setName(DvZ.getClassFile().getString("dwarves."+dw+".name", ""));
-		dwTemp.setPrefix(DvZ.getClassFile().getString("dwarves."+dw+".chatPrefix", ""));
-		dwTemp.setSuffix(DvZ.getClassFile().getString("dwarves."+dw+".chatSuffix", ""));
-		dwTemp.setClassItem(DvZ.getClassFile().getInt("dwarves."+dw+".classItem", 0));
-		dwTemp.setClassItemDamage(DvZ.getClassFile().getInt("dwarves."+dw+".classItemDamage", 0));
-		dwTemp.setClassChance(DvZ.getClassFile().getInt("dwarves."+dw+".classChance", 100));
+		dwTemp.setGameId(ConfigManager.getClassFile().getInt("dwarves."+dw+".gameType", 0));
+		dwTemp.setName(ConfigManager.getClassFile().getString("dwarves."+dw+".name", ""));
+		dwTemp.setPrefix(ConfigManager.getClassFile().getString("dwarves."+dw+".chatPrefix", ""));
+		dwTemp.setSuffix(ConfigManager.getClassFile().getString("dwarves."+dw+".chatSuffix", ""));
+		dwTemp.setClassItem(ConfigManager.getClassFile().getInt("dwarves."+dw+".classItem", 0));
+		dwTemp.setClassItemDamage(ConfigManager.getClassFile().getInt("dwarves."+dw+".classItemDamage", 0));
+		dwTemp.setClassChance(ConfigManager.getClassFile().getInt("dwarves."+dw+".classChance", 100));
 		//items
-		List<String> items = DvZ.getClassFile().getStringList("dwarves."+dw+".items");
+		List<String> items = ConfigManager.getClassFile().getStringList("dwarves."+dw+".items");
 		dwTemp.setItems(items.toArray(new String[items.size()]));
-		List<String> citems = DvZ.getClassFile().getStringList("dwarves."+dw+".crystalItems");
+		List<String> citems = ConfigManager.getClassFile().getStringList("dwarves."+dw+".crystalItems");
 		dwTemp.setCrystalItems(citems.toArray(new String[citems.size()]));
 		//effects
-		List<String> effects = DvZ.getClassFile().getStringList("dwarves."+dw+".effects");
+		List<String> effects = ConfigManager.getClassFile().getStringList("dwarves."+dw+".effects");
 		dwTemp.setEffects(effects.toArray(new String[effects.size()]));
 		//damagebuff
-		dwTemp.setDamageBuff(DvZ.getClassFile().getDouble("dwarves."+dw+".damageBuff", 1));
+		dwTemp.setDamageBuff(ConfigManager.getClassFile().getDouble("dwarves."+dw+".damageBuff", 1));
 		//disabled damage
-		for(String d : DvZ.getClassFile().getStringList("dwarves."+dw+".disabledDamage")) {
+		for(String d : ConfigManager.getClassFile().getStringList("dwarves."+dw+".disabledDamage")) {
 			dwTemp.addDisabledDamage(d);
 		}
 		//mana
-		dwTemp.setMaxMana(DvZ.getClassFile().getInt("dwarves."+dw+".manaMax", 0));
-		dwTemp.setManaRegen(DvZ.getClassFile().getInt("dwarves."+dw+".manaRegen", 0));
+		dwTemp.setMaxMana(ConfigManager.getClassFile().getInt("dwarves."+dw+".manaMax", 0));
+		dwTemp.setManaRegen(ConfigManager.getClassFile().getInt("dwarves."+dw+".manaRegen", 0));
 		
 		//spell
-		dwTemp.setSpellEnabled(DvZ.getClassFile().getBoolean("dwarves."+dw+".spell.enable", false));
-		dwTemp.setSpellTime(DvZ.getClassFile().getInt("dwarves."+dw+".spell.time", 0));
-		dwTemp.setSpellItem(DvZ.getClassFile().getInt("dwarves."+dw+".spell.item", 0));
-		dwTemp.setSpellName(DvZ.getClassFile().getString("dwarves."+dw+".spell.name", ""));
-		dwTemp.setSpellNeedId(DvZ.getClassFile().getInt("dwarves."+dw+".spell.need.id", 0));
-		dwTemp.setSpellNeedData(DvZ.getClassFile().getInt("dwarves."+dw+".spell.need.data", 0));
-		dwTemp.setSpellNeedCount(DvZ.getClassFile().getInt("dwarves."+dw+".spell.need.count", 0));
-		dwTemp.setSpellNeed(DvZ.getClassFile().getString("dwarves."+dw+".spell.needString", ""));
-		dwTemp.setSpellFail(DvZ.getClassFile().getString("dwarves."+dw+".spell.failString", ""));
-		dwTemp.setSpellInv(DvZ.getClassFile().getBoolean("dwarves."+dw+".spell.inventory", false));
-		dwTemp.setSpellExp(DvZ.getClassFile().getInt("dwarves."+dw+".spell.exp", 0));
-		List<String> spellItems = DvZ.getClassFile().getStringList("dwarves."+dw+".spell.items");
+		dwTemp.setSpellEnabled(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".spell.enable", false));
+		dwTemp.setSpellTime(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.time", 0));
+		dwTemp.setSpellItem(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.item", 0));
+		dwTemp.setSpellName(ConfigManager.getClassFile().getString("dwarves."+dw+".spell.name", ""));
+		dwTemp.setSpellNeedId(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.need.id", 0));
+		dwTemp.setSpellNeedData(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.need.data", 0));
+		dwTemp.setSpellNeedCount(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.need.count", 0));
+		dwTemp.setSpellNeed(ConfigManager.getClassFile().getString("dwarves."+dw+".spell.needString", ""));
+		dwTemp.setSpellFail(ConfigManager.getClassFile().getString("dwarves."+dw+".spell.failString", ""));
+		dwTemp.setSpellInv(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".spell.inventory", false));
+		dwTemp.setSpellExp(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.exp", 0));
+		List<String> spellItems = ConfigManager.getClassFile().getStringList("dwarves."+dw+".spell.items");
 		dwTemp.setSpellItems(spellItems.toArray(new String[spellItems.size()]));
 		
 		//piston
-		dwTemp.setPistonEnabled(DvZ.getClassFile().getBoolean("dwarves."+dw+".piston.enable", false));
-		dwTemp.setPistonChange(DvZ.getClassFile().getStringList("dwarves."+dw+".piston.change"));
+		dwTemp.setPistonEnabled(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".piston.enable", false));
+		dwTemp.setPistonChange(ConfigManager.getClassFile().getStringList("dwarves."+dw+".piston.change"));
 		
 		//itemtransmute
-		List<String> tSt = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmuteRightClick");
+		List<String> tSt = ConfigManager.getClassFile().getStringList("dwarves."+dw+".specialitems.transmuteRightClick");
 		ArrayList<String> tiSt = new ArrayList<String>();
 		tiSt.addAll(tSt);
 		dwTemp.setTransmuteItems(tiSt);
-		List<String> tSt2 = DvZ.getClassFile().getStringList("dwarves."+dw+".specialitems.transmuteBlockBreak");
+		List<String> tSt2 = ConfigManager.getClassFile().getStringList("dwarves."+dw+".specialitems.transmuteBlockBreak");
 		ArrayList<String> tiSt2 = new ArrayList<String>();
 		tiSt2.addAll(tSt2);
 		dwTemp.setTransmuteBreakItems(tiSt2);

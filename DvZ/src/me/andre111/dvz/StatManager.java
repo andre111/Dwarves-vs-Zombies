@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.iface.IUpCounter;
 
 import org.bukkit.Bukkit;
@@ -52,7 +53,7 @@ public class StatManager {
 	//Hide them
 	public static void hide(Player player) {
 		//don't hide when always shown s enabled
-		if(!DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(!ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 			player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 			
 			//xp-bar
@@ -72,7 +73,7 @@ public class StatManager {
 		sc.getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(value);
 		
 		//show stats, when they should always show
-		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 			Player p = Bukkit.getPlayer(player);
 			if(p!=null) show(p);
 		}
@@ -92,7 +93,7 @@ public class StatManager {
 		if(counters.containsKey(player)) return;
 		
 		//show stats, when they should always show
-		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 			Player p = Bukkit.getPlayer(player);
 			if(p!=null) show(p);
 		}
@@ -113,7 +114,7 @@ public class StatManager {
 		if(counters.containsKey(player.getName())) return;
 		
 		//show stats, when they should always show
-		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 			show(player);
 		}
 
@@ -128,12 +129,12 @@ public class StatManager {
 	}
 	
 	public static void onInventoryOpen(Player player) {
-		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 			sendRealXP(player);
 		}
 	}
 	public static void onInventoryClose(final Player player) {
-		if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 			show(player);
 		}
 	}
@@ -152,7 +153,7 @@ public class StatManager {
 		
 		sc.registerNewObjective(objectiveName, "dummy");
 		Objective ob = sc.getObjective("dvz_stats");
-		ob.setDisplayName(DvZ.getLanguage().getString("scoreboard_stats", "Stats"));
+		ob.setDisplayName(ConfigManager.getLanguage().getString("scoreboard_stats", "Stats"));
 		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
 		return sc;
@@ -257,7 +258,7 @@ public class StatManager {
 			sendRealXP(p);
 			
 			//show stats, when they should always show
-			if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+			if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 				show(p);
 			}
 		}
@@ -281,7 +282,7 @@ public class StatManager {
 					sendRealXP(p);
 					
 					//show stats, when they should always show
-					if(DvZ.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+					if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
 						show(p);
 					}
 				}

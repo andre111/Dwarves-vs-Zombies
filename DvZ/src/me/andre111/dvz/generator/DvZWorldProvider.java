@@ -1,6 +1,6 @@
 package me.andre111.dvz.generator;
 
-import me.andre111.dvz.DvZ;
+import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -21,7 +21,7 @@ public class DvZWorldProvider implements Listener {
 	
 	//TODO - disabled until I wfind a way to make it work without problems
 	/*public static World generateWorld() {
-		WorldCreator wc = new WorldCreator(DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"testing");
+		WorldCreator wc = new WorldCreator(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"testing");
 		World wtest = Bukkit.getServer().createWorld(wc);
 		
 		return wtest;
@@ -30,7 +30,7 @@ public class DvZWorldProvider implements Listener {
 	@EventHandler
 	public void onWorldInit(WorldInitEvent event) {
 		//starts with dvz
-		if(!event.getWorld().getName().startsWith(DvZ.getStaticConfig().getString("world_prefix", "DvZ_"))) return;
+		if(!event.getWorld().getName().startsWith(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_"))) return;
 		
 		World world = event.getWorld();
 		world.setSpawnLocation(0, world.getHighestBlockYAt(0, 0), 0);
@@ -43,7 +43,7 @@ public class DvZWorldProvider implements Listener {
 	@EventHandler
 	public void onChunkPopulate(ChunkLoadEvent event) {
 		//starts with dvz
-		if(!event.getWorld().getName().startsWith(DvZ.getStaticConfig().getString("world_prefix", "DvZ_"))) return;
+		if(!event.getWorld().getName().startsWith(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_"))) return;
 		if(!event.isNewChunk()) return;
 		
 		int x1 = event.getChunk().getX() >> 4;
@@ -58,7 +58,7 @@ public class DvZWorldProvider implements Listener {
 	}*/
 	
 	public static World generateNewWorld() {
-		WorldCreator wc = new WorldCreator(DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"testing");
+		WorldCreator wc = new WorldCreator(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"testing");
 		wc = wc.generator(new ChunkGeneratorDvZ());
 		
 		World wtest = Bukkit.getServer().createWorld(wc);

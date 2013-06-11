@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import me.andre111.dvz.DvZ;
+import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,7 +15,7 @@ public class ItemManager {
 	private int itemCounter;
 	
 	public void loadItems() {
-		FileConfiguration df = DvZ.getItemFile();
+		FileConfiguration df = ConfigManager.getItemFile();
 		//items
 		itemCounter = 0;
 		ConfigurationSection as = df.getConfigurationSection("items");
@@ -32,45 +32,45 @@ public class ItemManager {
 	private void loadItem(String it) {
 		CustomItem itTemp = new CustomItem();
 		itTemp.setInternalName(it);
-		itTemp.setName(DvZ.getItemFile().getString("items."+it+".name", ""));
-		List<String> lores = DvZ.getItemFile().getStringList("items."+it+".lore");
+		itTemp.setName(ConfigManager.getItemFile().getString("items."+it+".name", ""));
+		List<String> lores = ConfigManager.getItemFile().getStringList("items."+it+".lore");
 		for(String st : lores) {
 			itTemp.addLore(st);
 		}
-		itTemp.setID(DvZ.getItemFile().getInt("items."+it+".id", 0));
-		itTemp.setDamage(DvZ.getItemFile().getInt("items."+it+".data", 0));
-		itTemp.setUse(DvZ.getItemFile().getBoolean("items."+it+".useUp", false));
-		itTemp.setIgnoreDamage(DvZ.getItemFile().getBoolean("items."+it+".ignoreDamage", false));
+		itTemp.setID(ConfigManager.getItemFile().getInt("items."+it+".id", 0));
+		itTemp.setDamage(ConfigManager.getItemFile().getInt("items."+it+".data", 0));
+		itTemp.setUse(ConfigManager.getItemFile().getBoolean("items."+it+".useUp", false));
+		itTemp.setIgnoreDamage(ConfigManager.getItemFile().getBoolean("items."+it+".ignoreDamage", false));
 		
 		//countup
-		itTemp.setHasCounter(DvZ.getItemFile().getBoolean("items."+it+".countup.enabled", false));
-		itTemp.setCounterMax(DvZ.getItemFile().getInt("items."+it+".countup.max", 0));
-		itTemp.setCounterStep(DvZ.getItemFile().getInt("items."+it+".countup.perSecond", 0));
-		itTemp.setCounterOverridable(DvZ.getItemFile().getBoolean("items."+it+".countup.overridable", true));
-		itTemp.setCounterInterruptMove(DvZ.getItemFile().getBoolean("items."+it+".countup.interrupt.move", true));
-		itTemp.setCounterInterruptDamage(DvZ.getItemFile().getBoolean("items."+it+".countup.interrupt.damage", true));
-		itTemp.setCounterInterruptItem(DvZ.getItemFile().getBoolean("items."+it+".countup.interrupt.itemSwitch", true));
+		itTemp.setHasCounter(ConfigManager.getItemFile().getBoolean("items."+it+".countup.enabled", false));
+		itTemp.setCounterMax(ConfigManager.getItemFile().getInt("items."+it+".countup.max", 0));
+		itTemp.setCounterStep(ConfigManager.getItemFile().getInt("items."+it+".countup.perSecond", 0));
+		itTemp.setCounterOverridable(ConfigManager.getItemFile().getBoolean("items."+it+".countup.overridable", true));
+		itTemp.setCounterInterruptMove(ConfigManager.getItemFile().getBoolean("items."+it+".countup.interrupt.move", true));
+		itTemp.setCounterInterruptDamage(ConfigManager.getItemFile().getBoolean("items."+it+".countup.interrupt.damage", true));
+		itTemp.setCounterInterruptItem(ConfigManager.getItemFile().getBoolean("items."+it+".countup.interrupt.itemSwitch", true));
 		
 		//Rightclick
-		List<String> effects = DvZ.getItemFile().getStringList("items."+it+".rightclick.effects");
+		List<String> effects = ConfigManager.getItemFile().getStringList("items."+it+".rightclick.effects");
 		if(effects.size()>0)
 		for(String st : effects) {
 			itTemp.addEffectR(getItemEffect(st));
 		}
-		itTemp.setCooldownR(DvZ.getItemFile().getInt("items."+it+".rightclick.cooldown", 0));
-		itTemp.setManaCostR(DvZ.getItemFile().getInt("items."+it+".rightclick.mana.cost", 0));
+		itTemp.setCooldownR(ConfigManager.getItemFile().getInt("items."+it+".rightclick.cooldown", 0));
+		itTemp.setManaCostR(ConfigManager.getItemFile().getInt("items."+it+".rightclick.mana.cost", 0));
 		//leftclick
-		List<String> effectsl = DvZ.getItemFile().getStringList("items."+it+".leftclick.effects");
+		List<String> effectsl = ConfigManager.getItemFile().getStringList("items."+it+".leftclick.effects");
 		if(effectsl.size()>0)
 		for(String st : effectsl) {
 			itTemp.addEffectL(getItemEffect(st));
 		}
-		itTemp.setCooldownL(DvZ.getItemFile().getInt("items."+it+".leftclick.cooldown", 0));
-		itTemp.setManaCostL(DvZ.getItemFile().getInt("items."+it+".leftclick.mana.cost", 0));
+		itTemp.setCooldownL(ConfigManager.getItemFile().getInt("items."+it+".leftclick.cooldown", 0));
+		itTemp.setManaCostL(ConfigManager.getItemFile().getInt("items."+it+".leftclick.mana.cost", 0));
 		
 		//Cast
 		//right
-		ConfigurationSection as = DvZ.getItemFile().getConfigurationSection("items."+it+".rightclick.casts");
+		ConfigurationSection as = ConfigManager.getItemFile().getConfigurationSection("items."+it+".rightclick.casts");
 		if(as!=null) {
 			Set<String> strings2 = as.getKeys(false);
 			if(strings2.size()>0) {
@@ -84,7 +84,7 @@ public class ItemManager {
 		}
 		
 		//left
-		ConfigurationSection asl = DvZ.getItemFile().getConfigurationSection("items."+it+".leftclick.casts");
+		ConfigurationSection asl = ConfigManager.getItemFile().getConfigurationSection("items."+it+".leftclick.casts");
 		if(asl!=null) {
 			Set<String> strings = asl.getKeys(false);
 			if(strings.size()>0) {
@@ -107,7 +107,7 @@ public class ItemManager {
 		String basename = "items."+it+"."+click+".casts."+name+".";
 		
 		//leftclick
-		String cast = DvZ.getItemFile().getString(basename+"cast", "");
+		String cast = ConfigManager.getItemFile().getString(basename+"cast", "");
 		try {
 			if(!cast.contains("me.andre111.dvz.item.spell.")) {
 				cast = "me.andre111.dvz.item.spell." + cast;
@@ -118,15 +118,15 @@ public class ItemManager {
 					itTemp.setCastL((ItemSpell) c.newInstance(), id);
 					itTemp.getCastL(id).setItemName(it);
 					itTemp.getCastL(id).setLeft(true);
-					itTemp.getCastL(id).setRequire(DvZ.getItemFile().getInt(basename+"require", -1));
+					itTemp.getCastL(id).setRequire(ConfigManager.getItemFile().getInt(basename+"require", -1));
 				} else {
 					itTemp.setCastR((ItemSpell) c.newInstance(), id);
 					itTemp.getCastR(id).setItemName(it);
 					itTemp.getCastR(id).setLeft(true);
-					itTemp.getCastR(id).setRequire(DvZ.getItemFile().getInt(basename+"require", -1));
+					itTemp.getCastR(id).setRequire(ConfigManager.getItemFile().getInt(basename+"require", -1));
 				}
 				//new method, for loading more than 2 cast vars
-				List<String> stList = DvZ.getItemFile().getStringList(basename+"castVars");
+				List<String> stList = ConfigManager.getItemFile().getStringList(basename+"castVars");
 				ItemSpell itS;
 				if(left) itS = itTemp.getCastL(id);
 				else itS = itTemp.getCastR(id);

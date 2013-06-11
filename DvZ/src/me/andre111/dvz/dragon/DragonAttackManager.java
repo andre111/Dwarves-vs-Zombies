@@ -19,6 +19,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.Animation;
 import me.andre111.dvz.utils.Fireworks;
 import me.andre111.dvz.utils.PlayerHandler;
@@ -30,7 +31,7 @@ public class DragonAttackManager {
 	private int attackCounter;
 	
 	public void loadAttacks() {
-		FileConfiguration df = DvZ.getDragonsFile();
+		FileConfiguration df = ConfigManager.getDragonsFile();
 		//dragons
 		ConfigurationSection ds = df.getConfigurationSection("dragons");
 		Set<String> strings = ds.getKeys(false);
@@ -52,26 +53,26 @@ public class DragonAttackManager {
 	
 	private void loadDragon(String dp) {
 		DragonCustom dcTemp = new DragonCustom();
-		dcTemp.setName(DvZ.getDragonsFile().getString("dragons."+dp+".name", ""));
-		dcTemp.setMana(DvZ.getDragonsFile().getInt("dragons."+dp+".mana", 0));
-		dcTemp.setHealth(DvZ.getDragonsFile().getInt("dragons."+dp+".health", 200));
-		dcTemp.setFlyingSpeed((float) DvZ.getDragonsFile().getDouble("dragons."+dp+".speed", 0.2));
+		dcTemp.setName(ConfigManager.getDragonsFile().getString("dragons."+dp+".name", ""));
+		dcTemp.setMana(ConfigManager.getDragonsFile().getInt("dragons."+dp+".mana", 0));
+		dcTemp.setHealth(ConfigManager.getDragonsFile().getInt("dragons."+dp+".health", 200));
+		dcTemp.setFlyingSpeed((float) ConfigManager.getDragonsFile().getDouble("dragons."+dp+".speed", 0.2));
 		dragons[dragonCounter] = dcTemp;
 		dragonCounter++;
 	}
 	
 	private void loadAttack(String ap) {
 		DragonCustomAttack dcaTemp = new DragonCustomAttack();
-		dcaTemp.setType(DvZ.getDragonsFile().getInt("attacks."+ap+".type", 0));
-		dcaTemp.setTimes(DvZ.getDragonsFile().getInt("attacks."+ap+".times", 1));
-		dcaTemp.setDelay(DvZ.getDragonsFile().getInt("attacks."+ap+".delay", 0));
-		dcaTemp.setMaxDistance(DvZ.getDragonsFile().getInt("attacks."+ap+".maxDistance", 100));
-		dcaTemp.setName(DvZ.getDragonsFile().getString("attacks."+ap+".name", ""));
-		dcaTemp.setStopAtCol(DvZ.getDragonsFile().getBoolean("attacks."+ap+".stopAtCol", true));
-		dcaTemp.setSpeed(DvZ.getDragonsFile().getInt("attacks."+ap+".speed", 1));
+		dcaTemp.setType(ConfigManager.getDragonsFile().getInt("attacks."+ap+".type", 0));
+		dcaTemp.setTimes(ConfigManager.getDragonsFile().getInt("attacks."+ap+".times", 1));
+		dcaTemp.setDelay(ConfigManager.getDragonsFile().getInt("attacks."+ap+".delay", 0));
+		dcaTemp.setMaxDistance(ConfigManager.getDragonsFile().getInt("attacks."+ap+".maxDistance", 100));
+		dcaTemp.setName(ConfigManager.getDragonsFile().getString("attacks."+ap+".name", ""));
+		dcaTemp.setStopAtCol(ConfigManager.getDragonsFile().getBoolean("attacks."+ap+".stopAtCol", true));
+		dcaTemp.setSpeed(ConfigManager.getDragonsFile().getInt("attacks."+ap+".speed", 1));
 		//Cast
 		//#########
-		String attack = DvZ.getDragonsFile().getString("attacks."+ap+".cast", "");
+		String attack = ConfigManager.getDragonsFile().getString("attacks."+ap+".cast", "");
 		try {
 			if(!attack.contains("me.andre111.dvz.dragon.attack.")) {
 				attack = "me.andre111.dvz.dragon.attack." + attack;
@@ -80,10 +81,10 @@ public class DragonAttackManager {
 			if(c.getSuperclass().equals(DragonAttack.class)) {
 				dcaTemp.setOnHit((DragonAttack) c.newInstance());
 				//double
-				dcaTemp.getOnHit().setCastVar(0, DvZ.getDragonsFile().getDouble("attacks."+ap+".castVar0", 0));
-				dcaTemp.getOnHit().setCastVar(1, DvZ.getDragonsFile().getDouble("attacks."+ap+".castVar1", 0));
+				dcaTemp.getOnHit().setCastVar(0, ConfigManager.getDragonsFile().getDouble("attacks."+ap+".castVar0", 0));
+				dcaTemp.getOnHit().setCastVar(1, ConfigManager.getDragonsFile().getDouble("attacks."+ap+".castVar1", 0));
 				//new method, for loading more than 2 cast vars
-				List<String> stList = DvZ.getMonsterFile().getStringList("attacks."+ap+".castVars");
+				List<String> stList = ConfigManager.getDragonsFile().getStringList("attacks."+ap+".castVars");
 				for(int i=0; i<stList.size(); i++) {
 					dcaTemp.getOnHit().setCastVar(i, stList.get(i));
 					try {
@@ -102,18 +103,18 @@ public class DragonAttackManager {
 		//#########
 		//FX
 		//#########
-		dcaTemp.setEffect(DvZ.getDragonsFile().getInt("attacks."+ap+".fx", 0));
-		dcaTemp.setEffectSpeed(DvZ.getDragonsFile().getInt("attacks."+ap+".fxSpeed", 1));
-		dcaTemp.setFwColor(Color.fromRGB(DvZ.getDragonsFile().getInt("attacks."+ap+".fxColorR", 0), DvZ.getDragonsFile().getInt("attacks."+ap+".fxColorG", 0), DvZ.getDragonsFile().getInt("attacks."+ap+".fxColorB", 0)));
+		dcaTemp.setEffect(ConfigManager.getDragonsFile().getInt("attacks."+ap+".fx", 0));
+		dcaTemp.setEffectSpeed(ConfigManager.getDragonsFile().getInt("attacks."+ap+".fxSpeed", 1));
+		dcaTemp.setFwColor(Color.fromRGB(ConfigManager.getDragonsFile().getInt("attacks."+ap+".fxColorR", 0), ConfigManager.getDragonsFile().getInt("attacks."+ap+".fxColorG", 0), ConfigManager.getDragonsFile().getInt("attacks."+ap+".fxColorB", 0)));
 		//fxType
-		dcaTemp.setFwType(DvZ.getDragonsFile().getInt("attacks."+ap+".fxType", 0));
+		dcaTemp.setFwType(ConfigManager.getDragonsFile().getInt("attacks."+ap+".fxType", 0));
 		//#########
-		dcaTemp.setManaCost(DvZ.getDragonsFile().getInt("attacks."+ap+".mana", 100));
-		dcaTemp.setItemID(DvZ.getDragonsFile().getInt("attacks."+ap+".item", 256));
-		dcaTemp.setCanMove(DvZ.getDragonsFile().getBoolean("attacks."+ap+".move", false));
-		dcaTemp.setInvulnarable(DvZ.getDragonsFile().getBoolean("attacks."+ap+".invul", false));
+		dcaTemp.setManaCost(ConfigManager.getDragonsFile().getInt("attacks."+ap+".mana", 100));
+		dcaTemp.setItemID(ConfigManager.getDragonsFile().getInt("attacks."+ap+".item", 256));
+		dcaTemp.setCanMove(ConfigManager.getDragonsFile().getBoolean("attacks."+ap+".move", false));
+		dcaTemp.setInvulnarable(ConfigManager.getDragonsFile().getBoolean("attacks."+ap+".invul", false));
 		//dragon types
-		dcaTemp.setDragons(DvZ.getDragonsFile().getIntegerList("attacks."+ap+".dragonTyps"));
+		dcaTemp.setDragons(ConfigManager.getDragonsFile().getIntegerList("attacks."+ap+".dragonTyps"));
 		attacks[attackCounter] = dcaTemp;
 		attackCounter++;
 	}

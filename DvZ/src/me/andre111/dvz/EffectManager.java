@@ -3,6 +3,7 @@ package me.andre111.dvz;
 import java.util.List;
 import java.util.Map;
 
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
@@ -101,9 +102,9 @@ public class EffectManager {
 	
 	public void loadEffects() {
 		//monster
-		List<String> monsterDayEffects = DvZ.getMonsterFile().getStringList("effects.day");
-		List<String> monsterNightEffects = DvZ.getMonsterFile().getStringList("effects.night");
-		List<String> monsterMidNightEffects = DvZ.getMonsterFile().getStringList("effects.midnight");
+		List<String> monsterDayEffects = ConfigManager.getMonsterFile().getStringList("effects.day");
+		List<String> monsterNightEffects = ConfigManager.getMonsterFile().getStringList("effects.night");
+		List<String> monsterMidNightEffects = ConfigManager.getMonsterFile().getStringList("effects.midnight");
 
 		//Day
 		effectMonsterDay = new int[monsterDayEffects.size()][2];
@@ -162,7 +163,7 @@ public class EffectManager {
 		effectDwarfBelow = new int[16][2];
 		for(int k=0; k<16; k++) {
 			//above
-			String dwarfEffects = DvZ.getClassFile().getString("effects.lightlevel.above."+k, "");
+			String dwarfEffects = ConfigManager.getClassFile().getString("effects.lightlevel.above."+k, "");
 
 			effectDwarfAbove[k][0] = -1;
 			effectDwarfAbove[k][1] = 0;
@@ -183,7 +184,7 @@ public class EffectManager {
 			}
 
 			//below
-			String dwarfEffects2 = DvZ.getClassFile().getString("effects.lightlevel.below."+k, "");
+			String dwarfEffects2 = ConfigManager.getClassFile().getString("effects.lightlevel.below."+k, "");
 
 			effectDwarfBelow[k][0] = -1;
 			effectDwarfBelow[k][1] = 0;

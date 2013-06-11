@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
@@ -30,11 +31,11 @@ public class WorldManager {
 		try {
 			FileHandler.copyFolder(world, cworld);
 		} catch (IOException e) {
-			sender.sendMessage(DvZ.getLanguage().getString("string_save_fail","Could not save the World!"));
+			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_fail","Could not save the World!"));
 			failed = true;
 		}
 		if(!failed) {
-			sender.sendMessage(DvZ.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
+			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
 		}
 	}
 	
@@ -43,18 +44,18 @@ public class WorldManager {
 		
 		String free = getFreeWorld("");
 		
-		File cworld = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+free+"/");
+		File cworld = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+free+"/");
 		boolean failed = false;
 		try {
 			FileHandler.copyFolder(world, cworld);
 			File uidf = new File(cworld, "uid.dat");
 			if(uidf.exists()) uidf.delete();
 		} catch (IOException e) {
-			sender.sendMessage(DvZ.getLanguage().getString("string_save_fail","Could not save the World!"));
+			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_fail","Could not save the World!"));
 			failed = true;
 		}
 		if(!failed) {
-			sender.sendMessage(DvZ.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
+			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
 		}
 		
 		maxWorld = getFreeWorld("");
@@ -66,31 +67,31 @@ public class WorldManager {
 		File f;
 		do {
 			akt++;
-			f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+akt+"/");
+			f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+akt+"/");
 		} while(f.exists());
 		
 		return ""+akt;
 	}
 	
 	public static void resetMainWorld(final int id) {
-		final World w = Bukkit.getServer().getWorld(DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"");
+		final World w = Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"");
 		if(w!=null) {
 			final String wname = w.getName();
 			w.setAutoSave(false);
 			
 			for ( Player player : w.getPlayers() ) {
 				ItemHandler.clearInv(player);
-				if(DvZ.getStaticConfig().getString("use_lobby", "true").equals("true"))
-					player.teleport(Bukkit.getServer().getWorld(DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
+				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+					player.teleport(Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 				else
 					player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-				player.sendMessage(DvZ.getLanguage().getString("string_tp_reset", "World is resetting - You have been teleported to the Lobby"));
+				player.sendMessage(ConfigManager.getLanguage().getString("string_tp_reset", "World is resetting - You have been teleported to the Lobby"));
 			}
 		
 			Bukkit.getScheduler().scheduleSyncDelayedTask(DvZ.instance, new Runnable() {
 				public void run() {
 					if(w!=null) {
-						File wf = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
+						File wf = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
 						
 						DynamicClassFunctions.bindRegionFiles();
 						DynamicClassFunctions.forceUnloadWorld(w);
@@ -137,15 +138,15 @@ public class WorldManager {
 				if(gameType==2) add = "Type2/";
 			}
 			
-			File worldfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+pos+"/");
-			File mainfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
+			File worldfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+pos+"/");
+			File mainfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
 			try {
 				FileHandler.copyFolder(worldfile, mainfile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			DvZ.instance.getGame(id).loadGameInfo();
-			Bukkit.getServer().createWorld(new WorldCreator(DvZ.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+""));
+			Bukkit.getServer().createWorld(new WorldCreator(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+""));
 		} else {
 			DvZ.instance.getGame(id).broadcastMessage("No saved DvZ world found! Cannot start the Game! Autogenerating a DvZ world will come in Version 1.6!");
 			//Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Main"));

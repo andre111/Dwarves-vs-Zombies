@@ -10,8 +10,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
 
-import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.item.ItemSpell;
 
 public class ItemRoar extends ItemSpell {
@@ -60,7 +60,7 @@ public class ItemRoar extends ItemSpell {
         }
 		
         if(!message.equals(""))
-        	game.broadcastMessage(DvZ.getLanguage().getString("string_brood_roar","A Broodmother roars!"));
+        	game.broadcastMessage(ConfigManager.getLanguage().getString("string_brood_roar","A Broodmother roars!"));
         
         return success;
 	}

@@ -4,6 +4,7 @@ import me.andre111.dvz.BlockManager;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.PistonManager;
+import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -63,7 +64,7 @@ public class Listener_Block implements Listener {
 			if(game.isDwarf(player.getName(), true)) {
 				if (game.isMonument(event.getBlock())) {
 					event.setCancelled(true);
-					player.sendMessage(DvZ.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));
+					player.sendMessage(ConfigManager.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));
 				}
 			}
 		}

@@ -11,9 +11,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
+import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.item.ItemSpell;
 
 public class ItemPortal extends ItemSpell {
@@ -38,7 +38,7 @@ public class ItemPortal extends ItemSpell {
 	private boolean castIntern(Game game, Player player, Location loc) {
 		if(game.enderPortal!=null) {
 			if(!reinforePortal(game, player)) {
-				player.sendMessage(DvZ.getLanguage().getString("string_portal_exists","A Portal allready exists!"));
+				player.sendMessage(ConfigManager.getLanguage().getString("string_portal_exists","A Portal allready exists!"));
 				return false;
 			}
 			
@@ -60,9 +60,9 @@ public class ItemPortal extends ItemSpell {
 		for(int i=0; i<10; i++) {
 			ItemStack it = new ItemStack(121, 1);
 			ItemMeta im = it.getItemMeta();
-			im.setDisplayName(DvZ.getLanguage().getString("string_spell_disableportal","Disable Portal"));
+			im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 			ArrayList<String> li = new ArrayList<String>();
-			li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+DvZ.getStaticConfig().getInt("spelltime_disableportal",3)));
+			li.add(ConfigManager.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+ConfigManager.getStaticConfig().getInt("spelltime_disableportal",3)));
 			im.setLore(li);
 			it.setItemMeta(im);
 			
@@ -89,7 +89,7 @@ public class ItemPortal extends ItemSpell {
 		game.enderActive = true;
 		game.enderMan = player.getName();
 		
-		game.broadcastMessage(DvZ.getLanguage().getString("string_portal_create","An Enderman has created a Portal!"));
+		game.broadcastMessage(ConfigManager.getLanguage().getString("string_portal_create","An Enderman has created a Portal!"));
 	}
 	
 	private boolean reinforePortal(Game game, Player player) {
@@ -101,9 +101,9 @@ public class ItemPortal extends ItemSpell {
 			for(int i=0; i<10; i++) {
 				ItemStack it = new ItemStack(121, 1);
 				ItemMeta im = it.getItemMeta();
-				im.setDisplayName(DvZ.getLanguage().getString("string_spell_disableportal","Disable Portal"));
+				im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 				ArrayList<String> li = new ArrayList<String>();
-				li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+DvZ.getStaticConfig().getInt("spelltime_disableportal",3)));
+				li.add(ConfigManager.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+ConfigManager.getStaticConfig().getInt("spelltime_disableportal",3)));
 				im.setLore(li);
 				it.setItemMeta(im);
 				
@@ -116,7 +116,7 @@ public class ItemPortal extends ItemSpell {
 			
 			game.enderActive = true;
 			
-			game.broadcastMessage(DvZ.getLanguage().getString("string_portal_reinforce","The Portal has been reinforced!"));
+			game.broadcastMessage(ConfigManager.getLanguage().getString("string_portal_reinforce","The Portal has been reinforced!"));
 			
 			return true;
 		}

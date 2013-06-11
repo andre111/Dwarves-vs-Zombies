@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.andre111.dvz.DvZ;
-
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -42,7 +40,7 @@ public class DVZFileConfiguration extends YamlConfiguration {
 			String[] split = st.split(":");
 			
 			String key = split[1];
-			st = DvZ.getLanguage().getString(key, DvZ.getDefaultLanguage().getString(key, ""));
+			st = ConfigManager.getLanguage().getString(key, ConfigManager.getDefaultLanguage().getString(key, ""));
 			
 			//replace -0-,-1-,...
 			for(int i=2; i<split.length; i++) {

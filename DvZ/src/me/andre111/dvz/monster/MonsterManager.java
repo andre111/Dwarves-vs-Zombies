@@ -3,8 +3,8 @@ package me.andre111.dvz.monster;
 import java.util.List;
 import java.util.Set;
 
-import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,7 +19,7 @@ public class MonsterManager {
 	private int monsterCounter;
 	
 	public void loadMonsters() {
-		FileConfiguration df = DvZ.getMonsterFile();
+		FileConfiguration df = ConfigManager.getMonsterFile();
 		//monsters
 		monsterCounter = 0;
 		ConfigurationSection as = df.getConfigurationSection("monsters");
@@ -44,31 +44,31 @@ public class MonsterManager {
 		CustomMonster monTemp = new CustomMonster();
 		
 		monTemp.setId(monsterCounter);
-		monTemp.setGameId(DvZ.getMonsterFile().getInt("monsters."+mo+".gameType", 0));
-		monTemp.setName(DvZ.getMonsterFile().getString("monsters."+mo+".name", ""));
-		monTemp.setDisguise(DisguiseType.fromString(DvZ.getMonsterFile().getString("monsters."+mo+".disguise", "")));
-		monTemp.setPrefix(DvZ.getMonsterFile().getString("monsters."+mo+".chatPrefix", ""));
-		monTemp.setSuffix(DvZ.getMonsterFile().getString("monsters."+mo+".chatSuffix", ""));
-		monTemp.setClassItem(DvZ.getMonsterFile().getInt("monsters."+mo+".classItem", 0));
-		monTemp.setClassItemDamage(DvZ.getMonsterFile().getInt("monsters."+mo+".classItemDamage", 0));
-		monTemp.setClassChance(DvZ.getMonsterFile().getInt("monsters."+mo+".classChance", 100));
+		monTemp.setGameId(ConfigManager.getMonsterFile().getInt("monsters."+mo+".gameType", 0));
+		monTemp.setName(ConfigManager.getMonsterFile().getString("monsters."+mo+".name", ""));
+		monTemp.setDisguise(DisguiseType.fromString(ConfigManager.getMonsterFile().getString("monsters."+mo+".disguise", "")));
+		monTemp.setPrefix(ConfigManager.getMonsterFile().getString("monsters."+mo+".chatPrefix", ""));
+		monTemp.setSuffix(ConfigManager.getMonsterFile().getString("monsters."+mo+".chatSuffix", ""));
+		monTemp.setClassItem(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classItem", 0));
+		monTemp.setClassItemDamage(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classItemDamage", 0));
+		monTemp.setClassChance(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classChance", 100));
 		//items
-		List<String> items = DvZ.getMonsterFile().getStringList("monsters."+mo+".items");
+		List<String> items = ConfigManager.getMonsterFile().getStringList("monsters."+mo+".items");
 		monTemp.setItems(items.toArray(new String[items.size()]));
 		//effects
-		List<String> effects = DvZ.getMonsterFile().getStringList("monsters."+mo+".effects");
+		List<String> effects = ConfigManager.getMonsterFile().getStringList("monsters."+mo+".effects");
 		monTemp.setEffects(effects.toArray(new String[effects.size()]));
 		//placing blocks
-		monTemp.setPlaceBlocks(DvZ.getMonsterFile().getBoolean("monsters."+mo+".placeBlocks", false));
+		monTemp.setPlaceBlocks(ConfigManager.getMonsterFile().getBoolean("monsters."+mo+".placeBlocks", false));
 		//damagebuff
-		monTemp.setDamageBuff(DvZ.getMonsterFile().getDouble("monsters."+mo+".damageBuff", 1));
+		monTemp.setDamageBuff(ConfigManager.getMonsterFile().getDouble("monsters."+mo+".damageBuff", 1));
 		//disabled damage
-		for(String d : DvZ.getMonsterFile().getStringList("monsters."+mo+".disabledDamage")) {
+		for(String d : ConfigManager.getMonsterFile().getStringList("monsters."+mo+".disabledDamage")) {
 			monTemp.addDisabledDamage(d);
 		}
 		//mana
-		monTemp.setMaxMana(DvZ.getMonsterFile().getInt("monsters."+mo+".manaMax", 0));
-		monTemp.setManaRegen(DvZ.getMonsterFile().getInt("monsters."+mo+".manaRegen", 0));
+		monTemp.setMaxMana(ConfigManager.getMonsterFile().getInt("monsters."+mo+".manaMax", 0));
+		monTemp.setManaRegen(ConfigManager.getMonsterFile().getInt("monsters."+mo+".manaRegen", 0));
 		
 		monsters[monsterCounter] = monTemp;
 		monsterCounter++;
