@@ -240,7 +240,7 @@ public class Game {
 		invultimer.clear();
 		customCooldown.clear();
 		
-		plugin.resetMainWorld(plugin.getGameID(this));
+		WorldManager.resetMainWorld(plugin.getGameID(this));
 		
 		//rejoin
 		if(plugin.getConfig().getString("auto_rejoin", "false").equals("true")) {
@@ -418,7 +418,7 @@ public class Game {
 		if (state==1) {
 			final Game gea = this;
 			
-			plugin.newMainWorld(plugin.getGameID(gea));
+			WorldManager.newMainWorld(plugin.getGameID(gea));
 			
 			final int gtemp = plugin.getGameID(this);
 			

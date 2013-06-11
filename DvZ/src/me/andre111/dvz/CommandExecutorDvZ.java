@@ -495,7 +495,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				return false;
 			}
 			
-			plugin.saveWorld(sender, player.getWorld().getName());
+			WorldManager.saveWorld(sender, player.getWorld().getName());
 			
 			return true;
 		}
@@ -511,7 +511,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				return false;
 			}
 
-			plugin.createWorld(sender, player.getWorld().getName());
+			WorldManager.createWorld(sender, player.getWorld().getName());
 			
 			return true;
 		}
