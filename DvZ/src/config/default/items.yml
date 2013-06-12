@@ -407,7 +407,8 @@ items:
      data: 8
      useUp: true
      leftclick:
-       effects: []
+       effects:
+         - "Caster ItemEffectNormal POTION_BREAK:8270"
        cooldown: 0
        mana:
          cost: 0

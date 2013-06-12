@@ -49,7 +49,7 @@ disable_dcraft_check: false
 # Warning! Some texts are also located in the other .yml files
 language: en_EN
 world_prefix: DvZ_
-new_classselection: true
+new_classselection: false
 # Chat messages by Players in a game can only be seen by Players in the same game or OPs
 dedicated_chat: true
 # Monster have to wait until Assasins are choosen or /dvz_release was used

@@ -530,10 +530,14 @@ public class Game {
 		
 		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
 			if (isDwarf(e.getKey(), true)) {
-				dwarf++;
+				//online check
+				if(Bukkit.getServer().getPlayer(e.getKey())!=null)
+					dwarf++;
 			}
 			if (isMonster(e.getKey())) {
-				mons++;
+				//online check
+				if(Bukkit.getServer().getPlayer(e.getKey())!=null)
+					mons++;
 			}
 		}
 		

@@ -1,6 +1,5 @@
 package me.andre111.dvz;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -118,6 +117,7 @@ public class StatManager {
 			show(player);
 		}
 
+		//TODO - this seems to be randomly throwing NullPointers - maybe async handling?
 		if(xpBarShown.containsKey(player.getName())) {
 			if(xpBarShown.get(player.getName())) {
 				int level = xpBarLevel.get(player.getName());
@@ -170,7 +170,7 @@ public class StatManager {
 			public void run() {
 				try {
 					DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
-				} catch (InvocationTargetException e) {
+				} catch (Exception e) {
 				}
 			}
 		});
@@ -188,7 +188,7 @@ public class StatManager {
 			public void run() {
 				try {
 					DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
-				} catch (InvocationTargetException e) {
+				} catch (Exception e) {
 				}
 			}
 		});
