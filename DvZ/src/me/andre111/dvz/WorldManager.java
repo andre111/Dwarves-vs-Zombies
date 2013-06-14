@@ -132,7 +132,8 @@ public class WorldManager {
 		if(max>0) {
 			int pos = mapRandom.nextInt(max)+1;
 			String add = "";
-			if(pos>normal+1) {
+			//if it excedes the normal number, use the special worlds
+			if(pos>normal) {
 				pos = pos - normal;
 				add = "Type1/";
 				if(gameType==2) add = "Type2/";

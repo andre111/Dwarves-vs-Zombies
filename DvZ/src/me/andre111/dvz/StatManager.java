@@ -169,7 +169,8 @@ public class StatManager {
 		Bukkit.getScheduler().runTask(DvZ.instance, new Runnable() {
 			public void run() {
 				try {
-					DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
+					if(player.isOnline())
+						DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
 				} catch (Exception e) {
 				}
 			}
@@ -187,7 +188,8 @@ public class StatManager {
 		Bukkit.getScheduler().runTask(DvZ.instance, new Runnable() {
 			public void run() {
 				try {
-					DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
+					if(player.isOnline())
+						DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
 				} catch (Exception e) {
 				}
 			}

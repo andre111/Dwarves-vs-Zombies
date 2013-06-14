@@ -370,7 +370,7 @@ public class Listener_Player implements Listener  {
 				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
 				//event.setMessage(ConfigManager.getLanguage().getString("string_chat_monster","§5Monster§f>")+" "+event.getMessage());
 			}
-			if(player.getName().equals("andre111") && ConfigManager.getStaticConfig().getString("show_andre111_tag").equals("true")) {
+			if(player.getName().equals("andre111") && ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true")) {
 				String prefix = "";
 				String suffix = " the Plugin Author";
 				
