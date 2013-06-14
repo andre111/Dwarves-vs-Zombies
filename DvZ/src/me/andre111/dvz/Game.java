@@ -669,7 +669,7 @@ public class Game {
 		//costum dwarves
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance()) {
+				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
 					//game type
 					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
 					if(gID==0 || gID==getGameType()) {
@@ -725,7 +725,7 @@ public class Game {
 			//adding
 			int pos = 0;
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance()) {
+				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
 					//game type
 					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
 					if(gID==0 || gID==getGameType()) {
@@ -762,7 +762,7 @@ public class Game {
 		
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance()) {
+				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
 					//game type
 					int gID = DvZ.monsterManager.getMonster(i).getGameId();
 					if(gID==0 || gID==getGameType()) {
@@ -817,7 +817,7 @@ public class Game {
 			//adding
 			int pos = 0;
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance()) {
+				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
 					//game type
 					int gID = DvZ.monsterManager.getMonster(i).getGameId();
 					if(gID==0 || gID==getGameType()) {

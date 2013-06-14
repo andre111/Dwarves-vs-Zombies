@@ -262,7 +262,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 		}
 		//reset all gamestates
 		if (command.getName().equalsIgnoreCase("dvz_reset")) {
-			if(!sender.hasPermission("dvz.rest")) {
+			if(!sender.hasPermission("dvz.reset")) {
 				sender.sendMessage("You don't have the Permission to do that!");
 				return false;
 			}
