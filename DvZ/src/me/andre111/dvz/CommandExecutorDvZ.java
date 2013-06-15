@@ -282,7 +282,7 @@ public class CommandExecutorDvZ implements CommandExecutor {
 				return true;
 			}
 			Player player = (Player)sender;
-			if(!sender.hasPermission("dvz.rest")) {
+			if(!sender.hasPermission("dvz.monument")) {
 				sender.sendMessage("You don't have the Permission to do that!");
 				return false;
 			}

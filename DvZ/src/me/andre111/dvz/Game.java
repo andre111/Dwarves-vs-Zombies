@@ -482,9 +482,11 @@ public class Game {
 			if (player!=null) online = true;
 			
 			if (isDwarf(e.getKey(), true)) {
-				if (online) dwarf++; //else dwarfoff++;
-				
-				lastdwarf = e.getKey();
+				if (online) {
+					dwarf++; //else dwarfoff++;
+					//only the last standing and online dwarf
+					lastdwarf = e.getKey();
+				}
 			}
 			if (isMonster(e.getKey())) {
 				if (online) mons++; else monsoff++;
