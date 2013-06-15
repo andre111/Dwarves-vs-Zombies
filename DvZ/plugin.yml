@@ -175,6 +175,12 @@ permissions:
    dvz.allclasses:
       description: Always get all classes to choose from
       default: false
+   dvz.alldwarves:
+      description: Always get all dwarf classes to choose from
+      default: false
+   dvz.allmonsters:
+      description: Always get all monster classes to choose from
+      default: false
    dvz.test:
       description: Testing some stuff(do not use this)
       default: op

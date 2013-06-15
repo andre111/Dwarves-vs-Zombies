@@ -495,7 +495,7 @@ items:
          - "CounterFinish ItemEffectSound NOTE_PLING:1:2"
        cooldown: 0
        mana:
-         cost: 10
+         cost: 20
        casts:
          0:
            cast: "ItemGetItem"

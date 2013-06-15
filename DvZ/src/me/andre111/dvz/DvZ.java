@@ -218,7 +218,8 @@ public class DvZ extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		//remove all zombies
-		item3DHandler.removeAll();
+		if(item3DHandler!=null)
+			item3DHandler.removeAll();
 		
 		//remove all release inventories
 		for(int i=0; i<games.length; i++) {

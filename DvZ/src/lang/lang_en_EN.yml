@@ -85,6 +85,7 @@ string_invulnarable: "You are -0- seconds invulnarable!"
 string_lose_dwarf: "&4Game Over!&f No more Dwarves!"
 string_lose_monument: "&4Game Over!&f The Monument has been destroyed!"
 string_last_dwarf: "Last standing Dwarf - &e-0-&f! Congratulations!"
+string_win: "&4Victory!&f The dwarves protected the Monument!"
 string_destroy_monument: "What are you trying to do? This is your monument!"
 # Item Descriptions
 string_used_seconds: "Can be used every -0- Seconds!"
@@ -110,6 +111,8 @@ scoreboard_stats: "Stats"
 scoreboard_mana: "&5Mana"
 scoreboard_dwarves: "Dwarves"
 scoreboard_monsters: "Monsters"
+scoreboard_release: "M.Release"
+scoreboard_victory: "Victory"
 
 # ----------------------------------------------------------------------------------
 # Default classes/config

@@ -114,6 +114,8 @@ public class Game {
 	
 	public boolean released;
 	private int releasetime;
+	private boolean canWin;
+	private int wintime;
 	
 	//lobby
 	private int lobby_Player;
@@ -154,7 +156,8 @@ public class Game {
 		}
 		waitm = new WaitingMenu(p, wadd);
 		waitm.close();
-		released = plugin.getConfig().getString("need_release", "false")=="false";
+		released = ConfigManager.getStaticConfig().getString("need_release", "false").equals("false");
+		canWin = ConfigManager.getStaticConfig().getString("can_win", "false").equals("true");
 		
 		initLobby();
 	}
@@ -232,7 +235,8 @@ public class Game {
 		
 		waitm.releaseAll();
 		waitm.close();
-		released = plugin.getConfig().getString("need_release", "false")=="false";
+		released = ConfigManager.getStaticConfig().getString("need_release", "false").equals("false");
+		canWin = ConfigManager.getStaticConfig().getString("can_win", "false").equals("true");
 		
 		spell1time.clear();
 		spell2time.clear();
@@ -324,10 +328,21 @@ public class Game {
 					}
 				}
 				
+				//release the monsters
 				if (releasetime>=0 && state==2) {
 					releasetime--;
 					if(releasetime==0 && state==2) {
 						release();
+					}
+				}
+				
+				//dwarf victory
+				if(released && canWin) {
+					if(wintime>=0 && state==2) {
+						wintime--;
+						if(wintime==0 && state==2) {
+							win();
+						}
 					}
 				}
 				
@@ -432,7 +447,8 @@ public class Game {
 						}
 						teleportToMainWorld();
 						state = 2;
-						releasetime = plugin.getConfig().getInt("time_release",30)*60;
+						releasetime = ConfigManager.getStaticConfig().getInt("time_release",30)*60;
+						wintime = ConfigManager.getStaticConfig().getInt("time_win",30)*60;
 						
 						DvZ.startedGames += 1;
 						
@@ -526,6 +542,11 @@ public class Game {
 		}
 	}
 	
+	private void win() {
+		broadcastMessage(ConfigManager.getLanguage().getString("string_win","§4Victory!§f The dwarves protected the Monument!"));
+		reset(true);
+	}
+	
 	private void updateGlobalStats() {
 		int dwarf = 0;
 		int mons = 0;
@@ -545,6 +566,13 @@ public class Game {
 		
 		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_dwarves", "Dwarves"), dwarf);
 		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_monsters", "Monsters"), mons);
+		
+		if(!released) {
+			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_release", "M.Release"), releasetime);
+		} else if(canWin) {
+			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_release", "M.Release"), 0);
+			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_victory", "Victory"), wintime);
+		}
 	}
 	
 	//#######################################
@@ -671,7 +699,7 @@ public class Game {
 		//costum dwarves
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
+				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.alldwarves")) {
 					//game type
 					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
 					if(gID==0 || gID==getGameType()) {
@@ -727,7 +755,7 @@ public class Game {
 			//adding
 			int pos = 0;
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
+				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.alldwarves")) {
 					//game type
 					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
 					if(gID==0 || gID==getGameType()) {
@@ -764,7 +792,7 @@ public class Game {
 		
 		if(plugin.getConfig().getString("new_classselection","true")!="true") {
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
+				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.allmonsters")) {
 					//game type
 					int gID = DvZ.monsterManager.getMonster(i).getGameId();
 					if(gID==0 || gID==getGameType()) {
@@ -819,7 +847,7 @@ public class Game {
 			//adding
 			int pos = 0;
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses")) {
+				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.allmonsters")) {
 					//game type
 					int gID = DvZ.monsterManager.getMonster(i).getGameId();
 					if(gID==0 || gID==getGameType()) {

@@ -88,6 +88,9 @@ public class WorldManager {
 				player.sendMessage(ConfigManager.getLanguage().getString("string_tp_reset", "World is resetting - You have been teleported to the Lobby"));
 			}
 		
+			//do not register a task/delete the world on serverstop
+			if(!Bukkit.getPluginManager().isPluginEnabled(DvZ.instance)) return;
+			
 			Bukkit.getScheduler().scheduleSyncDelayedTask(DvZ.instance, new Runnable() {
 				public void run() {
 					if(w!=null) {

@@ -17,6 +17,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -142,9 +143,9 @@ public class Listener_Entity implements Listener {
 				event.setCancelled(true);
 			}
 		}
-		//bows
-		if(event.getEntity() instanceof Player && event.getDamager() instanceof Arrow) {
-			if(((Arrow)event.getDamager()).getShooter() instanceof Player) {
+		//bows, snowballs and more
+		if(event.getEntity() instanceof Player && event.getDamager() instanceof Projectile) {
+			if(((Projectile)event.getDamager()).getShooter() instanceof Player) {
 				//disable friendly fire
 				Game game = plugin.getPlayerGame(((Player)event.getEntity()).getName());
 				if (game!=null) {

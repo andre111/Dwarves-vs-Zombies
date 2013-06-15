@@ -8,6 +8,7 @@ import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.iface.IUpCounter;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -83,6 +84,39 @@ public class StatManager {
 			mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(value);
 		}
 	}
+	//Set a timerstat for all players
+	public static void setTimeStat(String stat, int time) {
+		int rminutes = (int) Math.floor(time/(double)60);
+		int rseconds = time - rminutes*60;
+		String rsec = "" + rseconds;
+		if(rsec.length()<2) rsec = "0" + rsec;
+		
+		String rtime = rminutes+ ":" + rsec;
+		String add = stat + " " + rtime;
+		
+		//remove old stat
+		sendRemoveTimer(stat);
+		//send new stat
+		if(time>0)
+			sendNewTimer(add);
+	}
+	//removes a timer scoreboard that starts with this name
+	private static void sendRemoveTimer(String name) {
+		for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
+			for(OfflinePlayer ofP : mapE.getValue().getPlayers()) {
+				if(ofP.getName().startsWith(name)) {
+					mapE.getValue().resetScores(ofP);
+				}
+			}
+		}
+	}
+	//adds a timer
+	private static void sendNewTimer(String name) {
+		for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
+			mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(name)).setScore(1000);
+		}
+	}
+	
 	//set the xp level of the player
 	public static void setXPBarStat(String player, int level, float xp) {
 		xpBarLevel.put(player, level);
