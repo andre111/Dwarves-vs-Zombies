@@ -263,7 +263,7 @@ dwarves:
       effects: []
       damageBuff: 1
       disabledDamage: []
-      manaMax: 100
+      manaMax: 1000
       manaRegen: 5
       spell:
          enable: false
@@ -321,7 +321,7 @@ dwarves:
       effects: []
       damageBuff: 1
       disabledDamage: []
-      manaMax: 100
+      manaMax: 1000
       manaRegen: 5
       spell:
          enable: false
@@ -380,7 +380,7 @@ dwarves:
       effects: []
       damageBuff: 1
       disabledDamage: []
-      manaMax: 100
+      manaMax: 1000
       manaRegen: 5
       spell:
          enable: false

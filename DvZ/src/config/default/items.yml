@@ -522,11 +522,18 @@ items:
      data: 8197
      useUp: false
      leftclick:
-       effects: []
+       effects:
+         - "Caster ItemEffectNormal POTION_BREAK:8197"
        cooldown: 0
        mana:
-         cost: 0
-       casts: []
+         cost: 100
+       casts:
+         0:
+           cast: "ItemDamage"
+           require: -1
+           castVars:
+             - 1
+             - -4
      rightclick:
        effects: []
        cooldown: 0
