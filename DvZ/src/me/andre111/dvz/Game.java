@@ -305,9 +305,10 @@ public class Game {
 				if(ConfigManager.getStaticConfig().getString("global_stats", "true").equals("true"))
 					updateGlobalStats();
 				
+				teleportUnreleased();
+				
 				if (ticker==10) {
 					ticker = 0;
-					teleportUnreleased();
 					checkLoose();
 				}
 				if(ticker%2==0) {
@@ -1343,8 +1344,10 @@ public class Game {
 				Player player = Bukkit.getServer().getPlayerExact(playern);
 	
 				if(player!=null) {
-					player.sendMessage(message);
-					player.sendMessage(message2);
+					if (ticker==10) {
+						player.sendMessage(message);
+						player.sendMessage(message2);
+					}
 					
 					Location loc = player.getLocation();
 					Location target = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"").getSpawnLocation();

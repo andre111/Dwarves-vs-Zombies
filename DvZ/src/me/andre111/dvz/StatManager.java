@@ -151,13 +151,14 @@ public class StatManager {
 			show(player);
 		}
 
-		//TODO - this seems to be randomly throwing NullPointers - maybe async handling?
 		if(xpBarShown.containsKey(player.getName())) {
 			if(xpBarShown.get(player.getName())) {
-				int level = xpBarLevel.get(player.getName());
-				float xp = xpBarXp.get(player.getName());
+				if(xpBarLevel.containsKey(player.getName()) && xpBarXp.containsKey(player.getName())) {
+					int level = xpBarLevel.get(player.getName());
+					float xp = xpBarXp.get(player.getName());
 				
-				sendFakeXP(player, level, xp);
+					sendFakeXP(player, level, xp);
+				}
 			}
 		}
 	}
