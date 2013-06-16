@@ -538,13 +538,47 @@ public class Game {
 		
 		if (destr) {
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
+
+			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument_dwarves","Dwarves who failed to protect the Monument:"));
+			printSurvivingPlayers();
+			
 			reset(true);
 		}
 	}
 	
 	private void win() {
 		broadcastMessage(ConfigManager.getLanguage().getString("string_win","§4Victory!§f The dwarves protected the Monument!"));
+		
+		broadcastMessage(ConfigManager.getLanguage().getString("string_win_dwarves","Dwarves who survived and protected the Monument:"));
+		printSurvivingPlayers();
+		
 		reset(true);
+	}
+	
+	private void printSurvivingPlayers() {
+		String pmessage = "";
+		int pcount = 0;
+		int pmaxCount = 5;
+		
+		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
+			Player player = Bukkit.getServer().getPlayerExact(e.getKey());
+			
+			//only online players
+			if (player!=null) {
+				if (isDwarf(e.getKey(), true)) {
+					pmessage = pmessage + e.getKey() + ",";
+					pcount++;
+					if(pcount>=pmaxCount) {
+						broadcastMessage(pmessage);
+						
+						pmessage = "";
+						pcount = 0;
+					}
+				}
+			}
+		}
+		if(!pmessage.equals(""))
+			broadcastMessage(pmessage);
 	}
 	
 	private void updateGlobalStats() {
