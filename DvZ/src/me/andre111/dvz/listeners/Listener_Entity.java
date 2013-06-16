@@ -11,7 +11,6 @@ import me.andre111.dvz.monster.CustomMonster;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -151,7 +150,7 @@ public class Listener_Entity implements Listener {
 				if (game!=null) {
 					if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
 						String player = ((Player)event.getEntity()).getName();
-						String damager = ((Player)((Arrow)event.getDamager()).getShooter()).getName();
+						String damager = ((Player)((Projectile)event.getDamager()).getShooter()).getName();
 						if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
 								   (game.isMonster(player) && game.isMonster(damager))) {
 							event.setCancelled(true);
