@@ -197,7 +197,7 @@ public class DvZ extends JavaPlugin {
 		}
 		//
 		
-		CommandExecutorDvZ command = new CommandExecutorDvZ(this);
+		CommandExecutorDvZ command = new CommandExecutorDvZ();
 		for(String st : getDescription().getCommands().keySet()) {
 			getCommand(st).setExecutor(command);
 		}
