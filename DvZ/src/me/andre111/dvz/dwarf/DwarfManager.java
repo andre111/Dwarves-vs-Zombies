@@ -33,7 +33,9 @@ public class DwarfManager {
 		for(int i=0; i<length; i++) {
 			Permission perm = new Permission("dvz.dwarves."+i, PermissionDefault.TRUE);
 			//perm.addParent("dvz.*", true); - broken?
-			Bukkit.getPluginManager().addPermission(perm);
+			if(Bukkit.getPluginManager().getPermission("dvz.dwarves."+i)==null)
+				Bukkit.getPluginManager().addPermission(perm);
+			
 			loadDwarf(stK2[i]);
 		}
 	}
@@ -109,5 +111,10 @@ public class DwarfManager {
 	
 	public int getCount() {
 		return dwarfCounter;
+	}
+	
+	//reload this configsection/file
+	public void reload() {
+		loadDwarfes();
 	}
 }

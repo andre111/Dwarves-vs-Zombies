@@ -156,4 +156,10 @@ public class WorldManager {
 			//Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Main"));
 		}
 	}
+	
+	public static void reload() {
+		maxWorld = "";
+		maxWorldType1 = "";
+		maxWorldType2 = "";
+	}
 }

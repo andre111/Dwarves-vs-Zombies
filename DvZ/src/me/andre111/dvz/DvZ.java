@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import me.andre111.dvz.commands.DvZCommand;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
@@ -220,6 +221,8 @@ public class DvZ extends JavaPlugin {
 		//remove all zombies
 		if(item3DHandler!=null)
 			item3DHandler.removeAll();
+		
+		DvZCommand.unregisterCommands();
 		
 		//remove all release inventories
 		for(int i=0; i<games.length; i++) {

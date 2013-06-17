@@ -203,4 +203,22 @@ public class BlockManager {
 		}
 	}
 	
+	//reload this configsection/file
+	public static void reload() {
+		gameType1_dwarf = new ArrayList<String>();
+		gameType1_monster = new ArrayList<String>();
+		blacklist1_dwarf = new ArrayList<String>();
+		blacklist1_monster = new ArrayList<String>();
+		changeBreak1_dwarf = new ArrayList<String>();
+		changeBreak1_monster = new ArrayList<String>();
+		
+		gameType2_dwarf = new ArrayList<String>();
+		gameType2_monster = new ArrayList<String>();
+		blacklist2_dwarf = new ArrayList<String>();
+		blacklist2_monster = new ArrayList<String>();
+		changeBreak2_dwarf = new ArrayList<String>();
+		changeBreak2_monster = new ArrayList<String>();
+		
+		loadConfig();
+	}
 }

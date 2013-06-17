@@ -30,6 +30,11 @@ public class DvZCommand {
 		new GiveCommand("dvz_give");
 		new ItemstandCommand("dvz_itemstand");
 		new QuarryCommand("dvz_quarry");
+		new ReloadCommand("dvz_reload");
+	}
+	
+	public static void unregisterCommands() {
+		commands.clear();
 	}
 	
 	

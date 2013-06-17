@@ -34,7 +34,8 @@ public class MonsterManager {
 		for(int i=0; i<length; i++) {
 			Permission perm = new Permission("dvz.monster."+i, PermissionDefault.TRUE);
 			//perm.addParent("dvz.*", true); - broken?
-			Bukkit.getPluginManager().addPermission(perm);
+			if(Bukkit.getPluginManager().getPermission("dvz.monster."+i)==null)
+				Bukkit.getPluginManager().addPermission(perm);
 			loadMonster(stK2[i]);
 		}
 		
@@ -83,5 +84,10 @@ public class MonsterManager {
 	
 	public int getCount() {
 		return monsterCounter;
+	}
+	
+	//reload this configsection/file
+	public void reload() {
+		loadMonsters();
 	}
 }

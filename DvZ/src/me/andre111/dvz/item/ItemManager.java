@@ -212,4 +212,9 @@ public class ItemManager {
 		
 		return null;
 	}
+	
+	//reload this configsection/file
+	public void reload() {
+		loadItems();
+	}
 }
