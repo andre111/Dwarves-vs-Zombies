@@ -3,6 +3,7 @@ package me.andre111.dvz.commands;
 import me.andre111.dvz.BlockManager;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.WorldManager;
+import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -32,18 +33,22 @@ public class ReloadCommand extends DvZCommand {
 				reload = true;
 			}
 			if(rs.equalsIgnoreCase("dwarves") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("dwarves");
 				DvZ.dwarfManager.reload();
 				reload = true;
 			}
 			if(rs.equalsIgnoreCase("monsters") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("monsters");
 				DvZ.monsterManager.reload();
 				reload = true;
 			}
 			if(rs.equalsIgnoreCase("items") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("items");
 				DvZ.itemManager.reload();
 				reload = true;
 			}
 			if(rs.equalsIgnoreCase("blocks") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("blocks");
 				BlockManager.reload();
 				reload = true;
 			}

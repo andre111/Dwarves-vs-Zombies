@@ -135,4 +135,19 @@ public class ConfigManager {
 	public static FileConfiguration getStaticConfig() {
 		return configfile;
 	}
+	
+	public static void reloadConfig(String name) {
+		if(name.equalsIgnoreCase("dwarves")) {
+			classfile =  DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "classes.yml"));
+		}
+		if(name.equalsIgnoreCase("monsters")) {
+			monsterfile =  DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "monster.yml"));
+		}
+		if(name.equalsIgnoreCase("items")) {
+			itemfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "items.yml"));
+		}
+		if(name.equalsIgnoreCase("blocks")) {
+			blockfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "blocks.yml"));
+		}
+	}
 }
