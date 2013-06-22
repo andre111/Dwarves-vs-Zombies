@@ -191,6 +191,11 @@ public class Listener_Entity implements Listener {
 						int id = game.getPlayerState(dgm.getName()) - Game.monsterMin;
 						event.setDamage((int) Math.round(event.getDamage()*DvZ.monsterManager.getMonster(id).getDamageBuff()));
 					}
+					
+					//Dwarf kill effects
+					if(game.isDwarf(dgm.getName(), false)) {
+						event.setDamage((int) Math.round(event.getDamage()*DvZ.effectManager.getDwarfKillMultiplier(game, dgm.getName())));
+					}
 				}
 			}
 		}

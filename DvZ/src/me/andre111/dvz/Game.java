@@ -50,6 +50,7 @@ public class Game {
 	private int time;
 	private int dauer;
 	private int ticker;
+	private int fastticker;
 	private boolean starting;
 	
 	public Location spawnDwarves;
@@ -134,6 +135,7 @@ public class Game {
 		this.plugin = p;
 		this.dauer = 0;
 		ticker = 0;
+		fastticker = 0;
 		starting = false;
 		monumentexists = false;
 		enderActive = false;
@@ -424,6 +426,17 @@ public class Game {
 		}
 		
 		mana.tick();
+	}
+	
+	//fastticker 20 times per second
+	public void fastTick() {
+		fastticker++;
+		
+		if(fastticker>=5) {
+			fastticker = 0;
+			
+			DvZ.effectManager.killEffects(this);
+		}
 	}
 
 	//#######################################

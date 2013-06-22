@@ -213,6 +213,16 @@ public class DvZ extends JavaPlugin {
 				}
 		    }
 		}, 20, 20);
+		
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				for(int i=0; i<games.length; i++) {
+					if (games[i]!=null) {
+						games[i].fastTick();
+					}
+				}
+		    }
+		}, 1, 1);
 		//
 	}
 	

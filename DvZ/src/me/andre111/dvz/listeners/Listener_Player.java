@@ -459,6 +459,9 @@ public class Listener_Player implements Listener  {
 						}
 					}
 					//----
+					
+					//dwarf kill buffs
+					DvZ.effectManager.dwarfKilledMonster(game, k);
 				}
 			}
 		}

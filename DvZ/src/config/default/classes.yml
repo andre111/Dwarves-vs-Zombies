@@ -3,6 +3,10 @@ effects:
       above: []
       below:
         6: "15 0" 
+   kill:
+      enabled: true
+      duration: 3
+      particles: true
 
 # ----------------------------------------------------------------------------------
 # Custom Dwarves

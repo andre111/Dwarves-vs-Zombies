@@ -7,6 +7,7 @@ import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -18,6 +19,10 @@ public class EffectManager {
 	private int[][] effectMonsterMidNight;
 	private int[][] effectDwarfAbove;
 	private int[][] effectDwarfBelow;
+	
+	private boolean killEffectEnabled;
+	private int killEffectTime;
+	private boolean killEffectParticles;
 	
 	public void playerEffects(Game game) {
 		addMonsterEffects(game);
@@ -99,6 +104,79 @@ public class EffectManager {
 			}
 		}
 	}
+	
+	public void killEffects(Game game) {
+		if(!killEffectParticles) return;
+		
+		for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
+			String playern = e.getKey();
+			Player player = Bukkit.getServer().getPlayerExact(playern);
+			
+			if(player!=null) {
+				if(game.isDwarf(playern, true)) {
+					if(game.getCustomCooldown(playern, "effects_kill")>=0) {
+						spawnParticle(game, player);
+					}
+				}
+			}
+		}
+	}
+	
+	public void dwarfKilledMonster(Game game, Player dwarf) {
+		if(killEffectEnabled) {
+			//Strenght is broken with Disguisecraft
+			//dwarf.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, killEffectTime*20, 20), true);
+			
+			game.setCustomCooldown(dwarf.getName(), "effects_kill", killEffectTime);
+		}
+	}
+	
+	public double getDwarfKillMultiplier(Game game, String dwarf) {
+		if(game.getCustomCooldown(dwarf, "effects_kill")>=0) {
+			return 20;
+		}
+		
+		return 1;
+	}
+	
+	private void spawnParticle(Game game, Player player) {
+		player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
+	}
+	//not working
+	/*
+		PacketContainer packet = DvZ.protocolManager.createPacket(0x3F);
+		
+		packet.getStrings().
+			write(0, "magicCrit");
+		packet.getFloat().
+			write(0, (float) player.getLocation().getX()).
+			write(1, (float) player.getLocation().getY()).
+			write(2, (float) player.getLocation().getZ()).
+			write(3, 0F).
+			write(4, 0F).
+			write(5, 0F).
+			write(6, 0F);
+		packet.getIntegers().
+			write(0, 1);
+		
+		sendToAll(game, packet);
+	}
+	
+	private void sendToAll(Game game, PacketContainer packet) {
+		System.out.println("Sparticles!");
+		try {
+			for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
+				String playern = e.getKey();
+				Player player = Bukkit.getServer().getPlayerExact(playern);
+				
+				if(player!=null) {
+					DvZ.protocolManager.sendServerPacket(player, packet);
+				}
+			}
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}*/
 	
 	public void loadEffects() {
 		//monster
@@ -204,5 +282,10 @@ public class EffectManager {
 				effectDwarfBelow[k][1] = elevel2;
 			}
 		}
+		
+		//kill effects
+		killEffectEnabled = ConfigManager.getClassFile().getString("effects.kill.enabled", "true").equals("true");
+		killEffectTime = ConfigManager.getClassFile().getInt("effects.kill.duration", 3);
+		killEffectParticles = ConfigManager.getClassFile().getString("effects.kill.particles", "true").equals("true");
 	}
 }
