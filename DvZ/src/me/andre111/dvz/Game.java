@@ -42,9 +42,7 @@ import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
 public class Game {
 	private DvZ plugin;
 	
-	public int gameType;
-	public static int GAMETYPE_OLD = 1;
-	public static int GAMETYPE_NEW = 2;
+	private int gameType;
 	
 	private int state;
 	private int time;
@@ -126,9 +124,6 @@ public class Game {
 	//#######################################
 	public Game(DvZ p, int type) {
 		this.gameType = type;
-		//change between the two versions
-		if(type==3)
-			this.gameType = (new Random()).nextInt(2)+1;
 		
 		this.state = 1;
 		this.time = 30;//60;
@@ -213,8 +208,8 @@ public class Game {
 		}
 		
 		//change between the two versions
-		if(ConfigManager.getStaticConfig().getInt("game"+plugin.getGameID(this), 1)==3)
-			this.gameType = 3 - this.gameType;
+		int type = ConfigManager.getStaticConfig().getInt("game"+plugin.getGameID(this), 1);
+		this.gameType = GameType.fromID(type).getNextType(this.gameType);
 		
 		String[] players = playerstate.keySet().toArray(new String[playerstate.keySet().size()]);
 		playerstate.clear();
@@ -750,7 +745,7 @@ public class Game {
 				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.alldwarves")) {
 					//game type
 					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
-					if(gID==0 || gID==getGameType()) {
+					if(gID==0 || gID==GameType.getDwarfAndMonsterTypes(getGameType())) {
 						//permissions
 						if(player.hasPermission("dvz.dwarves."+i)) {
 							inv.addItem(dwarfItems[i]);
@@ -806,7 +801,7 @@ public class Game {
 				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.alldwarves")) {
 					//game type
 					int gID = DvZ.dwarfManager.getDwarf(i).getGameId();
-					if(gID==0 || gID==getGameType()) {
+					if(gID==0 || gID==GameType.getDwarfAndMonsterTypes(getGameType())) {
 						//permissions
 						if(player.hasPermission("dvz.dwarves."+i)) {
 							im.setOption(pos, dwarfItems[i]); 
@@ -843,7 +838,7 @@ public class Game {
 				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.allmonsters")) {
 					//game type
 					int gID = DvZ.monsterManager.getMonster(i).getGameId();
-					if(gID==0 || gID==getGameType()) {
+					if(gID==0 || gID==GameType.getDwarfAndMonsterTypes(getGameType())) {
 						//permissions
 						if(player.hasPermission("dvz.monster."+i)) {
 							inv.addItem(monsterItems[i]);
@@ -898,7 +893,7 @@ public class Game {
 				if(rand.nextInt(100)<DvZ.monsterManager.getMonster(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.allmonsters")) {
 					//game type
 					int gID = DvZ.monsterManager.getMonster(i).getGameId();
-					if(gID==0 || gID==getGameType()) {
+					if(gID==0 || gID==GameType.getDwarfAndMonsterTypes(getGameType())) {
 						//permissions
 						if(player.hasPermission("dvz.monster."+i)) {
 							icm.setOption(pos, monsterItems[i]); 

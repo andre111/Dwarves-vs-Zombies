@@ -186,15 +186,9 @@ public class DvZ extends JavaPlugin {
 		//init and reset games
 		for(int i=0; i<games.length; i++) {
 			int type = getConfig().getInt("game"+i, 1);
-			if(type>=1 && type<=2) {
-				games[i] = new Game(this, type);
-				games[i].reset(false);
-			}
-			//altenerating gametype
-			if(type==3) {
-				games[i] = new Game(this, 1);
-				games[i].reset(false);
-			}
+			
+			games[i] = new Game(this, GameType.fromID(type).getFirstType());
+			games[i].reset(false);
 		}
 		//
 		

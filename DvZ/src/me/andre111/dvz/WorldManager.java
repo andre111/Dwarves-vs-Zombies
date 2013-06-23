@@ -114,7 +114,7 @@ public class WorldManager {
 	private static String maxWorldType1 = "";
 	private static String maxWorldType2 = "";
 	public static void newMainWorld(final int id) {
-		int gameType = DvZ.instance.getGame(id).gameType;
+		int gameType = GameType.getDwarfAndMonsterTypes(DvZ.instance.getGame(id).getGameType());
 		
 		if(maxWorld.equals("")) {
 			maxWorld = getFreeWorld("");
