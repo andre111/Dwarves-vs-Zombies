@@ -62,7 +62,7 @@ public class ItemBlink extends ItemSpell {
 				loc.setPitch(player.getLocation().getPitch());
 				loc.setYaw(player.getLocation().getYaw());
 				player.teleport(loc);
-				getItem().createEffects(loc.clone(), isLeft(), "Teleport");
+				getItem().createEffects(loc.clone(), getAction(), "Teleport");
 				player.sendMessage(ConfigManager.getLanguage().getString("string_blink","You blink away!"));
 				return true;
 			} else {

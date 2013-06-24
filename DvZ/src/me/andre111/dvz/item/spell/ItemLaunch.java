@@ -38,7 +38,7 @@ public class ItemLaunch extends ItemSpell {
 				if(c.getSuperclass().equals(ItemSpell.class)) {
 					onHit = (ItemSpell) c.newInstance();
 					onHit.setItemName(getItemName());
-					onHit.setLeft(isLeft());
+					onHit.setAction(getAction());
 				}
 			} catch (ClassNotFoundException e) {
 			} catch (InstantiationException e) {
@@ -100,7 +100,7 @@ public class ItemLaunch extends ItemSpell {
 	
 	public void onHit(Game game, Player player, Block block) {
 		//effects
-		getItem().createEffects(block.getLocation(), isLeft(), "onHit");
+		getItem().createEffects(block.getLocation(), getAction(), "onHit");
 		
 		onHit.cast(game, player, block.getLocation());
 	}

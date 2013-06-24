@@ -39,6 +39,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -224,6 +225,25 @@ public class Listener_Player implements Listener  {
 				}
 			}
 		});
+	}
+	
+	@EventHandler
+	public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
+		//if not dedicated and the player is not in the game->ignore
+		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
+
+		Player player = event.getPlayer();
+		Game game = plugin.getPlayerGame(player.getName());
+
+		if (game!=null) {
+			//disable rightclick items during class selection
+			if(game.getPlayerState(player.getName())==Game.pickDwarf || game.getPlayerState(player.getName())==Game.pickMonster) {
+				event.setCancelled(true);
+			}
+			ItemStack item = event.getItem();
+
+			game.playerEat(event, player, item);
+		}
 	}
 	
 	@EventHandler

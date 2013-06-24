@@ -81,7 +81,7 @@
 # castVar3: leggins
 # castVar4: boots
 ######################################
-# "ItemEffect"
+# "ItemPotionEffect"
 # Adds one or more effects to an player
 #
 # castVar0: self(1=true)
@@ -303,6 +303,26 @@ items:
            castVars:
              - 1
              - -2
+   eatTester:
+     name: "EAT ME!"
+     lore:
+       - "&6Mixed with a strenght Potion!"
+     id: 367
+     data: 0
+     useUp: false
+     onEat:
+       effects:
+         - "Caster BURP BAT_IDLE:1:0.5"
+       cooldown: 1
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemPotionEffect"
+           require: -1
+           castVars:
+             - 1
+             - "5:600:0"
    # dwarves
    crystalPerPlayer:
      name: "lang:string_crystal_storage"

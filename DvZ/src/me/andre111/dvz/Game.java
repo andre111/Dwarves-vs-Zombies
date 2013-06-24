@@ -30,6 +30,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -198,8 +199,8 @@ public class Game {
 				//clear inventory
 				ItemHandler.clearInv(player);
 				//reset health
-				player.setMaxHealth(20);
-				player.setHealth(20);
+				player.resetMaxHealth();
+				player.setHealth(player.getMaxHealth());
 				
 				StatManager.hide(player);
 			}
@@ -207,7 +208,7 @@ public class Game {
 			StatManager.resetPlayer(playern);
 		}
 		
-		//change between the two versions
+		//change between versions
 		int type = ConfigManager.getStaticConfig().getInt("game"+plugin.getGameID(this), 1);
 		this.gameType = GameType.fromID(type).getNextType(this.gameType);
 		
@@ -982,7 +983,7 @@ public class Game {
 		//if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname, false), getCrystalChest(pname, true));
 		
 		//custom items
-		playerSpecialItemC(player, item, false, block, null);
+		playerSpecialItemC(player, item, 1, block, null);
 		
 		//Monster
 		if(isMonster(pname) && itemId==358) Spellcontroller.spellTeleport(this, player);
@@ -1011,7 +1012,7 @@ public class Game {
 		}
 		
 		//custom items
-		playerSpecialItemC(player, item, false, null, target);
+		playerSpecialItemC(player, item, 1, null, target);
 	}
 	
 	//#######################################
@@ -1030,7 +1031,7 @@ public class Game {
 		}
 		
 		//custom items
-		playerSpecialItemC(player, item, true, block, null);
+		playerSpecialItemC(player, item, 0, block, null);
 		
 		if(itemId == 373 && isDwarf(pname, true)) {
 			//changed from old hacky potionhandler to new bukkit functionallity
@@ -1047,8 +1048,12 @@ public class Game {
 	
 	//#######################################
 	//Spieler hat geklickt custom item
+	//actions:
+	//0 = leftclick
+	//1 = rigthclick
+	//2 = eat
 	//#######################################
-	public void playerSpecialItemC(Player player, ItemStack item, boolean left, Block block, Player target) {
+	public void playerSpecialItemC(Player player, ItemStack item, int action, Block block, Player target) {
 		String pname = player.getName();
 		
 		if(isPlayer(pname)) {
@@ -1059,19 +1064,27 @@ public class Game {
 				if(cil!=null) {
 					for(int i=0; i<cil.size(); i++) {
 						CustomItem ci = cil.get(i);
-						
+
 						if(ci.isThisItem(item)) {
 							if(block!=null)
-								ci.cast(this, left, player, block);
+								ci.cast(this, action, player, block);
 							else if(target!=null)
-								ci.cast(this, left, player, target);
+								ci.cast(this, action, player, target);
 							else
-								ci.cast(this, left, player);
+								ci.cast(this, action, player);
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	public void playerEat(PlayerItemConsumeEvent event, Player player, ItemStack item) {
+		if(!isPlayer(player.getName())) return;
+		if(item==null) return;
+		
+		//custom items
+		playerSpecialItemC(player, item, 2, null, null);
 	}
 	
 	public void playerBreakBlock(Player player, Block block) {

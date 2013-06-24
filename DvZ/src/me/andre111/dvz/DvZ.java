@@ -187,8 +187,10 @@ public class DvZ extends JavaPlugin {
 		for(int i=0; i<games.length; i++) {
 			int type = getConfig().getInt("game"+i, 1);
 			
-			games[i] = new Game(this, GameType.fromID(type).getFirstType());
-			games[i].reset(false);
+			if(type!=0) {
+				games[i] = new Game(this, GameType.fromID(type).getFirstType());
+				games[i].reset(false);
+			}
 		}
 		//
 		

@@ -49,49 +49,64 @@ public class CustomItem implements IUpCounter {
 	private int manaCostL;
 	
 	private ItemSpell[] castsL;
+	
+	private ArrayList<ItemEffect> effectEat = new ArrayList<ItemEffect>();
+	//private ItemSpell castL;
+	private int cooldownEat;
+	private int manaCostEat;
+	
+	private ItemSpell[] castsEat;
 
-	public void cast(Game game, boolean left, Player player) {
+	//actions:
+	//0 = leftclick
+	//1 = rigthclick
+	//2 = eat
+	public void cast(Game game, int actions, Player player) {
 		ItemSpell[] castsTemp = castsR;
-		if(left) castsTemp = castsL;
+		if(actions==0) castsTemp = castsL;
+		if(actions==2) castsTemp = castsEat;
 		
 		if(castsTemp != null) {
-			if(cooldownManaCheck(game, left, player)) return;
+			if(cooldownManaCheck(game, actions, player)) return;
 		
-			castIntern(game, left, player, null, null);
+			castIntern(game, actions, player, null, null);
 		}
 	}
-	public void cast(Game game, boolean left, Player player, Block block) {
+	public void cast(Game game, int actions, Player player, Block block) {
 		ItemSpell[] castsTemp = castsR;
-		if(left) castsTemp = castsL;
+		if(actions==0) castsTemp = castsL;
+		if(actions==2) castsTemp = castsEat;
 		
 		if(castsTemp != null) {
-			if(cooldownManaCheck(game, left, player)) return;
+			if(cooldownManaCheck(game, actions, player)) return;
 			
-			castIntern(game, left, player, block, null);
+			castIntern(game, actions, player, block, null);
 		}
 	}
-	public void cast(Game game, boolean left, Player player, Player target) {
+	public void cast(Game game, int actions, Player player, Player target) {
 		ItemSpell[] castsTemp = castsR;
-		if(left) castsTemp = castsL;
+		if(actions==0) castsTemp = castsL;
+		if(actions==2) castsTemp = castsEat;
 		
 		if(castsTemp != null) {
-			if(cooldownManaCheck(game, left, player)) return;
+			if(cooldownManaCheck(game, actions, player)) return;
 		
-			castIntern(game, left, player, null, target);
+			castIntern(game, actions, player, null, target);
 		}
 	}
 	
-	private void castIntern(Game game, boolean left, Player player, Block block, Player target) {
+	private void castIntern(Game game, int actions, Player player, Block block, Player target) {
 		if(isHasCounter()) {
-			StatManager.setCounter(player.getName(), this, DvZ.instance.getGameID(game)+"::"+player.getName()+"::"+left);
+			StatManager.setCounter(player.getName(), this, DvZ.instance.getGameID(game)+"::"+player.getName()+"::"+actions);
 		} else {
-			castUse(game, left, player, block, target);
+			castUse(game, actions, player, block, target);
 		}
 	}
 	
-	private void castUse(Game game, boolean left, Player player, Block block, Player target) {
+	private void castUse(Game game, int actions, Player player, Block block, Player target) {
 		ItemSpell[] castsTemp = castsR;
-		if(left) castsTemp = castsL;
+		if(actions==0) castsTemp = castsL;
+		if(actions==2) castsTemp = castsEat;
 		
 		if(castsTemp != null) {
 			boolean[] states = new boolean[castsTemp.length];
@@ -100,19 +115,19 @@ public class CustomItem implements IUpCounter {
 			for(ItemSpell castUse : castsTemp) {
 				if(castUse != null) {
 					//if(castUse.getType()==0) {
-						putOnCoolDown(game, left, player);
+						putOnCoolDown(game, actions, player);
 						if(block!=null) {
 							states[pos] = castUse.cast(game, player, block, states);
-							createEffects(block.getLocation(), left, "Target");
+							createEffects(block.getLocation(), actions, "Target");
 						}
 						else if(target!=null) {
 							states[pos] = castUse.cast(game, player, target, states);
-							createEffects(target.getLocation(), left, "Target");
+							createEffects(target.getLocation(), actions, "Target");
 						}
 						else {
 							states[pos] = castUse.cast(game, player, states);
 						}
-						createEffects(player.getLocation(), left, "Caster");
+						createEffects(player.getLocation(), actions, "Caster");
 					//}
 				}
 				
@@ -136,9 +151,9 @@ public class CustomItem implements IUpCounter {
 	}*/
 	
 	//is the item currently on cooldown
-	private boolean cooldownManaCheck(Game game, boolean left, Player player) {
+	private boolean cooldownManaCheck(Game game, int actions, Player player) {
 		//cooldown
-		int cd = game.getCustomCooldown(player.getName(), getCooldownName(left));
+		int cd = game.getCustomCooldown(player.getName(), getCooldownName(actions));
 		if(cd>0) {
 			player.sendMessage(ConfigManager.getLanguage().getString("string_wait", "You have to wait -0- Seconds!").replace("-0-", ""+cd));
 			
@@ -147,7 +162,8 @@ public class CustomItem implements IUpCounter {
 		
 		//mana
 		int cost = getManaCostR();
-		if(left) cost = getManaCostL();
+		if(actions==0) cost = getManaCostL();
+		if(actions==2) cost = getManaCostEat();
 		
 		if(cost>0)
 		if(game.getManaManager().getMana(player.getName())<cost) {
@@ -172,28 +188,27 @@ public class CustomItem implements IUpCounter {
 		return false;
 	}
 	
-	private void putOnCoolDown(Game game, boolean left, Player player) {
+	private void putOnCoolDown(Game game, int action, Player player) {
 		int time = cooldownR;
-		if(left) time = cooldownL;
+		if(action==0) time = cooldownL;
+		if(action==2) time = cooldownEat;
 		
-		if(time>0) game.setCustomCooldown(player.getName(), getCooldownName(left), time);
+		if(time>0) game.setCustomCooldown(player.getName(), getCooldownName(action), time);
 	}
 	
-	private String getCooldownName(boolean left) {
-		String lr = "R";
-		if(left) lr = "L";
-		
-		return "citem_"+name+"_"+lr;
+	private String getCooldownName(int actions) {
+		return "citem_"+name+"_"+actions;
 	}
 	
-	public void resetCoolDown(Game game, boolean left, Player player) {
-		game.resetCustomCooldown(player.getName(), getCooldownName(left));
+	public void resetCoolDown(Game game, int action, Player player) {
+		game.resetCustomCooldown(player.getName(), getCooldownName(action));
 	}
 	
-	public void createEffects(Location loc, boolean left, String position) {
+	public void createEffects(Location loc, int action, String position) {
 		//effects
 		ArrayList<ItemEffect> effects = effectR;
-		if(left) effects = effectL;
+		if(action==0) effects = effectL;
+		if(action==2) effects = effectEat;
 		
 		for(ItemEffect st : effects) {
 			if(st!=null)
@@ -231,6 +246,9 @@ public class CustomItem implements IUpCounter {
 	}
 	public void setSizeL(int size) {
 		castsL = new ItemSpell[size];
+	}
+	public void setSizeEat(int size) {
+		castsEat = new ItemSpell[size];
 	}
 	
 	public String getInternalName() {
@@ -350,7 +368,27 @@ public class CustomItem implements IUpCounter {
 	public void setManaCostL(int manaCostL) {
 		this.manaCostL = manaCostL;
 	}
-	
+	public void addEffectEat(ItemEffect effect) {
+		effectEat.add(effect);
+	}
+	public ItemSpell getCastEat(int pos) {
+		return castsEat[pos];
+	}
+	public void setCastEat(ItemSpell cast, int pos) {
+		this.castsEat[pos] = cast;
+	}
+	public int getCooldownEat() {
+		return cooldownEat;
+	}
+	public void setCooldownEat(int cooldownEat) {
+		this.cooldownEat = cooldownEat;
+	}
+	public int getManaCostEat() {
+		return manaCostEat;
+	}
+	public void setManaCostEat(int manaCostEat) {
+		this.manaCostEat = manaCostEat;
+	}
 	
 	//Upcounter methods and fields
 	@Override
@@ -383,10 +421,10 @@ public class CustomItem implements IUpCounter {
 		
 		Game game = DvZ.instance.getGame(Integer.parseInt(split[0]));
 		Player player = Bukkit.getServer().getPlayerExact(split[1]);
-		boolean left = Boolean.parseBoolean(split[2]);
+		int action = Integer.parseInt(split[2]);
 		
 		if(player!=null && game!=null) {
-			createEffects(player.getLocation(), left, "CounterStep");
+			createEffects(player.getLocation(), action, "CounterStep");
 		}
 	}
 	@Override
@@ -395,10 +433,10 @@ public class CustomItem implements IUpCounter {
 		
 		Game game = DvZ.instance.getGame(Integer.parseInt(split[0]));
 		Player player = Bukkit.getServer().getPlayerExact(split[1]);
-		boolean left = Boolean.parseBoolean(split[2]);
+		int action = Integer.parseInt(split[2]);
 		
 		if(player!=null && game!=null) {
-			createEffects(player.getLocation(), left, "CounterInterrupt");
+			createEffects(player.getLocation(), action, "CounterInterrupt");
 		}
 	}
 	@Override
@@ -407,12 +445,12 @@ public class CustomItem implements IUpCounter {
 		
 		Game game = DvZ.instance.getGame(Integer.parseInt(split[0]));
 		Player player = Bukkit.getServer().getPlayerExact(split[1]);
-		boolean left = Boolean.parseBoolean(split[2]);
+		int action = Integer.parseInt(split[2]);
 		
 		if(player!=null && game!=null) {
-			createEffects(player.getLocation(), left, "CounterFinish");
+			createEffects(player.getLocation(), action, "CounterFinish");
 			
-			castUse(game, left, player, null, null);
+			castUse(game, action, player, null, null);
 		}
 	}
 }

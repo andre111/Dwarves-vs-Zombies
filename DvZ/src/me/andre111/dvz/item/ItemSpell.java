@@ -63,7 +63,7 @@ public class ItemSpell {
 	
 	
 	private String itemName = "";
-	private boolean left = false;
+	private int action = 0;
 	private int require = -1;
 	
 	public void setItemName(String name) {
@@ -72,11 +72,11 @@ public class ItemSpell {
 	public String getItemName() {
 		return itemName;
 	}
-	public boolean isLeft() {
-		return left;
+	public int getAction() {
+		return action;
 	}
-	public void setLeft(boolean left) {
-		this.left = left;
+	public void setAction(int action) {
+		this.action = action;
 	}
 	public void setRequire(int r) {
 		require = r;
@@ -89,6 +89,6 @@ public class ItemSpell {
 		return DvZ.itemManager.getItemByName(getItemName());
 	}
 	public void resetCoolDown(Game game, Player player) {
-		getItem().resetCoolDown(game, isLeft(), player);
+		getItem().resetCoolDown(game, getAction(), player);
 	}
 }

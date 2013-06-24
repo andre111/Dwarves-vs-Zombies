@@ -67,6 +67,14 @@ public class ItemManager {
 		}
 		itTemp.setCooldownL(ConfigManager.getItemFile().getInt("items."+it+".leftclick.cooldown", 0));
 		itTemp.setManaCostL(ConfigManager.getItemFile().getInt("items."+it+".leftclick.mana.cost", 0));
+		//eat
+		List<String> effectsEat = ConfigManager.getItemFile().getStringList("items."+it+".onEat.effects");
+		if(effectsEat.size()>0)
+			for(String st : effectsEat) {
+				itTemp.addEffectEat(getItemEffect(st));
+			}
+		itTemp.setCooldownEat(ConfigManager.getItemFile().getInt("items."+it+".onEat.cooldown", 0));
+		itTemp.setManaCostEat(ConfigManager.getItemFile().getInt("items."+it+".onEat.mana.cost", 0));
 		
 		//Cast
 		//right
@@ -78,7 +86,7 @@ public class ItemManager {
 				
 				itTemp.setSizeR(castsR.length);
 				for(int i=0; i<castsR.length; i++) {
-					loadCast(itTemp, it, castsR[i], false, i);
+					loadCast(itTemp, it, castsR[i], 1, i);
 				}
 			}
 		}
@@ -92,7 +100,21 @@ public class ItemManager {
 				
 				itTemp.setSizeL(castsL.length);
 				for(int i=0; i<castsL.length; i++) {
-					loadCast(itTemp, it, castsL[i], true, i);
+					loadCast(itTemp, it, castsL[i], 0, i);
+				}
+			}
+		}
+
+		//eat
+		ConfigurationSection ase = ConfigManager.getItemFile().getConfigurationSection("items."+it+".onEat.casts");
+		if(ase!=null) {
+			Set<String> strings = ase.getKeys(false);
+			if(strings.size()>0) {
+				String[] castsEat = strings.toArray(new String[strings.size()]);
+
+				itTemp.setSizeEat(castsEat.length);
+				for(int i=0; i<castsEat.length; i++) {
+					loadCast(itTemp, it, castsEat[i], 2, i);
 				}
 			}
 		}
@@ -101,11 +123,12 @@ public class ItemManager {
 		itemCounter++;
 	}
 	
-	private void loadCast(CustomItem itTemp, String it, String name, boolean left, int id) {
+	private void loadCast(CustomItem itTemp, String it, String name, int action, int id) {
 		String click = "rightclick";
-		if(left) click = "leftclick";
+		if(action==0) click = "leftclick";
+		if(action==2) click = "onEat";
 		String basename = "items."+it+"."+click+".casts."+name+".";
-		
+
 		//leftclick
 		String cast = ConfigManager.getItemFile().getString(basename+"cast", "");
 		try {
@@ -114,23 +137,29 @@ public class ItemManager {
 			}
 			Class<?> c = Class.forName(cast);
 			if(c.getSuperclass().equals(ItemSpell.class)) {
-				if(left) {
+				if(action==0) {
 					itTemp.setCastL((ItemSpell) c.newInstance(), id);
 					itTemp.getCastL(id).setItemName(it);
-					itTemp.getCastL(id).setLeft(true);
+					itTemp.getCastL(id).setAction(0);
 					itTemp.getCastL(id).setRequire(ConfigManager.getItemFile().getInt(basename+"require", -1));
-				} else {
+				} else if(action==1) {
 					itTemp.setCastR((ItemSpell) c.newInstance(), id);
 					itTemp.getCastR(id).setItemName(it);
-					itTemp.getCastR(id).setLeft(true);
+					itTemp.getCastR(id).setAction(action);
 					itTemp.getCastR(id).setRequire(ConfigManager.getItemFile().getInt(basename+"require", -1));
+				} else {
+					itTemp.setCastEat((ItemSpell) c.newInstance(), id);
+					itTemp.getCastEat(id).setItemName(it);
+					itTemp.getCastEat(id).setAction(action);
+					itTemp.getCastEat(id).setRequire(ConfigManager.getItemFile().getInt(basename+"require", -1));
 				}
 				//new method, for loading more than 2 cast vars
 				List<String> stList = ConfigManager.getItemFile().getStringList(basename+"castVars");
 				ItemSpell itS;
-				if(left) itS = itTemp.getCastL(id);
-				else itS = itTemp.getCastR(id);
-				
+				if(action==0) itS = itTemp.getCastL(id);
+				else if(action==1) itS = itTemp.getCastR(id);
+				else itS = itTemp.getCastEat(id);
+
 				for(int i=0; i<stList.size(); i++) {
 					itS.setCastVar(i, stList.get(i));
 					try {
@@ -146,10 +175,12 @@ public class ItemManager {
 		} catch (InstantiationException e) {
 		} catch (IllegalAccessException e) {
 		}
-		if(left) {
+		if(action==0) {
 			if(itTemp.getCastL(id)==null) itTemp.setCastL(new ItemSpell(), id);
-		} else {
+		} else if(action==1) {
 			if(itTemp.getCastR(id)==null) itTemp.setCastR(new ItemSpell(), id);
+		} else {
+			if(itTemp.getCastEat(id)==null) itTemp.setCastEat(new ItemSpell(), id);
 		}
 	}
 	
