@@ -36,6 +36,9 @@ public class CustomMonster {
 	private ArrayList<String> disabledDamage;
 	private int maxMana;
 	private int manaRegen;
+	private int startHealth;
+	private int startHunger;
+	private float startSat;
 	
 	//become custom Monster
 	public void becomeMonster(Game game, final Player player) {
@@ -46,6 +49,10 @@ public class CustomMonster {
 		
 		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", getDisguise()));
+		
+		player.setHealth(startHealth);
+		player.setFoodLevel(startHunger);
+		player.setSaturation(startSat);
 		
 		//Effects
 		for(int i=0; i<effects.length; i++) {
@@ -191,5 +198,23 @@ public class CustomMonster {
 	}
 	public void setManaRegen(int manaRegen) {
 		this.manaRegen = manaRegen;
+	}
+	public int getStartHealth() {
+		return startHealth;
+	}
+	public void setStartHealth(int startHealth) {
+		this.startHealth = startHealth;
+	}
+	public int getStartHunger() {
+		return startHunger;
+	}
+	public void setStartHunger(int startHunger) {
+		this.startHunger = startHunger;
+	}
+	public float getStartSat() {
+		return startSat;
+	}
+	public void setStartSat(float startSat) {
+		this.startSat = startSat;
 	}
 }

@@ -84,6 +84,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    1:
      name: "lang:string_default_skeleton"
      disguise: "Skeleton"
@@ -111,6 +114,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    2:
      name: "lang:string_default_creeper"
      disguise: "Creeper"
@@ -137,6 +143,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    3:
      name: "lang:string_default_wolf"
      disguise: "Wolf"
@@ -166,6 +175,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    4:
      name: "lang:string_default_spider"
      disguise: "Spider"
@@ -198,6 +210,9 @@ monsters:
        - poison
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    5:
      name: "lang:string_default_irongolem"
      disguise: "IronGolem"
@@ -230,6 +245,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    6:
      name: "lang:string_default_snowgolem"
      disguise: "Snowman"
@@ -253,6 +271,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    7:
      name: "lang:string_default_broodmother"
      disguise: "Silverfish"
@@ -279,6 +300,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    8:
      name: "lang:string_default_enderman"
      disguise: "Enderman"
@@ -301,7 +325,10 @@ monsters:
        - drown
        - starve
      manaMax: 100
-     manaRegen: 5
+     manaRegen: 5#
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    9:
      name: "lang:string_default_cat"
      disguise: "Ocelot"
@@ -326,6 +353,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    10:
      name: "lang:string_default_zombie"
      disguise: "Zombie"
@@ -353,6 +383,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    11:
      name: "lang:string_default_skeleton"
      disguise: "Skeleton"
@@ -380,6 +413,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
    12:
      name: "lang:string_default_creeper"
      disguise: "Creeper"
@@ -406,6 +442,9 @@ monsters:
        - starve
      manaMax: 100
      manaRegen: 5
+     startHealth: 20
+     startHunger: 20
+     startSaturation: 20
 
 # DISABLED UNTIL I CAN FIND A GOOD WAY TO IMPLEMENT IT:
 #   10:
@@ -433,3 +472,6 @@ monsters:
 #       - starve
 #     manaMax: 100
 #     manaRegen: 5
+#     startHealth: 20
+#     startHunger: 20
+#     startSaturation: 20

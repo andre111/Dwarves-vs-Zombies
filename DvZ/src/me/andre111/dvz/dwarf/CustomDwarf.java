@@ -37,6 +37,9 @@ public class CustomDwarf {
 	private ArrayList<String> disabledDamage;
 	private int maxMana;
 	private int manaRegen;
+	private int startHealth;
+	private int startHunger;
+	private float startSat;
 	
 	//spells
 	private boolean spellEnabled;
@@ -71,6 +74,10 @@ public class CustomDwarf {
 		player.setTotalExperience(0);
 		player.setLevel(0);
 		player.setExp(0);
+		
+		player.setHealth(startHealth);
+		player.setFoodLevel(startHunger);
+		player.setSaturation(startSat);
 		
 		//Effects
 		for(int i=0; i<effects.length; i++) {
@@ -401,6 +408,24 @@ public class CustomDwarf {
 	}
 	public void setManaRegen(int manaRegen) {
 		this.manaRegen = manaRegen;
+	}
+	public int getStartHealth() {
+		return startHealth;
+	}
+	public void setStartHealth(int startHealth) {
+		this.startHealth = startHealth;
+	}
+	public int getStartHunger() {
+		return startHunger;
+	}
+	public void setStartHunger(int startHunger) {
+		this.startHunger = startHunger;
+	}
+	public float getStartSat() {
+		return startSat;
+	}
+	public void setStartSat(float startSat) {
+		this.startSat = startSat;
 	}
 	//Spells
 	public boolean isSpellEnabled() {

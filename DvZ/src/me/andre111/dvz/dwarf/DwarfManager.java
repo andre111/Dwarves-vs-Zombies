@@ -68,6 +68,10 @@ public class DwarfManager {
 		//mana
 		dwTemp.setMaxMana(ConfigManager.getClassFile().getInt("dwarves."+dw+".manaMax", 0));
 		dwTemp.setManaRegen(ConfigManager.getClassFile().getInt("dwarves."+dw+".manaRegen", 0));
+		//start vars
+		dwTemp.setStartHealth(ConfigManager.getClassFile().getInt("dwarves."+dw+".startHealth", 20));
+		dwTemp.setStartHunger(ConfigManager.getClassFile().getInt("dwarves."+dw+".startHunger", 20));
+		dwTemp.setStartSat((float) ConfigManager.getClassFile().getDouble("dwarves."+dw+".startSaturation", 20F));
 		
 		//spell
 		dwTemp.setSpellEnabled(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".spell.enable", false));

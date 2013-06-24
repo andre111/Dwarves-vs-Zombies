@@ -69,6 +69,9 @@ dwarves:
       disabledDamage: []
       manaMax: 100
       manaRegen: 5
+      startHealth: 20
+      startHunger: 20
+      startSaturation: 20
       spell:
          enable: true
          time: 30
@@ -115,6 +118,9 @@ dwarves:
       disabledDamage: []
       manaMax: 100
       manaRegen: 5
+      startHealth: 20
+      startHunger: 20
+      startSaturation: 20
       spell:
          enable: true
          time: 30
@@ -170,6 +176,9 @@ dwarves:
       disabledDamage: []
       manaMax: 100
       manaRegen: 5
+      startHealth: 20
+      startHunger: 20
+      startSaturation: 20
       spell:
          enable: true
          time: 30
@@ -222,6 +231,9 @@ dwarves:
       disabledDamage: []
       manaMax: 100
       manaRegen: 5
+      startHealth: 20
+      startHunger: 20
+      startSaturation: 20
       spell:
          enable: true
          time: 30
@@ -269,6 +281,9 @@ dwarves:
       disabledDamage: []
       manaMax: 1000
       manaRegen: 5
+      startHealth: 20
+      startHunger: 20
+      startSaturation: 20
       spell:
          enable: false
          time: 30
@@ -327,6 +342,9 @@ dwarves:
       disabledDamage: []
       manaMax: 1000
       manaRegen: 5
+      startHealth: 20
+      startHunger: 20
+      startSaturation: 20
       spell:
          enable: false
          time: 30
@@ -386,6 +404,9 @@ dwarves:
       disabledDamage: []
       manaMax: 1000
       manaRegen: 5
+      startHealth: 20
+      startHunger: 20
+      startSaturation: 20
       spell:
          enable: false
          time: 30
