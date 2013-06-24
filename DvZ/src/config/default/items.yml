@@ -312,7 +312,7 @@ items:
      useUp: false
      onEat:
        effects:
-         - "Caster BURP BAT_IDLE:1:0.5"
+         - "Caster ItemEffectSound BURP:1:0.5"
        cooldown: 1
        mana:
          cost: 0
