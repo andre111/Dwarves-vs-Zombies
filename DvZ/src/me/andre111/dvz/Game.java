@@ -173,6 +173,11 @@ public class Game {
 			if(!starting) {
 				starting = true;
 				this.time = time;
+			//change the countdown when allready starting
+			} else {
+				if(this.time>0) {
+					this.time = time;
+				}
 			}
 		}
 	}
