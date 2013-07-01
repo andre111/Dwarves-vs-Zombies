@@ -56,6 +56,11 @@ public class ReloadCommand extends DvZCommand {
 				WorldManager.reload();
 				reload = true;
 			}
+			if(rs.equalsIgnoreCase("players") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("players");
+				DvZ.playerManager.reload();
+				reload = true;
+			}
 			
 			if(reload) {
 				sender.sendMessage("Successfully reloaded!");

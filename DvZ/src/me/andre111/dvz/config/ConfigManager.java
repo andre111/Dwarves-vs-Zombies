@@ -21,6 +21,7 @@ public class ConfigManager {
 	private static FileConfiguration monsterfile;
 	private static FileConfiguration itemfile;
 	private static FileConfiguration blockfile;
+	private static FileConfiguration playerfile;
 	
 	private static ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
 	private static ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
@@ -61,6 +62,11 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/blocks.yml"), new File(plugin.getDataFolder(), "blocks.yml"));
 			} catch (IOException e) {}
 		}
+		if (!new File(plugin.getDataFolder(), "players.yml").exists()) {
+			try {
+				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/players.yml"), new File(plugin.getDataFolder(), "players.yml"));
+			} catch (IOException e) {}
+		}
 		lang = plugin.getConfig().getString("language", "en_EN");
 		langfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "lang/lang_"+lang+".yml"));
 		enlangfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "lang/lang_en_EN.yml"));
@@ -70,7 +76,8 @@ public class ConfigManager {
 		monsterfile =  DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "monster.yml"));
 		itemfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "items.yml"));
 		blockfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "blocks.yml"));
-	
+		playerfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "players.yml"));
+		
 		loadConfigs();
 	}
 	
@@ -81,6 +88,7 @@ public class ConfigManager {
 		plugin.saveResource("config/default/monster.yml", true);
 		plugin.saveResource("config/default/items.yml", true);
 		plugin.saveResource("config/default/blocks.yml", true);
+		plugin.saveResource("config/default/players.yml", true);
 		//language
 		for(String st : Language.getPossibleLanguages()) {
 			if(plugin.getResource("lang/lang_"+st+".yml")!=null)
@@ -132,6 +140,9 @@ public class ConfigManager {
 	public static FileConfiguration getBlockFile() {
 		return blockfile;
 	}
+	public static FileConfiguration getPlayerFile() {
+		return playerfile;
+	}
 	public static FileConfiguration getStaticConfig() {
 		return configfile;
 	}
@@ -148,6 +159,9 @@ public class ConfigManager {
 		}
 		if(name.equalsIgnoreCase("blocks")) {
 			blockfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "blocks.yml"));
+		}
+		if(name.equalsIgnoreCase("players")) {
+			playerfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "players.yml"));
 		}
 	}
 }

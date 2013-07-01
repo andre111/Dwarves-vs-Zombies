@@ -15,6 +15,7 @@ import me.andre111.dvz.event.DVZGameEndEvent;
 import me.andre111.dvz.event.DVZGameStartEvent;
 import me.andre111.dvz.item.CustomItem;
 import me.andre111.dvz.monster.CustomMonster;
+import me.andre111.dvz.players.SpecialPlayer;
 import me.andre111.dvz.utils.ExperienceUtils;
 import me.andre111.dvz.utils.GameOptionClickEventHandler;
 import me.andre111.dvz.utils.IconMenu;
@@ -786,6 +787,11 @@ public class Game {
 	    			}
 	    			
 	    			if (dwarf) {
+	    				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getName());
+	    				if(sp!=null) {
+	    					sp.addCrytalItems(game, player);
+	    				}
+	    				
 	    				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 							public void run() {
 								if(spawnDwarves!=null) {
@@ -936,6 +942,11 @@ public class Game {
 			}
 			
 			if (dwarf) {
+				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getName());
+				if(sp!=null) {
+					sp.addCrytalItems(this, player);
+				}
+				
 				if(spawnDwarves!=null) {
 					player.teleport(spawnDwarves);
 				}

@@ -19,6 +19,7 @@ import me.andre111.dvz.listeners.Listener_Entity;
 import me.andre111.dvz.listeners.Listener_Game;
 import me.andre111.dvz.listeners.Listener_Player;
 import me.andre111.dvz.monster.MonsterManager;
+import me.andre111.dvz.players.SpecialPlayerManager;
 import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.IconMenuHandler;
 import me.andre111.dvz.utils.Invulnerability;
@@ -63,6 +64,7 @@ public class DvZ extends JavaPlugin {
 	public static Item3DHandler item3DHandler;
 	public static ItemStandManager itemStandManager;
 	public static EffectManager effectManager;
+	public static SpecialPlayerManager playerManager;
 	
 	public static MonsterManager monsterManager;
 	public static DwarfManager dwarfManager;
@@ -136,6 +138,8 @@ public class DvZ extends JavaPlugin {
 		itemStandManager = new ItemStandManager();
 		effectManager = new EffectManager();
 		effectManager.loadEffects();
+		playerManager = new SpecialPlayerManager();
+		playerManager.loadPlayers();
 		
 		BlockManager.loadConfig();
 		
