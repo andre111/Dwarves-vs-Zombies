@@ -37,7 +37,7 @@ public class CustomDwarf {
 	private ArrayList<String> disabledDamage;
 	private int maxMana;
 	private int manaRegen;
-	private int startHealth;
+	private double startHealth;
 	private int startHunger;
 	private float startSat;
 	
@@ -409,10 +409,10 @@ public class CustomDwarf {
 	public void setManaRegen(int manaRegen) {
 		this.manaRegen = manaRegen;
 	}
-	public int getStartHealth() {
+	public double getStartHealth() {
 		return startHealth;
 	}
-	public void setStartHealth(int startHealth) {
+	public void setStartHealth(double startHealth) {
 		this.startHealth = startHealth;
 	}
 	public int getStartHunger() {

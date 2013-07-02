@@ -54,7 +54,7 @@ public class ItemRoar extends ItemSpell {
 		List<Entity> entities = ent.getNearbyEntities(range, range, range);
         for (Entity e : entities) {
         	if (e instanceof Silverfish) {
-        		((Silverfish)e).damage(0, damage);
+        		((Silverfish)e).damage((double) 0, damage);
         		success = true;
         	}
         }

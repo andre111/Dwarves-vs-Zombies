@@ -3,7 +3,7 @@ package me.andre111.dvz.dragon;
 public class DragonCustom {
 	private String name;
 	private int mana;
-	private int health;
+	private double health;
 	private float flyingSpeed;
 	
 	public String getName() {
@@ -18,10 +18,10 @@ public class DragonCustom {
 	public void setMana(int mana) {
 		this.mana = mana;
 	}
-	public int getHealth() {
+	public double getHealth() {
 		return health;
 	}
-	public void setHealth(int health) {
+	public void setHealth(double health) {
 		this.health = health;
 	}
 	public float getFlyingSpeed() {

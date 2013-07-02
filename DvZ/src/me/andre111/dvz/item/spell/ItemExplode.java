@@ -26,7 +26,7 @@ public class ItemExplode extends ItemSpell {
 		
 		if(kill) {
 			player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-			player.damage(10000);
+			player.damage((double) 10000);
 		}
 		
 		w.createExplosion(loc, power);
@@ -50,7 +50,7 @@ public class ItemExplode extends ItemSpell {
 		
 		if(kill) {
 			player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-			player.damage(10000);
+			player.damage((double) 10000);
 		}
 		
 		w.createExplosion(target, power);

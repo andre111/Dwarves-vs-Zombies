@@ -477,8 +477,8 @@ public class Game {
 								Player player = Bukkit.getServer().getPlayer(players);
 								if(player!=null) {
 									player.getInventory().clear();
-									player.setMaxHealth(20);
-									player.setHealth(20);
+									player.resetMaxHealth();
+									player.setHealth(player.getMaxHealth());
 									player.setGameMode(GameMode.SURVIVAL);
 									player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 									addDwarfItems(player);
@@ -721,7 +721,7 @@ public class Game {
 			if(countdown==3) {
 				Player playern = Bukkit.getServer().getPlayerExact(player);
 				if(playern!=null) {
-					playern.damage(1000);
+					playern.damage((double) 1000);
 					playern.sendMessage(ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
 				}
 			}

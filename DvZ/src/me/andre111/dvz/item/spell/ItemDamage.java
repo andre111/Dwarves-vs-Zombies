@@ -69,12 +69,12 @@ public class ItemDamage extends ItemSpell {
 	
 	private boolean castIntern(Game game, Player player, Player source) {
 		if(damage>0) {
-			player.damage(damage, source);
+			player.damage((double) damage, source);
 		} else {
 			int newHealth = player.getHealth() - damage;
 			if(newHealth>player.getMaxHealth()) newHealth = player.getMaxHealth();
 			
-			player.setHealth(newHealth);
+			player.setHealth((double) newHealth);
 		}
 		
 		return true;

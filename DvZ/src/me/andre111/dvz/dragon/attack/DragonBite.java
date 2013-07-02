@@ -9,12 +9,12 @@ import org.bukkit.potion.PotionEffectType;
 import me.andre111.dvz.dragon.DragonAttack;
 
 public class DragonBite extends DragonAttack {
-	private int damage = 3;
+	private double damage = 3;
 	private double chance = 15;
 	
 	@Override
 	public void setCastVar(int id, double var) {
-		if(id==0) damage = (int) Math.round(var);
+		if(id==0) damage = var;
 		else if(id==1) chance = var;
 	}
 	

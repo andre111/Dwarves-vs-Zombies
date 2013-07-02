@@ -184,17 +184,17 @@ public class Listener_Entity implements Listener {
 					//custom dwarf
 					if(game.isDwarf(dgm.getName(), false)) {
 						int id = game.getPlayerState(dgm.getName()) - Game.dwarfMin;
-						event.setDamage((int) Math.round(event.getDamage()*DvZ.dwarfManager.getDwarf(id).getDamageBuff()));
+						event.setDamage(event.getDamage()*DvZ.dwarfManager.getDwarf(id).getDamageBuff());
 					}
 					//custom monster
 					if(game.isMonster(dgm.getName())) {
 						int id = game.getPlayerState(dgm.getName()) - Game.monsterMin;
-						event.setDamage((int) Math.round(event.getDamage()*DvZ.monsterManager.getMonster(id).getDamageBuff()));
+						event.setDamage(event.getDamage()*DvZ.monsterManager.getMonster(id).getDamageBuff());
 					}
 					
 					//Dwarf kill effects
 					if(game.isDwarf(dgm.getName(), false)) {
-						event.setDamage((int) Math.round(event.getDamage()*DvZ.effectManager.getDwarfKillMultiplier(game, dgm.getName())));
+						event.setDamage(event.getDamage()*DvZ.effectManager.getDwarfKillMultiplier(game, dgm.getName()));
 					}
 				}
 			}
@@ -203,7 +203,7 @@ public class Listener_Entity implements Listener {
 		if((event.getDamager() instanceof Snowball)) {
 			//Hurting Snowballs
 			if (event.getDamager().getFallDistance() == Spellcontroller.identifier) {
-				event.setDamage(Spellcontroller.sdamage);
+				event.setDamage((double) Spellcontroller.sdamage);
 			}
 		}
     }

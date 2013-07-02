@@ -116,7 +116,7 @@ public class Spellcontroller {
 	}
 	
 	public static void spellSuizide(Game game, Player player) {
-		player.damage(1000);
+		player.damage((double) 1000);
 	}
 	
 	//create the portalblocks

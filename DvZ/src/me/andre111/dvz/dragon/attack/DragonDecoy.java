@@ -10,12 +10,12 @@ import org.bukkit.entity.EntityType;
 
 public class DragonDecoy extends DragonAttack {
 	private int ammount = 5;
-	private int hp = 1;
+	private double hp = 1;
 
 	@Override
 	public void setCastVar(int id, double var) {
 		if(id==0) ammount = (int) Math.round(var);
-		else if(id==1) hp = (int) Math.round(var);
+		else if(id==1) hp = var;
 	}
 	
 	@Override

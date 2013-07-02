@@ -38,14 +38,14 @@ public class DragonDamage extends DragonAttack {
 				LivingEntity le = (LivingEntity) e;
 				
 				if(ammount>0) {
-					le.damage(ammount);
+					le.damage((double) ammount);
 					//poison splash effect
 					le.getWorld().playEffect(le.getLocation(), Effect.POTION_BREAK, 16396);
 				} else {
-					int newh = le.getHealth() + Math.abs(ammount);
+					double newh = le.getHealth() + Math.abs(ammount);
 					if(newh>le.getMaxHealth()) newh = le.getMaxHealth();
 					le.setHealth(newh);
-					
+					le.getM
 					le.setFireTicks(0);
 					//regeneration splash effect
 					le.getWorld().playEffect(le.getLocation(), Effect.POTION_BREAK, 16385);
