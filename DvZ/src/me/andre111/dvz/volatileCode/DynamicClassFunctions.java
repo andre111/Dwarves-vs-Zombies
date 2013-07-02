@@ -22,8 +22,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class DynamicClassFunctions {
 	
-	public static String nmsPackage = "net.minecraft.server.v1_5_R3";
-	public static String obcPackage = "org.bukkit.craftbukkit.v1_5_R3";
+	public static String nmsPackage = "net.minecraft.server.v1_6_R1";
+	public static String obcPackage = "org.bukkit.craftbukkit.v1_6_R1";
 	
 	public static boolean setPackages() {
 		Server craftServer = Bukkit.getServer();

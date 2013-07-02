@@ -71,7 +71,7 @@ public class ItemDamage extends ItemSpell {
 		if(damage>0) {
 			player.damage((double) damage, source);
 		} else {
-			int newHealth = player.getHealth() - damage;
+			double newHealth = player.getHealth() - damage;
 			if(newHealth>player.getMaxHealth()) newHealth = player.getMaxHealth();
 			
 			player.setHealth((double) newHealth);

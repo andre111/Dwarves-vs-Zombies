@@ -44,8 +44,8 @@ public class DragonDamage extends DragonAttack {
 				} else {
 					double newh = le.getHealth() + Math.abs(ammount);
 					if(newh>le.getMaxHealth()) newh = le.getMaxHealth();
+					le.setMaxHealth(newh);
 					le.setHealth(newh);
-					le.getM
 					le.setFireTicks(0);
 					//regeneration splash effect
 					le.getWorld().playEffect(le.getLocation(), Effect.POTION_BREAK, 16385);
