@@ -26,7 +26,8 @@ public class Classswitcher {
 		if(!game.released) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(game.getPlugin(), new Runnable() {
 				public void run() {
-					game.waitm.open(player);
+					//TODO - diabled until I can fix it
+					//game.waitm.open(player);
 				}
 			}, 2);
 		}
