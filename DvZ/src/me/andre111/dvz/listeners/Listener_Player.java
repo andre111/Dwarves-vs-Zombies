@@ -573,7 +573,7 @@ public class Listener_Player implements Listener  {
 		if(event.isSneaking()) {
 			StatManager.show(p);
 		} else {
-			StatManager.hide(p);
+			StatManager.hide(p, false);
 		}
 	}
 	//update xpbarstat

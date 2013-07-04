@@ -51,9 +51,9 @@ public class StatManager {
 		}
 	}
 	//Hide them
-	public static void hide(Player player) {
+	public static void hide(Player player, boolean force) {
 		//don't hide when always shown s enabled
-		if(!ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(!ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true") || force) {
 			player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 			
 			//xp-bar

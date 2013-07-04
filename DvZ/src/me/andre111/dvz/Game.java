@@ -208,7 +208,7 @@ public class Game {
 				player.resetMaxHealth();
 				player.setHealth(player.getMaxHealth());
 				
-				StatManager.hide(player);
+				StatManager.hide(player, true);
 			}
 			
 			StatManager.resetPlayer(playern);

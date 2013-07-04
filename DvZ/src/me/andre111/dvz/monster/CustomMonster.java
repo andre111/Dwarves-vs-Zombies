@@ -95,7 +95,7 @@ public class CustomMonster {
 		Bukkit.getScheduler().runTaskLater(DvZ.instance, new Runnable() {
 			public void run() {
 				StatManager.show(player);
-				StatManager.hide(player);
+				StatManager.hide(player, false);
 			}
 		}, 2);
 	}
