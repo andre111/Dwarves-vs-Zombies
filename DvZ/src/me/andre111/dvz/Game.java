@@ -201,6 +201,8 @@ public class Game {
 				//clear potion effects
 				for(PotionEffect pet : player.getActivePotionEffects()) {
 					player.removePotionEffect(pet.getType());
+					//TODO - find a way not using the workaround override method
+					player.addPotionEffect(new PotionEffect(pet.getType(), 1, 1), true);
 				}
 				//clear inventory
 				ItemHandler.clearInv(player);
