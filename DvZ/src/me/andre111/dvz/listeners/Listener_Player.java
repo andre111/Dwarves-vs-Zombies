@@ -87,7 +87,8 @@ public class Listener_Player implements Listener  {
 			plugin.getGame(0).addPlayer(player.getName());
 			player.sendMessage(ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
 			player.sendMessage("--------------------------------");
-			player.sendMessage("Plugin by andre111");
+			if(ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true"))
+				player.sendMessage("Plugin by andre111");
 			
 			event.setJoinMessage(ConfigManager.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
 			
