@@ -114,6 +114,7 @@ scoreboard_mana: "&5Mana"
 scoreboard_dwarves: "Dwarves"
 scoreboard_monsters: "Monsters"
 scoreboard_assassins: "Assassins"
+scoreboard_monument: "Monument %"
 scoreboard_release: "M.Release"
 scoreboard_victory: "Victory"
 

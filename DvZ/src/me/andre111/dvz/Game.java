@@ -62,6 +62,7 @@ public class Game {
 	
 	public Location monument;
 	public boolean monumentexists;
+	private int monumentHealth;
 	private String lastdwarf;
 	
 	private Inventory globalCrystalChest;
@@ -553,6 +554,7 @@ public class Game {
 				destr = true;
 			}
 		}
+		monumentHealth = 100 - (int) Math.round((100/(double)4)*destroyed);
 		
 		if (destr) {
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
@@ -624,6 +626,9 @@ public class Game {
 		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_dwarves", "Dwarves"), dwarf);
 		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_assassins", "Assassins"), assa);
 		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_monsters", "Monsters"), mons);
+		if(monumentexists) {
+			StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_monument", "Monument %"), monumentHealth);
+		}
 		
 		if(!released) {
 			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_release", "M.Release"), releasetime);
