@@ -243,6 +243,7 @@ monsters:
        - fire
        - drown
        - starve
+       - fall
      manaMax: 100
      manaRegen: 5
      startHealth: 20
