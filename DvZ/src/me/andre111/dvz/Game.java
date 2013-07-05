@@ -733,7 +733,7 @@ public class Game {
 	//#######################################
 	//Dwarf Items hinzufügen
 	//#######################################
-	public void addDwarfItems(Player player) {
+	public void addDwarfItems(final Player player) {
 		Random rand = new Random();
 		PlayerInventory inv = player.getInventory();
 		
@@ -765,7 +765,7 @@ public class Game {
 		}
 		else
 		{
-			IconMenu im = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 9, new GameOptionClickEventHandler(this) {
+			final IconMenu im = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 9, new GameOptionClickEventHandler(this) {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
@@ -825,14 +825,20 @@ public class Game {
 				}
 			}
 			
-			im.open(player);
+			//Delay to let teleport get throug
+			Bukkit.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
+				@Override
+				public void run() {
+					im.open(player);
+				}
+			}, 2);
 		}
 	}
 	
 	//#######################################
 	//Monster Items hinzufügen
 	//#######################################
-	public void addMonsterItems(Player player) {
+	public void addMonsterItems(final Player player) {
 		Random rand = new Random();
 		PlayerInventory inv = player.getInventory();
 
@@ -863,7 +869,7 @@ public class Game {
 		}
 		else
 		{
-			IconMenu icm = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 18, new GameOptionClickEventHandler(this) {
+			final IconMenu icm = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 18, new GameOptionClickEventHandler(this) {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
@@ -917,7 +923,13 @@ public class Game {
 				}
 			}
 			
-			icm.open(player);
+			//Delay to let teleport get throug
+			Bukkit.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
+				@Override
+				public void run() {
+					icm.open(player);
+				}
+			}, 2);
 		}
 	}
 	
