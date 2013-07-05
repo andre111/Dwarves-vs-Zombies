@@ -25,6 +25,7 @@ public class CustomItem implements IUpCounter {
 	private ArrayList<String> lore = new ArrayList<String>();
 	private boolean use;
 	private boolean ignoreDamage;
+	private boolean allowPlace;
 	
 	private boolean hasCounter;
 	private int counterMax;
@@ -283,6 +284,12 @@ public class CustomItem implements IUpCounter {
 	}
 	public void setIgnoreDamage(boolean ignoreDamage) {
 		this.ignoreDamage = ignoreDamage;
+	}
+	public boolean isAllowPlace() {
+		return allowPlace;
+	}
+	public void setAllowPlace(boolean allowPlace) {
+		this.allowPlace = allowPlace;
 	}
 	public boolean isHasCounter() {
 		return hasCounter;

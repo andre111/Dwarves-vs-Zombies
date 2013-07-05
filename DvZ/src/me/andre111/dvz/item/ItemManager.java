@@ -41,6 +41,7 @@ public class ItemManager {
 		itTemp.setDamage(ConfigManager.getItemFile().getInt("items."+it+".data", 0));
 		itTemp.setUse(ConfigManager.getItemFile().getBoolean("items."+it+".useUp", false));
 		itTemp.setIgnoreDamage(ConfigManager.getItemFile().getBoolean("items."+it+".ignoreDamage", false));
+		itTemp.setAllowPlace(ConfigManager.getItemFile().getBoolean("items."+it+".allowPlace", false));
 		
 		//countup
 		itTemp.setHasCounter(ConfigManager.getItemFile().getBoolean("items."+it+".countup.enabled", false));
