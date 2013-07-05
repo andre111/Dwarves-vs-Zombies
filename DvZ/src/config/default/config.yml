@@ -61,6 +61,7 @@ item_stats: true
 global_stats: true
 # WARNING: when this is enabled, Players can only see their real exp when opening an inventory(other than their normal one)
 always_show_stats: false
+scoreboard_timer_seconds: false
 show_game_id: true
 show_andre111_tag: true
 

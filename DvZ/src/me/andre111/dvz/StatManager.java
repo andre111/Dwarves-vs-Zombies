@@ -86,25 +86,34 @@ public class StatManager {
 	}
 	//Set a timerstat for all players
 	public static void setTimeStat(String stat, int time) {
-		int rminutes = (int) Math.floor(time/(double)60);
-		int rseconds = time - rminutes*60;
-		String rsec = "" + rseconds;
-		if(rsec.length()<2) rsec = "0" + rsec;
-		
-		String rtime = rminutes+ ":" + rsec;
-		String add = stat + " " + rtime;
-		
-		//remove old stat
-		sendRemoveTimer(stat);
-		//send new stat
-		if(time>0)
-			sendNewTimer(add);
+		if(!ConfigManager.getStaticConfig().getString("scoreboard_timer_seconds", "false").equals("true")) {
+			int rminutes = (int) Math.floor(time/(double)60);
+			int rseconds = time - rminutes*60;
+			String rsec = "" + rseconds;
+			if(rsec.length()<2) rsec = "0" + rsec;
+			
+			String rtime = rminutes+ ":" + rsec;
+			String add = stat + " " + rtime;
+			
+			//remove old stat
+			sendRemoveTimer(stat, add);
+			
+			//send new stat
+			if(time>0)
+				sendNewTimer(add);
+		}
+		else
+		{
+			for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
+				mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(time);
+			}
+		}
 	}
 	//removes a timer scoreboard that starts with this name
-	private static void sendRemoveTimer(String name) {
+	private static void sendRemoveTimer(String name, String newT) {
 		for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
 			for(OfflinePlayer ofP : mapE.getValue().getPlayers()) {
-				if(ofP.getName().startsWith(name)) {
+				if(ofP.getName().startsWith(name) && !ofP.getName().equals(newT)) {
 					mapE.getValue().resetScores(ofP);
 				}
 			}
