@@ -963,6 +963,8 @@ public class Game {
 	}
 	
 	public void resetPlayerToWorldLobby(final Player player) {
+		playerstate.put(player.getName(), 1);
+		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
 				World w;
