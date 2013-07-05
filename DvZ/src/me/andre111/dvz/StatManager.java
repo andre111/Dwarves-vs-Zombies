@@ -105,7 +105,10 @@ public class StatManager {
 		else
 		{
 			for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
-				mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(time);
+				if(time>0)
+					mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(time);
+				else
+					mapE.getValue().resetScores(Bukkit.getOfflinePlayer(stat));
 			}
 		}
 	}
