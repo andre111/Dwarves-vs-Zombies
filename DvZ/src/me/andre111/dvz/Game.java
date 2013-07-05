@@ -786,6 +786,15 @@ public class Game {
 	                    return;
 	            	}
 	            	
+	            	//safety for not running games
+	            	if(!game.isRunning()) {
+	            		resetPlayerToWorldLobby(player);
+	    				
+	    				event.setWillClose(true);
+	                    event.setWillDestroy(true);
+	                    return;
+	            	}
+	            	
 	            	boolean dwarf = false;
 	            	int itemId = event.getItemID();
 	            	int itemD = event.getItemDamage();
@@ -890,6 +899,15 @@ public class Game {
 	                    return;
 	            	}
 	            	
+	            	//safety for not running games
+	            	if(!game.isRunning()) {
+	            		resetPlayerToWorldLobby(player);
+	    				
+	    				event.setWillClose(true);
+	                    event.setWillDestroy(true);
+	                    return;
+	            	}
+	            	
 	            	boolean monster = false;
 	            	int itemId = event.getItemID();
 	            	int itemD = event.getItemDamage();
@@ -944,6 +962,22 @@ public class Game {
 		}
 	}
 	
+	public void resetPlayerToWorldLobby(final Player player) {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			public void run() {
+				World w;
+				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+					w = Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby");
+				else
+					w = Bukkit.getServer().getWorlds().get(0);
+				
+				if(w!=null) {
+					player.teleport(w.getSpawnLocation());
+				}
+			}
+		}, 1);
+	}
+	
 	//#######################################
 	//Spieler hat rechtsgeklickt
 	//#######################################
@@ -956,6 +990,12 @@ public class Game {
 		
 		if(getPlayerState(pname)==2) { //dwarf werden
 			boolean dwarf = false;
+			
+			//safety for not running games
+        	if(!isRunning()) {
+        		resetPlayerToWorldLobby(player);
+        		return;
+        	}
 			
 			//costum dwarves
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
@@ -979,6 +1019,12 @@ public class Game {
 		}
 		if(getPlayerState(pname)==3) { //monster werden
 			boolean monster = false;
+			
+			//safety for not running games
+        	if(!isRunning()) {
+        		resetPlayerToWorldLobby(player);
+        		return;
+        	}
 			
 			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
 				CustomMonster cm = DvZ.monsterManager.getMonster(i);
