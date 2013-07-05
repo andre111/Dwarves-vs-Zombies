@@ -61,6 +61,10 @@ public class ReloadCommand extends DvZCommand {
 				DvZ.playerManager.reload();
 				reload = true;
 			}
+			if(rs.equalsIgnoreCase("language") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("language");
+				reload = true;
+			}
 			
 			if(reload) {
 				sender.sendMessage("Successfully reloaded!");

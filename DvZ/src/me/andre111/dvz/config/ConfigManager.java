@@ -67,10 +67,11 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/players.yml"), new File(plugin.getDataFolder(), "players.yml"));
 			} catch (IOException e) {}
 		}
-		lang = plugin.getConfig().getString("language", "en_EN");
+		configfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
+		
+		lang = configfile.getString("language", "en_EN");
 		langfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "lang/lang_"+lang+".yml"));
 		enlangfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "lang/lang_en_EN.yml"));
-		configfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
 		dragonsfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "dragons.yml"));
 		classfile =  DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "classes.yml"));
 		monsterfile =  DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "monster.yml"));
@@ -162,6 +163,9 @@ public class ConfigManager {
 		}
 		if(name.equalsIgnoreCase("players")) {
 			playerfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "players.yml"));
+		}
+		if(name.equalsIgnoreCase("language")) {
+			langfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "lang/lang_"+lang+".yml"));
 		}
 	}
 }
