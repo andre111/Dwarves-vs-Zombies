@@ -601,13 +601,18 @@ public class Game {
 	
 	private void updateGlobalStats() {
 		int dwarf = 0;
+		int assa = 0;
 		int mons = 0;
 		
 		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
-			if (isDwarf(e.getKey(), true)) {
+			if (isDwarf(e.getKey(), false)) {
 				//online check
 				if(Bukkit.getServer().getPlayer(e.getKey())!=null)
 					dwarf++;
+			} else if (isDwarf(e.getKey(), true)) {
+				//online check
+				if(Bukkit.getServer().getPlayer(e.getKey())!=null)
+					assa++;
 			}
 			if (isMonster(e.getKey())) {
 				//online check
@@ -617,6 +622,7 @@ public class Game {
 		}
 		
 		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_dwarves", "Dwarves"), dwarf);
+		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_assassins", "Assassins"), assa);
 		StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_monsters", "Monsters"), mons);
 		
 		if(!released) {
