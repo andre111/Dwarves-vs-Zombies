@@ -51,6 +51,9 @@ public class IconMenu {
 	}
 
 	public void open(Player player) {
+		if(player==null) return;
+		if(optionIcons==null) return;
+		
 		Inventory inventory = Bukkit.createInventory(player, size, name);
 		for (int i = 0; i < optionIcons.length; i++) {
 			if (optionIcons[i] != null) {

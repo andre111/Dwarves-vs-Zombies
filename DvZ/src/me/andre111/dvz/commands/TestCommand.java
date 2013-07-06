@@ -30,6 +30,7 @@ public class TestCommand extends DvZCommand {
 		player.getInventory().clear();
 		DvZ.instance.getPlayerGame(player.getName()).setPlayerState(player.getName(), 3);
 		DvZ.instance.getPlayerGame(player.getName()).addMonsterItems(player);
+		
 		/*if(test==null) {
 			test = DvZWorldProvider.generateNewWorld();
 		}

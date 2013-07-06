@@ -2,7 +2,7 @@ package me.andre111.dvz;
 
 import me.andre111.dvz.utils.ItemHandler;
 
-import org.bukkit.Bukkit;
+//import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class Classswitcher {
@@ -24,12 +24,12 @@ public class Classswitcher {
 		player.setExp(0);
 		
 		if(!game.released) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(game.getPlugin(), new Runnable() {
+			/*Bukkit.getScheduler().scheduleSyncDelayedTask(game.getPlugin(), new Runnable() {
 				public void run() {
 					//TODO - diabled until I can fix it
-					//game.waitm.open(player);
+					game.waitm.open(player);
 				}
-			}, 2);
+			}, 2);*/
 		}
 	}
 }
