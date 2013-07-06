@@ -120,6 +120,7 @@ public class Game {
 	private int releasetime;
 	private boolean canWin;
 	private int wintime;
+	private int gracetime;
 	
 	//lobby
 	private int lobby_Player;
@@ -160,6 +161,7 @@ public class Game {
 		waitm.close();
 		released = ConfigManager.getStaticConfig().getString("need_release", "false").equals("false");
 		canWin = ConfigManager.getStaticConfig().getString("can_win", "false").equals("true");
+		gracetime = 0;
 		
 		initLobby();
 	}
@@ -242,6 +244,7 @@ public class Game {
 		waitm.close();
 		released = ConfigManager.getStaticConfig().getString("need_release", "false").equals("false");
 		canWin = ConfigManager.getStaticConfig().getString("can_win", "false").equals("true");
+		gracetime = 0;
 		
 		spell1time.clear();
 		spell2time.clear();
@@ -332,6 +335,11 @@ public class Game {
 							}
 						}
 					}
+				}
+				
+				//gracetime
+				if(gracetime>0 && state==2) {
+					gracetime -= 1;
 				}
 				
 				//release the monsters
@@ -466,6 +474,7 @@ public class Game {
 						state = 2;
 						releasetime = ConfigManager.getStaticConfig().getInt("time_release",30)*60;
 						wintime = ConfigManager.getStaticConfig().getInt("time_win",30)*60;
+						gracetime = ConfigManager.getStaticConfig().getInt("time_grace",5)*60;
 						
 						DvZ.startedGames += 1;
 						
@@ -1601,6 +1610,10 @@ public class Game {
 			
 			return crystalPerPlayer.get(pname);
 		}
+	}
+	
+	public boolean isGraceTime() {
+		return gracetime>0;
 	}
 	
 	public int getGameType() {

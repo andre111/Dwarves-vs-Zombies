@@ -73,6 +73,8 @@ time_release: 20
 can_win: false
 # After which ammount of minutes should the dwarves win? - starts counting after monsterrelease
 time_win: 20
+# In this time dwarves can take no damage(in minutes)
+time_grace: 5
 
 # Tickdelay between teleporting players at gamestart
 # If it laggs to badly try setting this to 2
@@ -92,7 +94,7 @@ lobby_starttime: 60
 # 0=no assasins
 lobby_playerperassasin: 10
 # Minutes until assasins "spawn"
-lobby_assasintime: 30
+lobby_assasintime: 20
 # Max Deaths -> More Deaths -> No Assasins
 lobby_assasindeath: 2
 

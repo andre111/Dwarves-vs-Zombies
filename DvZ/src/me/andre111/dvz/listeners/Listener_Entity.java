@@ -111,6 +111,11 @@ public class Listener_Entity implements Listener {
 						}
 					}
 				}
+				
+				//graceperiode
+				if(game.isGraceTime() && game.isDwarf(player.getName(), true)) {
+					event.setCancelled(true);
+				}
 			}
 		}
     }
@@ -126,6 +131,7 @@ public class Listener_Entity implements Listener {
 				if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
 					String player = ((Player)event.getEntity()).getName();
 					String damager = ((Player)event.getDamager()).getName();
+					
 					if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
 					   (game.isMonster(player) && game.isMonster(damager))) {
 						event.setCancelled(true);
