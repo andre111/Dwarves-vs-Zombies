@@ -39,6 +39,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
 
@@ -458,7 +459,7 @@ public class Game {
 				public void run() {
 					World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+gtemp+"");
 					if(w!=null) {
-						if(plugin.getConfig().getString("set_to_day","true")=="true") {
+						if(plugin.getConfig().getString("set_to_day","true").equals("true")) {
 							w.setTime(0);
 						}
 						teleportToMainWorld();
@@ -476,7 +477,7 @@ public class Game {
 								playerstate.put(players, Game.pickDwarf);
 								Player player = Bukkit.getServer().getPlayer(players);
 								if(player!=null) {
-									player.getInventory().clear();
+									ItemHandler.clearInv(player);
 									player.resetMaxHealth();
 									player.setHealth(player.getMaxHealth());
 									player.setGameMode(GameMode.SURVIVAL);
@@ -1486,14 +1487,37 @@ public class Game {
 	//Teleportiert alle Spieler zum Spawn der Mainwelt
 	//#######################################
 	public void teleportToMainWorld() {
-		World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"");
-		Object[] rplayers = playerstate.keySet().toArray();
-		for(int i=0; i<rplayers.length; i++) {
-			String playern = (String) rplayers[i];
-			Player player = Bukkit.getServer().getPlayerExact(playern);
-			
-			if (player!=null && w!=null) {
-				player.teleport(w.getSpawnLocation());
+		final World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"");
+		final Object[] rplayers = playerstate.keySet().toArray();
+		
+		if(ConfigManager.getStaticConfig().getInt("delayed_teleporation", 0)>0) {
+			new BukkitRunnable() {
+				private int ii = 0;
+
+				@Override
+				public void run() {
+					if(ii>=rplayers.length) this.cancel();
+					
+					String playern = (String) rplayers[ii];
+					Player player = Bukkit.getServer().getPlayerExact(playern);
+					
+					if (player!=null && w!=null) {
+						player.teleport(w.getSpawnLocation());
+					}
+					
+					ii++;
+				}
+				
+			}.runTaskTimer(getPlugin(), 0, ConfigManager.getStaticConfig().getInt("delayed_teleporation", 0));
+		} else {
+			//instant teleportation
+			for(int i=0; i<rplayers.length; i++) {
+				String playern = (String) rplayers[i];
+				Player player = Bukkit.getServer().getPlayerExact(playern);
+				
+				if (player!=null && w!=null) {
+					player.teleport(w.getSpawnLocation());
+				}
 			}
 		}
 	}
