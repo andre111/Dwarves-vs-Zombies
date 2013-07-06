@@ -87,6 +87,7 @@ public class IconMenu {
 		if (event.getInventory().getTitle().equals(name)) {
 			event.setCancelled(true);
 			int slot = event.getRawSlot();
+			if(optionNames!=null)
 			if (slot >= 0 && slot < size && optionNames[slot] != null) {
 				Plugin plugin = this.plugin;
 				OptionClickEvent e = new OptionClickEvent((Player)event.getWhoClicked(), slot, optionNames[slot], event.getCurrentItem().getTypeId(), event.getCurrentItem().getDurability());

@@ -308,6 +308,8 @@ public class DvZ extends JavaPlugin {
 	}
 	
 	public void joinGame(Player player, Game game, boolean autojoin) {
+		if(!autojoin && game.getPlayerState(player.getName())>1) return;
+		
 		game.setPlayerState(player.getName(), 1);
 		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
 			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
@@ -317,7 +319,7 @@ public class DvZ extends JavaPlugin {
 
 		//autoadd player
 		if(game.getState()>1) {
-			if (getConfig().getString("autoadd_players","false")=="true" || autojoin) {
+			if (getConfig().getString("autoadd_players","false").equals("true") || autojoin) {
 				if(!game.released) {
 					game.setPlayerState(player.getName(), 2);
 					player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
