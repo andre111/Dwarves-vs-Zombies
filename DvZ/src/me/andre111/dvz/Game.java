@@ -20,6 +20,7 @@ import me.andre111.dvz.utils.ExperienceUtils;
 import me.andre111.dvz.utils.GameOptionClickEventHandler;
 import me.andre111.dvz.utils.IconMenu;
 import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.utils.WaitingMenu;
 
@@ -200,11 +201,7 @@ public class Game {
 				//undisguise
 				if(DvZ.api.isDisguised(player)) DvZ.api.undisguisePlayer(player);
 				//clear potion effects
-				for(PotionEffect pet : player.getActivePotionEffects()) {
-					player.removePotionEffect(pet.getType());
-					//TODO - find a way not using the workaround override method
-					player.addPotionEffect(new PotionEffect(pet.getType(), 1, 1), true);
-				}
+				PlayerHandler.resetPotionEffects(player);
 				//clear inventory
 				ItemHandler.clearInv(player);
 				//reset health

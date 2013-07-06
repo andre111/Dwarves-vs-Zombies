@@ -65,4 +65,12 @@ public class PlayerHandler {
 		}
 		return false;
 	}
+	
+	public static void resetPotionEffects(Player player) {
+		for(PotionEffect pet : player.getActivePotionEffects()) {
+			player.removePotionEffect(pet.getType());
+			//TODO - find a way not using the workaround override method
+			player.addPotionEffect(new PotionEffect(pet.getType(), 1, 1), true);
+		}
+	}
 }

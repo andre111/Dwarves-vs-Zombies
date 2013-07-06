@@ -8,6 +8,7 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.StatManager;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -71,6 +72,7 @@ public class CustomDwarf {
 		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		
 		ItemHandler.clearInv(player);
+		PlayerHandler.resetPotionEffects(player);
 		player.setTotalExperience(0);
 		player.setLevel(0);
 		player.setExp(0);

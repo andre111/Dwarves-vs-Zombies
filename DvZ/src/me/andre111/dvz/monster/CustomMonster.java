@@ -8,6 +8,7 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.StatManager;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -49,6 +50,8 @@ public class CustomMonster {
 		
 		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", getDisguise()));
+		
+		PlayerHandler.resetPotionEffects(player);
 		
 		player.setHealth(startHealth);
 		player.setFoodLevel(startHunger);
