@@ -128,7 +128,7 @@ public class Listener_Player implements Listener  {
 			}
 			//player leave during start
 			if(pstate==1 && plugin.getPlayerGame(player.getName()).getState()>1) {
-				plugin.joinGame(player, plugin.getPlayerGame(player.getName()));
+				plugin.joinGame(player, plugin.getPlayerGame(player.getName()), true);
 			}
 		}
 	}

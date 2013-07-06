@@ -342,7 +342,6 @@ monsters:
      items: 
        - "internCatHunger"
        - "internCatSteal"
-       - "106 24"
        - "320 64"
      effects: []
      placeBlocks: false
