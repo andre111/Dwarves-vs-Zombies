@@ -72,6 +72,7 @@ public class DwarfManager {
 		dwTemp.setStartHealth(ConfigManager.getClassFile().getInt("dwarves."+dw+".startHealth", 20));
 		dwTemp.setStartHunger(ConfigManager.getClassFile().getInt("dwarves."+dw+".startHunger", 20));
 		dwTemp.setStartSat((float) ConfigManager.getClassFile().getDouble("dwarves."+dw+".startSaturation", 20F));
+		dwTemp.setStartMessage(ConfigManager.getClassFile().getString("dwarves."+dw+".startMessage", ""));
 		
 		//spell
 		dwTemp.setSpellEnabled(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".spell.enable", false));

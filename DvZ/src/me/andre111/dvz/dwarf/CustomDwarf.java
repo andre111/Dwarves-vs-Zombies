@@ -41,6 +41,7 @@ public class CustomDwarf {
 	private double startHealth;
 	private int startHunger;
 	private float startSat;
+	private String startMessage;
 	
 	//spells
 	private boolean spellEnabled;
@@ -70,6 +71,9 @@ public class CustomDwarf {
 		game.getManaManager().setManaRegen(player.getName(), getManaRegen());
 		
 		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
+		
+		if(!startMessage.equals(""))
+			player.sendMessage(startMessage);
 		
 		ItemHandler.clearInv(player);
 		PlayerHandler.resetPotionEffects(player);
@@ -429,6 +433,14 @@ public class CustomDwarf {
 	public void setStartSat(float startSat) {
 		this.startSat = startSat;
 	}
+	public String getStartMessage() {
+		return startMessage;
+	}
+
+	public void setStartMessage(String startMessage) {
+		this.startMessage = startMessage;
+	}
+
 	//Spells
 	public boolean isSpellEnabled() {
 		return spellEnabled;

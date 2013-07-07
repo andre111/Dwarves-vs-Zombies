@@ -74,6 +74,7 @@ public class MonsterManager {
 		monTemp.setStartHealth(ConfigManager.getMonsterFile().getInt("monsters."+mo+".startHealth", 20));
 		monTemp.setStartHunger(ConfigManager.getMonsterFile().getInt("monsters."+mo+".startHunger", 20));
 		monTemp.setStartSat((float) ConfigManager.getMonsterFile().getDouble("monsters."+mo+".startSaturation", 20F));
+		monTemp.setStartMessage(ConfigManager.getMonsterFile().getString("monsters."+mo+".startMessage", ""));
 		
 		monsters[monsterCounter] = monTemp;
 		monsterCounter++;

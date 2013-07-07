@@ -40,6 +40,7 @@ public class CustomMonster {
 	private double startHealth;
 	private int startHunger;
 	private float startSat;
+	private String startMessage;
 	
 	//become custom Monster
 	public void becomeMonster(Game game, final Player player) {
@@ -50,6 +51,9 @@ public class CustomMonster {
 		
 		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", getDisguise()));
+		
+		if(!startMessage.equals(""))
+			player.sendMessage(startMessage);
 		
 		PlayerHandler.resetPotionEffects(player);
 		
@@ -219,5 +223,13 @@ public class CustomMonster {
 	}
 	public void setStartSat(float startSat) {
 		this.startSat = startSat;
+	}
+
+	public String getStartMessage() {
+		return startMessage;
+	}
+
+	public void setStartMessage(String startMessage) {
+		this.startMessage = startMessage;
 	}
 }
