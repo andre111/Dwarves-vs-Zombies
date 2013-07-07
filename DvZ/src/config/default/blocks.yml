@@ -65,3 +65,9 @@ blocks:
       gameType2: 
          dwarves: true
          monsters: false
+   # speed up growth by adding this to a growth(1=plant grows 2 states at once)
+   # -1 to stop all plant growing
+   # applies to: wheat, carrots and potatoes
+   growthExtra:
+      gameType1: 1
+      gameType2: 0
