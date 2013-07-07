@@ -688,7 +688,7 @@ public class Game {
 				int ammountPlayers = 0;
 				for (int j=0; j<rplayers.length; j++) {
 					playern = (String) rplayers[j];
-					if((playerstate.get(playern)>=10 && playerstate.get(playern)<30) && player!=null) {
+					if(isDwarf(playern, false) && player!=null) {
 						ammountPlayers += 1;
 					}
 				}
@@ -696,7 +696,7 @@ public class Game {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_no_assasins","No Assasins have been chosen - Because there where not enough online Dwarves!!"));
 					return;
 				}
-			while(!(playerstate.get(playern)>=dwarfMin && playerstate.get(playern)<=dwarfMax) || player==null) {
+			while(!isDwarf(playern, false) || player==null) {
 				playern = (String) rplayers[rand.nextInt(rplayers.length)];
 				player = Bukkit.getServer().getPlayerExact(playern);
 			}
