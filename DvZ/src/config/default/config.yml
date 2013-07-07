@@ -54,6 +54,8 @@ new_classselection: false
 dedicated_chat: true
 dwarf_potion_exp: 2
 change_death_message: true
+# Hide leave and Join messages from ingame players
+hide_join_leave: false
 # when no gameid is given on /dvz_join it will try to join a not running game
 join_free_game: true
 # Track some stats on items(currently only monsters killed)

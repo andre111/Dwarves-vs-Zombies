@@ -45,6 +45,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -81,7 +82,10 @@ public class Listener_Player implements Listener  {
 		
 		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 		
-		event.setJoinMessage("");
+		if (plugin.getPlayerGame(player.getName())==null
+				&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
+			event.setJoinMessage("");
+		}
 		//TODO - maybe change to not always join game 0
 		if (plugin.getPlayerGame(player.getName())==null) {
 			plugin.getGame(0).addPlayer(player.getName());
@@ -130,6 +134,16 @@ public class Listener_Player implements Listener  {
 			if(pstate==1 && plugin.getPlayerGame(player.getName()).getState()>1) {
 				plugin.joinGame(player, plugin.getPlayerGame(player.getName()), true);
 			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerLeave(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		
+		if (plugin.getPlayerGame(player.getName())==null
+			&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
+			event.setQuitMessage("");
 		}
 	}
 
