@@ -146,6 +146,7 @@ string_default_newlumberjack: "Lumberjack Dwarf"
 string_default_newlumberjack_suf: " the Lumberjack"
 string_default_newblacksmith: "Blacksmith Dwarf"
 string_default_newblacksmith_suf: " the Blacksmith"
+string_default_assassin_suf: " the Assassin"
 
 string_default_zombie: "Zombie"
 string_default_zombie_suf: " the Zombie"
