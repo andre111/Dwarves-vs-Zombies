@@ -313,8 +313,12 @@ public class Game {
 				if(ConfigManager.getStaticConfig().getString("global_stats", "true").equals("true"))
 					updateGlobalStats();
 				
-				teleportUnreleased();
-				kickUnwanted();
+				try {
+					teleportUnreleased();
+					kickUnwanted();
+				} catch(Exception e) {
+					//TODO - make sure there are no errors occuring
+				}
 				
 				if (ticker==10) {
 					ticker = 0;
@@ -679,6 +683,7 @@ public class Game {
 	//Add Assasins
 	public void addAssasins(int count) {
 		Random rand = new Random();
+		boolean chooseOne = false;
 		for(int i=0; i<count; i++) {
 			Object[] rplayers = playerstate.keySet().toArray();
 			String playern = (String) rplayers[rand.nextInt(rplayers.length)];
@@ -692,7 +697,7 @@ public class Game {
 						ammountPlayers += 1;
 					}
 				}
-				if (ammountPlayers<count) {
+				if (ammountPlayers<count && !chooseOne) {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_no_assasins","No Assasins have been chosen - Because there where not enough online Dwarves!!"));
 					return;
 				}
@@ -701,6 +706,7 @@ public class Game {
 				player = Bukkit.getServer().getPlayerExact(playern);
 			}
 			
+			chooseOne = true;
 			//Player player = Bukkit.getServer().getPlayerExact(playern);
 			//if(player!=null) {
 				player.sendMessage(ConfigManager.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
