@@ -13,6 +13,9 @@ public class ManaManager {
 		for(Map.Entry<String, Integer> e : mana.entrySet()){
 			String player = e.getKey();
 			int m = e.getValue();
+			
+			if(maxMana==null || player==null) continue;
+	
 			int maxm = maxMana.get(player);
 			
 			if(m<maxm) {
