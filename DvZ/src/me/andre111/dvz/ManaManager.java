@@ -61,6 +61,8 @@ public class ManaManager {
 		if(value<0) value = 0;
 		
 		mana.put(player, value);
+		
+		if(maxMana!=null) 
 		changedMana(player, value, maxMana.get(player));
 	}
 	

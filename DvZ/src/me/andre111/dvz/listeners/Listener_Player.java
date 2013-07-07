@@ -67,7 +67,7 @@ public class Listener_Player implements Listener  {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
+		final Player player = event.getPlayer();
 		//respawn fake zombies
 		DvZ.item3DHandler.respawnAll(player);
 		
@@ -103,24 +103,31 @@ public class Listener_Player implements Listener  {
 				player.teleport(Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 			}
 			//autoadd player
-			if(plugin.getGame(0).getState()==2) {
-				if (plugin.getConfig().getString("autoadd_players","false")=="true") {
-					if(!plugin.getGame(0).released) {
-						plugin.getGame(0).setPlayerState(player.getName(), 2);
-						ItemHandler.clearInv(player);
-						player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
-						plugin.getGame(0).addDwarfItems(player);
+			if(plugin.getGame(0).getState()>1) {
+				Bukkit.getServer().getScheduler().runTaskLater(DvZ.instance, new Runnable() {
+					public void run() {
+						if(!player.isOnline()) return;
+						if(plugin.getPlayerGame(player.getName())!=null) return;
 						
-						plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
-					} else {
-						plugin.getGame(0).setPlayerState(player.getName(), 3);
-						ItemHandler.clearInv(player);
-						player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
-						plugin.getGame(0).addMonsterItems(player);
-						
-						plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
+						if (plugin.getConfig().getString("autoadd_players","false")=="true") {
+							if(!plugin.getGame(0).released) {
+								plugin.getGame(0).setPlayerState(player.getName(), 2);
+								ItemHandler.clearInv(player);
+								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+								plugin.getGame(0).addDwarfItems(player);
+
+								plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
+							} else {
+								plugin.getGame(0).setPlayerState(player.getName(), 3);
+								ItemHandler.clearInv(player);
+								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+								plugin.getGame(0).addMonsterItems(player);
+
+								plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
+							}
+						}
 					}
-				}
+				}, 1);
 			}
 		} else {
 			int pstate = plugin.getPlayerGame(player.getName()).getPlayerState(player.getName());
