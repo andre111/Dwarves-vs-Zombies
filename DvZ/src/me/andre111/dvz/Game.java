@@ -314,6 +314,7 @@ public class Game {
 					updateGlobalStats();
 				
 				teleportUnreleased();
+				kickUnwanted();
 				
 				if (ticker==10) {
 					ticker = 0;
@@ -1476,6 +1477,34 @@ public class Game {
 					if(loc.distanceSquared(target)>2) {
 						player.teleport(target);
 					}
+				}
+			}
+		}
+	}
+	
+	//teleport unwanted players
+	public void kickUnwanted() {
+		World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"");
+		
+		if(w!=null) {
+			for(Player p : w.getPlayers()) {
+				//not playing -> kick to lobby
+				if(!isPlayer(p.getName()) || getPlayerState(p.getName())==1) {
+					resetPlayerToWorldLobby(p);
+					//TODO - maybe join the game when auto_add is enabled
+				}
+				//picking monster -> to monsterspawn
+				if(getPlayerState(p.getName())==Game.pickMonster) {
+					if(spawnMonsters!=null) {
+						p.teleport(spawnMonsters);
+					}
+				}
+				//TODO - pickdwarf -> not sure what to do
+				if(getPlayerState(p.getName())==Game.pickDwarf) {
+					resetPlayerToWorldLobby(p);
+					/*if(state>1) {
+						DvZ.instance.joinGame(p, this, true);
+					}*/
 				}
 			}
 		}
