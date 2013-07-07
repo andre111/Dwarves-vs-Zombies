@@ -72,6 +72,7 @@ dwarves:
       startHealth: 20
       startHunger: 20
       startSaturation: 20
+      startMessage: ""
       spell:
          enable: true
          time: 30
@@ -121,6 +122,7 @@ dwarves:
       startHealth: 20
       startHunger: 20
       startSaturation: 20
+      startMessage: ""
       spell:
          enable: true
          time: 30
@@ -179,6 +181,7 @@ dwarves:
       startHealth: 20
       startHunger: 20
       startSaturation: 20
+      startMessage: ""
       spell:
          enable: true
          time: 30
@@ -234,6 +237,7 @@ dwarves:
       startHealth: 20
       startHunger: 20
       startSaturation: 20
+      startMessage: ""
       spell:
          enable: true
          time: 30
@@ -284,6 +288,7 @@ dwarves:
       startHealth: 20
       startHunger: 20
       startSaturation: 20
+      startMessage: ""
       spell:
          enable: false
          time: 30
@@ -345,6 +350,7 @@ dwarves:
       startHealth: 20
       startHunger: 20
       startSaturation: 20
+      startMessage: ""
       spell:
          enable: false
          time: 30
@@ -407,6 +413,7 @@ dwarves:
       startHealth: 20
       startHunger: 20
       startSaturation: 20
+      startMessage: ""
       spell:
          enable: false
          time: 30

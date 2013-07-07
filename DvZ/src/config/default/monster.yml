@@ -87,6 +87,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    1:
      name: "lang:string_default_skeleton"
      disguise: "Skeleton"
@@ -117,6 +118,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    2:
      name: "lang:string_default_creeper"
      disguise: "Creeper"
@@ -146,6 +148,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    3:
      name: "lang:string_default_wolf"
      disguise: "Wolf"
@@ -178,6 +181,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    4:
      name: "lang:string_default_spider"
      disguise: "Spider"
@@ -213,6 +217,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    5:
      name: "lang:string_default_irongolem"
      disguise: "IronGolem"
@@ -249,6 +254,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    6:
      name: "lang:string_default_snowgolem"
      disguise: "Snowman"
@@ -275,6 +281,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    7:
      name: "lang:string_default_broodmother"
      disguise: "Silverfish"
@@ -304,6 +311,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    8:
      name: "lang:string_default_enderman"
      disguise: "Enderman"
@@ -330,6 +338,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    9:
      name: "lang:string_default_cat"
      disguise: "Ocelot"
@@ -356,6 +365,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    10:
      name: "lang:string_default_zombie"
      disguise: "Zombie"
@@ -386,6 +396,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    11:
      name: "lang:string_default_skeleton"
      disguise: "Skeleton"
@@ -416,6 +427,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
    12:
      name: "lang:string_default_creeper"
      disguise: "Creeper"
@@ -445,6 +457,7 @@ monsters:
      startHealth: 20
      startHunger: 20
      startSaturation: 20
+     startMessage: ""
 
 # DISABLED UNTIL I CAN FIND A GOOD WAY TO IMPLEMENT IT:
 #   10:
