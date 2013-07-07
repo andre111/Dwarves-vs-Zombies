@@ -1493,7 +1493,8 @@ public class Game {
 				//not playing -> kick to lobby
 				if(!isPlayer(p.getName()) || getPlayerState(p.getName())==1) {
 					resetPlayerToWorldLobby(p);
-					DvZ.instance.joinGame(p, this, false);
+					playerstate.remove(p.getName());
+					//DvZ.instance.joinGame(p, this, false);
 				}
 				//picking monster -> to monsterspawn
 				if(getPlayerState(p.getName())==Game.pickMonster) {
@@ -1506,7 +1507,6 @@ public class Game {
 				if(getPlayerState(p.getName())==Game.pickDwarf) {
 					resetPlayerToWorldLobby(p);
 					playerstate.remove(p.getName());
-					DvZ.instance.joinGame(p, this, true);
 					/*if(state>1) {
 						DvZ.instance.joinGame(p, this, true);
 					}*/

@@ -127,7 +127,7 @@ public class Listener_Player implements Listener  {
 							}
 						}
 					}
-				}, 1);
+				}, 2);
 			}
 		} else {
 			int pstate = plugin.getPlayerGame(player.getName()).getPlayerState(player.getName());
@@ -400,6 +400,12 @@ public class Listener_Player implements Listener  {
 
 				String prefix = cd.getPrefix();
 				String suffix = cd.getSuffix();
+				
+				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
+			}
+			if(pstate==Game.assasinState) {
+				String prefix = ConfigManager.getClassFile().getString("assassin_prefix", "");
+				String suffix = ConfigManager.getClassFile().getString("assassin_suffix", " the Assassin");
 				
 				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
 			}

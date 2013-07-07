@@ -457,3 +457,5 @@ assasin_items:
    - "312"
    - "313"
    - "322"
+assassin_prefix: ""
+assassin_suffix: " the Assassin"
