@@ -1485,6 +1485,7 @@ public class Game {
 	
 	//teleport unwanted players
 	public void kickUnwanted() {
+		//mainworld
 		World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"");
 		
 		if(w!=null) {
@@ -1509,6 +1510,32 @@ public class Game {
 					/*if(state>1) {
 						DvZ.instance.joinGame(p, this, true);
 					}*/
+				}
+			}
+		}
+		
+		//lobby
+		World wl;
+		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+			wl = Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby");
+		else
+			wl = Bukkit.getServer().getWorlds().get(0);
+		
+		if(wl!=null) {
+			for(Player p : wl.getPlayers()) {
+				//dwarves
+				if(isDwarf(p.getName(), true)) {
+					Location loc = wl.getSpawnLocation();
+					if(spawnDwarves!=null) loc = spawnDwarves;
+					
+					p.teleport(loc);
+				}
+				//monsters
+				if(isMonster(p.getName())) {
+					Location loc = wl.getSpawnLocation();
+					if(spawnMonsters!=null) loc = spawnMonsters;
+					
+					p.teleport(loc);
 				}
 			}
 		}
