@@ -1492,7 +1492,7 @@ public class Game {
 				//not playing -> kick to lobby
 				if(!isPlayer(p.getName()) || getPlayerState(p.getName())==1) {
 					resetPlayerToWorldLobby(p);
-					//TODO - maybe join the game when auto_add is enabled
+					DvZ.instance.joinGame(p, this, false);
 				}
 				//picking monster -> to monsterspawn
 				if(getPlayerState(p.getName())==Game.pickMonster) {
@@ -1501,9 +1501,11 @@ public class Game {
 							p.teleport(spawnMonsters);
 					}
 				}
-				//TODO - pickdwarf -> not sure what to do
+				//pickdwarf -> rejoin
 				if(getPlayerState(p.getName())==Game.pickDwarf) {
 					resetPlayerToWorldLobby(p);
+					playerstate.remove(p.getName());
+					DvZ.instance.joinGame(p, this, true);
 					/*if(state>1) {
 						DvZ.instance.joinGame(p, this, true);
 					}*/
