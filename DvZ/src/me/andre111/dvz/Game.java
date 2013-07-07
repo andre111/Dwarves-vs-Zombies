@@ -471,7 +471,8 @@ public class Game {
 						if(plugin.getConfig().getString("set_to_day","true").equals("true")) {
 							w.setTime(0);
 						}
-						teleportToMainWorld();
+						//TODO - disabled to not teleport wrong players
+						//teleportToMainWorld();
 						state = 2;
 						releasetime = ConfigManager.getStaticConfig().getInt("time_release",30)*60;
 						wintime = ConfigManager.getStaticConfig().getInt("time_win",30)*60;
@@ -1496,7 +1497,8 @@ public class Game {
 				//picking monster -> to monsterspawn
 				if(getPlayerState(p.getName())==Game.pickMonster) {
 					if(spawnMonsters!=null) {
-						p.teleport(spawnMonsters);
+						if(spawnMonsters.distanceSquared(p.getLocation())>2)
+							p.teleport(spawnMonsters);
 					}
 				}
 				//TODO - pickdwarf -> not sure what to do
