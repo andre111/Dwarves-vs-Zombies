@@ -1,6 +1,7 @@
 package me.andre111.dvz.item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
@@ -14,6 +15,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class CustomItem implements IUpCounter {
@@ -27,6 +29,9 @@ public class CustomItem implements IUpCounter {
 	private boolean ignoreDamage;
 	private boolean allowPlace;
 	
+	private String bookauthor;
+	private List<String> bookpages = new ArrayList<String>();
+	
 	private boolean hasCounter;
 	private int counterMax;
 	private int counterStep;
@@ -34,7 +39,6 @@ public class CustomItem implements IUpCounter {
 	private boolean counterInterruptMove;
 	private boolean counterInterruptDamage;
 	private boolean counterInterruptItem;
-	
 	
 	private ArrayList<ItemEffect> effectR = new ArrayList<ItemEffect>();
 	//private ItemSpell castR;
@@ -225,6 +229,15 @@ public class CustomItem implements IUpCounter {
 		im.setDisplayName(name);
 		im.setLore(lore);
 		
+		if(im instanceof BookMeta) {
+			BookMeta bm = (BookMeta) im;
+			
+			if(!bookauthor.equals("")) {
+				bm.setAuthor(bookauthor);
+			}
+			bm.setPages(bookpages);
+		}
+		
 		it.setItemMeta(im);
 		return it;
 	}
@@ -290,6 +303,18 @@ public class CustomItem implements IUpCounter {
 	}
 	public void setAllowPlace(boolean allowPlace) {
 		this.allowPlace = allowPlace;
+	}
+	public String getBookauthor() {
+		return bookauthor;
+	}
+	public void setBookauthor(String bookauthor) {
+		this.bookauthor = bookauthor;
+	}
+	public List<String> getBookpages() {
+		return bookpages;
+	}
+	public void setBookpages(List<String> bookpages) {
+		this.bookpages = bookpages;
 	}
 	public boolean isHasCounter() {
 		return hasCounter;

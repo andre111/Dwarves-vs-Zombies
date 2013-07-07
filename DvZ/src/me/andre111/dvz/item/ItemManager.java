@@ -43,6 +43,10 @@ public class ItemManager {
 		itTemp.setIgnoreDamage(ConfigManager.getItemFile().getBoolean("items."+it+".ignoreDamage", false));
 		itTemp.setAllowPlace(ConfigManager.getItemFile().getBoolean("items."+it+".allowPlace", false));
 		
+		//book
+		itTemp.setBookauthor(ConfigManager.getItemFile().getString("items."+it+".book.author", ""));
+		itTemp.setBookpages(ConfigManager.getItemFile().getStringList("items."+it+".book.pages"));
+		
 		//countup
 		itTemp.setHasCounter(ConfigManager.getItemFile().getBoolean("items."+it+".countup.enabled", false));
 		itTemp.setCounterMax(ConfigManager.getItemFile().getInt("items."+it+".countup.max", 0));
