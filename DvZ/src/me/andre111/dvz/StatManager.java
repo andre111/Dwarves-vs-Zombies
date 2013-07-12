@@ -205,42 +205,44 @@ public class StatManager {
 		
 		return sc;
 	}
-	private static void sendFakeXP(final Player player, int level, float xp) {
-		final PacketContainer fakeXPChange = DvZ.protocolManager.createPacket(Packets.Server.SET_EXPERIENCE);
-		
-		fakeXPChange.getFloat().
-			write(0, xp);
-		fakeXPChange.getIntegers().
-			write(1, level);
-		
-		Bukkit.getScheduler().runTask(DvZ.instance, new Runnable() {
+	private static void sendFakeXP(final Player player, final int level, final float xp) {
+		Bukkit.getScheduler().runTaskLater(DvZ.instance, new Runnable() {
 			public void run() {
+				final PacketContainer fakeXPChange = DvZ.protocolManager.createPacket(Packets.Server.SET_EXPERIENCE);
+				
+				fakeXPChange.getFloat().
+					write(0, xp);
+				fakeXPChange.getIntegers().
+					write(1, level);
+		
+		
 				try {
 					if(player.isOnline())
 						DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
 				} catch (Exception e) {
 				}
 			}
-		});
+		}, 1);
 	}
 	private static void sendRealXP(final Player player) {
-		final PacketContainer fakeXPChange = DvZ.protocolManager.createPacket(Packets.Server.SET_EXPERIENCE);
-		
-		fakeXPChange.getFloat().
-			write(0, player.getExp());
-		fakeXPChange.getIntegers().
-			write(0, player.getTotalExperience()).
-			write(1, player.getLevel());
-		
-		Bukkit.getScheduler().runTask(DvZ.instance, new Runnable() {
+		Bukkit.getScheduler().runTaskLater(DvZ.instance, new Runnable() {
 			public void run() {
+				final PacketContainer fakeXPChange = DvZ.protocolManager.createPacket(Packets.Server.SET_EXPERIENCE);
+				
+				fakeXPChange.getFloat().
+					write(0, player.getExp());
+				fakeXPChange.getIntegers().
+					write(0, player.getTotalExperience()).
+					write(1, player.getLevel());
+		
+
 				try {
 					if(player.isOnline())
 						DvZ.protocolManager.sendServerPacket(player, fakeXPChange);
 				} catch (Exception e) {
 				}
 			}
-		});
+		}, 1);
 	}
 	
 	//UpCounter
