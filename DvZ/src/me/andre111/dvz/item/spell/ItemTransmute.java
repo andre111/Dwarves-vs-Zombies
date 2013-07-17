@@ -39,8 +39,9 @@ public class ItemTransmute extends ItemSpell {
 	
 	@Override
 	public boolean cast(Game game, Player player) {
-		if(ItemHandler.countItems(player, iid, data)>=ammount) {
-			ItemHandler.removeItems(player, iid, data, ammount);
+		if(ItemHandler.countItems(player, iid, data)>=ammount && ammount==0) {
+			if(ammount!=0)
+				ItemHandler.removeItems(player, iid, data, ammount);
 
 			World w = player.getWorld();
 			Location loc = player.getLocation();
