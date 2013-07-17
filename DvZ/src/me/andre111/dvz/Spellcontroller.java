@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Random;
 
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.utils.ItemHandler;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 public class Spellcontroller {
@@ -74,8 +74,8 @@ public class Spellcontroller {
 	public static int sdamage = 8;
 	public static void spellSnowGolemThrow(Game game, Player player) {
 		if(game.getCountdown(player.getName(), 2)==0) {
-			if(countItems(player, 332, 0)>=96) {
-				removeItems(player, 332, 0, 96);
+			if(ItemHandler.countItems(player, 332, 0)>=96) {
+				ItemHandler.removeItems(player, 332, 0, 96);
 				game.setCountdown(player.getName(), 2, plugin.getConfig().getInt("spelltime_snowgolemthrow",0));
 			
 				 Random rand = new Random();
@@ -180,37 +180,5 @@ public class Spellcontroller {
 				block2.setTypeId(121);
 			}
 		}
-	}
-	
-	//###################################
-	//Inventory Helpers
-	//###################################
-	public static int removeItems(Player player, int type, int data, int remaining) {
-		int itemsExchanged = 0;
-		for (ItemStack i : player.getInventory()){
-            if (i != null && i.getTypeId() == type && i.getData().getData() == data){
-                if (i.getAmount() > remaining){
-                    i.setAmount(i.getAmount() - remaining);
-                    itemsExchanged += remaining;
-                    remaining = 0;
-                }else{
-                    itemsExchanged += i.getAmount();
-                    remaining -= i.getAmount();
-                    player.getInventory().remove(i);
-                }
-                if(remaining==0) break;
-            }
-        }
-		return itemsExchanged;
-	}
-	
-	public static int countItems(Player player, int type, int data) {
-		int items = 0;
-		for (ItemStack i : player.getInventory()){
-            if (i != null && i.getTypeId() == type && i.getData().getData() == data){
-                items += i.getAmount();
-            }
-        }
-		return items;
 	}
 }

@@ -12,6 +12,7 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
 import me.andre111.dvz.item.ItemSpell;
+import me.andre111.dvz.utils.ItemHandler;
 
 public class ItemSnowballs extends ItemSpell {
 	private int needed = 96;
@@ -30,8 +31,8 @@ public class ItemSnowballs extends ItemSpell {
 	
 	@Override
 	public boolean cast(Game game, Player player) {	
-		if(Spellcontroller.countItems(player, 332, 0)>=needed) {
-			Spellcontroller.removeItems(player, 332, 0, needed);
+		if(ItemHandler.countItems(player, 332, 0)>=needed) {
+			ItemHandler.removeItems(player, 332, 0, needed);
 
 			Random rand = new Random();
 			Vector mod;

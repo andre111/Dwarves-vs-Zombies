@@ -1,9 +1,9 @@
 package me.andre111.dvz.item.spell;
 
 import me.andre111.dvz.Game;
-import me.andre111.dvz.Spellcontroller;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.item.ItemSpell;
+import me.andre111.dvz.utils.ItemHandler;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -43,8 +43,8 @@ public class ItemLay extends ItemSpell {
 	}
 	
 	private boolean castAt(Game game, Player player, Location loc) {
-		if(Spellcontroller.countItems(player, 383, 0)>=1) {
-			Spellcontroller.removeItems(player, 383, 0, 1);
+		if(ItemHandler.countItems(player, 383, 0)>=1) {
+			ItemHandler.removeItems(player, 383, 0, 1);
 			
 			World w = loc.getWorld();
 			int x = loc.getBlockX();

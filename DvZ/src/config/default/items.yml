@@ -164,6 +164,23 @@
 #
 # castVar0: new Damage
 ######################################
+# "ItemClassCheck"
+# Checks for the players class
+#
+# castVar0: self or clicked player(1=self)
+# castVar1: Type("dwarf" or "monster")
+# castVar2: Classid
+######################################
+# "ItemTransmute"
+# Let's players transmute, like the books
+# in the old gametype
+# castVar0: Required Item - ID
+# castVar1: Required Item - Data
+# castVar2: Required Item - Ammount
+# castVar3: String displayed when not enough items
+# castVar4: add to inventory(1=true)
+# castVar5+: Formated items to give
+######################################
 # ""
 # 
 #
