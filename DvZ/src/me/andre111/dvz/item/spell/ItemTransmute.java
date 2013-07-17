@@ -39,7 +39,7 @@ public class ItemTransmute extends ItemSpell {
 	
 	@Override
 	public boolean cast(Game game, Player player) {
-		if(ItemHandler.countItems(player, iid, data)>=ammount && ammount==0) {
+		if(ItemHandler.countItems(player, iid, data)>=ammount || ammount==0) {
 			if(ammount!=0)
 				ItemHandler.removeItems(player, iid, data, ammount);
 
