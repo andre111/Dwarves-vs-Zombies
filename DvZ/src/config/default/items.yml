@@ -181,6 +181,12 @@
 # castVar4: add to inventory(1=true)
 # castVar5+: Formated items to give
 ######################################
+# "ItemExperience"
+# Give Experience
+#
+# castVar0: to self or targeted player(1=self)
+# castVar1: amount
+######################################
 # ""
 # 
 #
