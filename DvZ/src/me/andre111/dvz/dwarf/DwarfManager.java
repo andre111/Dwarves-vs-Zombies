@@ -74,21 +74,6 @@ public class DwarfManager {
 		dwTemp.setStartSat((float) ConfigManager.getClassFile().getDouble("dwarves."+dw+".startSaturation", 20F));
 		dwTemp.setStartMessage(ConfigManager.getClassFile().getString("dwarves."+dw+".startMessage", ""));
 		
-		//spell
-		dwTemp.setSpellEnabled(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".spell.enable", false));
-		dwTemp.setSpellTime(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.time", 0));
-		dwTemp.setSpellItem(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.item", 0));
-		dwTemp.setSpellName(ConfigManager.getClassFile().getString("dwarves."+dw+".spell.name", ""));
-		dwTemp.setSpellNeedId(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.need.id", 0));
-		dwTemp.setSpellNeedData(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.need.data", 0));
-		dwTemp.setSpellNeedCount(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.need.count", 0));
-		dwTemp.setSpellNeed(ConfigManager.getClassFile().getString("dwarves."+dw+".spell.needString", ""));
-		dwTemp.setSpellFail(ConfigManager.getClassFile().getString("dwarves."+dw+".spell.failString", ""));
-		dwTemp.setSpellInv(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".spell.inventory", false));
-		dwTemp.setSpellExp(ConfigManager.getClassFile().getInt("dwarves."+dw+".spell.exp", 0));
-		List<String> spellItems = ConfigManager.getClassFile().getStringList("dwarves."+dw+".spell.items");
-		dwTemp.setSpellItems(spellItems.toArray(new String[spellItems.size()]));
-		
 		//piston
 		dwTemp.setPistonEnabled(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".piston.enable", false));
 		dwTemp.setPistonChange(ConfigManager.getClassFile().getStringList("dwarves."+dw+".piston.change"));

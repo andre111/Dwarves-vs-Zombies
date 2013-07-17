@@ -54,7 +54,7 @@ dwarves:
       classItemDamage: 0
       classChance: 100
       items: 
-         - "340 1 100 -10:0 Get Building Blocks,&rCan be used every 30 seconds!"
+         - "internBuilderBook 1 100 -10:0"
          - "257 1"
          - "256 1"
          - "258 1"
@@ -73,24 +73,6 @@ dwarves:
       startHunger: 20
       startSaturation: 20
       startMessage: ""
-      spell:
-         enable: true
-         time: 30
-         item: 340
-         name: "lang:string_default_builder_spell"
-         need:
-            id: 0
-            data: 0
-            count: 0
-         needString: ""
-         failString: ""
-         inventory: false
-         exp: 3
-         items:
-            - "98 64 40"
-            - "98:1 64 40"
-            - "98:2 64 40"
-            - "4 64 40"
       piston:
          enable: false
          change: []
@@ -106,7 +88,7 @@ dwarves:
       classItemDamage: 0
       classChance: 20
       items: 
-         - "340 1 100 -10:0 Transmute Potions,&rCan be used every 30 seconds!"
+         - "internAlchemyBook 1 100 -10:0"
          - "379 2"
          - "380 2"
          - "54 2"
@@ -123,31 +105,6 @@ dwarves:
       startHunger: 20
       startSaturation: 20
       startMessage: ""
-      spell:
-         enable: true
-         time: 30
-         item: 340
-         name: "lang:string_default_alchemy_spell"
-         need:
-            id: 373
-            data: 64
-            count: 3
-         needString: "lang:string_default_alchemy_need"
-         failString: "lang:string_default_alchemy_fail"
-         inventory: false
-         exp: 6
-         items:
-            - "352 9"
-            - "373:8421 1 20"
-            - "373:8421 1 20"
-            - "373:8421 1 20"
-            - "373:8421 1 20"
-            - "373:11449 1 20"
-            - "373:16274 1 20"
-            - "373:16310 1 20"
-            - "335 5 20"
-            - "354 5 20"
-            - "373:8259 1 5"
       piston:
          enable: false
          change: []
@@ -163,7 +120,7 @@ dwarves:
       classItemDamage: 0
       classChance: 20
       items: 
-         - "340 1 100 -10:0 Create Tools and Weapons,&rCan be used every 30 seconds!"
+         - "internBlacksmithBook 1 100 -10:0"
          - "257 1"
          - "74 8"
          - "14 24"
@@ -182,28 +139,6 @@ dwarves:
       startHunger: 20
       startSaturation: 20
       startMessage: ""
-      spell:
-         enable: true
-         time: 30
-         item: 340
-         name: "lang:string_default_blacksmith_spell"
-         need:
-            id: 347
-            data: 0
-            count: 3
-         needString: "lang:string_default_blacksmith_need"
-         failString: "lang:string_default_blacksmith_fail"
-         inventory: false
-         exp: 6
-         items:
-            - "263 10"
-            - "74 8"
-            - "276 1 45"
-            - "267 1 45"
-            - "279 1 45"
-            - "287 3 45"
-            - "288 32 50"
-            - "318 32 50"
       piston:
          enable: false
          change: []
@@ -219,7 +154,7 @@ dwarves:
       classItemDamage: 0
       classChance: 20
       items: 
-         - "340 1 100 -10:0 Create Armor,&rCan be used every 30 seconds!"
+         - "internTailorBook 1 100 -10:0"
          - "293 1"
          - "352 10"
          - "295 30"
@@ -238,25 +173,6 @@ dwarves:
       startHunger: 20
       startSaturation: 20
       startMessage: ""
-      spell:
-         enable: true
-         time: 30
-         item: 340
-         name: "lang:string_default_tailor_spell"
-         need:
-            id: 297
-            data: 0
-            count: 3
-         needString: "lang:string_default_tailor_need"
-         failString: "lang:string_default_tailor_fail"
-         inventory: false
-         exp: 6
-         items:
-            - "14 10"
-            - "310 1:2 40"
-            - "311 1:2 40"
-            - "312 1:2 40"
-            - "313 1:2 40"
       piston:
          enable: false
          change: []
@@ -289,20 +205,6 @@ dwarves:
       startHunger: 20
       startSaturation: 20
       startMessage: ""
-      spell:
-         enable: false
-         time: 30
-         item: 340
-         name: ""
-         need:
-            id: 297
-            data: 0
-            count: 3
-         needString: ""
-         failString: ""
-         inventory: false
-         exp: 6
-         items: []
       piston:
          enable: true
          change:
@@ -351,20 +253,6 @@ dwarves:
       startHunger: 20
       startSaturation: 20
       startMessage: ""
-      spell:
-         enable: false
-         time: 30
-         item: 340
-         name: ""
-         need:
-            id: 297
-            data: 0
-            count: 3
-         needString: ""
-         failString: ""
-         inventory: false
-         exp: 6
-         items: []
       piston:
          enable: true
          change:
@@ -414,20 +302,6 @@ dwarves:
       startHunger: 20
       startSaturation: 20
       startMessage: ""
-      spell:
-         enable: false
-         time: 30
-         item: 340
-         name: ""
-         need:
-            id: 297
-            data: 0
-            count: 3
-         needString: ""
-         failString: ""
-         inventory: false
-         exp: 6
-         items: []
       piston:
          enable: true
          change:

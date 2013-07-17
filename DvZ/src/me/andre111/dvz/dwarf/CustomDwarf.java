@@ -11,9 +11,7 @@ import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -43,19 +41,6 @@ public class CustomDwarf {
 	private float startSat;
 	private String startMessage;
 	
-	//spells
-	private boolean spellEnabled;
-	private int spellTime;
-	private int spellItem;
-	private String spellName;
-	private int spellNeedId;
-	private int spellNeedData;
-	private int spellNeedCount;
-	private String spellNeed;
-	private String spellFail;
-	private boolean spellInv;
-	private int spellExp;
-	private String[] spellItems;
 	//piston
 	private boolean pistonEnabled;
 	private List<String> pistonChange;
@@ -115,18 +100,6 @@ public class CustomDwarf {
 		for(int i=0; i<items.length; i++) {
 			ItemStack it = ItemHandler.decodeItem(items[i]);
 			if(it!=null) {
-				//disabled, because it breaks the glow effect
-				/*if(i == 0) {
-					ItemMeta im = it.getItemMeta();
-						im.setDisplayName(getSpellName());
-						ArrayList<String> li = new ArrayList<String>();
-						li.add(DvZ.getLanguage().getString("string_used_seconds","Can be used every -0- Seconds!").replace("-0-", ""+getSpellTime()));
-						if(!getSpellNeed().equals("")) {
-							li.add(DvZ.getLanguage().getString("string_need","You need -0- to use this!").replace("-0-", getSpellNeed()));
-						}
-						im.setLore(li);
-					it.setItemMeta(im);
-				}*/
 				inv.addItem(it);
 			}
 		}
@@ -162,46 +135,6 @@ public class CustomDwarf {
 				StatManager.hide(player, false);
 			}
 		}, 2);
-	}
-	
-	public void spell(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 1)==0) {
-			int id = getSpellNeedId();
-			int data = getSpellNeedData();
-			int count = getSpellNeedCount();
-			
-			if(ItemHandler.countItems(player, id, data)>=count) {
-				ItemHandler.removeItems(player, id, data, count);
-				game.setCountdown(player.getName(), 1, getSpellTime());
-				
-				player.giveExp(getSpellExp());
-				
-				World w = player.getWorld();
-				Location loc = player.getLocation();
-				//Random rand = new Random();
-				PlayerInventory inv = player.getInventory();
-				
-				String[] itemstrings = getSpellItems();
-				for(String its : itemstrings) {
-					ItemStack it = ItemHandler.decodeItem(its);
-					
-					if(it!=null) {
-						if(isSpellInv()) {
-							inv.addItem(it);
-						} else {
-							w.dropItem(loc, it);
-						}
-					}
-				}
-				
-				DvZ.updateInventory(player);
-			} else {
-				if(!getSpellFail().equals(""))
-					player.sendMessage(getSpellFail());
-			}
-		} else {
-			player.sendMessage(ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 1)));
-		}
 	}
 	
 	public boolean transmuteItemOnBlock(Game game, Player player, ItemStack item, Block block) {
@@ -441,79 +374,6 @@ public class CustomDwarf {
 		this.startMessage = startMessage;
 	}
 
-	//Spells
-	public boolean isSpellEnabled() {
-		return spellEnabled;
-	}
-	public void setSpellEnabled(boolean spellEnabled) {
-		this.spellEnabled = spellEnabled;
-	}
-	public int getSpellTime() {
-		return spellTime;
-	}
-	public void setSpellTime(int spellTime) {
-		this.spellTime = spellTime;
-	}
-	public int getSpellItem() {
-		return spellItem;
-	}
-	public void setSpellItem(int spellItem) {
-		this.spellItem = spellItem;
-	}
-	public String getSpellName() {
-		return spellName;
-	}
-	public void setSpellName(String spellName) {
-		this.spellName = spellName;
-	}
-	public int getSpellNeedId() {
-		return spellNeedId;
-	}
-	public void setSpellNeedId(int spellNeedId) {
-		this.spellNeedId = spellNeedId;
-	}
-	public int getSpellNeedData() {
-		return spellNeedData;
-	}
-	public void setSpellNeedData(int spellNeedData) {
-		this.spellNeedData = spellNeedData;
-	}
-	public int getSpellNeedCount() {
-		return spellNeedCount;
-	}
-	public void setSpellNeedCount(int spellNeedCount) {
-		this.spellNeedCount = spellNeedCount;
-	}
-	public String getSpellNeed() {
-		return spellNeed;
-	}
-	public void setSpellNeed(String spellNeed) {
-		this.spellNeed = spellNeed;
-	}
-	public String getSpellFail() {
-		return spellFail;
-	}
-	public void setSpellFail(String spellFail) {
-		this.spellFail = spellFail;
-	}
-	public boolean isSpellInv() {
-		return spellInv;
-	}
-	public void setSpellInv(boolean spellInv) {
-		this.spellInv = spellInv;
-	}
-	public int getSpellExp() {
-		return spellExp;
-	}
-	public void setSpellExp(int spellExp) {
-		this.spellExp = spellExp;
-	}
-	public String[] getSpellItems() {
-		return spellItems;
-	}
-	public void setSpellItems(String[] spellItems) {
-		this.spellItems = spellItems;
-	}
 	//pistons
 	public boolean isPistonEnabled() {
 		return pistonEnabled;
