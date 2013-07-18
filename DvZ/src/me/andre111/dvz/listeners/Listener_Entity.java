@@ -3,9 +3,9 @@ package me.andre111.dvz.listeners;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
-import me.andre111.dvz.StatManager;
 import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.item.spell.ItemLaunch;
+import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 
 import org.bukkit.Bukkit;

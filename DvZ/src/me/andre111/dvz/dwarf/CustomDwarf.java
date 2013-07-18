@@ -5,8 +5,8 @@ import java.util.List;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.StatManager;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 

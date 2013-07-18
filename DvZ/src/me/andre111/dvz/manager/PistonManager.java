@@ -1,7 +1,9 @@
-package me.andre111.dvz;
+package me.andre111.dvz.manager;
 
 import java.util.List;
 
+import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
 import me.andre111.dvz.dwarf.CustomDwarf;
 
 import org.bukkit.Location;

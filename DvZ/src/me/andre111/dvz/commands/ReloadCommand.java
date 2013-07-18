@@ -1,9 +1,9 @@
 package me.andre111.dvz.commands;
 
-import me.andre111.dvz.BlockManager;
 import me.andre111.dvz.DvZ;
-import me.andre111.dvz.WorldManager;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.manager.BlockManager;
+import me.andre111.dvz.manager.WorldManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

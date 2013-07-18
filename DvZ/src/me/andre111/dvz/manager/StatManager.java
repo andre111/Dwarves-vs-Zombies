@@ -1,9 +1,10 @@
-package me.andre111.dvz;
+package me.andre111.dvz.manager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.iface.IUpCounter;
 

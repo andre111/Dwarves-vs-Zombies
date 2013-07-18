@@ -1,4 +1,4 @@
-package me.andre111.dvz;
+package me.andre111.dvz.manager;
 
 import java.util.HashMap;
 import java.util.Map;

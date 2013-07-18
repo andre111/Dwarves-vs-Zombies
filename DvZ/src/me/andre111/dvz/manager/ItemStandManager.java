@@ -1,8 +1,9 @@
-package me.andre111.dvz;
+package me.andre111.dvz.manager;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.utils.Item3DHandler.Item3DRunnable;
 import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Slapi;

@@ -1,6 +1,6 @@
 package me.andre111.dvz.commands;
 
-import me.andre111.dvz.WorldManager;
+import me.andre111.dvz.manager.WorldManager;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

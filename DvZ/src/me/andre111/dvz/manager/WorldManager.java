@@ -1,4 +1,4 @@
-package me.andre111.dvz;
+package me.andre111.dvz.manager;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import me.andre111.dvz.DvZ;
+import me.andre111.dvz.GameType;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.ItemHandler;
