@@ -153,7 +153,7 @@ public class Game {
 		
 		mana = new ManaManager();
 		
-		globalCrystalChest = Bukkit.createInventory(null, 27, ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		globalCrystalChest = Bukkit.createInventory(null, ConfigManager.getStaticConfig().getInt("globalstorage", 27), ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
 		
 		String wadd = "";
@@ -240,7 +240,7 @@ public class Game {
 		
 		mana.reset();
 		
-		globalCrystalChest = Bukkit.createInventory(null, 27, ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
+		globalCrystalChest = Bukkit.createInventory(null, ConfigManager.getStaticConfig().getInt("globalstorage", 27), ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
 		
 		waitm.releaseAll();
@@ -1670,7 +1670,7 @@ public class Game {
 		if(global) {
 			return globalCrystalChest;
 		} else {
-			if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, 27, ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
+			if(!crystalPerPlayer.containsKey(pname)) crystalPerPlayer.put(pname, Bukkit.createInventory(null, ConfigManager.getStaticConfig().getInt("privatestorage", 27), ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage")));
 			
 			return crystalPerPlayer.get(pname);
 		}
