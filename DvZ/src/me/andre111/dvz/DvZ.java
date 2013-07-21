@@ -19,6 +19,7 @@ import me.andre111.dvz.listeners.Listener_Entity;
 import me.andre111.dvz.listeners.Listener_Game;
 import me.andre111.dvz.listeners.Listener_Player;
 import me.andre111.dvz.manager.BlockManager;
+import me.andre111.dvz.manager.BreakManager;
 import me.andre111.dvz.manager.EffectManager;
 import me.andre111.dvz.manager.ItemStandManager;
 import me.andre111.dvz.monster.MonsterManager;
@@ -226,6 +227,12 @@ public class DvZ extends JavaPlugin {
 				}
 		    }
 		}, 1, 1);
+		
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				BreakManager.tick();
+		    }
+		}, 20*10, 20*10);
 		//
 	}
 	
