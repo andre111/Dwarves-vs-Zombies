@@ -593,7 +593,7 @@ items:
      useUp: false
      rightclick:
        effects: []
-       cooldown: 0
+       cooldown: 30
        mana:
          cost: 0
        casts:
@@ -638,7 +638,7 @@ items:
      useUp: false
      rightclick:
        effects: []
-       cooldown: 0
+       cooldown: 30
        mana:
          cost: 0
        casts:
@@ -690,7 +690,7 @@ items:
      useUp: false
      rightclick:
        effects: []
-       cooldown: 0
+       cooldown: 30
        mana:
          cost: 0
        casts:
@@ -739,7 +739,7 @@ items:
      useUp: false
      rightclick:
        effects: []
-       cooldown: 0
+       cooldown: 30
        mana:
          cost: 0
        casts:
