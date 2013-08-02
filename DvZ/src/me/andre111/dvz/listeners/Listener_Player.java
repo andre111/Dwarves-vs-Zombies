@@ -21,7 +21,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -591,13 +590,10 @@ public class Listener_Player implements Listener  {
 	//custom enchantments
 	@EventHandler
 	public void onProjectileLaunch(ProjectileLaunchEvent event) {
-		if(event.getEntity() instanceof Arrow) {
-			Arrow a = (Arrow) event.getEntity();
-			if(a.getShooter() instanceof Player) {
-				Player shooter = (Player) a.getShooter();
-				
-				DvZ.enchantManager.arrowShoot(shooter.getItemInHand(), a);
-			}
+		if(event.getEntity().getShooter() instanceof Player) {
+			Player shooter = (Player) event.getEntity().getShooter();
+
+			DvZ.enchantManager.procectileShoot(shooter.getItemInHand(), event.getEntity());
 		}
 	}
 	

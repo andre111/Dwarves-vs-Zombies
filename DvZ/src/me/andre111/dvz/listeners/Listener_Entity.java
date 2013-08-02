@@ -11,7 +11,6 @@ import me.andre111.dvz.monster.CustomMonster;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -305,11 +304,11 @@ public class Listener_Entity implements Listener {
 			Player attacker = (Player) event.getDamager();
 			DvZ.enchantManager.attackPlayerByPlayer(attacker, player, attacker.getItemInHand());
 		}
-		if(event.getDamager() instanceof Arrow) {
-			Arrow a = (Arrow) event.getDamager();
+		if(event.getDamager() instanceof Projectile) {
+			Projectile a = (Projectile) event.getDamager();
 			if(a.getShooter() instanceof Player) {
 				Player attacker = (Player) a.getShooter();
-				DvZ.enchantManager.attackPlayerByArrow(attacker, player, a);
+				DvZ.enchantManager.attackPlayerByProjectile(attacker, player, a);
 			}
 		}
 	}

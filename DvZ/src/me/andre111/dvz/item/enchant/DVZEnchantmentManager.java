@@ -12,8 +12,8 @@ import me.andre111.dvz.item.ItemSpell;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -109,7 +109,6 @@ public class DVZEnchantmentManager {
 		Game game = DvZ.instance.getPlayerGame(attacker.getName());
 		
 		if(game!=null) {
-			System.out.println("Casting "+ce.getName()+" by "+attacker.getName()+" on "+player.getName());
 			ce.cast(game, attacker, player);
 		}
 	}
@@ -127,7 +126,7 @@ public class DVZEnchantmentManager {
 	}
 	
 	//get enchantments from arrow
-	public void attackPlayerByArrow(Player attacker, Player player, Arrow a) {
+	public void attackPlayerByProjectile(Player attacker, Player player, Projectile a) {
 		int pos = 0;
 		while(!a.getMetadata("dvz_enchant_"+pos).isEmpty()) {
 			String ench = a.getMetadata("dvz_enchant_"+pos).get(0).asString();
@@ -141,7 +140,7 @@ public class DVZEnchantmentManager {
 	}
 	
 	//save enchants on arrow
-	public void arrowShoot(ItemStack bow, Arrow a) {
+	public void procectileShoot(ItemStack bow, Projectile a) {
 		if(bow.getItemMeta().getLore()==null) return;
 		
 		int pos = 0;
