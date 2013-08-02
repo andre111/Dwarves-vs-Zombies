@@ -22,120 +22,14 @@
 
 # Usable attacks(cast):
 ######################################
-# "ItemLeap"
-# Leap through the air
-#
-# castVar0: forwardvel0city(defaut: 4)
-# castVar1: upwardvelocity(defaut: 1.5)
-# castVar2: power(default: 1) 
-# castVar3: disableDamage(1=true)
-# castVar4: range(only used when casted on a location by another spell)
-######################################
-# "ItemLaunch"
-# Launches an Falling BlockEntity
-# and casts another spell on impact
-# EffectPosition: onHit
-# castVar0: BlockID
-# castVar1: Damagevalue(0-15)
-# castVar2: Power
-# castVar3: Create Item when not landing right(1=true)
-# castVar4: Create Block(1=true)
-# castVar5: do Damage(1=true)
-# castVar6: damage
-# castVar7: onHit(another cast)
-# castVar8+: onHit vars
-######################################
-# "ItemDamage"
-# Damages or heals a Player
-# WARNING: This is affected by the friendly_fire option!
-# castVar0: castOnSelf(1=true)
-# castVar1: damage(negative to heal)
-######################################
-# "ItemCommand"
-# Execute command as the Player or console
-# -0- gets replaced by the casters name
-# -1- gets replaced by the target players name
-# (if no target target exists, all commands containing -1- are skipped!)
-# castVar0: console(1=true)
-# castVar1+: Commands
-######################################
-# "ItemReplace"
-# Replace nearby blocks
-#
-# castVar0: Range(in Blocks)
-# castVar1: originalID:originalData
-# castVar2: targetID:targetData
-######################################
-# "ItemArmorCheck"
-# Check if an Player has armor
-#
-# castVar0: self(1=true) or target
-# castVar1: should have armor(1=true)
-######################################
-# "ItemArmorSet"
-# Sets the Armor of an player
-# (formated itemcodes)
-# castVar0: self(1=true) or target
-# castVar1: helmet
-# castVar2: chestpice
-# castVar3: leggins
-# castVar4: boots
-######################################
-# "ItemPotionEffect"
-# Adds one or more effects to an player
-#
-# castVar0: self(1=true)
-# castVar1+: effectID:duration:level
+# Look at the items.yml of SpellItems for
+# information on the other available
+# Attacks/Spells
 ######################################
 # "ItemCrystalStorage"
 # Opens the crystal storage
 #
 # castVar0: global(1=true, 0=per Player)
-######################################
-# "ItemBlink"
-# Blinks(Teleports) to target Block
-# EffectPosition: Teleport
-# castVar0: maxRange
-# castVar1: reset cooldown when no target was found(=true)
-######################################
-# "ItemConfuse"
-# Confuses Player
-# (CONFUSION+BLINDNESS)
-# castVar0: Duration in ticks(20=1 second)
-# castVar1: Level
-######################################
-# "ItemDrop"
-# Makes the targeted Player drop his weapon
-######################################
-# "ItemExplode"
-# Creates an explosion
-#
-# castVar0: Power
-# castVar1: Kill Caster(0=No, 1=Yes)
-######################################
-# "ItemHunger"
-# Drains Hunger of targeted Player
-#
-# castVar0: Ammount(>50 -> all)
-######################################
-# "ItemGetItem"
-# Gives Items
-#
-# castVar0: Item(formated)
-# castVar1: Times
-######################################
-# "ItemsSnowballs"
-# Throw a barricade of snowballs
-#
-# castVar0: Required ammount
-# castVar1: You got not enough snowballs message
-# castVar2: Reset cooldown, when not enough snowballs(1=true)
-######################################
-# "ItemLay"
-# Lay Silverfish eggs in nearby ston blocks
-# (Requires an silverfish egg in inventory 383:60)
-# castVar0: Radius
-# castVar1: Message to display ""->No Message
 ######################################
 # "ItemPortal"
 # Creates or reinforces the Enderman Portal
@@ -147,45 +41,11 @@
 # castVar1: Target_Player(0=dwarves,1=monsters)
 # castVar2: Range
 ######################################
-# "ItemRoar"
-# Roars and makes silverfish call for help
-#
-# castVar0: Range
-# castVar1: Message to display ""->No Message
-######################################
-# "ItemSmash"
-# Smashes the block
-#
-# castVar0: Play Sound Effect(0=No, 1=Yes)
-# castVar1: reset Cooldown, when no block is targeted(1=true)
-######################################
-# "ItemSetDamage"
-# Set the Damage/Durability of the Spellitem
-#
-# castVar0: new Damage
-######################################
-# "ItemClassCheck"
 # Checks for the players class
 #
 # castVar0: self or clicked player(1=self)
 # castVar1: Type("dwarf" or "monster")
 # castVar2: Classid
-######################################
-# "ItemTransmute"
-# Let's players transmute, like the books
-# in the old gametype
-# castVar0: Required Item - ID
-# castVar1: Required Item - Data
-# castVar2: Required Item - Ammount
-# castVar3: String displayed when not enough items
-# castVar4: add to inventory(1=true)
-# castVar5+: Formated items to give
-######################################
-# "ItemExperience"
-# Give Experience
-#
-# castVar0: to self or targeted player(1=self)
-# castVar1: amount
 ######################################
 # ""
 # 
