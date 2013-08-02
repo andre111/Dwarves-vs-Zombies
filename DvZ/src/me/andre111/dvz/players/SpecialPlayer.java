@@ -1,7 +1,7 @@
 package me.andre111.dvz.players;
 
 import me.andre111.dvz.Game;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.items.ItemHandler;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

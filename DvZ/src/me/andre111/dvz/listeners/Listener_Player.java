@@ -14,7 +14,7 @@ import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.update.DvZUpdateNotifier;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.InventoryHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,25 +25,18 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -100,7 +93,7 @@ public class Listener_Player implements Listener  {
 			//dedicated mode and game not started -> teleport to the lobby
 			if(plugin.getGame(0).getState()==1 && plugin.getConfig().getString("dedicated_mode","false")=="true") {
 				plugin.getGame(0).setPlayerState(player.getName(), 1);
-				ItemHandler.clearInv(player);
+				InventoryHandler.clearInv(player, false);
 				player.teleport(Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 			}
 			//autoadd player
@@ -113,14 +106,14 @@ public class Listener_Player implements Listener  {
 						if (plugin.getConfig().getString("autoadd_players","false")=="true") {
 							if(!plugin.getGame(0).released) {
 								plugin.getGame(0).setPlayerState(player.getName(), 2);
-								ItemHandler.clearInv(player);
+								InventoryHandler.clearInv(player, false);
 								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 								plugin.getGame(0).addDwarfItems(player);
 
 								plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 							} else {
 								plugin.getGame(0).setPlayerState(player.getName(), 3);
-								ItemHandler.clearInv(player);
+								InventoryHandler.clearInv(player, false);
 								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 								plugin.getGame(0).addMonsterItems(player);
 
@@ -263,9 +256,6 @@ public class Listener_Player implements Listener  {
 			if(game.getPlayerState(player.getName())==Game.pickDwarf || game.getPlayerState(player.getName())==Game.pickMonster) {
 				event.setCancelled(true);
 			}
-			ItemStack item = event.getItem();
-
-			game.playerEat(event, player, item);
 		}
 	}
 	
@@ -367,7 +357,7 @@ public class Listener_Player implements Listener  {
 						Player player = Bukkit.getPlayerExact(pname);
 						
 						if(player!=null) {
-							ItemHandler.clearInv(player);
+							InventoryHandler.clearInv(player, false);
 						
 							game.addMonsterItems(player);
 							
@@ -587,16 +577,6 @@ public class Listener_Player implements Listener  {
 		}
 	}
 	
-	//custom enchantments
-	@EventHandler
-	public void onProjectileLaunch(ProjectileLaunchEvent event) {
-		if(event.getEntity().getShooter() instanceof Player) {
-			Player shooter = (Player) event.getEntity().getShooter();
-
-			DvZ.enchantManager.procectileShoot(shooter.getItemInHand(), event.getEntity());
-		}
-	}
-	
 	//manasystem on sneak?
 	@EventHandler
 	public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
@@ -614,28 +594,6 @@ public class Listener_Player implements Listener  {
 			StatManager.hide(p, false);
 		}
 	}
-	//update xpbarstat
-	@EventHandler
-	public void onPlayerExpChange(PlayerExpChangeEvent event) {
-		Player p  = event.getPlayer();
-		Game game = plugin.getPlayerGame(p.getName());
-		if(game==null) return;
-
-		StatManager.updateXPBarStat(p);
-	}
-	//update xp
-	@EventHandler
-	public void onPlayerInventoryOpen(InventoryOpenEvent event) {
-		if(event.isCancelled()) return;
-		
-		Player p  = (Player) event.getPlayer();
-		Game game = plugin.getPlayerGame(p.getName());
-		if(game==null) return;
-		//don't spam packets when the monsters are not released->WaitingMEnu
-		if(game.isMonster(p.getName()) && !game.released) return;
-		
-		StatManager.onInventoryOpen(p);
-	}
 	@EventHandler
 	public void onPlayerInventoryClose(InventoryCloseEvent event) {
 		Player p  = (Player) event.getPlayer();
@@ -645,31 +603,5 @@ public class Listener_Player implements Listener  {
 		if(game.isMonster(p.getName()) && !game.released) return;
 		
 		StatManager.onInventoryClose(p);
-	}
-	//update upcounters
-	@EventHandler(priority=EventPriority.MONITOR)
-	public void onPlayerItemHeld(PlayerItemHeldEvent event) {
-		if(event.isCancelled()) return;
-		
-		StatManager.interruptItem(event.getPlayer().getName());
-	}
-	@EventHandler(priority=EventPriority.MONITOR)
-	public void onPlayerInventoryChange(InventoryClickEvent event) {
-		if(event.isCancelled()) return;
-		
-		Player p = (Player) event.getWhoClicked();
-		if(event.getSlot()==p.getInventory().getHeldItemSlot()) {
-			StatManager.interruptDamage(p.getName());
-		}
-	}
-	@EventHandler(priority=EventPriority.MONITOR)
-	public void onPlayerMove(PlayerMoveEvent event) {
-		if(event.isCancelled()) return;
-		
-		try {
-			if(event.getFrom().distanceSquared(event.getTo())>0.01)
-				StatManager.interruptMove(event.getPlayer().getName());
-		} catch(Exception e) {
-		}
 	}
 }

@@ -1,11 +1,12 @@
-package me.andre111.dvz.item.spell;
+package me.andre111.items.item.spell;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.item.ItemSpell;
+import me.andre111.items.item.ItemSpell;
 
 public class ItemClassCheck extends ItemSpell {
 	boolean self = true;
@@ -25,29 +26,32 @@ public class ItemClassCheck extends ItemSpell {
 	
 	
 	@Override
-	public boolean cast(Game game, Player player) {
+	public boolean cast(Player player) {
 		if(self)
-			return checkClass(game, player);
+			return checkClass(player);
 		else
 			return false;
 	}
 	@Override
-	public boolean cast(Game game, Player player, Block block) {
-		return cast(game, player);
+	public boolean cast(Player player, Block block) {
+		return cast(player);
 	}
 	@Override
-	public boolean cast(Game game, Player player, Player target) {
-		if(self) return cast(game, player);
+	public boolean cast(Player player, Player target) {
+		if(self) return cast(player);
 		
-		return checkClass(game, target);
+		return checkClass(target);
 	}
 	@Override
-	public boolean cast(Game game, Player player, Location loc) {
-		return cast(game, player);
+	public boolean cast(Player player, Location loc) {
+		return cast(player);
 	}
 	
 	//Check for playerclass
-	private boolean checkClass(Game game, Player player) {
+	private boolean checkClass(Player player) {
+		Game game = DvZ.instance.getPlayerGame(player.getName());
+		if(game==null) return false;
+		
 		//dwarves
 		if(type.equals("dwarf") || type.equals("dwarves")) {
 			if(game.isDwarf(player.getName(), true)) {

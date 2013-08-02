@@ -13,8 +13,6 @@ import me.andre111.dvz.dragon.PlayerDragon;
 import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.event.DVZGameEndEvent;
 import me.andre111.dvz.event.DVZGameStartEvent;
-import me.andre111.dvz.item.CustomItem;
-import me.andre111.dvz.manager.ManaManager;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.manager.WorldManager;
 import me.andre111.dvz.monster.CustomMonster;
@@ -22,10 +20,11 @@ import me.andre111.dvz.players.SpecialPlayer;
 import me.andre111.dvz.utils.ExperienceUtils;
 import me.andre111.dvz.utils.GameOptionClickEventHandler;
 import me.andre111.dvz.utils.IconMenu;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.utils.WaitingMenu;
+import me.andre111.items.ItemHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -35,7 +34,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -108,7 +106,6 @@ public class Game {
 	
 	//used for custom cooldowns String: Playername:CooldownName
 	private HashMap<String, Integer> customCooldown = new HashMap<String, Integer>();
-	private ManaManager mana;
 	
 	private boolean autoassasin;
 	private int a_minutes;
@@ -150,8 +147,6 @@ public class Game {
 		deaths = 0;
 		infotimer = 0;
 		dragon = null;
-		
-		mana = new ManaManager();
 		
 		globalCrystalChest = Bukkit.createInventory(null, ConfigManager.getStaticConfig().getInt("globalstorage", 27), ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
@@ -209,7 +204,7 @@ public class Game {
 				//clear potion effects
 				PlayerHandler.resetPotionEffects(player);
 				//clear inventory
-				ItemHandler.clearInv(player);
+				InventoryHandler.clearInv(player, false);
 				//reset health
 				player.resetMaxHealth();
 				player.setHealth(player.getMaxHealth());
@@ -237,8 +232,6 @@ public class Game {
 		deaths = 0;
 		infotimer = 0;
 		dragon = null;
-		
-		mana.reset();
 		
 		globalCrystalChest = Bukkit.createInventory(null, ConfigManager.getStaticConfig().getInt("globalstorage", 27), ConfigManager.getLanguage().getString("string_crystal_storage", "Crystal Storage"));
 		crystalPerPlayer.clear();
@@ -443,8 +436,6 @@ public class Game {
 		for(String st : remove) {
 			customCooldown.remove(st);
 		}
-		
-		mana.tick();
 	}
 	
 	//fastticker 20 times per second
@@ -495,7 +486,7 @@ public class Game {
 								playerstate.put(players, Game.pickDwarf);
 								Player player = Bukkit.getServer().getPlayer(players);
 								if(player!=null) {
-									ItemHandler.clearInv(player);
+									InventoryHandler.clearInv(player, false);
 									player.resetMaxHealth();
 									player.setHealth(player.getMaxHealth());
 									player.setGameMode(GameMode.SURVIVAL);
@@ -1084,9 +1075,6 @@ public class Game {
 		//crstal chest is no longer a global config option
 		//if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname, false), getCrystalChest(pname, true));
 		
-		//custom items
-		playerSpecialItemC(player, item, 1, block, null);
-		
 		//Monster
 		if(isMonster(pname) && itemId==358) Spellcontroller.spellTeleport(this, player);
 		if(isMonster(pname) && itemId==370) Spellcontroller.spellSuizide(this, player);
@@ -1112,9 +1100,6 @@ public class Game {
 		if(isMonster(player.getName()) && !released) {
 			return;
 		}
-		
-		//custom items
-		playerSpecialItemC(player, item, 1, null, target);
 	}
 	
 	//#######################################
@@ -1132,9 +1117,6 @@ public class Game {
 			return;
 		}
 		
-		//custom items
-		playerSpecialItemC(player, item, 0, block, null);
-		
 		if(itemId == 373 && isDwarf(pname, true)) {
 			//changed from old hacky potionhandler to new bukkit functionallity
 			if(ExperienceUtils.getCurrentExp(player)>=plugin.getConfig().getInt("dwarf_potion_exp", 2)) {
@@ -1146,47 +1128,6 @@ public class Game {
 			}
 			//Spellcontroller.spellLaunchPotion(this, player, itemD);
 		}
-	}
-	
-	//#######################################
-	//Spieler hat geklickt custom item
-	//actions:
-	//0 = leftclick
-	//1 = rigthclick
-	//2 = eat
-	//#######################################
-	public void playerSpecialItemC(Player player, ItemStack item, int action, Block block, Player target) {
-		String pname = player.getName();
-		
-		if(isPlayer(pname)) {
-			ItemMeta im = item.getItemMeta();
-			if(im!=null)
-			if(im.hasDisplayName()) {
-				List<CustomItem> cil = DvZ.itemManager.getItemByDisplayName(im.getDisplayName());
-				if(cil!=null) {
-					for(int i=0; i<cil.size(); i++) {
-						CustomItem ci = cil.get(i);
-
-						if(ci.isThisItem(item)) {
-							if(block!=null)
-								ci.cast(this, action, player, block);
-							else if(target!=null)
-								ci.cast(this, action, player, target);
-							else
-								ci.cast(this, action, player);
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	public void playerEat(PlayerItemConsumeEvent event, Player player, ItemStack item) {
-		if(!isPlayer(player.getName())) return;
-		if(item==null) return;
-		
-		//custom items
-		playerSpecialItemC(player, item, 2, null, null);
 	}
 	
 	public void playerBreakBlock(Player player, Block block) {
@@ -1702,10 +1643,6 @@ public class Game {
 	
 	public int getDauer() {
 		return dauer;
-	}
-	
-	public ManaManager getManaManager() {
-		return mana;
 	}
 	
 	public DvZ getPlugin() {

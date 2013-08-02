@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.utils.Item3DHandler.Item3DRunnable;
-import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.Slapi;
+import me.andre111.items.ItemHandler;
 
 import org.bukkit.Location;
 import org.bukkit.World;

@@ -4,7 +4,7 @@ version: 1.6.2
 website: http://andre111.bplaced.net/
 author: andre111
 
-softdepend: [DisguiseCraft,ProtocolLib]
+softdepend: [DisguiseCraft,ProtocolLib,SpellItems]
 
 commands:
    dvztest:

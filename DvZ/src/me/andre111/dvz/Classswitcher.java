@@ -1,6 +1,6 @@
 package me.andre111.dvz;
 
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.InventoryHandler;
 
 //import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ public class Classswitcher {
 		if (buff) game.addMonsterBuff(player);
 		game.resetCountdowns(player.getName());
 		
-		ItemHandler.clearInv(player);
+		InventoryHandler.clearInv(player, false);
 		player.setTotalExperience(0);
 		player.setLevel(0);
 		player.setExp(0);

@@ -18,7 +18,6 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class DynamicClassFunctions {
 	
@@ -49,7 +48,6 @@ public class DynamicClassFunctions {
 			classes.put("CraftServer", Class.forName(obcPackage + ".CraftServer"));
 			classes.put("CraftWorld", Class.forName(obcPackage + ".CraftWorld"));
 			classes.put("CraftFallingSand", Class.forName(obcPackage + ".entity.CraftFallingSand"));
-			classes.put("CraftItemStack", Class.forName(obcPackage + ".inventory.CraftItemStack"));
 			
 			// net.minecraft.server
 			classes.put("MinecraftServer", Class.forName(nmsPackage + ".MinecraftServer"));
@@ -58,10 +56,6 @@ public class DynamicClassFunctions {
 			classes.put("WorldData", Class.forName(nmsPackage + ".WorldData"));
 			classes.put("WorldServer", Class.forName(nmsPackage + ".WorldServer"));
 			classes.put("EntityFallingBlock", Class.forName(nmsPackage + ".EntityFallingBlock"));
-			classes.put("ItemStack", Class.forName(nmsPackage + ".ItemStack"));
-			classes.put("NBTTagCompound", Class.forName(nmsPackage + ".NBTTagCompound"));
-			classes.put("NBTTagList", Class.forName(nmsPackage + ".NBTTagList"));
-			classes.put("NBTBase", Class.forName(nmsPackage + ".NBTBase"));
 			
 			return true;
 		} catch (Exception e) {
@@ -77,14 +71,8 @@ public class DynamicClassFunctions {
 			methods.put("CraftWorld.getHandle()", classes.get("CraftWorld").getDeclaredMethod("getHandle"));
 			methods.put("CraftServer.getServer()", classes.get("CraftServer").getDeclaredMethod("getServer"));
 			methods.put("CraftFallingSand.getHandle()", classes.get("CraftFallingSand").getDeclaredMethod("getHandle"));
-			methods.put("CraftItemStack.asNMSCopy(item)", classes.get("CraftItemStack").getDeclaredMethod("asNMSCopy", ItemStack.class));
-			methods.put("CraftItemStack.asCraftMirror(item)", classes.get("CraftItemStack").getDeclaredMethod("asCraftMirror", classes.get("ItemStack")));
 			
 			// net.minecraft.server
-			methods.put("ItemStack.hasTag()", classes.get("ItemStack").getDeclaredMethod("hasTag"));
-			methods.put("ItemStack.setTag(nbttagcompound)", classes.get("ItemStack").getDeclaredMethod("setTag", classes.get("NBTTagCompound")));
-			methods.put("ItemStack.getTag()", classes.get("ItemStack").getDeclaredMethod("getTag"));
-			methods.put("NBTTagCompound.set(name, tag)", classes.get("NBTTagCompound").getDeclaredMethod("set", String.class, classes.get("NBTBase")));
 			
 			return true;
 		} catch (Exception e) {
@@ -246,30 +234,6 @@ public class DynamicClassFunctions {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static ItemStack addGlow(ItemStack item) {
-		try {
-			Object nmsStack = methods.get("CraftItemStack.asNMSCopy(item)").invoke(null, item);
-
-			Object tag = null;
-			if (!methods.get("ItemStack.hasTag()").invoke(nmsStack).equals(true)){
-				tag = classes.get("NBTTagCompound").newInstance();
-				methods.get("ItemStack.setTag(nbttagcompound)").invoke(nmsStack, tag);
-			}
-			if (tag == null)
-				tag = methods.get("ItemStack.getTag()").invoke(nmsStack);
-
-			Object ench = classes.get("NBTTagList").newInstance();
-			methods.get("NBTTagCompound.set(name, tag)").invoke(tag, "ench", ench);
-			methods.get("ItemStack.setTag(nbttagcompound)").invoke(nmsStack, tag);
-
-			return (ItemStack) methods.get("CraftItemStack.asCraftMirror(item)").invoke(null, nmsStack);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return item;
 	}
 
 }

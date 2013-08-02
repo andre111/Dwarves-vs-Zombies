@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 import me.andre111.dvz.config.ConfigManager;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.InventoryHandler;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -74,8 +74,8 @@ public class Spellcontroller {
 	public static int sdamage = 8;
 	public static void spellSnowGolemThrow(Game game, Player player) {
 		if(game.getCountdown(player.getName(), 2)==0) {
-			if(ItemHandler.countItems(player, 332, 0)>=96) {
-				ItemHandler.removeItems(player, 332, 0, 96);
+			if(InventoryHandler.countItems(player, 332, 0)>=96) {
+				InventoryHandler.removeItems(player, 332, 0, 96);
 				game.setCountdown(player.getName(), 2, plugin.getConfig().getInt("spelltime_snowgolemthrow",0));
 			
 				 Random rand = new Random();

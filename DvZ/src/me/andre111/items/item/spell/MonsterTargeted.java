@@ -1,4 +1,4 @@
-package me.andre111.dvz.item.spell;
+package me.andre111.items.item.spell;
 
 //TODO - port to the ItemSpell system
 /*import java.util.List;

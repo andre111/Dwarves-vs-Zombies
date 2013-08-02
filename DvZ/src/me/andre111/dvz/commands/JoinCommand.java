@@ -3,7 +3,7 @@ package me.andre111.dvz.commands;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.InventoryHandler;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,7 +34,7 @@ public class JoinCommand extends DvZCommand {
 		
 		if(game!=null) {
 			if(!game.isPlayer(player.getName())) {
-				if(ItemHandler.isInvEmpty(player) || ignoreItems) {
+				if(InventoryHandler.isInvEmpty(player, false) || ignoreItems) {
 					DvZ.instance.joinGame(player, game);
 				}
 				else {

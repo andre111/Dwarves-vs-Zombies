@@ -13,8 +13,6 @@ import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
 import me.andre111.dvz.dwarf.DwarfManager;
 import me.andre111.dvz.generator.DvZWorldProvider;
-import me.andre111.dvz.item.ItemManager;
-import me.andre111.dvz.item.enchant.DVZEnchantmentManager;
 import me.andre111.dvz.listeners.Listener_Block;
 import me.andre111.dvz.listeners.Listener_Entity;
 import me.andre111.dvz.listeners.Listener_Game;
@@ -29,11 +27,12 @@ import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.IconMenuHandler;
 import me.andre111.dvz.utils.Invulnerability;
 import me.andre111.dvz.utils.Item3DHandler;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.Metrics;
 import me.andre111.dvz.utils.Metrics.Graph;
 import me.andre111.dvz.utils.MovementStopper;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
+import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,8 +57,10 @@ public class DvZ extends JavaPlugin {
 	private GameDummy gameDummy = new GameDummy();
 	public static int startedGames = 0;
 	private Lobby lobby;
+	
 	public static DisguiseCraftAPI api;
 	public static ProtocolManager protocolManager;
+	public static SpellItems spellItems;
 	
 	public static DragonAttackManager dragonAtManager;
 	public static DragonDeathListener dragonDeath;
@@ -73,8 +74,6 @@ public class DvZ extends JavaPlugin {
 	
 	public static MonsterManager monsterManager;
 	public static DwarfManager dwarfManager;
-	public static ItemManager itemManager;
-	public static DVZEnchantmentManager enchantManager;
 	
 	public static Logger logger;
 	public static String prefix = "[Dwarves vs Zombies] ";
@@ -118,19 +117,22 @@ public class DvZ extends JavaPlugin {
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
+			if (!Bukkit.getPluginManager().isPluginEnabled("SpellItems"))
+			{
+				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"SpellItems could not be found, disabling...");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
 		}
 		DvZ.api = DisguiseCraft.getAPI();
 		DvZ.protocolManager = ProtocolLibrary.getProtocolManager();
+		DvZ.spellItems = SpellItems.instance;
 		
 		Spellcontroller.plugin = this;
 		Classswitcher.plugin = this;
-		ItemHandler.plugin = this;
 		IconMenuHandler.instance = new IconMenuHandler(this);
 		
-		enchantManager = new DVZEnchantmentManager();
-		enchantManager.loadEnchants();
-		itemManager = new ItemManager();
-		itemManager.loadItems();
+		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
 		dwarfManager = new DwarfManager();
 		dwarfManager.loadDwarfes();
 		monsterManager = new MonsterManager();
@@ -256,6 +258,11 @@ public class DvZ extends JavaPlugin {
 		}
 	}
 	
+	public static void reloadItems() {
+		SpellItems.reload();
+		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
+	}
+	
 	public static void log(String s) {
 		logger.info(prefix+s);
 	}
@@ -327,7 +334,7 @@ public class DvZ extends JavaPlugin {
 		game.setPlayerState(player.getName(), 1);
 		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
 			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
-		ItemHandler.clearInv(player);
+		InventoryHandler.clearInv(player, false);
 
 		player.sendMessage(ConfigManager.getLanguage().getString("string_self_added","You have been added to the game!"));
 

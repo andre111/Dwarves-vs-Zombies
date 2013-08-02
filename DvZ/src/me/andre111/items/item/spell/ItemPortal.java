@@ -1,4 +1,4 @@
-package me.andre111.dvz.item.spell;
+package me.andre111.items.item.spell;
 
 import java.util.ArrayList;
 
@@ -11,31 +11,34 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
 import me.andre111.dvz.config.ConfigManager;
-import me.andre111.dvz.item.ItemSpell;
+import me.andre111.items.item.ItemSpell;
 
 public class ItemPortal extends ItemSpell {
 	
 	@Override
-	public boolean cast(Game game, Player player) {	
-		return castIntern(game, player, player.getLocation());
+	public boolean cast(Player player) {	
+		return castIntern(player, player.getLocation());
 	}
 	@Override
-	public boolean cast(Game game, Player player, Block block) {	
-		return cast(game, player);
+	public boolean cast(Player player, Block block) {	
+		return cast(player);
 	}
 	@Override
-	public boolean cast(Game game, Player player, Player target) {	
-		return cast(game, player);
+	public boolean cast(Player player, Player target) {	
+		return cast(player);
 	}
 	@Override
-	public boolean cast(Game game, Player player, Location target) {	
-		return castIntern(game, player, target);
+	public boolean cast(Player player, Location target) {	
+		return castIntern(player, target);
 	}
 	
-	private boolean castIntern(Game game, Player player, Location loc) {
+	private boolean castIntern(Player player, Location loc) {
+		Game game = DvZ.instance.getPlayerGame(player.getName());
+		
 		if(game.enderPortal!=null) {
 			if(!reinforePortal(game, player)) {
 				player.sendMessage(ConfigManager.getLanguage().getString("string_portal_exists","A Portal allready exists!"));

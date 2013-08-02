@@ -1,4 +1,4 @@
-package me.andre111.dvz.item.spell;
+package me.andre111.items.item.spell;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,9 +15,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.item.ItemSpell;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.items.ItemHandler;
+import me.andre111.items.item.ItemSpell;
 
 public class ItemPotions extends ItemSpell {
 	//0=dwarves, 1=monsters
@@ -38,20 +39,26 @@ public class ItemPotions extends ItemSpell {
 	}
 
 	@Override
-	public boolean cast(Game game, Player player) {	
+	public boolean cast(Player player) {	
+		Game game = DvZ.instance.getPlayerGame(player.getName());
+		if(game==null) return false;
+		
 		return castAtEntity(game, player);
 	}
 	@Override
-	public boolean cast(Game game, Player player, Block block) {	
-		return cast(game, player);
+	public boolean cast(Player player, Block block) {	
+		return cast(player);
 	}
 	@Override
-	public boolean cast(Game game, Player player, Player target) {	
-		return cast(game, player);
+	public boolean cast(Player player, Player target) {	
+		return cast(player);
 	}
 
 	@Override
-	public boolean cast(Game game, Player player, Location target) {
+	public boolean cast(Player player, Location target) {
+		Game game = DvZ.instance.getPlayerGame(player.getName());
+		if(game==null) return false;
+		
 		Arrow a = (Arrow) target.getWorld().spawnEntity(target, EntityType.ARROW);
 		boolean success = castAtEntity(game, a);
 		a.remove();

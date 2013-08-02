@@ -1,12 +1,9 @@
 package me.andre111.dvz.listeners;
 
-import java.util.List;
-
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.GameType;
 import me.andre111.dvz.config.ConfigManager;
-import me.andre111.dvz.item.CustomItem;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.PistonManager;
 
@@ -20,8 +17,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class Listener_Block implements Listener {
 	private DvZ plugin;
@@ -54,27 +49,6 @@ public class Listener_Block implements Listener {
 			if(!DvZ.monsterManager.getMonster(id).isPlaceBlocks()) {
 				event.setCancelled(true);
 				return;
-			}
-		}
-		
-		//specialitems - block place disable
-		if(game.isPlayer(player.getName())) {
-			ItemStack item = event.getItemInHand();
-			ItemMeta im = item.getItemMeta();
-			if(im!=null)
-			if(im.hasDisplayName()) {
-				List<CustomItem> cil = DvZ.itemManager.getItemByDisplayName(im.getDisplayName());
-				if(cil!=null) {
-					for(int i=0; i<cil.size(); i++) {
-						CustomItem ci = cil.get(i);
-
-						if(ci.isThisItem(item)) {
-							if(!ci.isAllowPlace()) {
-								event.setCancelled(true);
-							}
-						}
-					}
-				}
 			}
 		}
 	}

@@ -1,11 +1,12 @@
-package me.andre111.dvz.item.spell;
+package me.andre111.items.item.spell;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.item.ItemSpell;
+import me.andre111.items.item.ItemSpell;
 
 public class ItemCrystalStorage extends ItemSpell {
 	private boolean global = false;
@@ -16,22 +17,25 @@ public class ItemCrystalStorage extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Game game, Player player) {
+	public boolean cast(Player player) {
+		Game game = DvZ.instance.getPlayerGame(player.getName());
+		if(game==null) return false;
+		
 		player.openInventory(game.getCrystalChest(player.getName(), global));
 		return true;
 	}
 	
 	@Override
-	public boolean cast(Game game, Player player, Block block) {
-		return cast(game, player);
+	public boolean cast(Player player, Block block) {
+		return cast(player);
 	}
 	@Override
-	public boolean cast(Game game, Player player, Player target) {
-		return cast(game, player);
+	public boolean cast(Player player, Player target) {
+		return cast(player);
 	}
 	@Override
 	//casted by another spell on that location
-	public boolean cast(Game game, Player player, Location loc) {
-		return cast(game, player);
+	public boolean cast(Player player, Location loc) {
+		return cast(player);
 	}
 }

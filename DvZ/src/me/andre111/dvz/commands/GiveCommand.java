@@ -1,6 +1,6 @@
 package me.andre111.dvz.commands;
 
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.items.ItemHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

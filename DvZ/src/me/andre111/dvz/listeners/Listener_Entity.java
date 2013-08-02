@@ -4,8 +4,6 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
 import me.andre111.dvz.dwarf.CustomDwarf;
-import me.andre111.dvz.item.spell.ItemLaunch;
-import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 
 import org.bukkit.Bukkit;
@@ -14,14 +12,12 @@ import org.bukkit.World.Environment;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityCreatePortalEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -266,50 +262,6 @@ public class Listener_Entity implements Listener {
 		if (entity instanceof EnderDragon)
 		{ 
 			if (entity.getWorld().getEnvironment() != Environment.THE_END) event.setCancelled(true); 
-		}
-	}
-	
-	//fallingsand
-	@EventHandler
-	public void onEntityChangeBlock(EntityChangeBlockEvent event) {
-		if(event.getEntityType()==EntityType.FALLING_BLOCK) {
-			FallingBlock entity = (FallingBlock) event.getEntity();
-			//falling sand hit
-			if(entity.hasMetadata("dvz_falling_casting")) {
-				ItemLaunch il = (ItemLaunch) entity.getMetadata("dvz_falling_casting").get(0).value();
-				int gID = entity.getMetadata("dvz_falling_gameId").get(0).asInt();
-				String playern = entity.getMetadata("dvz_falling_playername").get(0).asString();
-				
-				il.onHit(plugin.getGame(gID), Bukkit.getServer().getPlayerExact(playern), event.getBlock());
-			}
-			//disable blocks from fallingsand
-			if(entity.hasMetadata("dvz_falling_noblock")) {
-				event.setCancelled(true);
-			}
-		}
-	}
-	
-	//update upcounters
-	@EventHandler(priority=EventPriority.MONITOR)
-	public void onEntityDamageEntityMonitor(EntityDamageByEntityEvent event) {
-		if (event.isCancelled()) return;
-		if(!(event.getEntity() instanceof Player)) return;
-		Player player = (Player)event.getEntity();
-
-		StatManager.interruptDamage(player.getName());
-		
-		
-	//custom enchants
-		if(event.getDamager() instanceof Player) {
-			Player attacker = (Player) event.getDamager();
-			DvZ.enchantManager.attackPlayerByPlayer(attacker, player, attacker.getItemInHand());
-		}
-		if(event.getDamager() instanceof Projectile) {
-			Projectile a = (Projectile) event.getDamager();
-			if(a.getShooter() instanceof Player) {
-				Player attacker = (Player) a.getShooter();
-				DvZ.enchantManager.attackPlayerByProjectile(attacker, player, a);
-			}
 		}
 	}
 }

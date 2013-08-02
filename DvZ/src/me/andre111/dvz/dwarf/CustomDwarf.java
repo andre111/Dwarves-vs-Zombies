@@ -7,8 +7,10 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.manager.StatManager;
-import me.andre111.dvz.utils.ItemHandler;
+import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.items.ItemHandler;
+import me.andre111.items.ManaManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -52,15 +54,15 @@ public class CustomDwarf {
 	public void becomeDwarf(Game game, final Player player) {
 		game.setPlayerState(player.getName(), id+Game.dwarfMin);
 		game.resetCountdowns(player.getName());
-		game.getManaManager().setMaxMana(player.getName(), getMaxMana(), true);
-		game.getManaManager().setManaRegen(player.getName(), getManaRegen());
+		ManaManager.setMaxMana(player.getName(), getMaxMana(), true);
+		ManaManager.setManaRegen(player.getName(), getManaRegen());
 		
 		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		
 		if(!startMessage.equals(""))
 			player.sendMessage(startMessage);
 		
-		ItemHandler.clearInv(player);
+		InventoryHandler.clearInv(player, false);
 		PlayerHandler.resetPotionEffects(player);
 		player.setTotalExperience(0);
 		player.setLevel(0);

@@ -7,8 +7,9 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.manager.StatManager;
-import me.andre111.dvz.utils.ItemHandler;
 import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.items.ItemHandler;
+import me.andre111.items.ManaManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -46,8 +47,8 @@ public class CustomMonster {
 	public void becomeMonster(Game game, final Player player) {
 		Classswitcher.becomeMonster(game, player, true);
 		game.setPlayerState(player.getName(), id+Game.monsterMin);
-		game.getManaManager().setMaxMana(player.getName(), getMaxMana(), true);
-		game.getManaManager().setManaRegen(player.getName(), getManaRegen());
+		ManaManager.setMaxMana(player.getName(), getMaxMana(), true);
+		ManaManager.setManaRegen(player.getName(), getManaRegen());
 		
 		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", getDisguise()));
