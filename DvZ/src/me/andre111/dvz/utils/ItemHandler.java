@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.item.enchant.CustomEnchant;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.enchantments.Enchantment;
@@ -74,16 +75,26 @@ public class ItemHandler {
 						int eid = -1;
 						int elevel = 0;
 
-						if(split_e.length>0) eid = Integer.parseInt(split_e[0]);
-						if(split_e.length>1) elevel = Integer.parseInt(split_e[1]);
-
-						if(eid>-1) {
-							item.addUnsafeEnchantment(Enchantment.getById(eid), elevel);
+						try {
+							if(split_e.length>0) eid = Integer.parseInt(split_e[0]);
+							if(split_e.length>1) elevel = Integer.parseInt(split_e[1]);
+	
+							if(eid>-1) {
+								item.addUnsafeEnchantment(Enchantment.getById(eid), elevel);
+							}
+							//glow only(-10)
+							else if(eid==-10) {
+								addGlow = true;
+							}
 						}
-						//glow only(-10)
-						else if(eid==-10) {
-							addGlow = true;
+						//custom enchant
+						catch(NumberFormatException ex) {
+							CustomEnchant ce = DvZ.enchantManager.getEnchantmentByName(split_e[0]);
+							if(ce!=null) {
+								item = ce.enchantItem(item, elevel);
+							}
 						}
+						
 					}
 				}
 

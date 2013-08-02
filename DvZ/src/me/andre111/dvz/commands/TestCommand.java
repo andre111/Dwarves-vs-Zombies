@@ -27,11 +27,9 @@ public class TestCommand extends DvZCommand {
 		
 		//Spellcontroller.spellEnderChest(plugin.game, player);
 		
-		//player.getInventory().clear();
-		//DvZ.instance.getPlayerGame(player.getName()).setPlayerState(player.getName(), 3);
-		//DvZ.instance.getPlayerGame(player.getName()).addMonsterItems(player);
-		
-		player.setItemInHand(DvZ.enchantManager.getEnchantmentByName("testEnchant").enchantItem(player.getItemInHand(), 1));
+		player.getInventory().clear();
+		DvZ.instance.getPlayerGame(player.getName()).setPlayerState(player.getName(), 3);
+		DvZ.instance.getPlayerGame(player.getName()).addMonsterItems(player);
 		
 		/*if(test==null) {
 			test = DvZWorldProvider.generateNewWorld();
