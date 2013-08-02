@@ -47,6 +47,11 @@ public class ReloadCommand extends DvZCommand {
 				DvZ.itemManager.reload();
 				reload = true;
 			}
+			if(rs.equalsIgnoreCase("enchantments") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("items");
+				DvZ.enchantManager.reload();
+				reload = true;
+			}
 			if(rs.equalsIgnoreCase("blocks") || rs.equalsIgnoreCase("all")) {
 				ConfigManager.reloadConfig("blocks");
 				BlockManager.reload();

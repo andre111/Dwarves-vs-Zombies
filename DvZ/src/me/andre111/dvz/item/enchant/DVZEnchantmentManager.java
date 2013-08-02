@@ -187,4 +187,9 @@ public class DVZEnchantmentManager {
 		
 		return null;
 	}
+	
+	//reload this configsection/file
+	public void reload() {
+		loadEnchants();
+	}
 }

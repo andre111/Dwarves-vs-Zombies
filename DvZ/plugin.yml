@@ -109,7 +109,7 @@ commands:
    dvz_reload:
       description: Reloads a specific config or the whole plugins
       aliases: [d_reload]
-      usage: /<command> [plugin|all|dwarves|monsters|items|blocks|worlds|language]
+      usage: /<command> [plugin|all|dwarves|monsters|items|enchantments|blocks|worlds|language]
       permission: dvz.reload
 
 permissions:
