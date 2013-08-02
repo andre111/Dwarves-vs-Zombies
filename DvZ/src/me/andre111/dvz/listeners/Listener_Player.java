@@ -15,6 +15,7 @@ import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.update.DvZUpdateNotifier;
 import me.andre111.dvz.utils.InventoryHandler;
+import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -233,6 +234,8 @@ public class Listener_Player implements Listener  {
 						Player target = dc.disguiseIDs.get(event.getTarget());
 						ItemStack item = event.getPlayer().getItemInHand();
 						
+						//TODO - this should somehow be handled by the SpellItems Plugin
+						SpellItems.playerSpecialItemC(player, item, 1, null, target);
 						game.playerRCPlayer(player, item, target);
 					}
 					
