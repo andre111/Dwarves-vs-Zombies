@@ -21,6 +21,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -29,6 +30,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -582,6 +584,19 @@ public class Listener_Player implements Listener  {
 			
 			if(ConfigManager.isCraftDisabled(id, game.getGameType())) {
 				event.setCancelled(true);
+			}
+		}
+	}
+	
+	//custom enchantments
+	@EventHandler
+	public void onProjectileLaunch(ProjectileLaunchEvent event) {
+		if(event.getEntity() instanceof Arrow) {
+			Arrow a = (Arrow) event.getEntity();
+			if(a.getShooter() instanceof Player) {
+				Player shooter = (Player) a.getShooter();
+				
+				DvZ.enchantManager.arrowShoot(shooter.getItemInHand(), a);
 			}
 		}
 	}

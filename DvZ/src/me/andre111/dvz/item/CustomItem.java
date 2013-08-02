@@ -247,10 +247,25 @@ public class CustomItem implements IUpCounter {
 		ItemMeta im = it.getItemMeta();
 		if(!im.getDisplayName().equals(name)) return false;
 		if(im.hasLore()) {
-			if(!im.getLore().equals(lore)) return false;
+			return isLoreCorrect(im);
 		} else {
 			if(lore.size()>0) return false;
 		}
+		
+		return true;
+	}
+	
+	//compare lore to ignore custom enchantments
+	private boolean isLoreCorrect(ItemMeta im) {
+		int pos = 0;
+		for(String st : im.getLore()) {
+			if(!DvZ.enchantManager.isCustomEnchantment(st)) {
+				if(!st.equals(lore.get(pos))) return false;
+				pos++;
+			}
+		}
+		//missing lore
+		if(lore.size()>pos) return false;
 		
 		return true;
 	}

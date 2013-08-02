@@ -14,6 +14,7 @@ import me.andre111.dvz.dragon.DragonDeathListener;
 import me.andre111.dvz.dwarf.DwarfManager;
 import me.andre111.dvz.generator.DvZWorldProvider;
 import me.andre111.dvz.item.ItemManager;
+import me.andre111.dvz.item.enchant.DVZEnchantmentManager;
 import me.andre111.dvz.listeners.Listener_Block;
 import me.andre111.dvz.listeners.Listener_Entity;
 import me.andre111.dvz.listeners.Listener_Game;
@@ -73,6 +74,7 @@ public class DvZ extends JavaPlugin {
 	public static MonsterManager monsterManager;
 	public static DwarfManager dwarfManager;
 	public static ItemManager itemManager;
+	public static DVZEnchantmentManager enchantManager;
 	
 	public static Logger logger;
 	public static String prefix = "[Dwarves vs Zombies] ";
@@ -125,6 +127,8 @@ public class DvZ extends JavaPlugin {
 		ItemHandler.plugin = this;
 		IconMenuHandler.instance = new IconMenuHandler(this);
 		
+		enchantManager = new DVZEnchantmentManager();
+		enchantManager.loadEnchants();
 		itemManager = new ItemManager();
 		itemManager.loadItems();
 		dwarfManager = new DwarfManager();

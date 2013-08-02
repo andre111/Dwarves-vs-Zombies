@@ -189,7 +189,7 @@ public class ItemManager {
 		}
 	}
 	
-	private ItemEffect getItemEffect(String st) {
+	public static ItemEffect getItemEffect(String st) {
 		ItemEffect effect = null;
 		
 		//effect

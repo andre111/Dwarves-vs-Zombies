@@ -841,7 +841,7 @@ items:
          cost: 0
        casts:
          0:
-           cast: "ItemEffect"
+           cast: "ItemPotionEffect"
            require: -1
            castVars:
              - 0
@@ -1135,3 +1135,15 @@ items:
            castVars:
              - 6
              - 1
+
+enchantments:
+   testEnchant:
+     name: "Test Enchant"
+     effects: []
+     casts:
+       0:
+         cast: "ItemPotionEffect"
+         require: -1
+         castVars:
+           - 0
+           - "19:60:4"
