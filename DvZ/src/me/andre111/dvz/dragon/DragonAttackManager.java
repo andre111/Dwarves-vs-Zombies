@@ -186,7 +186,7 @@ public class DragonAttackManager {
 				}
 			}
 			//nothing reached
-			if (DvZ.transparent.contains(furthest.getType()))
+			if (DvZ.transparent.contains((byte)furthest.getTypeId()))
 			{
 				return false;
 			}

@@ -99,7 +99,8 @@ public class DvZ extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		DvZ.instance = this;
+		if(DvZ.instance==null)
+			DvZ.instance = this;
 		
 		ConfigManager.initConfig(this);
 		
@@ -244,6 +245,9 @@ public class DvZ extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
+		if(DvZ.instance!=null)
+			DvZ.instance = null;
+		
 		//remove all zombies
 		if(item3DHandler!=null)
 			item3DHandler.removeAll();

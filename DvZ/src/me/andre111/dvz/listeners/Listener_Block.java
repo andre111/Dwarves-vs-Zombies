@@ -39,6 +39,9 @@ public class Listener_Block implements Listener {
 			event.setCancelled(true);
 			return;
 		}
+		
+		if(game==null) return;
+		
 		if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
 			event.setCancelled(true);
 			return;
@@ -102,7 +105,7 @@ public class Listener_Block implements Listener {
 	    for(int i=0; i<10; i++) {
 	    	World w2 =  Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+i+"");
 	    	if(w2!=null)
-	    	if(w.getName()==w2.getName()) {
+	    	if(w.getName().equals(w2.getName())) {
 	    		game = DvZ.instance.getGame(i);
 	    		break;
 	    	}

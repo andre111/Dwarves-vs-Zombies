@@ -3,6 +3,7 @@ package me.andre111.dvz.manager;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
@@ -27,6 +28,7 @@ public class StatManager {
 		try {
 			player.setScoreboard(sc);
 		} catch(Exception e) {
+			DvZ.log("Exception showing "+player.getName()+" a scoreboard: "+e);
 			return;
 		}
 	}
