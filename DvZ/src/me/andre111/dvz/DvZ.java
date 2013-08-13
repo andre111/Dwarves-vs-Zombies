@@ -3,6 +3,7 @@ package me.andre111.dvz;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,6 +32,7 @@ import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.Metrics;
 import me.andre111.dvz.utils.Metrics.Graph;
 import me.andre111.dvz.utils.MovementStopper;
+import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 import me.andre111.items.SpellItems;
 
@@ -241,6 +243,31 @@ public class DvZ extends JavaPlugin {
 		    }
 		}, 20*10, 20*10);
 		//
+		
+		//special testing stuff
+		Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler() {
+		     public void uncaughtException( final Thread t, final Throwable e ) {
+		    	 if(e instanceof OutOfMemoryError) {
+		    		 try {
+		    				String path = new File(getDataFolder(), "OutOfMemory.txt").getAbsolutePath();
+		    				String st = e.getMessage() + "\r\n" + "\r\n";
+		    				
+		    				Map<Thread,StackTraceElement[]> tstMap = Thread.getAllStackTraces();
+		    				for(Thread th : tstMap.keySet()) {
+		    					StackTraceElement[] ste = tstMap.get(th);
+		    					st = st + "\r\n" + "\r\n" + th.getName();
+		    					for(StackTraceElement ste1 : ste) {
+		    						st = st + "\r\n" + ste1;
+		    					}
+		    				}
+		    				Slapi.save(st, path);
+		    			} catch (Exception e1) {
+		    				// TODO Auto-generated catch block
+		    				e1.printStackTrace();
+		    			}
+		    	 }
+		     }
+		});
 	}
 	
 	@Override
