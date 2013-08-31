@@ -240,6 +240,10 @@ public class DvZ extends JavaPlugin {
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				BreakManager.tick();
+				//experimental resend all Itemstands every 10 seconds
+				for(Player p : Bukkit.getServer().getOnlinePlayers()) {
+					item3DHandler.respawnAll(p);
+				}
 		    }
 		}, 20*10, 20*10);
 		//
