@@ -3,7 +3,6 @@ package me.andre111.dvz;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +31,6 @@ import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.Metrics;
 import me.andre111.dvz.utils.Metrics.Graph;
 import me.andre111.dvz.utils.MovementStopper;
-import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 import me.andre111.items.SpellItems;
 
