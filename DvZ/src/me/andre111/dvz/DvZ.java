@@ -247,31 +247,6 @@ public class DvZ extends JavaPlugin {
 		    }
 		}, 20*10, 20*10);
 		//
-		
-		//special testing stuff
-		Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler() {
-		     public void uncaughtException( final Thread t, final Throwable e ) {
-		    	 if(e instanceof OutOfMemoryError) {
-		    		 try {
-		    				String path = new File(getDataFolder(), "OutOfMemory.txt").getAbsolutePath();
-		    				String st = e.getMessage() + "\r\n" + "\r\n";
-		    				
-		    				Map<Thread,StackTraceElement[]> tstMap = Thread.getAllStackTraces();
-		    				for(Thread th : tstMap.keySet()) {
-		    					StackTraceElement[] ste = tstMap.get(th);
-		    					st = st + "\r\n" + "\r\n" + th.getName();
-		    					for(StackTraceElement ste1 : ste) {
-		    						st = st + "\r\n" + ste1;
-		    					}
-		    				}
-		    				Slapi.save(st, path);
-		    			} catch (Exception e1) {
-		    				// TODO Auto-generated catch block
-		    				e1.printStackTrace();
-		    			}
-		    	 }
-		     }
-		});
 	}
 	
 	@Override
