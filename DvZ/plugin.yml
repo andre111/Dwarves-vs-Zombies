@@ -99,7 +99,7 @@ commands:
    dvz_itemstand:
       description: Creates a 3D Itemstand at your postition
       aliases: [d_itemstand,dvz_stand,d_stand]
-      usage: /<command> [once_player] [display_item] [formated_item]
+      usage: /<command> [once_player] [only_clickingPlayer] [display_item] [formated_item]
       permission: dvz.itemstand
    dvz_quarry:
       description: Creates a quarry at your location - WARNING! Can not be undone!

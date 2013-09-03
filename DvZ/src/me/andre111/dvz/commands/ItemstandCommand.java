@@ -31,31 +31,37 @@ public class ItemstandCommand extends DvZCommand {
 		if(args.length>0) {
 			if(args.length>1) {
 				if(args.length>2) {
-					boolean once = Boolean.parseBoolean(args[0]);
-					int itemID = Integer.parseInt(args[1]);
-					
-					//recombine all other arguments
-					String itemSt = "";
-					int ii = 2;
-					while(args.length>ii) {
-						itemSt = itemSt + " " + args[ii];
-						ii++;
-					}
-					
-					//get the item
-					if(ItemHandler.decodeItem(itemSt)!=null) {
-						DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/itemstands/"), player.getLocation(), itemID, once, itemSt);
-						return true;
+					if(args.length>3) {
+						boolean once = Boolean.parseBoolean(args[0]);
+						boolean onlyClicking = Boolean.parseBoolean(args[1]);
+						int itemID = Integer.parseInt(args[2]);
+						
+						//recombine all other arguments
+						String itemSt = "";
+						int ii = 3;
+						while(args.length>ii) {
+							itemSt = itemSt + " " + args[ii];
+							ii++;
+						}
+						
+						//get the item
+						if(ItemHandler.decodeItem(itemSt)!=null) {
+							DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/itemstands/"), player.getLocation(), itemID, once, itemSt, onlyClicking);
+							return true;
+						} else {
+							sender.sendMessage("Could not decode Itemstring: "+itemSt);
+							return false;
+						}
 					} else {
-						sender.sendMessage("Could not decode Itemstring: "+itemSt);
+						sender.sendMessage("Please specify a formated Item to give!");
 						return false;
 					}
 				} else {
-					sender.sendMessage("Please specify a formated Item to give!");
+					sender.sendMessage("Please specify a display Item ID!");
 					return false;
 				}
 			} else {
-				sender.sendMessage("Please specify a display Item ID!");
+				sender.sendMessage("Please specify whether only the clicking Player can pickup the item!");
 				return false;
 			}
 		} else {

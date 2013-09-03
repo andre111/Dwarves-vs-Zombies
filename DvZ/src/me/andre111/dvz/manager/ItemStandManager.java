@@ -10,8 +10,10 @@ import me.andre111.items.ItemHandler;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 
 public class ItemStandManager {
 	//private Game game;
@@ -36,10 +38,11 @@ public class ItemStandManager {
 				int itemID = Integer.parseInt(split[3]);
 				boolean once = Boolean.parseBoolean(split[4]);
 				String item = split[5];
+				boolean onlyClicking = Boolean.parseBoolean(split[5]);
 				
 				Location loc = new Location(w, x, y, z);
 				
-				createStand(loc, itemID, once, item);
+				createStand(loc, itemID, once, item, onlyClicking);
 			} catch (Exception e) {
 				DvZ.log("Could not read Itemstandinfo!");
 				e.printStackTrace();
@@ -50,14 +53,14 @@ public class ItemStandManager {
 		}
 	}
 	
-	public void createAndSaveStand(File directory, Location loc, int itemID, boolean once, String formatedItem) {
-		createStand(loc, itemID, once, formatedItem);
+	public void createAndSaveStand(File directory, Location loc, int itemID, boolean once, String formatedItem, boolean onlyClicking) {
+		createStand(loc, itemID, once, formatedItem, onlyClicking);
 		
 		int x = loc.getBlockX();
 		int y = loc.getBlockY();
 		int z = loc.getBlockZ();
 		
-		String save = x+"//"+y+"//"+z+"//"+itemID+"//"+once+"//"+formatedItem;
+		String save = x+"//"+y+"//"+z+"//"+itemID+"//"+once+"//"+formatedItem+"//"+onlyClicking;
 		
 		File f = new File(directory, "0.dat");
 		int count = 0;
@@ -78,7 +81,7 @@ public class ItemStandManager {
 		
 	}*/
 	
-	private void createStand(Location loc, final int itemID, final boolean once, final String formatedItem) {
+	private void createStand(Location loc, final int itemID, final boolean once, final String formatedItem, final boolean onlyClicking) {
 		DvZ.item3DHandler.spawnAroundBlock(null, loc, itemID, new Item3DRunnable() {
 			private ArrayList<String> players = new ArrayList<String>();
 			
@@ -87,8 +90,13 @@ public class ItemStandManager {
 				if(once && players.contains(player.getName())) return;
 				
 				ItemStack it = ItemHandler.decodeItem(formatedItem);
-				if(it!=null)
-					player.getWorld().dropItemNaturally(player.getLocation().clone().add(0, 1, 0), it);
+					
+				if(it!=null) {
+					Item ie = player.getWorld().dropItemNaturally(player.getLocation().clone().add(0, 1, 0), it);
+					if (onlyClicking) {
+						ie.setMetadata("dvz_onlyPickup", new FixedMetadataValue(DvZ.instance, player.getName()));
+					}
+				}
 				
 				players.add(player.getName());
 			}
