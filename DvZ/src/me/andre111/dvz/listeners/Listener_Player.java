@@ -83,6 +83,8 @@ public class Listener_Player implements Listener  {
 		}
 		//TODO - maybe change to not always join game 0
 		if (plugin.getPlayerGame(player.getName())==null) {
+			if(plugin.getGame(0)==null) return;
+			
 			plugin.getGame(0).addPlayer(player.getName());
 			player.sendMessage(ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
 			player.sendMessage("--------------------------------");
@@ -264,6 +266,15 @@ public class Listener_Player implements Listener  {
 	
 	@EventHandler
 	public void onPlayerPickUpItem(PlayerPickupItemEvent event) {
+		//disable picking up Items flagged for only one player
+		if (!event.getItem().getMetadata("dvz_onlyPickup").isEmpty()) {
+			String pname = event.getItem().getMetadata("dvz_onlyPickup").get(0).asString();
+			if (!pname.equals(event.getPlayer().getName())) {
+				event.setCancelled(true);
+				return;
+			}
+		}
+		
 		//if not dedicated and the player is not in the game->ignore
 		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 		if(plugin.getPlayerGame(event.getPlayer().getName())==null) return;
