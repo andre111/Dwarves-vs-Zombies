@@ -22,6 +22,7 @@ public class ConfigManager {
 	private static FileConfiguration itemfile;
 	private static FileConfiguration blockfile;
 	private static FileConfiguration playerfile;
+	private static FileConfiguration rewardfile;
 	
 	private static ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
 	private static ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
@@ -67,6 +68,11 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/players.yml"), new File(plugin.getDataFolder(), "players.yml"));
 			} catch (IOException e) {}
 		}
+		if (!new File(plugin.getDataFolder(), "rewards.yml").exists()) {
+			try {
+				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/rewards.yml"), new File(plugin.getDataFolder(), "rewards.yml"));
+			} catch (IOException e) {}
+		}
 		configfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
 		
 		lang = configfile.getString("language", "en_EN");
@@ -78,6 +84,7 @@ public class ConfigManager {
 		itemfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "items.yml"));
 		blockfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "blocks.yml"));
 		playerfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "players.yml"));
+		rewardfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "rewards.yml"));
 		
 		loadConfigs();
 	}
@@ -90,6 +97,7 @@ public class ConfigManager {
 		plugin.saveResource("config/default/items.yml", true);
 		plugin.saveResource("config/default/blocks.yml", true);
 		plugin.saveResource("config/default/players.yml", true);
+		plugin.saveResource("config/default/rewards.yml", true);
 		//language
 		for(String st : Language.getPossibleLanguages()) {
 			if(plugin.getResource("lang/lang_"+st+".yml")!=null)
@@ -144,6 +152,9 @@ public class ConfigManager {
 	public static FileConfiguration getPlayerFile() {
 		return playerfile;
 	}
+	public static FileConfiguration getRewardFile() {
+		return rewardfile;
+	}
 	public static FileConfiguration getStaticConfig() {
 		return configfile;
 	}
@@ -166,6 +177,9 @@ public class ConfigManager {
 		}
 		if(name.equalsIgnoreCase("language")) {
 			langfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "lang/lang_"+lang+".yml"));
+		}
+		if(name.equalsIgnoreCase("rewards")) {
+			rewardfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "rewards.yml"));
 		}
 	}
 }

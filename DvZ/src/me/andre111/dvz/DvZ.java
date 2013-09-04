@@ -134,6 +134,7 @@ public class DvZ extends JavaPlugin {
 		IconMenuHandler.instance = new IconMenuHandler(this);
 		
 		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
+		SpellItems.addRewardsFromConfiguration(ConfigManager.getRewardFile());
 		dwarfManager = new DwarfManager();
 		dwarfManager.loadDwarfes();
 		monsterManager = new MonsterManager();
