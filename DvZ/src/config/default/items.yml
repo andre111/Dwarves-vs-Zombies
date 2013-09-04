@@ -425,6 +425,12 @@ items:
            castVars:
              - 1
              - 6
+         3:
+           cast: "ItemRewardPoints"
+           require: 1
+           castVars:
+             - 1
+             - 32
      leftclick:
        effects: []
        cooldown: 30
@@ -474,6 +480,12 @@ items:
            castVars:
              - 1
              - 6
+         3:
+           cast: "ItemRewardPoints"
+           require: 1
+           castVars:
+             - 1
+             - 32
      leftclick:
        effects: []
        cooldown: 30
@@ -520,6 +532,12 @@ items:
            castVars:
              - 1
              - 6
+         3:
+           cast: "ItemRewardPoints"
+           require: 1
+           castVars:
+             - 1
+             - 32
      leftclick:
        effects: []
        cooldown: 30

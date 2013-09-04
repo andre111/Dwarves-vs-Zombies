@@ -105,7 +105,7 @@ public class DvZ extends JavaPlugin {
 		ConfigManager.initConfig(this);
 		
 		//Disguisecraft check
-		if (this.getConfig().getString("disable_dcraft_check", "false")!="true") {
+		if (!ConfigManager.getStaticConfig().getString("disable_dcraft_check", "false").equals("true")) {
 			if (!Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
 			{
 				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"DisguiseCraft could not be found, disabling...");
@@ -165,8 +165,9 @@ public class DvZ extends JavaPlugin {
 
 		    	@Override
 		    	public int getValue() {
+		    		int value = DvZ.startedGames;
 		    		DvZ.startedGames = 0;
-		    		return DvZ.startedGames;
+		    		return value;
 		    	}
 
 		    });

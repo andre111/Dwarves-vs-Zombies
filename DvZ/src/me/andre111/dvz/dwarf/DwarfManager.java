@@ -88,6 +88,8 @@ public class DwarfManager {
 		tiSt2.addAll(tSt2);
 		dwTemp.setTransmuteBreakItems(tiSt2);
 		
+		dwTemp.setRewardOnBlockPlace(ConfigManager.getClassFile().getBoolean("dwarves."+dw+".rewardOnBuild", false));
+		
 		dwarves[dwarfCounter] = dwTemp;
 		dwarfCounter++;
 	}

@@ -79,6 +79,7 @@ dwarves:
       specialitems:
          transmuteRightClick: []
          transmuteBlockBreak: []
+      rewardOnBuild: true
    1: 
       name: "lang:string_default_alchemy"
       chatPrefix: ""
@@ -111,6 +112,7 @@ dwarves:
       specialitems:
          transmuteRightClick: []
          transmuteBlockBreak: []
+      rewardOnBuild: false
    2: 
       name: "lang:string_default_blacksmith"
       chatPrefix: ""
@@ -145,6 +147,7 @@ dwarves:
       specialitems:
          transmuteRightClick: []
          transmuteBlockBreak: []
+      rewardOnBuild: false
    3: 
       name: "lang:string_default_tailor"
       chatPrefix: ""
@@ -179,6 +182,7 @@ dwarves:
       specialitems:
          transmuteRightClick: []
          transmuteBlockBreak: []
+      rewardOnBuild: false
    4: 
       name: "lang:string_default_newbuilder"
       chatPrefix: ""
@@ -223,6 +227,7 @@ dwarves:
             - "112;112;263:0;34:9;ANVIL_LAND:0.2;259:0"
          transmuteBlockBreak:
             - "112;112;348:0;51:-1;-1;371:0 1 50"
+      rewardOnBuild: false
    5: 
       name: "lang:string_default_newlumberjack"
       chatPrefix: ""
@@ -271,6 +276,7 @@ dwarves:
             - "112;112;263:0;34:9;ANVIL_LAND:0.2;259:0"
          transmuteBlockBreak:
             - "112;112;348:0;51:-1;-1;371:0 1 50"
+      rewardOnBuild: false
    7: 
       name: "lang:string_default_newblacksmith"
       chatPrefix: ""
@@ -320,6 +326,7 @@ dwarves:
             - "112;112;263:0;34:9;ANVIL_LAND:0.2;259:0"
          transmuteBlockBreak:
             - "112;112;348:0;51:-1;-1;371:0 1 50"
+      rewardOnBuild: false
 
  # Assasin
 # If the Assasin doesn't kill someone in this Time, he will die (0 to disable)

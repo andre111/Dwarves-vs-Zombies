@@ -50,7 +50,9 @@ public class CustomDwarf {
 	private ArrayList<String> transmuteItems;
 	private ArrayList<String> transmuteBreakItems;
 	
-	//become custom Monster
+	private boolean rewardOnBlockPlace;
+	
+	//become custom Dwarf
 	public void becomeDwarf(Game game, final Player player) {
 		game.setPlayerState(player.getName(), id+Game.dwarfMin);
 		game.resetCountdowns(player.getName());
@@ -401,5 +403,11 @@ public class CustomDwarf {
 	}
 	public void setTransmuteBreakItems(ArrayList<String> transmuteBreakItems) {
 		this.transmuteBreakItems = transmuteBreakItems;
+	}
+	public boolean isRewardOnBlockPlace() {
+		return rewardOnBlockPlace;
+	}
+	public void setRewardOnBlockPlace(boolean rewardOnBlockPlace) {
+		this.rewardOnBlockPlace = rewardOnBlockPlace;
 	}
 }

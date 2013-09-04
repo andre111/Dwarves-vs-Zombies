@@ -6,6 +6,7 @@ import me.andre111.dvz.GameType;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.PistonManager;
+import me.andre111.items.RewardManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -36,6 +37,13 @@ public class Listener_Block implements Listener {
 		if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
 			event.setCancelled(true);
 			return;
+		}
+		//rewards on blockplace
+		if(game.isDwarf(player.getName(), false)) {
+			int id = game.getPlayerState(player.getName()) - Game.dwarfMin;
+			if(DvZ.dwarfManager.getDwarf(id).isRewardOnBlockPlace()) {
+				RewardManager.addRewardPoints(player, 1);
+			}
 		}
 		//fix für das platzieren von köpfen/Enderman das Portal zu platzieren - deaktiviert, da jetzt custom monster existieren
 		if(game.isMonster(player.getName())) {
