@@ -930,12 +930,45 @@ items:
            castVars:
              - "261 1 10 poisonous:0,-10:0 Bow of ..."
              - 1
-         0:
+         1:
            cast: "ItemGetItem"
            require: -1
            castVars:
              - "332 32 10 freezing:0,-10:0 Freezing Snowballs"
              - 1
+         2:
+           cast: "ItemGetItem"
+           require: -1
+           castVars:
+             - "lightningsword 1 10 -10:0"
+             - 1
+   lightningsword:
+     name: "lang:string_lightningsword"
+     lore: 
+       - "lang:string_lightningsword_lore1"
+     id: 267
+     data: 241
+     useUp: false
+     ignoreDamage: true
+     leftclick:
+       effects:
+         - "Target ItemEffectLightning"
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: 
+         0:
+           cast: "ItemDamage"
+           require: -1
+           castVars:
+             - 0
+             - 60
+     rightclick:
+       effects: []
+       cooldown: 2
+       mana:
+         cost: 0
+       casts: []
 
 enchantments:
    poisonous:
