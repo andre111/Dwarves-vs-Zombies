@@ -37,13 +37,13 @@ friendly_fire: false
 spawn_nopvp: 0
 # crystal chest is no longer a global config option, but a custom item
 autoadd_players: false
+# automatically join a game when joining the server
+autojoin_on_join: true
 # Automatically add all Players again when a game ends
 auto_rejoin: false
 monster_invulnarable: 30
 monster_suizidepill: true
 set_to_day: true
-# Enable this if you want to use the Server only for DvZ
-dedicated_mode: false
 # Only diable the check if you have disguisecraft installed, but it somehow doesn't detect it.
 disable_dcraft_check: false
 # Warning! Some texts are also located in the other .yml files

@@ -26,16 +26,14 @@ public class LeaveCommand extends DvZCommand {
 			return false;
 		}
 
-		if(DvZ.instance.getConfig().getString("dedicated_mode","false")!="true") {
-			Game game = DvZ.instance.getPlayerGame(player.getName());
-			
-			if(game!=null) {
-				if(game.getState()==1 && game.getPlayerState(player.getName())==1) {
-					game.removePlayer(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getName());
 
-					if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
-						player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-				}
+		if(game!=null) {
+			if(game.getState()==1 && game.getPlayerState(player.getName())==1) {
+				game.removePlayer(player.getName());
+
+				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+					player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 			}
 		}
 

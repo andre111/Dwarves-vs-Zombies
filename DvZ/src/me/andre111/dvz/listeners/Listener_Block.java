@@ -28,18 +28,9 @@ public class Listener_Block implements Listener {
 	
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		
 		Player player = event.getPlayer();
 		
-		//wenn nicht ingame -> platzieren verbieten
 		Game game = plugin.getPlayerGame(player.getName());
-		if (game==null && !player.isOp()) {
-			event.setCancelled(true);
-			return;
-		}
-		
 		if(game==null) return;
 		
 		if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
@@ -58,8 +49,6 @@ public class Listener_Block implements Listener {
 	
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event){
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 		if(event.isCancelled()) return;
 		
 		//int ammount = 2;

@@ -71,18 +71,16 @@ public class Listener_Player implements Listener  {
 			plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new DvZUpdateNotifier(plugin, player));
 		}
 		
-		//if not dedicated and the player is not in the game->ignore
-		if(event.getPlayer().getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby") && (plugin.getPlayerGame(event.getPlayer().getName())==null && plugin.getConfig().getString("dedicated_mode","false")!="true"))
+		//if the player is not in the game->ignore
+		if(event.getPlayer().getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby") && (plugin.getPlayerGame(event.getPlayer().getName())==null))
 			event.getPlayer().teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 		
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		
-		if (plugin.getPlayerGame(player.getName())==null
+		if (plugin.getPlayerGame(player.getName())!=null
 				&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
 			event.setJoinMessage("");
 		}
 		//TODO - maybe change to not always join game 0
-		if (plugin.getPlayerGame(player.getName())==null) {
+		if (plugin.getPlayerGame(player.getName())==null && ConfigManager.getStaticConfig().getString("autojoin_on_join", "true").equals("true")) {
 			if(plugin.getGame(0)==null) return;
 			
 			plugin.getGame(0).addPlayer(player.getName());
@@ -93,11 +91,13 @@ public class Listener_Player implements Listener  {
 			
 			event.setJoinMessage(ConfigManager.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
 			
-			//dedicated mode and game not started -> teleport to the lobby
-			if(plugin.getGame(0).getState()==1 && plugin.getConfig().getString("dedicated_mode","false")=="true") {
+			//game not started -> teleport to the lobby
+			if(plugin.getGame(0).getState()==1) {
 				plugin.getGame(0).setPlayerState(player.getName(), 1);
 				InventoryHandler.clearInv(player, false);
-				player.teleport(Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
+				
+				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+					player.teleport(Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 			}
 			//autoadd player
 			if(plugin.getGame(0).getState()>1) {
@@ -126,7 +126,7 @@ public class Listener_Player implements Listener  {
 					}
 				}, 2);
 			}
-		} else {
+		} else if (plugin.getPlayerGame(player.getName())!=null) {
 			int pstate = plugin.getPlayerGame(player.getName()).getPlayerState(player.getName());
 			//redisguise
 			CustomMonster cm = DvZ.monsterManager.getMonster(pstate-Game.monsterMin);
@@ -145,7 +145,7 @@ public class Listener_Player implements Listener  {
 	public void onPlayerLeave(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		
-		if (plugin.getPlayerGame(player.getName())==null
+		if (plugin.getPlayerGame(player.getName())!=null
 			&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
 			event.setQuitMessage("");
 		}
@@ -160,9 +160,6 @@ public class Listener_Player implements Listener  {
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		
 		Player player = event.getPlayer();
 		Game game = plugin.getPlayerGame(player.getName());
 		
@@ -199,9 +196,6 @@ public class Listener_Player implements Listener  {
 	
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		
 		Player player = event.getPlayer();
 		Game game = plugin.getPlayerGame(player.getName());
 		
@@ -223,9 +217,6 @@ public class Listener_Player implements Listener  {
 	public void onPlayerInvalidInteractEntity(final PlayerInvalidInteractEvent event) {
 		Bukkit.getScheduler().runTask(plugin, new Runnable() {
 			public void run() {
-				//if not dedicated and the player is not in the game->ignore
-				//if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-			
 				Player player = event.getPlayer();
 				if(player!=null) {
 					Game game = plugin.getPlayerGame(player.getName());
@@ -250,9 +241,6 @@ public class Listener_Player implements Listener  {
 	
 	@EventHandler
 	public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-
 		Player player = event.getPlayer();
 		Game game = plugin.getPlayerGame(player.getName());
 
@@ -275,16 +263,7 @@ public class Listener_Player implements Listener  {
 			}
 		}
 		
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		if(plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		
 		Player player = event.getPlayer();
-		//wenn nicht ingame -> aufsammeln und droppen verbieten
-		if (plugin.getPlayerGame(event.getPlayer().getName())==null  && !player.isOp()) {
-			event.setCancelled(true);
-			return;
-		}
 		Game game = plugin.getPlayerGame(player.getName());
 		if (game!=null) {
 			if(game.getPlayerState(player.getName())<4) {
@@ -301,15 +280,7 @@ public class Listener_Player implements Listener  {
 	
 	@EventHandler
 	public void onPlayerItemDrop(PlayerDropItemEvent event) {
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		
 		Player player = event.getPlayer();
-		//wenn nicht ingame -> aufsammeln und droppen verbieten
-		if (plugin.getPlayerGame(event.getPlayer().getName())==null && !player.isOp()) {
-			event.setCancelled(true);
-			return;
-		}
 		Game game = plugin.getPlayerGame(player.getName());
 		if (game!=null) {
 			if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
@@ -326,9 +297,6 @@ public class Listener_Player implements Listener  {
 	
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
-		
 		Player player = event.getPlayer();
 		final String pname = player.getName();
 		final Game game = plugin.getPlayerGame(player.getName());
@@ -388,8 +356,6 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent event) {
 		if(event.isCancelled()) return;
-		//if not dedicated and the player is not in the game->ignore
-		if(!plugin.getConfig().getString("dedicated_mode","false").equals("true") && plugin.getPlayerGame(event.getPlayer().getName())==null) return;
 		
 		Player player = event.getPlayer();
 		Game game = plugin.getPlayerGame(player.getName());
@@ -431,7 +397,7 @@ public class Listener_Player implements Listener  {
 			}
 			
 			//game dedicated chat
-			if(plugin.getConfig().getString("dedicated_chat", "true")=="true") {
+			if(plugin.getConfig().getString("dedicated_chat", "true").equals("true")) {
 				Set<Player> playerset = event.getRecipients();
 				Iterator<Player> playerit = playerset.iterator();
 				try{
