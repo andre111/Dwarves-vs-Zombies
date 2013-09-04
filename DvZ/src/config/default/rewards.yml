@@ -9,4 +9,9 @@
 #       
 
 
-rewards: []
+rewards:
+   0:
+      points: 64
+      repeating: true
+      reset: true
+      item: "rewardPoint"

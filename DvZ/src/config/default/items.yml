@@ -903,10 +903,43 @@ items:
            castVars:
              - 6
              - 1
+   rewardPoint:
+     name: "lang:string_rewardPoint"
+     lore: 
+       - "lang:string_rewardPoint_lore1"
+       - "lang:string_rewardPoint_lore2"
+       - "lang:string_rewardPoint_lore3"
+     id: 341
+     data: 0
+     useUp: true
+     leftclick:
+       effects: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       cooldown: 2
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemGetItem"
+           require: -1
+           castVars:
+             - "261 1 10 poisonous:0,-10:0 Bow of ..."
+             - 1
+         0:
+           cast: "ItemGetItem"
+           require: -1
+           castVars:
+             - "332 32 10 freezing:0,-10:0 Freezing Snowballs"
+             - 1
 
 enchantments:
-   testEnchant:
-     name: "Test Enchant"
+   poisonous:
+     name: "Poisonous"
      effects: []
      casts:
        0:
@@ -914,4 +947,27 @@ enchantments:
          require: -1
          castVars:
            - 0
-           - "19:60:4"
+           - "19:400:1"
+   freezing:
+     name: "Freezing"
+     effects:
+       - "Target ItemEffectNormal STEP_SOUND:79"
+     casts:
+       0:
+         cast: "ItemPotionEffect"
+         require: -1
+         castVars:
+           - 0
+           - "2:200:7"
+       1:
+         cast: "ItemPotionEffect"
+         require: -1
+         castVars:
+           - 0
+           - "8:200:128"
+       2:
+         cast: "ItemPotionEffect"
+         require: -1
+         castVars:
+           - 0
+           - "4:200:7"

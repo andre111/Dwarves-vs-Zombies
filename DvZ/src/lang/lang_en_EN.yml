@@ -193,3 +193,8 @@ string_default_item_monster_blink: "Blink"
 string_default_item_monster_portal: "Create or Reinforce Portal"
 string_default_item_monster_hunger: "Drain Hunger"
 string_default_item_monster_steal: "Steal Weapon"
+
+string_rewardPoint: "Reward Point"
+string_rewardPoint_lore1: "Rewarded for fullfilling your classes job"
+string_rewardPoint_lore2: "Rightclick to use and when your lucky"
+string_rewardPoint_lore3: "you might get a special Item"
