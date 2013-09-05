@@ -942,6 +942,12 @@ items:
            castVars:
              - "lightningsword 1 10 -10:0"
              - 1
+         3:
+           cast: "ItemGetItem"
+           require: -1
+           castVars:
+             - "potionpie 4 100"
+             - 1
    lightningsword:
      name: "lang:string_lightningsword"
      lore: 
@@ -969,6 +975,75 @@ items:
        mana:
          cost: 0
        casts: []
+   potionpie:
+     name: "lang:string_potionpie"
+     lore: 
+       - "lang:string_potionpie_lore1"
+     id: 400
+     data: 0
+     useUp: false
+     ignoreDamage: true
+     onEat:
+       effects: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: 
+         0:
+           cast: "ItemRandom"
+           require: -1
+           castVars:
+             - 2
+         1:
+           cast: "ItemPotionEffect"
+           require: 0
+           castVars:
+             - 1
+             - "5:600:0"
+         2:
+           cast: "ItemRandom"
+           require: -1
+           castVars:
+             - 2
+         3:
+           cast: "ItemPotionEffect"
+           require: 2
+           castVars:
+             - 1
+             - "1:600:0"
+         4:
+           cast: "ItemRandom"
+           require: -1
+           castVars:
+             - 2
+         5:
+           cast: "ItemPotionEffect"
+           require: 4
+           castVars:
+             - 1
+             - "8:600:0"
+         6:
+           cast: "ItemRandom"
+           require: -1
+           castVars:
+             - 2
+         7:
+           cast: "ItemPotionEffect"
+           require: 6
+           castVars:
+             - 1
+             - "10:600:0"
+         8:
+           cast: "ItemRandom"
+           require: -1
+           castVars:
+             - 20
+         9:
+           cast: "ItemPotionEffect"
+           require: 8
+           castVars:
+             - 1
+             - "19:100:0"
 
 enchantments:
    poisonous:
