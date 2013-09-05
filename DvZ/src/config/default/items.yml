@@ -946,7 +946,13 @@ items:
            cast: "ItemGetItem"
            require: -1
            castVars:
-             - "potionpie 4 100"
+             - "potionpie 4 10"
+             - 1
+         4:
+           cast: "ItemGetItem"
+           require: -1
+           castVars:
+             - "369 1 10 20:0 Fire Rod"
              - 1
    lightningsword:
      name: "lang:string_lightningsword"
