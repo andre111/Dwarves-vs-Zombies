@@ -3,6 +3,7 @@ package me.andre111.items.item.spell;
 import java.util.ArrayList;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -61,7 +62,7 @@ public class ItemPortal extends ItemSpell {
 		
 		w.strikeLightningEffect(nloc);
 		for(int i=0; i<10; i++) {
-			ItemStack it = new ItemStack(121, 1);
+			ItemStack it = new ItemStack(Material.ENDER_STONE, 1);
 			ItemMeta im = it.getItemMeta();
 			im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 			ArrayList<String> li = new ArrayList<String>();
@@ -83,7 +84,7 @@ public class ItemPortal extends ItemSpell {
 		im.setLore(li);
 		it.setItemMeta(im);
 		player.getInventory().addItem(it);*/
-		player.getInventory().addItem(new ItemStack(320, 64));
+		player.getInventory().addItem(new ItemStack(Material.GRILLED_PORK, 64));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 95000, -20));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 95000, 4));
 		
@@ -102,7 +103,7 @@ public class ItemPortal extends ItemSpell {
 			
 			w.strikeLightningEffect(nloc);
 			for(int i=0; i<10; i++) {
-				ItemStack it = new ItemStack(121, 1);
+				ItemStack it = new ItemStack(Material.ENDER_STONE, 1);
 				ItemMeta im = it.getItemMeta();
 				im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_disableportal","Disable Portal"));
 				ArrayList<String> li = new ArrayList<String>();

@@ -7,11 +7,11 @@ import org.bukkit.block.Block;
 
 public abstract class BasicGenerator {
 
-	public static void generateCylinder(Location loc, int radius, int depth, int id, byte data) {
-		generateCylinder(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), radius, depth, id, data);
+	public static void generateCylinder(Location loc, int radius, int depth, Material mat, byte data) {
+		generateCylinder(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), radius, depth, mat, data);
 	}
 	
-	public static void generateCylinder(World world, int x, int y, int z, int radius, int depth, int id, byte data) {
+	public static void generateCylinder(World world, int x, int y, int z, int radius, int depth, Material mat, byte data) {
 		for(int xx=-radius; xx<=radius; xx++) {
 			for(int zz=-radius; zz<=radius; zz++) {
 				//Check für radius
@@ -25,7 +25,7 @@ public abstract class BasicGenerator {
 						if(y2>=0) {
 							Block block = world.getBlockAt(x2, y2, z2);
 							if(block.getType()!=Material.BEDROCK) {
-								block.setTypeId(id);
+								block.setType(mat);
 								block.setData(data);
 							}
 						}

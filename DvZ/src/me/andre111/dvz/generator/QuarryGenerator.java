@@ -16,11 +16,11 @@ public abstract class QuarryGenerator {
 	
 	public static void generateQuarry(World world, int x, int y, int z, int radius, int depth) {
 		//stone border
-		BasicGenerator.generateCylinder(world, x, y, z, radius+4, depth, 1, (byte) 0);
+		BasicGenerator.generateCylinder(world, x, y, z, radius+4, depth, Material.STONE, (byte) 0);
 		
 		//basic gravel stuff
 		boolean gravel = true; //true; //disbaled for testing
-		BasicGenerator.generateCylinder(world, x, y, z, radius, depth, gravel ? 13 : 0, (byte) 0);
+		BasicGenerator.generateCylinder(world, x, y, z, radius, depth, gravel ? Material.GRAVEL : Material.AIR, (byte) 0);
 	
 		//ores
 		generateOreRing(world, x, y, z, radius+1, depth);
@@ -38,7 +38,7 @@ public abstract class QuarryGenerator {
 		//Obsidian ladder pillar
 		if(radius>9) {
 			int offset = 5;
-			BasicGenerator.generateCylinder(world, x, y-offset, z, 2, depth-offset, 49, (byte) 0);
+			BasicGenerator.generateCylinder(world, x, y-offset, z, 2, depth-offset, Material.OBSIDIAN, (byte) 0);
 			for(int yy=offset; yy<depth-offset; yy++) {
 				int y2 = y - yy;
 				int x2 = x + 2;
@@ -49,12 +49,12 @@ public abstract class QuarryGenerator {
 					Block block = world.getBlockAt(x2, y2, z2);
 					if(block.getType()!=Material.BEDROCK && rand.nextInt(100)<40 || yy==offset/*first row*/) {
 						if(y2>0) {
-							block.setTypeId(65);
+							block.setType(Material.LADDER);
 							block.setData((byte) 5);
 						}
 					} else {
 						if(y2>0) {
-							block.setTypeId(0);
+							block.setType(Material.AIR);
 						}
 					}
 				}
@@ -94,15 +94,15 @@ public abstract class QuarryGenerator {
 							Block block = world.getBlockAt(x2+xOffset, y2+yOffset, z2+zOffset);
 							if(block.getType()!=Material.BEDROCK) {
 								//random ores
-								int id = 16;
+								Material mat = Material.COAL_ORE;
 								
-								if(rand.nextInt(100)<ironChance) id = 15;
-								if(rand.nextInt(100)<goldChance) id = 14;
-								if(rand.nextInt(100)<redstoneChance) id = 73;
-								if(rand.nextInt(100)<emeraldChance) id = 129;
-								if(rand.nextInt(100)<diamondChance) id = 56;
+								if(rand.nextInt(100)<ironChance) mat = Material.IRON_ORE;
+								if(rand.nextInt(100)<goldChance) mat = Material.GOLD_ORE;
+								if(rand.nextInt(100)<redstoneChance) mat = Material.REDSTONE_ORE;
+								if(rand.nextInt(100)<emeraldChance) mat = Material.EMERALD_ORE;
+								if(rand.nextInt(100)<diamondChance) mat = Material.DIAMOND_ORE;
 								
-								block.setTypeId(id);
+								block.setType(mat);
 							}
 						}
 					}
@@ -125,7 +125,7 @@ public abstract class QuarryGenerator {
 						
 						Block block = world.getBlockAt(x2, y2, z2);
 						if(block.getType()!=Material.BEDROCK) {
-							block.setTypeId(13);
+							block.setType(Material.GRAVEL);
 						}
 					}
 				}

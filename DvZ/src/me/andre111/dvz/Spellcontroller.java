@@ -7,6 +7,7 @@ import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.InventoryHandler;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -128,56 +129,56 @@ public class Spellcontroller {
 		
 		Block block = w.getBlockAt(x, y, z);
 		Block block2;
-		block.setTypeId(121);
+		block.setType(Material.ENDER_STONE);
 		
 		for(int i=0; i<=4; i+=2) {
 			block2 = block.getRelative(-1-i, 0, 0);
-			block2.setTypeId(121);
+			block2.setType(Material.ENDER_STONE);
 			for(int j=-i/2; j<=i/2; j++) {
 				block2 = block.getRelative(-1-i, 0, j);
-				block2.setTypeId(121);
+				block2.setType(Material.ENDER_STONE);
 			}
 			
 			block2 = block.getRelative(1+i, 0, 0);
-			block2.setTypeId(121);
+			block2.setType(Material.ENDER_STONE);
 			for(int j=-i/2; j<=i/2; j++) {
 				block2 = block.getRelative(1+i, 0, j);
-				block2.setTypeId(121);
+				block2.setType(Material.ENDER_STONE);
 			}
 			
 			block2 = block.getRelative(0, 0, -1-i);
-			block2.setTypeId(121);
+			block2.setType(Material.ENDER_STONE);
 			for(int j=-i/2; j<=i/2; j++) {
 				block2 = block.getRelative(j, 0, -1-i);
-				block2.setTypeId(121);
+				block2.setType(Material.ENDER_STONE);
 			}
 			
 			block2 = block.getRelative(0, 0, 1+i);
-			block2.setTypeId(121);
+			block2.setType(Material.ENDER_STONE);
 			for(int j=-i/2; j<=i/2; j++) {
 				block2 = block.getRelative(j, 0, 1+i);
-				block2.setTypeId(121);
+				block2.setType(Material.ENDER_STONE);
 			}
 		}
 		
 		for(int i=-2; i<=2; i+=2) {
 			for(int j=-2; j<=2; j+=2) {
 				block2 = block.getRelative(i, 0, j);
-				block2.setTypeId(121);
+				block2.setType(Material.ENDER_STONE);
 			}
 		}
 		
 		for(int i=-4; i<=4; i+=4) {
 			for(int j=-3; j<=3; j+=3) {
 				block2 = block.getRelative(i, 0, j);
-				block2.setTypeId(121);
+				block2.setType(Material.ENDER_STONE);
 			}
 		}
 		
 		for(int i=-3; i<=3; i+=3) {
 			for(int j=-4; j<=4; j+=4) {
 				block2 = block.getRelative(i, 0, j);
-				block2.setTypeId(121);
+				block2.setType(Material.ENDER_STONE);
 			}
 		}
 	}

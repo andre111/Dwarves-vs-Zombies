@@ -29,6 +29,7 @@ import me.andre111.items.ItemHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -553,7 +554,7 @@ public class Game {
 			for(int i=0; i<=1; i++) {
 				for(int j=0; j<=1; j++) {
 					block2 = block.getRelative(i, 3, j);
-					if(block2.getTypeId()!=116) 
+					if(block2.getType()!=Material.ENCHANTMENT_TABLE) 
 						destroyed++;
 				}
 			}
@@ -1185,7 +1186,7 @@ public class Game {
 		if(getPlayerState(player.getName())>=Game.monsterMin && getPlayerState(player.getName())<=Game.monsterMax) {
 			PlayerInventory inv = player.getInventory();
 			
-			ItemStack it = new ItemStack(358, 1);
+			ItemStack it = new ItemStack(Material.MAP, 1);
 			ItemMeta im = it.getItemMeta();
 			im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_teleport","Teleport to Enderman Portal"));
 			ArrayList<String> li4 = new ArrayList<String>();
@@ -1195,7 +1196,7 @@ public class Game {
 			inv.addItem(it);
 			
 			if(plugin.getConfig().getString("monster_suizidepill", "true")=="true") {
-				it = new ItemStack(370, 1);
+				it = new ItemStack(Material.GHAST_TEAR, 1);
 				im = it.getItemMeta();
 				im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_suizide","Suizidepill"));
 				it.setItemMeta(im);
@@ -1221,7 +1222,7 @@ public class Game {
 			for(int j=-1; j<=2; j++) {
 				if(obsi) {
 					block2 = block.getRelative(i, 0, j);
-					block2.setTypeId(49);
+					block2.setType(Material.OBSIDIAN);
 				}
 			}
 		}
@@ -1230,12 +1231,12 @@ public class Game {
 			for(int j=0; j<=1; j++) {
 				if(obsi) {
 					block2 = block.getRelative(i, 1, j);
-					block2.setTypeId(49);
+					block2.setType(Material.OBSIDIAN);
 					block2 = block.getRelative(i, 2, j);
-					block2.setTypeId(49);
+					block2.setType(Material.OBSIDIAN);
 				}
 				block2 = block.getRelative(i, 3, j);
-				block2.setTypeId(116);
+				block2.setType(Material.ENCHANTMENT_TABLE);
 			}
 		}
 	}

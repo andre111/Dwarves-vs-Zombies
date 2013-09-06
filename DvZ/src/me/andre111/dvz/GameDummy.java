@@ -1,6 +1,7 @@
 package me.andre111.dvz;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 
 public class GameDummy {
@@ -21,7 +22,7 @@ public class GameDummy {
 			for(int j=-1; j<=2; j++) {
 				if(obsi) {
 					block2 = block.getRelative(i, 0, j);
-					block2.setTypeId(49);
+					block2.setType(Material.OBSIDIAN);
 				}
 			}
 		}
@@ -30,12 +31,12 @@ public class GameDummy {
 			for(int j=0; j<=1; j++) {
 				if(obsi) {
 					block2 = block.getRelative(i, 1, j);
-					block2.setTypeId(49);
+					block2.setType(Material.OBSIDIAN);
 					block2 = block.getRelative(i, 2, j);
-					block2.setTypeId(49);
+					block2.setType(Material.OBSIDIAN);
 				}
 				block2 = block.getRelative(i, 3, j);
-				block2.setTypeId(116);
+				block2.setType(Material.ENCHANTMENT_TABLE);
 			}
 		}
 	}
