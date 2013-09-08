@@ -12,6 +12,7 @@ import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
 import me.andre111.dvz.dwarf.DwarfManager;
+import me.andre111.dvz.event.DVZJoinGameEvent;
 import me.andre111.dvz.generator.DvZWorldProvider;
 import me.andre111.dvz.listeners.Listener_Block;
 import me.andre111.dvz.listeners.Listener_Entity;
@@ -337,9 +338,18 @@ public class DvZ extends JavaPlugin {
     public void joinGame(Player player, Game game) {
     	joinGame(player, game, false);
 	}
+    
+    public void joinGame(Player player, boolean autojoin) {
+    	for(int i=0; i<games.length; i++) {
+			if(games[i]!=null) {
+				joinGame(player, games[i], autojoin);
+				break;
+			}
+    	}
+    }
 	
 	public void joinGame(Player player, Game game, boolean autojoin) {
-		if(!autojoin && game.getPlayerState(player.getName())>1) return;
+		if(!(getConfig().getString("autoadd_players","false").equals("true") || autojoin) && game.getPlayerState(player.getName())>1) return;
 		
 		game.setPlayerState(player.getName(), 1);
 		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
@@ -347,6 +357,10 @@ public class DvZ extends JavaPlugin {
 		InventoryHandler.clearInv(player, false);
 
 		player.sendMessage(ConfigManager.getLanguage().getString("string_self_added","You have been added to the game!"));
+		
+		//event
+		DVZJoinGameEvent event = new DVZJoinGameEvent(player);
+		Bukkit.getServer().getPluginManager().callEvent(event);
 
 		//autoadd player
 		if(game.getState()>1) {

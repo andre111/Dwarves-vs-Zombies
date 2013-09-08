@@ -81,9 +81,9 @@ public class Listener_Player implements Listener  {
 		}
 		//TODO - maybe change to not always join game 0
 		if (plugin.getPlayerGame(player.getName())==null && ConfigManager.getStaticConfig().getString("autojoin_on_join", "true").equals("true")) {
-			if(plugin.getGame(0)==null) return;
+			//if(plugin.getGame(0)==null) return;
 			
-			plugin.getGame(0).addPlayer(player.getName());
+			//plugin.getGame(0).addPlayer(player.getName());
 			player.sendMessage(ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
 			player.sendMessage("--------------------------------");
 			if(ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true"))
@@ -91,8 +91,9 @@ public class Listener_Player implements Listener  {
 			
 			event.setJoinMessage(ConfigManager.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
 			
+			plugin.joinGame(player, true);
 			//game not started -> teleport to the lobby
-			if(plugin.getGame(0).getState()==1) {
+			/*if(plugin.getGame(0).getState()==1) {
 				plugin.getGame(0).setPlayerState(player.getName(), 1);
 				InventoryHandler.clearInv(player, false);
 				
@@ -125,7 +126,7 @@ public class Listener_Player implements Listener  {
 						}
 					}
 				}, 2);
-			}
+			}*/
 		} else if (plugin.getPlayerGame(player.getName())!=null) {
 			int pstate = plugin.getPlayerGame(player.getName()).getPlayerState(player.getName());
 			//redisguise

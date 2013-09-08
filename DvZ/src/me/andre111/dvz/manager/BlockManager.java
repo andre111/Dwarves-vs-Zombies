@@ -124,7 +124,7 @@ public class BlockManager {
 	private static void changeDrops(BlockBreakEvent event, ArrayList<String> drop) {
 		int id = event.getBlock().getTypeId();
 		byte data = event.getBlock().getData();
-		
+
 		for(String st : drop) {
 			String[] split = st.split(";");
 			

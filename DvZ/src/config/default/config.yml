@@ -28,6 +28,9 @@ game9: 0
 # - "say A game has been finished!"
 commands_onStart: []
 commands_onEnd: []
+# In this commands "-0-" will get by the Players name
+commands_onJoin: 
+  - "siReward -0- reset"
 
 # ----------------------------------------------------------------------------------
 # Misc
