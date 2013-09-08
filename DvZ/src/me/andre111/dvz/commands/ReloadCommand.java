@@ -52,6 +52,11 @@ public class ReloadCommand extends DvZCommand {
 				DvZ.reloadItems();
 				reload = true;
 			}
+			if(rs.equalsIgnoreCase("rewards") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("rewards");
+				DvZ.reloadRewards();
+				reload = true;
+			}
 			if(rs.equalsIgnoreCase("blocks") || rs.equalsIgnoreCase("all")) {
 				ConfigManager.reloadConfig("blocks");
 				BlockManager.reload();

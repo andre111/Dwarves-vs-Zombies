@@ -272,6 +272,13 @@ public class DvZ extends JavaPlugin {
 	public static void reloadItems() {
 		SpellItems.reload();
 		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
+		SpellItems.addRewardsFromConfiguration(ConfigManager.getRewardFile());
+	}
+	
+	public static void reloadRewards() {
+		SpellItems.reload();
+		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
+		SpellItems.addRewardsFromConfiguration(ConfigManager.getRewardFile());
 	}
 	
 	public static void log(String s) {
