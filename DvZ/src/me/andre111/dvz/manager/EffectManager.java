@@ -34,6 +34,8 @@ public class EffectManager {
 	private void addMonsterEffects(Game game) {
 		int id = DvZ.instance.getGameID(game);
 		World w =  Bukkit.getServer().getWorld(DvZ.instance.getConfig().getString("world_prefix", "DvZ_")+"Main"+id+"");
+		if(w==null) return;
+		
 		long time = w.getTime();
 		int[][] effects = effectMonsterDay;
 		//Day

@@ -952,7 +952,7 @@ items:
            cast: "ItemGetItem"
            require: -1
            castVars:
-             - "369 1 10 20:0 Fire Rod"
+             - "369 1 10 20:1 Fire Rod"
              - 1
    lightningsword:
      name: "lang:string_lightningsword"
