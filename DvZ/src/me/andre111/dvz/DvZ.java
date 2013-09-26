@@ -162,12 +162,26 @@ public class DvZ extends JavaPlugin {
 		    // Plot the total amount of protections
 		    Graph graph = metrics.createGraph("Running Games");
 		    
-		    graph.addPlotter(new Metrics.Plotter("Running Games") {
+		    graph.addPlotter(new Metrics.Plotter("Started Games") {
 
 		    	@Override
 		    	public int getValue() {
 		    		int value = DvZ.startedGames;
 		    		DvZ.startedGames = 0;
+		    		return value;
+		    	}
+
+		    });
+		    graph.addPlotter(new Metrics.Plotter("Running Games") {
+
+		    	@Override
+		    	public int getValue() {
+		    		int value = 0;
+		    		for(int i=0; i<games.length; i++) {
+		    			if(games[i]!=null && games[i].isRunning()) {
+		    				value++;
+		    			}
+		    		}
 		    		return value;
 		    	}
 
