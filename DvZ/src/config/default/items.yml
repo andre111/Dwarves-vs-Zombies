@@ -47,6 +47,12 @@
 # castVar1: Type("dwarf" or "monster")
 # castVar2: Classid
 ######################################
+# "ItemDVZTeleport"
+# Teleports the Player(or targeted player) to a dvz location
+# Current available locations: monument
+# castVar0: Location
+# castVar1: self(1=true)
+######################################
 # ""
 # 
 #
