@@ -102,8 +102,9 @@ public class WorldManager {
 						DynamicClassFunctions.forceUnloadWorld(w);
 						DynamicClassFunctions.clearWorldReference(wname);
 						
-						FileHandler.deleteFolder(wf);
-						
+						if(!FileHandler.deleteFolder(wf)) {
+							DvZ.log("ERROR - Could not delete world. This will cause issues!");
+						}
 					}
 				}
 			}, 40);
