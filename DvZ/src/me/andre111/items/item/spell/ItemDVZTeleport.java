@@ -1,5 +1,7 @@
 package me.andre111.items.item.spell;
 
+import java.util.Random;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -12,6 +14,10 @@ import me.andre111.items.item.ItemSpell;
 public class ItemDVZTeleport extends ItemSpell {
 	private String location = "";
 	private boolean self = true;
+	private int minDistance = 0;
+	private int maxDistance = 0;
+	
+	private Random rand = new Random();
 	
 	@Override
 	public void setCastVar(int id, String var) {
@@ -20,6 +26,8 @@ public class ItemDVZTeleport extends ItemSpell {
 	@Override
 	public void setCastVar(int id, double var) {
 		if(id==1) self = (var==1);
+		if(id==2) minDistance = (int) Math.floor(var);
+		if(id==3) maxDistance = (int) Math.floor(var);
 	}
 	
 	@Override
@@ -56,9 +64,13 @@ public class ItemDVZTeleport extends ItemSpell {
 		
 		if(game.monumentexists && location.equalsIgnoreCase("monument")) {
 			Location loc = game.monument.clone();
-			while(loc.getBlock().getType()!=Material.AIR && loc.getY()<loc.getWorld().getMaxHeight()) {
-				loc.setY(loc.getY()+1);
+			loc.add(minDistance+rand.nextInt(maxDistance-minDistance), minDistance+rand.nextInt(maxDistance-minDistance), minDistance+rand.nextInt(maxDistance-minDistance));
+			loc = loc.getWorld().getHighestBlockAt(loc).getLocation();
+			
+			while(loc.getBlock().getType()!=Material.AIR && loc.getY()>0) {
+				loc.setY(loc.getY()-1);
 			}
+			loc.setY(loc.getY()+1);
 			player.teleport(loc);
 			return true;
 		}
