@@ -24,27 +24,20 @@ public class ItemClassCheck extends ItemSpell {
 		if(id==1) type = var;
 	}
 	
-	
 	@Override
-	public boolean cast(Player player) {
-		if(self)
-			return checkClass(player);
-		else
-			return false;
-	}
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		if(self) return cast(player);
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		Player pTarget = null;
+		if(self) {
+			pTarget = player;
+		} else if(target!=null) {
+			pTarget = target;
+		}
 		
-		return checkClass(target);
-	}
-	@Override
-	public boolean cast(Player player, Location loc) {
-		return cast(player);
+		if(pTarget!=null) {
+			return checkClass(pTarget);
+		}
+		
+		return false;
 	}
 	
 	//Check for playerclass

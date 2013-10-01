@@ -37,33 +37,23 @@ public class ItemPotions extends ItemSpell {
 		if(id==1) target = (int) Math.round(var);
 		else if(id==2) radius = (int) Math.round(var);
 	}
-
+	
 	@Override
-	public boolean cast(Player player) {	
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player==null) return false;
+		
 		Game game = DvZ.instance.getPlayerGame(player.getName());
 		if(game==null) return false;
 		
-		return castAtEntity(game, player);
-	}
-	@Override
-	public boolean cast(Player player, Block block) {	
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {	
-		return cast(player);
-	}
-
-	@Override
-	public boolean cast(Player player, Location target) {
-		Game game = DvZ.instance.getPlayerGame(player.getName());
-		if(game==null) return false;
-		
-		Arrow a = (Arrow) target.getWorld().spawnEntity(target, EntityType.ARROW);
-		boolean success = castAtEntity(game, a);
-		a.remove();
-		
-		return success;
+		if(loc==player.getLocation()) {
+			return castAtEntity(game, player);
+		} else {
+			Arrow a = (Arrow) target.getWorld().spawnEntity(loc, EntityType.ARROW);
+			boolean success = castAtEntity(game, a);
+			a.remove();
+			
+			return success;
+		}
 	}
 
 	private boolean castAtEntity(Game game, Entity ent) {

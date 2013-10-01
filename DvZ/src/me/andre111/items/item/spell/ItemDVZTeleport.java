@@ -31,31 +31,19 @@ public class ItemDVZTeleport extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
-		if(!self) return false;
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		Player pTarget = null;
+		if(self) {
+			pTarget = player;
+		} else if(target!=null) {
+			pTarget = target;
+		}
 		
-		return castIntern(player);
-	}
-	
-	@Override
-	public boolean cast(Player player, Block block) {
-		if(!self) return false;
+		if(pTarget!=null) {
+			return castIntern(pTarget);
+		}
 		
-		return castIntern(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		if(self)
-			return castIntern(player);
-		else
-			return castIntern(target);
-	}
-	@Override
-	//casted by another spell on that location
-	public boolean cast(Player player, Location loc) {
-		if(!self) return false;
-		
-		return castIntern(player);
+		return false;
 	}
 	
 	private boolean castIntern(Player player) {

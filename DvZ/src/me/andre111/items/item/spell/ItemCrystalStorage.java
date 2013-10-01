@@ -17,25 +17,13 @@ public class ItemCrystalStorage extends ItemSpell {
 	}
 	
 	@Override
-	public boolean cast(Player player) {
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player==null) return false;
+		
 		Game game = DvZ.instance.getPlayerGame(player.getName());
 		if(game==null) return false;
 		
 		player.openInventory(game.getCrystalChest(player.getName(), global));
 		return true;
-	}
-	
-	@Override
-	public boolean cast(Player player, Block block) {
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {
-		return cast(player);
-	}
-	@Override
-	//casted by another spell on that location
-	public boolean cast(Player player, Location loc) {
-		return cast(player);
 	}
 }

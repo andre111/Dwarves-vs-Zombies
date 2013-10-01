@@ -21,20 +21,10 @@ import me.andre111.items.item.ItemSpell;
 public class ItemPortal extends ItemSpell {
 	
 	@Override
-	public boolean cast(Player player) {	
-		return castIntern(player, player.getLocation());
-	}
-	@Override
-	public boolean cast(Player player, Block block) {	
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Player target) {	
-		return cast(player);
-	}
-	@Override
-	public boolean cast(Player player, Location target) {	
-		return castIntern(player, target);
+	public boolean cast(Player player, Location loc, Player target, Block block) {
+		if(player==null) return false;
+		
+		return castIntern(player, loc);
 	}
 	
 	private boolean castIntern(Player player, Location loc) {
