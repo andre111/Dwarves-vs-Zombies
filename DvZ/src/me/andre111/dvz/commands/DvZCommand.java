@@ -31,6 +31,7 @@ public class DvZCommand {
 		new ItemstandCommand("dvz_itemstand");
 		new QuarryCommand("dvz_quarry");
 		new ReloadCommand("dvz_reload");
+		new HighscoreCommand("dvz_highscore");
 	}
 	
 	public static void unregisterCommands() {

@@ -120,6 +120,7 @@ scoreboard_release: "M.Release"
 scoreboard_victory: "Victory"
 # Highscore
 highscore_name: "Highscore"
+highscore_leaders: "Highscore Leaders: "
 
 # ----------------------------------------------------------------------------------
 # Default classes/config

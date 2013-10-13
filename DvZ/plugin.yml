@@ -36,6 +36,11 @@ commands:
       aliases: [d_info]
       usage: /<command> [gameID_default_0] 
       permission: dvz.info
+   dvz_highscore:
+      description: Get the Highscore
+      aliases: [d_highscore]
+      usage: /<command>
+      permission: dvz.highscore
    dvz_reset:
       description: Reset all Playerstates
       aliases: [d_reset]
@@ -120,6 +125,7 @@ permissions:
          dvz.start: true
          dvz.setspawn: true
          dvz.info: true
+         dvz.highscore: true
          dvz.reset: true
          dvz.monument: true
          dvz.dragon: true
@@ -140,6 +146,9 @@ permissions:
       default: op
    dvz.info:
       description: Get Information about the Gamestate
+      default: true
+   dvz.highscore:
+      description: Get the Highscore
       default: true
    dvz.reset:
       description: Reset all Playerstates

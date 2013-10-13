@@ -49,6 +49,9 @@ public class HighscoreManager {
 	public static Scoreboard getScoreboard() {
 		return sb;
 	}
+	public static HashMap<String, Integer> getPoints() {
+		return pointMap;
+	}
 	
 	//save and load highscore data
 	public static void saveHighscore() {
@@ -81,7 +84,7 @@ public class HighscoreManager {
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 
 		for (Entry<String, Object> m : rewardFile.getValues(false).entrySet()) {
-			pointMap.put(m.getKey(), (Integer)m.getValue());
+			setPoints(m.getKey(), (Integer)m.getValue());
 		}
 	}
 }
