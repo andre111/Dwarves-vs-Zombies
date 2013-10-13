@@ -21,6 +21,7 @@ import me.andre111.dvz.listeners.Listener_Player;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.BreakManager;
 import me.andre111.dvz.manager.EffectManager;
+import me.andre111.dvz.manager.HighscoreManager;
 import me.andre111.dvz.manager.ItemStandManager;
 import me.andre111.dvz.monster.MonsterManager;
 import me.andre111.dvz.players.SpecialPlayerManager;
@@ -154,6 +155,8 @@ public class DvZ extends JavaPlugin {
 		playerManager = new SpecialPlayerManager();
 		playerManager.loadPlayers();
 		
+		HighscoreManager.init();
+		HighscoreManager.loadHighscore();
 		BlockManager.loadConfig();
 		
 		try {
@@ -399,6 +402,10 @@ public class DvZ extends JavaPlugin {
 
 					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
 				}
+			}
+		} else {
+			if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
+				player.setScoreboard(HighscoreManager.getScoreboard());
 			}
 		}
 	}

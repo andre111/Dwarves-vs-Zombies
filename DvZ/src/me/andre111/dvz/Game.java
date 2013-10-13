@@ -13,6 +13,7 @@ import me.andre111.dvz.dragon.PlayerDragon;
 import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.event.DVZGameEndEvent;
 import me.andre111.dvz.event.DVZGameStartEvent;
+import me.andre111.dvz.manager.HighscoreManager;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.manager.WorldManager;
 import me.andre111.dvz.monster.CustomMonster;
@@ -491,6 +492,7 @@ public class Game {
 									player.resetMaxHealth();
 									player.setHealth(player.getMaxHealth());
 									player.setGameMode(GameMode.SURVIVAL);
+									player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 									player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 									addDwarfItems(player);
 								}
@@ -568,7 +570,7 @@ public class Game {
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
 
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument_dwarves","Dwarves who failed to protect the Monument:"));
-			printSurvivingPlayers();
+			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_lose_monument", -5));
 			
 			reset(true);
 		}
@@ -578,12 +580,12 @@ public class Game {
 		broadcastMessage(ConfigManager.getLanguage().getString("string_win","§4Victory!§f The dwarves protected the Monument!"));
 		
 		broadcastMessage(ConfigManager.getLanguage().getString("string_win_dwarves","Dwarves who survived and protected the Monument:"));
-		printSurvivingPlayers();
+		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20));
 		
 		reset(true);
 	}
 	
-	private void printSurvivingPlayers() {
+	private void printSurvivingPlayers(int score) {
 		String pmessage = "";
 		int pcount = 0;
 		int pmaxCount = 5;
@@ -602,11 +604,17 @@ public class Game {
 						pmessage = "";
 						pcount = 0;
 					}
+					
+					//Score
+					HighscoreManager.addPoints(e.getKey(), score);
 				}
 			}
 		}
 		if(!pmessage.equals(""))
 			broadcastMessage(pmessage);
+		
+		//Score save
+		HighscoreManager.saveHighscore();
 	}
 	
 	private void updateGlobalStats() {

@@ -118,6 +118,8 @@ scoreboard_assassins: "Assassins"
 scoreboard_monument: "Monument %"
 scoreboard_release: "M.Release"
 scoreboard_victory: "Victory"
+# Highscore
+highscore_name: "Highscore"
 
 # ----------------------------------------------------------------------------------
 # Default classes/config

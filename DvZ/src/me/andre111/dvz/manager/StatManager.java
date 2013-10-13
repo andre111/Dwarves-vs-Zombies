@@ -122,7 +122,7 @@ public class StatManager {
 		Scoreboard sc = Bukkit.getScoreboardManager().getNewScoreboard();
 		
 		sc.registerNewObjective(objectiveName, "dummy");
-		Objective ob = sc.getObjective("dvz_stats");
+		Objective ob = sc.getObjective(objectiveName);
 		ob.setDisplayName(ConfigManager.getLanguage().getString("scoreboard_stats", "Stats"));
 		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
