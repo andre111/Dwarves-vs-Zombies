@@ -109,6 +109,9 @@ public class Game {
 	//used for custom cooldowns String: Playername:CooldownName
 	private HashMap<String, Integer> customCooldown = new HashMap<String, Integer>();
 	
+	//monument distance counting down to 0
+	private HashMap<String, Integer> monDistance = new HashMap<String, Integer>();
+	
 	private boolean autoassasin;
 	private int a_minutes;
 	private int a_count;
@@ -363,6 +366,48 @@ public class Game {
 					}
 				}
 				
+				//monument distance
+				if(monumentexists)
+				for(String playern : playerstate.keySet()) {
+					if(isDwarf(playern, true)) {
+						Player player = Bukkit.getPlayerExact(playern);
+						
+						if(player!=null) {
+							if(player.getLocation().distanceSquared(monument)>ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)) {
+								int current = ConfigManager.getStaticConfig().getInt("max_monument_counter", 10);
+								if(monDistance.containsKey(playern)) {
+									current = monDistance.get(playern) - 1;
+								}
+								
+								if(current>0) {
+									monDistance.put(playern, current);
+									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_warning", "&4WARNING: Get closer to the monument or you will loose points!"));
+									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_wtime", "&4Time remaining: -0- Seconds!"));
+								} else {
+									if(spawnDwarves!=null) {
+										player.teleport(spawnDwarves);
+									} else {
+										player.teleport(player.getLocation().getWorld().getSpawnLocation());
+									}
+									
+									monDistance.remove(playern);
+									
+									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_teleport", "&4You have been teleported back because you went to far from the monument!"));
+									//score notice
+									int score = ConfigManager.getStaticConfig().getInt("", -1);
+									String score_text = ConfigManager.getLanguage().getString("highscore_loose_distance", "You lost -0- for being to far from the monument!");
+									if(Math.abs(score)==1)
+										player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
+									else
+										player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
+								}
+							} else {
+								monDistance.remove(playern);
+							}
+						}
+					}
+				}
+				
 				countdownTicker();
 			}
 		}
@@ -570,7 +615,7 @@ public class Game {
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
 
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument_dwarves","Dwarves who failed to protect the Monument:"));
-			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_lose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"));
+			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_loose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"));
 			
 			reset(true);
 		}

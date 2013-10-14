@@ -110,7 +110,13 @@ lobby_assasindeath: 2
 # ----------------------------------------------------------------------------------
 hscore_in_lobby: true
 hscore_win: 20
-hscore_lose_monument: -5
+hscore_loose_monument: -5
+hscore_loose_distance: -1
+# Maximum distance from monument, before getting teleported back
+# and points substracted
+max_monument_distance: 200
+# Time in seconds to get back
+max_monument_counter: 10
 
 # ----------------------------------------------------------------------------------
 # Spell wait times

@@ -128,6 +128,10 @@ highscore_loose_lost: "You lost -0- for failing to protect the monument!"
 highscore_get_kill: "You received -0- for having at least -1- kills!"
 highscore_loose_distance: "You lost -0- for being to far from the monument!"
 
+max_monument_warning: "&4WARNING: Get closer to the monument or you will loose points!"
+max_monument_wtime: "&4Time remaining: -0- Seconds!"
+max_monument_teleport: "&4You have been teleported back because you went to far from the monument!"
+
 # ----------------------------------------------------------------------------------
 # Default classes/config
 # ----------------------------------------------------------------------------------
