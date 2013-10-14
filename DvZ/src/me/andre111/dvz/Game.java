@@ -530,9 +530,8 @@ public class Game {
 							int pstate = e.getValue();
 							
 							if (pstate==1) {
-								Player player = Bukkit.getServer().getPlayer(players);
+								Player player = Bukkit.getServer().getPlayerExact(players);
 								if(player!=null) {
-									playerstate.put(players, Game.pickDwarf);
 									InventoryHandler.clearInv(player, false);
 									//this doesn't really seem to work
 									player.resetMaxHealth();
@@ -543,6 +542,8 @@ public class Game {
 									player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 									player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 									addDwarfItems(player);
+									
+									playerstate.put(players, Game.pickDwarf);
 								}
 							}
 						}
