@@ -530,11 +530,14 @@ public class Game {
 							int pstate = e.getValue();
 							
 							if (pstate==1) {
-								playerstate.put(players, Game.pickDwarf);
 								Player player = Bukkit.getServer().getPlayer(players);
 								if(player!=null) {
+									playerstate.put(players, Game.pickDwarf);
 									InventoryHandler.clearInv(player, false);
+									//this doesn't really seem to work
 									player.resetMaxHealth();
+									//TODO - so lets use this for now
+									player.setMaxHealth(20d);
 									player.setHealth(player.getMaxHealth());
 									player.setGameMode(GameMode.SURVIVAL);
 									player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
