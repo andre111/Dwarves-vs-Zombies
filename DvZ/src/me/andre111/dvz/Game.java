@@ -570,7 +570,7 @@ public class Game {
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
 
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument_dwarves","Dwarves who failed to protect the Monument:"));
-			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_lose_monument", -5));
+			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_lose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"));
 			
 			reset(true);
 		}
@@ -580,12 +580,12 @@ public class Game {
 		broadcastMessage(ConfigManager.getLanguage().getString("string_win","§4Victory!§f The dwarves protected the Monument!"));
 		
 		broadcastMessage(ConfigManager.getLanguage().getString("string_win_dwarves","Dwarves who survived and protected the Monument:"));
-		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20));
+		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20), ConfigManager.getLanguage().getString("highscore_get_win","You received -0- for winning!"));
 		
 		reset(true);
 	}
 	
-	private void printSurvivingPlayers(int score) {
+	private void printSurvivingPlayers(int score, String score_text) {
 		String pmessage = "";
 		int pcount = 0;
 		int pmaxCount = 5;
@@ -607,6 +607,10 @@ public class Game {
 					
 					//Score
 					HighscoreManager.addPoints(e.getKey(), score);
+					if(Math.abs(score)==1)
+						player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
+					else
+						player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
 				}
 			}
 		}

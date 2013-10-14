@@ -121,6 +121,12 @@ scoreboard_victory: "Victory"
 # Highscore
 highscore_name: "Highscore"
 highscore_leaders: "Highscore Leaders: "
+highscore_point: "-0- Point"
+highscore_points: "-0- Points"
+highscore_get_win: "You received -0- for winning!"
+highscore_loose_lost: "You lost -0- for failing to protect the monument!"
+highscore_get_kill: "You received -0- for having at least -1- kills!"
+highscore_loose_distance: "You lost -0- for being to far from the monument!"
 
 # ----------------------------------------------------------------------------------
 # Default classes/config

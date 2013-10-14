@@ -155,7 +155,7 @@ public class WorldManager {
 			DvZ.instance.getGame(id).loadGameInfo();
 			Bukkit.getServer().createWorld(new WorldCreator(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+""));
 		} else {
-			DvZ.instance.getGame(id).broadcastMessage("No saved DvZ world found! Cannot start the Game! Autogenerating a DvZ world will come in Version 1.6!");
+			DvZ.instance.getGame(id).broadcastMessage("No saved DvZ world found! Cannot start the Game!");
 			//Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Main"));
 		}
 	}
