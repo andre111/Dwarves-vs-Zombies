@@ -382,7 +382,7 @@ public class Game {
 								if(current>0) {
 									monDistance.put(playern, current);
 									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_warning", "&4WARNING: Get closer to the monument or you will loose points!"));
-									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_wtime", "&4Time remaining: -0- Seconds!"));
+									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_wtime", "&4Time remaining: -0- Seconds!").replace("-0-", ""+current));
 								} else {
 									if(spawnDwarves!=null) {
 										player.teleport(spawnDwarves);
