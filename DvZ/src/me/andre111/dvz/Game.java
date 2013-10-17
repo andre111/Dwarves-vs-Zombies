@@ -373,7 +373,9 @@ public class Game {
 						Player player = Bukkit.getPlayerExact(playern);
 						
 						if(player!=null) {
-							if(player.getLocation().distanceSquared(monument)>ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)) {
+							Location tempPLoc = player.getLocation().clone();
+							tempPLoc.setY(monument.getY());
+							if(tempPLoc.distanceSquared(monument)>ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)*ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)) {
 								int current = ConfigManager.getStaticConfig().getInt("max_monument_counter", 10);
 								if(monDistance.containsKey(playern)) {
 									current = monDistance.get(playern) - 1;

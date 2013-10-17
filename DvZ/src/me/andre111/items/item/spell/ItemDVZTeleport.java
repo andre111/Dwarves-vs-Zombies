@@ -55,8 +55,8 @@ public class ItemDVZTeleport extends ItemSpell {
 			loc.add(minDistance+rand.nextInt(maxDistance-minDistance), minDistance+rand.nextInt(maxDistance-minDistance), minDistance+rand.nextInt(maxDistance-minDistance));
 			loc = loc.getWorld().getHighestBlockAt(loc).getLocation();
 			
-			while(loc.getBlock().getType()!=Material.AIR && loc.getY()>0) {
-				loc.setY(loc.getY()-1);
+			while(loc.getBlock().getType()!=Material.AIR && loc.getY()<256) {
+				loc.setY(loc.getY()+1);
 			}
 			loc.setY(loc.getY()+1);
 			player.teleport(loc);
