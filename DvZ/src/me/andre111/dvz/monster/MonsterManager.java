@@ -12,8 +12,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import pgDev.bukkit.DisguiseCraft.disguise.DisguiseType;
-
 public class MonsterManager {
 	private CustomMonster[] monsters;
 	private int monsterCounter;
@@ -47,7 +45,7 @@ public class MonsterManager {
 		monTemp.setId(monsterCounter);
 		monTemp.setGameId(ConfigManager.getMonsterFile().getInt("monsters."+mo+".gameType", 0));
 		monTemp.setName(ConfigManager.getMonsterFile().getString("monsters."+mo+".name", ""));
-		monTemp.setDisguise(DisguiseType.fromString(ConfigManager.getMonsterFile().getString("monsters."+mo+".disguise", "")));
+		monTemp.setDisguise(ConfigManager.getMonsterFile().getString("monsters."+mo+".disguise", ""));
 		monTemp.setPrefix(ConfigManager.getMonsterFile().getString("monsters."+mo+".chatPrefix", ""));
 		monTemp.setSuffix(ConfigManager.getMonsterFile().getString("monsters."+mo+".chatSuffix", ""));
 		monTemp.setClassItem(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classItem", 0));

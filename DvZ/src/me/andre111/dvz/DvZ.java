@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import me.andre111.dvz.commands.DvZCommand;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
@@ -48,10 +49,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 
-import pgDev.bukkit.DisguiseCraft.DisguiseCraft;
-import pgDev.bukkit.DisguiseCraft.api.DisguiseCraftAPI;
-import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
-
 public class DvZ extends JavaPlugin {
 	public static DvZ instance;
 	//public Game game;
@@ -60,7 +57,7 @@ public class DvZ extends JavaPlugin {
 	public static int startedGames = 0;
 	private Lobby lobby;
 	
-	public static DisguiseCraftAPI api;
+	//public static DisguiseCraftAPI api;
 	public static ProtocolManager protocolManager;
 	public static SpellItems spellItems;
 	
@@ -108,12 +105,12 @@ public class DvZ extends JavaPlugin {
 		
 		//Disguisecraft check
 		if (!ConfigManager.getStaticConfig().getString("disable_dcraft_check", "false").equals("true")) {
-			if (!Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
+			/*if (!Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
 			{
 				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"DisguiseCraft could not be found, disabling...");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
-			}
+			}*/
 			if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
 			{
 				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
@@ -127,7 +124,9 @@ public class DvZ extends JavaPlugin {
 				return;
 			}
 		}
-		DvZ.api = DisguiseCraft.getAPI();
+		//Disguises
+		DisguiseSystemHandler.init();
+
 		DvZ.protocolManager = ProtocolLibrary.getProtocolManager();
 		DvZ.spellItems = SpellItems.instance;
 		
@@ -407,14 +406,6 @@ public class DvZ extends JavaPlugin {
 			if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
 				player.setScoreboard(HighscoreManager.getScoreboard());
 			}
-		}
-	}
-	
-	public static void disguiseP(Player player, Disguise disguise) {
-		if(api.isDisguised(player)) {
-			api.changePlayerDisguise(player, disguise);
-		} else {
-			api.disguisePlayer(player, disguise);
 		}
 	}
 	

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.dragon.Dragon;
 import me.andre111.dvz.dragon.PlayerDragon;
 import me.andre111.dvz.dwarf.CustomDwarf;
@@ -43,8 +44,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
 
 public class Game {
 	private DvZ plugin;
@@ -205,7 +204,7 @@ public class Game {
 			
 			if(player!=null) {
 				//undisguise
-				if(DvZ.api.isDisguised(player)) DvZ.api.undisguisePlayer(player);
+				DisguiseSystemHandler.undisguiseP(player);
 				//clear potion effects
 				PlayerHandler.resetPotionEffects(player);
 				//clear inventory
@@ -1365,11 +1364,7 @@ public class Game {
 					Player player = Bukkit.getServer().getPlayerExact(playern);
 					
 					if (player!=null) {
-						if( DvZ.api.isDisguised(player)) {
-							Disguise dg = DvZ.api.getDisguise(player);
-							DvZ.api.undisguisePlayer(player);
-							DvZ.api.disguisePlayer(player, dg);
-						}
+						DisguiseSystemHandler.redisguiseP(player);
 					}
 				}
 		    }

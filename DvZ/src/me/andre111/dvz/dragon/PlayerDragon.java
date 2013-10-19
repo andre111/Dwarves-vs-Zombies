@@ -1,6 +1,7 @@
 package me.andre111.dvz.dragon;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.disguise.DisguiseSystemHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
@@ -9,9 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
-import pgDev.bukkit.DisguiseCraft.disguise.DisguiseType;
 
 public class PlayerDragon implements Dragon {
 	private String player;
@@ -57,7 +55,7 @@ public class PlayerDragon implements Dragon {
 		DragonCustom dc = DvZ.dragonAtManager.getDragon(dID);
 		if(dc != null) {
 			
-			DvZ.disguiseP(player2, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.EnderDragon));
+			DisguiseSystemHandler.disguiseP(player2,"EnderDragon");
 			
 			DvZ.dragonAtManager.addCastItems(player2, dID);
 			setMana(dc.getMana());

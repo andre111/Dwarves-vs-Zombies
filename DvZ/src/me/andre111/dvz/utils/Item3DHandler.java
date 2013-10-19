@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.disguise.DisguiseSystemHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -129,7 +130,7 @@ public class Item3DHandler {
 	
 	//Spawn a new zombie
 	private void spawnZombie(Player p, String world, int x, int y, int z, byte rotation, int itemID, int stand) {
-		int eid = DvZ.api.newEntityID();
+		int eid = DisguiseSystemHandler.newEntityID();
 		entityIDs.add(eid);
 		standIDs.put(eid, stand);
 		

@@ -3,6 +3,7 @@ package me.andre111.dvz.manager;
 import java.util.HashMap;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.disguise.DisguiseSystemHandler;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class BreakManager {
 		PacketContainer fakeXPChange = DvZ.protocolManager.createPacket(Packets.Server.BLOCK_BREAK_ANIMATION);
 		
 		fakeXPChange.getIntegers().
-			write(0, DvZ.api.newEntityID()).
+			write(0, DisguiseSystemHandler.newEntityID()).
 			write(1, loc.getBlockX()).
 			write(2, loc.getBlockY()).
 			write(3, loc.getBlockZ());
