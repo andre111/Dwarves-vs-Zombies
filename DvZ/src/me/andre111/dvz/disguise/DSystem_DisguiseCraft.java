@@ -90,6 +90,8 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 	@EventHandler
 	public void onPlayerUndisguise(PlayerUndisguiseEvent event) {
 		Player p = event.getPlayer();
+		if(p==null) return;
+		
 		Game game = plugin.getPlayerGame(p.getName());
 		if(game!=null) {
 			if(game.getState()>1)
