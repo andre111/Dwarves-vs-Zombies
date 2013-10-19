@@ -5,65 +5,60 @@ import me.andre111.dvz.Game;
 import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import pgDev.bukkit.DisguiseCraft.DisguiseCraft;
-import pgDev.bukkit.DisguiseCraft.api.DisguiseCraftAPI;
-import pgDev.bukkit.DisguiseCraft.api.PlayerUndisguiseEvent;
-import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
-import pgDev.bukkit.DisguiseCraft.disguise.DisguiseType;
-import pgDev.bukkit.DisguiseCraft.listeners.PlayerInvalidInteractEvent;
+import com.lenis0012.bukkit.btm.BeTheMob;
+import com.lenis0012.bukkit.btm.api.Api;
+import com.lenis0012.bukkit.btm.api.Disguise;
+import com.lenis0012.bukkit.btm.events.PlayerInteractDisguisedEvent;
+import com.lenis0012.bukkit.btm.events.PlayerUndisguiseEvent;
 
-public class DSystem_DisguiseCraft implements DSystem, Listener {
-	private DisguiseCraftAPI api;
+public class DSystem_BeTheMob implements DSystem, Listener {
+	private Api api;
 	private DvZ plugin;
+	private int nextID = Integer.MIN_VALUE;
 	
 	@Override
 	public void initListeners(DvZ plugin) {
-		api = DisguiseCraft.getAPI();
-		
+		api = BeTheMob.getApi();
+
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
 	@Override
 	public void disguiseP(Player player, String disguise) {
-		disguiseP(player, new Disguise(api.newEntityID(), "", DisguiseType.fromString(disguise)));
-	}
-	
-	public void disguiseP(Player player, Disguise disguise) {
-		if(api.isDisguised(player)) {
-			api.changePlayerDisguise(player, disguise);
-		} else {
-			api.disguisePlayer(player, disguise);
-		}
+		Disguise dis = api.createDisguise(player, player.getLocation(), EntityType.fromName(disguise), null);
+		api.addDisguise(player, dis);
 	}
 
 	@Override
 	public void undisguiseP(Player player) {
-		if(api.isDisguised(player)) api.undisguisePlayer(player);
+		if(api.isDisguised(player)) {
+			api.removeDisguise(player);
+		}
 	}
 
 	@Override
 	public void redisguiseP(Player player) {
-		if( api.isDisguised(player)) {
-			Disguise dg = api.getDisguise(player);
-			api.undisguisePlayer(player);
-			api.disguisePlayer(player, dg);
+		if(api.isDisguised(player)) {
+			Disguise dis = api.getDisguise(player);
+			api.removeDisguise(player);
+			api.addDisguise(player, dis);
 		}
 	}
 
 	@Override
 	public int newEntityID() {
-		return api.newEntityID();
+		return nextID++;
 	}
 
-	
 	//rightclicking disguises
 	@EventHandler
-	public void onPlayerInvalidInteractEntity(final PlayerInvalidInteractEvent event) {
+	public void onPlayerInvalidInteractEntity(final PlayerInteractDisguisedEvent event) {
 		Bukkit.getScheduler().runTask(plugin, new Runnable() {
 			public void run() {
 				Player player = event.getPlayer();
@@ -71,9 +66,7 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 					Game game = plugin.getPlayerGame(player.getName());
 
 					if (game!=null) {
-						DisguiseCraft dc = (DisguiseCraft) Bukkit.getPluginManager().getPlugin("DisguiseCraft"); //TODO - maybe a better way of getting Disguisecraft(or when the API changes use it)
-
-						Player target = dc.disguiseIDs.get(event.getTarget());
+						Player target = event.getDisguised().getPlayer();
 						ItemStack item = event.getPlayer().getItemInHand();
 
 						//TODO - this should somehow be handled by the SpellItems Plugin
@@ -84,9 +77,8 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 			}
 		});
 	}
-	//TODO - remove temporary workaround when disguisecraft fixes it
-	//cancel the event if the player is monster or dragon
-	//to circuvent the disguisecraft permissions
+	
+	//TODO - check if this is really needed
 	@EventHandler
 	public void onPlayerUndisguise(PlayerUndisguiseEvent event) {
 		Player p = event.getPlayer();

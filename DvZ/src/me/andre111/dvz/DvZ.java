@@ -124,11 +124,13 @@ public class DvZ extends JavaPlugin {
 				return;
 			}
 		}
-		//Disguises
-		DisguiseSystemHandler.init();
-
 		DvZ.protocolManager = ProtocolLibrary.getProtocolManager();
 		DvZ.spellItems = SpellItems.instance;
+		
+		//Disguises
+		if(!DisguiseSystemHandler.init()) {
+			return;
+		}
 		
 		Spellcontroller.plugin = this;
 		Classswitcher.plugin = this;
