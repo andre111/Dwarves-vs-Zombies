@@ -197,7 +197,10 @@ public class DynamicClassFunctions {
 		try {
 			worldList = (List<Object>) fields.get("MinecraftServer.worlds").get(ms);
 			
-			worldList.remove(worldList.indexOf(methods.get("CraftWorld.getHandle()").invoke(world)));
+			int wid = worldList.indexOf(methods.get("CraftWorld.getHandle()").invoke(world));
+			if(wid>-1) {
+				worldList.remove(wid);
+			}
 		} catch (IllegalArgumentException e) {
 		} catch (IllegalAccessException e) {
 		} catch (InvocationTargetException e) {

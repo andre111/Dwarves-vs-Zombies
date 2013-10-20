@@ -23,6 +23,7 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 	
 	@Override
 	public void initListeners(DvZ plugin) {
+		this.plugin = plugin;
 		api = DisguiseCraft.getAPI();
 		
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);

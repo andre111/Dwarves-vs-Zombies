@@ -9,8 +9,10 @@ import java.util.Random;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.GameType;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.disguise.SupportedDisguises;
 import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.InventoryHandler;
+import me.andre111.dvz.utils.MultiverseHandler;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 import org.bukkit.Bukkit;
@@ -88,6 +90,11 @@ public class WorldManager {
 				else
 					player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 				player.sendMessage(ConfigManager.getLanguage().getString("string_tp_reset", "World is resetting - You have been teleported to the Lobby"));
+			}
+			
+			//Multiverse world deletion
+			if (Bukkit.getPluginManager().isPluginEnabled("Multiverse-Core")) {
+				MultiverseHandler.deleteWorld(w);
 			}
 		
 			//do not register a task/delete the world on serverstop
