@@ -22,8 +22,8 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 	private DvZ plugin;
 	
 	@Override
-	public void initListeners(DvZ plugin) {
-		this.plugin = plugin;
+	public void initListeners(DvZ p) {
+		this.plugin = p;
 		api = DisguiseCraft.getAPI();
 		
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -65,6 +65,11 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 	//rightclicking disguises
 	@EventHandler
 	public void onPlayerInvalidInteractEntity(final PlayerInvalidInteractEvent event) {
+		if(plugin==null) {
+			DvZ.log("Warning: DvZ-Plugin==null - Ignoring rightclick on disguise!");
+			return;
+		}
+		
 		Bukkit.getScheduler().runTask(plugin, new Runnable() {
 			public void run() {
 				Player player = event.getPlayer();
