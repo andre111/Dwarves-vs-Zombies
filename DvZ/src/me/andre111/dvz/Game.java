@@ -26,6 +26,7 @@ import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.utils.WaitingMenu;
+import me.andre111.dvz.volatileCode.DvZPackets;
 import me.andre111.items.ItemHandler;
 
 import org.bukkit.Bukkit;
@@ -616,6 +617,17 @@ public class Game {
 		}
 		monumentHealth = 100 - (int) Math.round((100/(double)4)*destroyed);
 		
+		//healthbar
+		if(ConfigManager.getStaticConfig().getString("show_monument_bar", "true").equals("true")) {
+			for(String st : playerstate.keySet()){
+				Player player = Bukkit.getServer().getPlayerExact(st);
+				if (player!=null) {
+					DvZPackets.sendInfoBar(player, monumentHealth/100D, ConfigManager.getLanguage().getString("monument_bar","Monument"));
+				}
+			}
+		}
+		
+		//loose
 		if (destr) {
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
 

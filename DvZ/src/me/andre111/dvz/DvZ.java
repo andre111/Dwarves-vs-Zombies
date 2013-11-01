@@ -34,6 +34,7 @@ import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.Metrics;
 import me.andre111.dvz.utils.Metrics.Graph;
 import me.andre111.dvz.utils.MovementStopper;
+import me.andre111.dvz.volatileCode.DvZPackets;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 import me.andre111.items.SpellItems;
 
@@ -131,6 +132,7 @@ public class DvZ extends JavaPlugin {
 		if(!DisguiseSystemHandler.init()) {
 			return;
 		}
+		DvZPackets.setEntityID(DisguiseSystemHandler.newEntityID());
 		
 		Spellcontroller.plugin = this;
 		Classswitcher.plugin = this;

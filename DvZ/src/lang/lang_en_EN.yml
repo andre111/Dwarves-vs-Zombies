@@ -132,6 +132,8 @@ max_monument_warning: "&4WARNING: Get closer to the monument or you will loose p
 max_monument_wtime: "&4Time remaining: -0- Seconds!"
 max_monument_teleport: "&4You have been teleported back because you went to far from the monument!"
 
+monument_bar: "Monument"
+
 # ----------------------------------------------------------------------------------
 # Default classes/config
 # ----------------------------------------------------------------------------------
