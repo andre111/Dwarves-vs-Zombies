@@ -31,7 +31,11 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 	
 	@Override
 	public void disguiseP(Player player, String disguise) {
-		disguiseP(player, new Disguise(api.newEntityID(), "", DisguiseType.fromString(disguise)));
+		DisguiseType dt = DisguiseType.fromString(disguise);
+		if(dt==null) {
+			DvZ.log("Unknown Entity-Disguise: "+disguise);
+		}
+		disguiseP(player, new Disguise(api.newEntityID(), "", dt));
 	}
 	
 	public void disguiseP(Player player, Disguise disguise) {

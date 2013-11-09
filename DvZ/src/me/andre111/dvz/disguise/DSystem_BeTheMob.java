@@ -31,7 +31,14 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 	
 	@Override
 	public void disguiseP(Player player, String disguise) {
-		Disguise dis = api.createDisguise(player, player.getLocation(), EntityType.fromName(disguise), null);
+		EntityType et = EntityType.fromName(disguise);
+		if(et==null) et = EntityType.valueOf(disguise);
+		if(et==null) {
+			DvZ.log("Unknown Entity-Disguise: "+disguise);
+			return;
+		}
+		
+		Disguise dis = api.createDisguise(player, player.getLocation(), et, null);
 		api.addDisguise(player, dis);
 	}
 

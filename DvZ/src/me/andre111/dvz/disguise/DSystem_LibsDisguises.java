@@ -26,7 +26,14 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 
 	@Override
 	public void disguiseP(Player player, String disguise) {
-		DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.getType(EntityType.fromName(disguise)), true, true));
+		EntityType et = EntityType.fromName(disguise);
+		if(et==null) et = EntityType.valueOf(disguise);
+		if(et==null) {
+			DvZ.log("Unknown Entity-Disguise: "+disguise);
+			return;
+		}
+		
+		DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.getType(et), true, true));
 	}
 
 	@Override
