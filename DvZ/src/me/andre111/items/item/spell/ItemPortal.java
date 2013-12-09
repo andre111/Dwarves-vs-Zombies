@@ -32,7 +32,7 @@ public class ItemPortal extends ItemSpell {
 		
 		if(game.enderPortal!=null) {
 			if(!reinforePortal(game, player)) {
-				player.sendMessage(ConfigManager.getLanguage().getString("string_portal_exists","A Portal allready exists!"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_portal_exists","A Portal allready exists!"));
 				return false;
 			}
 			

@@ -14,6 +14,7 @@ import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
+import me.andre111.dvz.players.SpecialPlayer;
 import me.andre111.dvz.update.DvZUpdateNotifier;
 import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.items.SpellItems;
@@ -84,10 +85,10 @@ public class Listener_Player implements Listener  {
 			//if(plugin.getGame(0)==null) return;
 			
 			//plugin.getGame(0).addPlayer(player.getName());
-			player.sendMessage(ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
-			player.sendMessage("--------------------------------");
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
+			DvZ.sendPlayerMessageFormated(player, "--------------------------------");
 			if(ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true"))
-				player.sendMessage("Plugin by andre111");
+				DvZ.sendPlayerMessageFormated(player, "Plugin by andre111");
 			
 			event.setJoinMessage(ConfigManager.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
 			
@@ -111,14 +112,14 @@ public class Listener_Player implements Listener  {
 							if(!plugin.getGame(0).released) {
 								plugin.getGame(0).setPlayerState(player.getName(), 2);
 								InventoryHandler.clearInv(player, false);
-								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+								DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 								plugin.getGame(0).addDwarfItems(player);
 
 								plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 							} else {
 								plugin.getGame(0).setPlayerState(player.getName(), 3);
 								InventoryHandler.clearInv(player, false);
-								player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+								DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 								plugin.getGame(0).addMonsterItems(player);
 
 								plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
@@ -133,7 +134,7 @@ public class Listener_Player implements Listener  {
 			CustomMonster cm = DvZ.monsterManager.getMonster(pstate-Game.monsterMin);
 			if(cm!=null) {
 				DisguiseSystemHandler.disguiseP(player, cm.getDisguise());
-				player.sendMessage(ConfigManager.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replace("-0-", cm.getName()));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replace("-0-", cm.getName()));
 			}
 			//player leave during start
 			if(pstate==1 && plugin.getPlayerGame(player.getName()).getState()>1) {
@@ -307,7 +308,7 @@ public class Listener_Player implements Listener  {
 				}, 1);
 				
 				game.setPlayerState(player.getName(), 3);
-				player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 	
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
@@ -338,37 +339,44 @@ public class Listener_Player implements Listener  {
 			//default
 			//event.setFormat("§r<%1$s> %2$s");
 			
+			String prefix = "";
+			String suffix = "";
+			//normal classes
 			int pstate = game.getPlayerState(player.getName());
 			if(pstate>=Game.dwarfMin && pstate<=Game.dwarfMax) {
 				int did = pstate - Game.dwarfMin;
 				CustomDwarf cd = DvZ.dwarfManager.getDwarf(did);
 
-				String prefix = cd.getPrefix();
-				String suffix = cd.getSuffix();
-				
-				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
+				prefix = cd.getPrefix();
+				suffix = cd.getSuffix();
 			}
 			if(pstate==Game.assasinState) {
-				String prefix = ConfigManager.getClassFile().getString("assassin_prefix", "");
-				String suffix = ConfigManager.getClassFile().getString("assassin_suffix", " the Assassin");
-				
-				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
+				prefix = ConfigManager.getClassFile().getString("assassin_prefix", "");
+				suffix = ConfigManager.getClassFile().getString("assassin_suffix", " the Assassin");
 			}
 			if(game.isMonster(player.getName())) {
 				int did = pstate - Game.monsterMin;
 				
-				String prefix = DvZ.monsterManager.getMonster(did).getPrefix();
-				String suffix = DvZ.monsterManager.getMonster(did).getSuffix();
-				
-				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
+				prefix = DvZ.monsterManager.getMonster(did).getPrefix();
+				suffix = DvZ.monsterManager.getMonster(did).getSuffix();
 				//event.setMessage(ConfigManager.getLanguage().getString("string_chat_monster","§5Monster§f>")+" "+event.getMessage());
 			}
-			if(player.getName().equals("andre111") && ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true")) {
-				String prefix = "";
-				String suffix = " the Plugin Author";
+			//player specific
+			if(DvZ.playerManager.getPlayer(player.getName())!=null) {
+				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getName());
 				
-				event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
+				if(!sp.getPrefix().equals("")) {
+					prefix = sp.getPrefix();
+				}
+				if(!sp.getSuffix().equals("")) {
+					suffix = sp.getSuffix();
+				}
 			}
+			if(player.getName().equals("andre111") && ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true")) {
+				prefix = "";
+				suffix = " the Plugin Author";
+			}
+			event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
 			
 			//game dedicated chat
 			if(plugin.getConfig().getString("dedicated_chat", "true").equals("true")) {

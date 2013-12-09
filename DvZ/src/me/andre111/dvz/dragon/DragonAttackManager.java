@@ -170,7 +170,7 @@ public class DragonAttackManager {
 	}
 	
 	public boolean castFromPlayer(Player player, int id) {
-		//player.sendMessage("Trying to cast: "+attacks[id].getName());
+		//DvZ.sendPlayerMessageFormated(player, "Trying to cast: "+attacks[id].getName());
 		//looking towards block
 		if(attacks[id].getType()==1) {
 			int distance = attacks[id].getMaxDistance();

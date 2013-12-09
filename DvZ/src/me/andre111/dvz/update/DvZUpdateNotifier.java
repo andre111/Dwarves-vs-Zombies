@@ -22,7 +22,7 @@ public class DvZUpdateNotifier implements Runnable {
 			String update = DvZUpdateChecker.getLatestVersion();
 			try {
 				if (Integer.parseInt(getVersion(plugin.descriptionFile.getVersion())) < Integer.parseInt(getVersion(update.split("for")[0]))) {
-					player.sendMessage(ChatColor.BLUE + "There is a new update for Dwarves vs Zombies available: " + update);
+					DvZ.sendPlayerMessageFormated(player, ChatColor.BLUE + "There is a new update for Dwarves vs Zombies available: " + update);
 				}
 			} catch (NumberFormatException e) {
 				DvZ.logger.log(Level.WARNING, "Could not parse version updates.");

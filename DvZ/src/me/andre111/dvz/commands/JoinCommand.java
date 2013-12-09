@@ -21,12 +21,12 @@ public class JoinCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Y U NO PLAYER??!111");
+			DvZ.sendPlayerMessageFormated(sender, "Y U NO PLAYER??!111");
 			return true;
 		}
 		Player player = (Player)sender;
 		if(!sender.hasPermission("dvz.join")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 
@@ -38,7 +38,7 @@ public class JoinCommand extends DvZCommand {
 					DvZ.instance.joinGame(player, game);
 				}
 				else {
-					player.sendMessage(ConfigManager.getLanguage().getString("string_join_items", "Warning! Items in your inventory will be deleted, please emtpy it first. To ignore this use /dvz_joini"));
+					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_join_items", "Warning! Items in your inventory will be deleted, please emtpy it first. To ignore this use /dvz_joini"));
 				}
 			}
 		}

@@ -17,7 +17,7 @@ public class ReloadCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.reload")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		
@@ -77,14 +77,14 @@ public class ReloadCommand extends DvZCommand {
 			}
 			
 			if(reload) {
-				sender.sendMessage("Successfully reloaded!");
+				DvZ.sendPlayerMessageFormated(sender, "Successfully reloaded!");
 				return true;
 			} else {
-				sender.sendMessage("Unknown argument: "+rs);
+				DvZ.sendPlayerMessageFormated(sender, "Unknown argument: "+rs);
 				return false;
 			}
 		} else {
-			sender.sendMessage("Please specify what you want to reload!");
+			DvZ.sendPlayerMessageFormated(sender, "Please specify what you want to reload!");
 			return false;
 		}
 	}

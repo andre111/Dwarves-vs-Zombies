@@ -31,12 +31,12 @@ public class Lobby {
 					String player = event.getPlayer().getName();
 					if (playerstate.get(player)==-1) {
 						playerstate.put(player, i);
-						event.getPlayer().sendMessage("You joined the Lobby for Game ID "+i+"!");
+						DvZ.sendPlayerMessageFormated(event.getPlayer(), "You joined the Lobby for Game ID "+i+"!");
 						found = true;
 					}
 					else if (playerstate.get(player)==i) {
 						playerstate.put(player, -1);
-						event.getPlayer().sendMessage("You left the Lobby for Game ID "+i+"!");
+						DvZ.sendPlayerMessageFormated(event.getPlayer(), "You left the Lobby for Game ID "+i+"!");
 						found = true;
 					}
 					

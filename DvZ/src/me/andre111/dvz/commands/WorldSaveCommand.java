@@ -1,5 +1,6 @@
 package me.andre111.dvz.commands;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.manager.WorldManager;
 
 import org.bukkit.command.CommandSender;
@@ -14,12 +15,12 @@ public class WorldSaveCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Y U NO PLAYER??!111");
+			DvZ.sendPlayerMessageFormated(sender, "Y U NO PLAYER??!111");
 			return true;
 		}
 		Player player = (Player)sender;
 		if(!sender.hasPermission("dvz.save")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		

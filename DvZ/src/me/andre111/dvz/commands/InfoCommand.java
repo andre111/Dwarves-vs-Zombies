@@ -2,6 +2,7 @@ package me.andre111.dvz.commands;
 
 import java.util.Map;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 
@@ -18,7 +19,7 @@ public class InfoCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.info")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		
@@ -28,9 +29,9 @@ public class InfoCommand extends DvZCommand {
 			int gameS = game.getState();
 			if(gameS==1) {
 				if(!game.getStarting()) {
-					sender.sendMessage(ConfigManager.getLanguage().getString("string_game_notrunning","No Game running!"));
+					DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_game_notrunning","No Game running!"));
 				} else {
-					sender.sendMessage(ConfigManager.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+game.getStartTime()));
+					DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+game.getStartTime()));
 				}
 			} else {
 				int dwarf = 0;
@@ -59,8 +60,8 @@ public class InfoCommand extends DvZCommand {
 				minutes = (int)Math.floor((seconds-(hours*60*60))/60.0);
 				seconds = seconds-(minutes*60)-(hours*60*60);
 				
-				sender.sendMessage(ConfigManager.getLanguage().getString("string_game_running","Game running for -0- Hours -1- Minutes -2- Seconds!").replace("-0-", ""+hours).replace("-1-", ""+minutes).replace("-2-", ""+seconds));
-				sender.sendMessage(ConfigManager.getLanguage().getString("string_game_count","-0- (-1- Offline) Dwarves and -2-(-3- Offline) Monsters!").replace("-0-", ""+dwarf).replace("-1-", ""+dwarfoff).replace("-2-", ""+mons).replace("-3-", ""+monsoff));
+				DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_game_running","Game running for -0- Hours -1- Minutes -2- Seconds!").replace("-0-", ""+hours).replace("-1-", ""+minutes).replace("-2-", ""+seconds));
+				DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_game_count","-0- (-1- Offline) Dwarves and -2-(-3- Offline) Monsters!").replace("-0-", ""+dwarf).replace("-1-", ""+dwarfoff).replace("-2-", ""+mons).replace("-3-", ""+monsoff));
 			}
 		}
 		return true;

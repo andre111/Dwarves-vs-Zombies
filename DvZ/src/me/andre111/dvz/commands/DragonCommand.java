@@ -19,12 +19,12 @@ public class DragonCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Y U NO PLAYER??!111");
+			DvZ.sendPlayerMessageFormated(sender, "Y U NO PLAYER??!111");
 			return true;
 		}
 		Player player = (Player)sender;
 		if(!sender.hasPermission("dvz.dragon")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		
@@ -38,9 +38,9 @@ public class DragonCommand extends DvZCommand {
 			if(args.length>0) dID = Integer.parseInt(args[0].replace("+", ""));
 			if(dID<0 || dID>DvZ.dragonAtManager.getMaxDragonCount()) {
 				dID = (new Random()).nextInt(DvZ.dragonAtManager.getMaxDragonCount()+1);
-				player.sendMessage(ConfigManager.getLanguage().getString("string_random_dragon", "Choosing a random Dragon!"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_random_dragon", "Choosing a random Dragon!"));
 			}
-			player.sendMessage(ConfigManager.getLanguage().getString("string_become_dragon", "You became the -0-!").replace("-0-", DvZ.dragonAtManager.getDragon(dID).getName()));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_dragon", "You became the -0-!").replace("-0-", DvZ.dragonAtManager.getDragon(dID).getName()));
 			
 			PlayerDragon dragon = new PlayerDragon(player);
 			
@@ -49,7 +49,7 @@ public class DragonCommand extends DvZCommand {
 			
 			game.setDragon(dragon);
 		} else {
-			player.sendMessage(ConfigManager.getLanguage().getString("string_need_game", "You have to be a player in a game to become the Dragon!"));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_need_game", "You have to be a player in a game to become the Dragon!"));
 		}
 		/*DvZ.disguiseP(player, new Disguise(DvZ.api.newEntityID(), "", DisguiseType.EnderDragon));
 		player.setAllowFlight(true);

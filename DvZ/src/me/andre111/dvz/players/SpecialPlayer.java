@@ -11,6 +11,9 @@ public class SpecialPlayer {
 	private String name;
 	private String[] crystalItems;
 	
+	private String prefix;
+	private String suffix;
+	
 	public void addCrytalItems(Game game, Player player) {
 		Inventory cinv = game.getCrystalChest(player.getName(), false);
 
@@ -33,5 +36,17 @@ public class SpecialPlayer {
 	}
 	public void setCrystalItems(String[] crystalItems) {
 		this.crystalItems = crystalItems;
+	}
+	public String getPrefix() {
+		return prefix;
+	}
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+	public String getSuffix() {
+		return suffix;
+	}
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
 	}
 }

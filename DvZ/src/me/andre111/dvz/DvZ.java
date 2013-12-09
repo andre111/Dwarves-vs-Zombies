@@ -43,6 +43,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -108,19 +109,19 @@ public class DvZ extends JavaPlugin {
 		if (!ConfigManager.getStaticConfig().getString("disable_dcraft_check", "false").equals("true")) {
 			/*if (!Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
 			{
-				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"DisguiseCraft could not be found, disabling...");
+				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"DisguiseCraft could not be found, disabling...");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}*/
 			if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
 			{
-				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
+				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
 			if (!Bukkit.getPluginManager().isPluginEnabled("SpellItems"))
 			{
-				Bukkit.getServer().getConsoleSender().sendMessage(prefix+" "+ChatColor.RED+"SpellItems could not be found, disabling...");
+				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"SpellItems could not be found, disabling...");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
@@ -383,7 +384,7 @@ public class DvZ extends JavaPlugin {
 			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 		InventoryHandler.clearInv(player, false);
 
-		player.sendMessage(ConfigManager.getLanguage().getString("string_self_added","You have been added to the game!"));
+		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_self_added","You have been added to the game!"));
 		
 		//event
 		DVZJoinGameEvent event = new DVZJoinGameEvent(player);
@@ -394,13 +395,13 @@ public class DvZ extends JavaPlugin {
 			if (getConfig().getString("autoadd_players","false").equals("true") || autojoin) {
 				if(!game.released) {
 					game.setPlayerState(player.getName(), 2);
-					player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 					game.addDwarfItems(player);
 
 					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 				} else {
 					game.setPlayerState(player.getName(), 3);
-					player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 					game.addMonsterItems(player);
 
 					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
@@ -411,6 +412,13 @@ public class DvZ extends JavaPlugin {
 				player.setScoreboard(HighscoreManager.getScoreboard());
 			}
 		}
+	}
+	
+	public static void sendPlayerMessageFormated(Player player, String message) {
+		player.sendMessage(message.split("%n"));
+	}
+	public static void sendPlayerMessageFormated(CommandSender sender, String message) {
+		sender.sendMessage(message.split("%n"));
 	}
 	
 	public static boolean isPathable(Block block) {

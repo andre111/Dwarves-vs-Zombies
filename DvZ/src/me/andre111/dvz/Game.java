@@ -383,8 +383,8 @@ public class Game {
 								
 								if(current>0) {
 									monDistance.put(playern, current);
-									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_warning", "&4WARNING: Get closer to the monument or you will loose points!"));
-									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_wtime", "&4Time remaining: -0- Seconds!").replace("-0-", ""+current));
+									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("max_monument_warning", "&4WARNING: Get closer to the monument or you will loose points!"));
+									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("max_monument_wtime", "&4Time remaining: -0- Seconds!").replace("-0-", ""+current));
 								} else {
 									if(spawnDwarves!=null) {
 										player.teleport(spawnDwarves);
@@ -394,14 +394,14 @@ public class Game {
 									
 									monDistance.remove(playern);
 									
-									player.sendMessage(ConfigManager.getLanguage().getString("max_monument_teleport", "&4You have been teleported back because you went to far from the monument!"));
+									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("max_monument_teleport", "&4You have been teleported back because you went to far from the monument!"));
 									//score notice
 									int score = ConfigManager.getStaticConfig().getInt("", -1);
 									String score_text = ConfigManager.getLanguage().getString("highscore_loose_distance", "You lost -0- for being to far from the monument!");
 									if(Math.abs(score)==1)
-										player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
+										DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
 									else
-										player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
+										DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
 								}
 							} else {
 								monDistance.remove(playern);
@@ -542,7 +542,7 @@ public class Game {
 									player.setHealth(player.getMaxHealth());
 									player.setGameMode(GameMode.SURVIVAL);
 									player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-									player.sendMessage(ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 									addDwarfItems(player);
 									
 									playerstate.put(players, Game.pickDwarf);
@@ -670,9 +670,9 @@ public class Game {
 					//Score
 					HighscoreManager.addPoints(e.getKey(), score);
 					if(Math.abs(score)==1)
-						player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
+						DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
 					else
-						player.sendMessage(score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
+						DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
 				}
 			}
 		}
@@ -778,7 +778,7 @@ public class Game {
 			chooseOne = true;
 			//Player player = Bukkit.getServer().getPlayerExact(playern);
 			//if(player!=null) {
-				player.sendMessage(ConfigManager.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
 				
 				playerstate.put(player.getName(), Game.assasinState);
 				
@@ -786,7 +786,7 @@ public class Game {
 				int asstime = ConfigManager.getClassFile().getInt("assasin_time_minutes",5);
 				if(asstime>0) {
 					spell3time.put(player.getName(), asstime*60);
-					player.sendMessage(ConfigManager.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
+					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
 				}
 				
 				//add assasin items to inventory
@@ -819,7 +819,7 @@ public class Game {
 				Player playern = Bukkit.getServer().getPlayerExact(player);
 				if(playern!=null) {
 					playern.damage((double) 1000);
-					playern.sendMessage(ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
+					DvZ.sendPlayerMessageFormated(playern, ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
 				}
 			}
 		}
@@ -844,7 +844,7 @@ public class Game {
 		}
 		
 		//costum dwarves
-		if(plugin.getConfig().getString("new_classselection","true")!="true") {
+		if(!plugin.getConfig().getString("new_classselection","true").equals("true")) {
 			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
 				if(rand.nextInt(100)<DvZ.dwarfManager.getDwarf(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.alldwarves")) {
 					//game type
@@ -909,7 +909,7 @@ public class Game {
 	    				event.setWillClose(true);
 	                    event.setWillDestroy(true);
 	    			}
-	                //event.getPlayer().sendMessage("You have chosen " + event.getName());
+	                //DvZ.sendPlayerMessageFormated(event.getPlayer(), "You have chosen " + event.getName());
 	            }
 	        },  plugin);
 
@@ -1199,7 +1199,7 @@ public class Game {
 				ThrownPotion thrp = player.launchProjectile(ThrownPotion.class);
 				thrp.setItem(item);
 			} else {
-				player.sendMessage(ConfigManager.getLanguage().getString("string_needexp","You don't have enough exp!"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_needexp","You don't have enough exp!"));
 			}
 			//Spellcontroller.spellLaunchPotion(this, player, itemD);
 		}
@@ -1250,7 +1250,7 @@ public class Game {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, time*20, 4), false);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, time*20, 6), false);
 		
-		player.sendMessage(ConfigManager.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replace("-0-", ""+time));
+		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replace("-0-", ""+time));
 		
 		invultimer.put(player.getName(), time);
 	}
@@ -1480,8 +1480,8 @@ public class Game {
 	
 				if(player!=null) {
 					if (ticker==10) {
-						player.sendMessage(message);
-						player.sendMessage(message2);
+						DvZ.sendPlayerMessageFormated(player, message);
+						DvZ.sendPlayerMessageFormated(player, message2);
 					}
 					
 					Location loc = player.getLocation();
@@ -1617,7 +1617,7 @@ public class Game {
 			Player player = Bukkit.getServer().getPlayerExact(playern);
 			
 			if(player!=null) {
-				player.sendMessage(message);
+				DvZ.sendPlayerMessageFormated(player, message);
 			}
 		}
 	}

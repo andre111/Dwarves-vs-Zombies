@@ -35,6 +35,9 @@ public class SpecialPlayerManager {
 		List<String> citems = ConfigManager.getPlayerFile().getStringList("players."+player+".crystalItems");
 		spTemp.setCrystalItems(citems.toArray(new String[citems.size()]));
 		
+		spTemp.setPrefix(ConfigManager.getPlayerFile().getString("players."+player+".prefix", ""));
+		spTemp.setSuffix(ConfigManager.getPlayerFile().getString("players."+player+".suffix", ""));
+		
 		players[playerCounter] = spTemp;
 		playerCounter++;
 	}

@@ -17,12 +17,12 @@ public class LeaveCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Y U NO PLAYER??!111");
+			DvZ.sendPlayerMessageFormated(sender, "Y U NO PLAYER??!111");
 			return true;
 		}
 		Player player = (Player)sender;
 		if(!sender.hasPermission("dvz.leave")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 

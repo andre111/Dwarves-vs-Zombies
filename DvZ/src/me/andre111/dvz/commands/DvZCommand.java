@@ -73,12 +73,12 @@ public class DvZCommand {
 			game = DvZ.instance.getGame(0);
 			
 			if(ConfigManager.getStaticConfig().getString("show_game_id","true")=="true")
-				sender.sendMessage(ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+0));
+				DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+0));
 		} else {
 			game = DvZ.instance.getGame(gameID);
 			if(ConfigManager.getStaticConfig().getString("show_game_id","true")=="true")
-				if(game!=null) sender.sendMessage(ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
-				else sender.sendMessage(ConfigManager.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
+				if(game!=null) DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
+				else DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 		}
 		
 		return game;
@@ -107,12 +107,12 @@ public class DvZCommand {
 			}
 			
 			if(ConfigManager.getStaticConfig().getString("show_game_id","true")=="true")
-				sender.sendMessage(ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+id));
+				DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+id));
 		} else {
 			game = DvZ.instance.getGame(gameID);
 			if(ConfigManager.getStaticConfig().getString("show_game_id","true")=="true")
-				if(game!=null) sender.sendMessage(ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
-				else sender.sendMessage(ConfigManager.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
+				if(game!=null) DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_using_game","Using Game ID -0-").replace("-0-", ""+gameID));
+				else DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 		}
 		
 		return game;

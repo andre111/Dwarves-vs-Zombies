@@ -48,11 +48,11 @@ public class CustomMonster {
 		ManaManager.setMaxMana(player.getName(), getMaxMana(), true);
 		ManaManager.setManaRegen(player.getName(), getManaRegen());
 		
-		player.sendMessage(ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
+		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		DisguiseSystemHandler.disguiseP(player, getDisguise());
 		
 		if(!startMessage.equals(""))
-			player.sendMessage(startMessage);
+			DvZ.sendPlayerMessageFormated(player, startMessage);
 		
 		PlayerHandler.resetPotionEffects(player);
 		

@@ -85,7 +85,7 @@ public class WaitingMenu implements Listener {
                 	//player.openInventory(player.getEnderChest());
                 }
             }, 1);
-			//player.sendMessage("WARNING: If your Inventory keeps reverting, please relog - thats a Bug in Bukkit with closeInventory()");
+			//DvZ.sendPlayerMessageFormated(player, "WARNING: If your Inventory keeps reverting, please relog - thats a Bug in Bukkit with closeInventory()");
 		}
 	}
 	

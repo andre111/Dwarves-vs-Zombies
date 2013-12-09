@@ -30,7 +30,7 @@ public abstract class DvZPackets {
 		write(0, D_ENTITY_ID).
 		write(1, (int) EntityType.ENDER_DRAGON.getTypeId()).
 		write(2, player.getLocation().getBlockX() * 32).
-		write(3, player.getLocation().getBlockY() * 32 + 256*3*32). //*2 to make it appere small as the invisibility doesn't seem to work
+		write(3, player.getLocation().getBlockY() * 32 - 256*3*32). //*2 to make it appere small as the invisibility doesn't seem to work
 		write(4, player.getLocation().getBlockZ() * 32);
 		
 		pc.getBytes().

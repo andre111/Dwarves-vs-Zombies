@@ -35,11 +35,11 @@ public class WorldManager {
 		try {
 			FileHandler.copyFolder(world, cworld);
 		} catch (IOException e) {
-			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_fail","Could not save the World!"));
+			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_save_fail","Could not save the World!"));
 			failed = true;
 		}
 		if(!failed) {
-			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
+			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
 		}
 	}
 	
@@ -55,11 +55,11 @@ public class WorldManager {
 			File uidf = new File(cworld, "uid.dat");
 			if(uidf.exists()) uidf.delete();
 		} catch (IOException e) {
-			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_fail","Could not save the World!"));
+			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_save_fail","Could not save the World!"));
 			failed = true;
 		}
 		if(!failed) {
-			sender.sendMessage(ConfigManager.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
+			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
 		}
 		
 		maxWorld = getFreeWorld("");
@@ -89,7 +89,7 @@ public class WorldManager {
 					player.teleport(Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 				else
 					player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-				player.sendMessage(ConfigManager.getLanguage().getString("string_tp_reset", "World is resetting - You have been teleported to the Lobby"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_tp_reset", "World is resetting - You have been teleported to the Lobby"));
 			}
 			
 			//Multiverse world deletion

@@ -250,7 +250,7 @@ public class Listener_Entity implements Listener {
 			if(w==lobby && fw!=main) {
 				//TODO - disable to toquestion wich game to join
 				//plugin.getGame(0).addPlayer(((Player)event.getEntity()).getName());
-				//((Player)event.getEntity()).sendMessage(plugin.getLanguage().getString("string_self_added", "You have been added to the game!"));
+				//DvZ.sendPlayerMessageFormated(((Player)event.getEntity()), plugin.getLanguage().getString("string_self_added", "You have been added to the game!"));
 			}
 		}
 	}

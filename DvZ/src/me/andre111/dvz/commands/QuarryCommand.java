@@ -1,5 +1,6 @@
 package me.andre111.dvz.commands;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.generator.QuarryGenerator;
 
 import org.bukkit.Location;
@@ -15,16 +16,16 @@ public class QuarryCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.quarry")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Y U NO PLAYER??!111");
+			DvZ.sendPlayerMessageFormated(sender, "Y U NO PLAYER??!111");
 			return true;
 		}
 		Player player = (Player)sender;
 		if(args.length<1) {
-			player.sendMessage("Please specify a radius!");
+			DvZ.sendPlayerMessageFormated(player, "Please specify a radius!");
 			return false;
 		}
 		int radius = Integer.parseInt(args[0]);

@@ -65,7 +65,7 @@ public class ControlledDragon implements Dragon {
 				Player killer = entity.getKiller();
 				if(killer!=null) {
 					//TODO - Dragon Warrior
-					killer.sendMessage("You killed the Dragon!");
+					DvZ.sendPlayerMessageFormated(killer, "You killed the Dragon!");
 				}
 				stop();
 			}

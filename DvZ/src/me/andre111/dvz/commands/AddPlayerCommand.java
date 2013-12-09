@@ -17,7 +17,7 @@ public class AddPlayerCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.add")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		
@@ -35,10 +35,10 @@ public class AddPlayerCommand extends DvZCommand {
 				player.getInventory().clear();
 				game.addDwarfItems(player);
 				
-				player.sendMessage(ConfigManager.getLanguage().getString("string_self_added","You have been added to the game!"));
-				sender.sendMessage(ConfigManager.getLanguage().getString("string_player_added","Added -0- to the game!").replace("-0-", args[1]));*/
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_self_added","You have been added to the game!"));
+				DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_player_added","Added -0- to the game!").replace("-0-", args[1]));*/
 			} else {
-				sender.sendMessage(ConfigManager.getLanguage().getString("string_noplayer","No Player found with that Name!"));
+				DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_noplayer","No Player found with that Name!"));
 				return false;
 			}
 		}

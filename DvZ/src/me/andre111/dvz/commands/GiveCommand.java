@@ -1,5 +1,6 @@
 package me.andre111.dvz.commands;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.items.ItemHandler;
 
 import org.bukkit.Bukkit;
@@ -16,7 +17,7 @@ public class GiveCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.give")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 
@@ -40,15 +41,15 @@ public class GiveCommand extends DvZCommand {
 					
 					return true;
 				} else {
-					sender.sendMessage("Could not decode Itemstring: "+itemSt);
+					DvZ.sendPlayerMessageFormated(sender, "Could not decode Itemstring: "+itemSt);
 					return false;
 				}
 			} else {
-				sender.sendMessage("Player "+args[0]+" not found!");
+				DvZ.sendPlayerMessageFormated(sender, "Player "+args[0]+" not found!");
 				return false;
 			}
 		} else {
-			sender.sendMessage("Please specify a player to give the item to!");
+			DvZ.sendPlayerMessageFormated(sender, "Please specify a player to give the item to!");
 			return false;
 		}
 	}

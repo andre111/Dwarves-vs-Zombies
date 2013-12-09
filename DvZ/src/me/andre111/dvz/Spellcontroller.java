@@ -27,10 +27,10 @@ public class Spellcontroller {
 				game.broadcastMessage(ConfigManager.getLanguage().getString("string_portal_disable","The Portal has been disabled!"));
 			} else {
 				game.setCountdown(player.getName(), 4, 0);
-				player.sendMessage(ConfigManager.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
 			}
 		} else {
-			player.sendMessage(ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class Spellcontroller {
             spellLeap(player, forwardVelocity, upwardVelocity, 1, true);
             jumping.add(player);
 		} else {
-			player.sendMessage(ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
 		}
 	}
 	
@@ -88,10 +88,10 @@ public class Spellcontroller {
                 	 snowball.setVelocity(snowball.getVelocity().add(mod));
                  }
 			} else {
-				player.sendMessage(ConfigManager.getLanguage().getString("string_need_snow","You need 96 Snowballs!"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_need_snow","You need 96 Snowballs!"));
 			}
 		} else {
-			player.sendMessage(ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
 		}
 	}
 	
@@ -102,17 +102,17 @@ public class Spellcontroller {
 			if(game.enderPortal!=null) {
 				if(game.enderActive) {
 					player.teleport(game.enderPortal);
-					player.sendMessage(ConfigManager.getLanguage().getString("string_teleport_success","You teleported to the Enderman Portal!"));
+					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_success","You teleported to the Enderman Portal!"));
 				} else {
 					game.setCountdown(player.getName(), 4, 0);
-					player.sendMessage(ConfigManager.getLanguage().getString("string_teleport_inactive","The Enderman Portal has been deactivated!"));
+					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_inactive","The Enderman Portal has been deactivated!"));
 				}
 			} else {
 				game.setCountdown(player.getName(), 4, 0);
-				player.sendMessage(ConfigManager.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
 			}
 		} else {
-			player.sendMessage(ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
 		}
 	}
 	

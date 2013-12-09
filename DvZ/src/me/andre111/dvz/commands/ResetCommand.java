@@ -1,5 +1,6 @@
 package me.andre111.dvz.commands;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 
 import org.bukkit.command.CommandSender;
@@ -13,7 +14,7 @@ public class ResetCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.reset")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		

@@ -18,11 +18,11 @@ public class ItemstandCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.itemstand")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Y U NO PLAYER??!111");
+			DvZ.sendPlayerMessageFormated(sender, "Y U NO PLAYER??!111");
 			return true;
 		}
 		Player player = (Player)sender;
@@ -49,23 +49,23 @@ public class ItemstandCommand extends DvZCommand {
 							DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/itemstands/"), player.getLocation(), itemID, once, itemSt, onlyClicking);
 							return true;
 						} else {
-							sender.sendMessage("Could not decode Itemstring: "+itemSt);
+							DvZ.sendPlayerMessageFormated(sender, "Could not decode Itemstring: "+itemSt);
 							return false;
 						}
 					} else {
-						sender.sendMessage("Please specify a formated Item to give!");
+						DvZ.sendPlayerMessageFormated(sender, "Please specify a formated Item to give!");
 						return false;
 					}
 				} else {
-					sender.sendMessage("Please specify a display Item ID!");
+					DvZ.sendPlayerMessageFormated(sender, "Please specify a display Item ID!");
 					return false;
 				}
 			} else {
-				sender.sendMessage("Please specify whether only the clicking Player can pickup the item!");
+				DvZ.sendPlayerMessageFormated(sender, "Please specify whether only the clicking Player can pickup the item!");
 				return false;
 			}
 		} else {
-			sender.sendMessage("Please specify a if it should be once per Player!");
+			DvZ.sendPlayerMessageFormated(sender, "Please specify a if it should be once per Player!");
 			return false;
 		}
 	}

@@ -34,14 +34,14 @@ public class DisguiseSystemHandler implements Listener {
 			}
 			
 			if(dsystem==SupportedDisguises.NOONE) {
-				Bukkit.getServer().getConsoleSender().sendMessage(DvZ.prefix+ChatColor.RED+"No supported disguising Plugin could be found, disabling...");
+				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), DvZ.prefix+ChatColor.RED+"No supported disguising Plugin could be found, disabling...");
 				Bukkit.getPluginManager().disablePlugin(DvZ.instance);
 				return false;
 			}
 		}
 		
 		//init disguisesystem
-		Bukkit.getServer().getConsoleSender().sendMessage(DvZ.prefix+"Using "+dsystem.getName()+" to handle Disguising");
+		DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), DvZ.prefix+"Using "+dsystem.getName()+" to handle Disguising");
 		
 		switch(dsystem) {
 		case DISGUISECRAFT:

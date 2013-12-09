@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.manager.HighscoreManager;
 
@@ -20,11 +21,11 @@ public class HighscoreCommand extends DvZCommand {
 	@Override
 	public boolean handle(int gameID, CommandSender sender, String[] args) {
 		if(!sender.hasPermission("dvz.highscore")) {
-			sender.sendMessage("You don't have the Permission to do that!");
+			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("Y U NO PLAYER??!111");
+			DvZ.sendPlayerMessageFormated(sender, "Y U NO PLAYER??!111");
 			return true;
 		}
 		Player player = (Player)sender;
@@ -44,7 +45,7 @@ public class HighscoreCommand extends DvZCommand {
         TreeMap<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
         sorted_map.putAll(pointMap);
 		
-        player.sendMessage(ConfigManager.getLanguage().getString("highscore_leaders", "Highscore Leaders: "));
+        DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("highscore_leaders", "Highscore Leaders: "));
         //print top
         for(int i=0; i<pointMap.size(); i++) {
         	String pname = sorted_map.lastKey();
@@ -52,7 +53,7 @@ public class HighscoreCommand extends DvZCommand {
         	sorted_map.remove(pname);
         	
         	if(i<topCount) {
-        		player.sendMessage((i+1)+". "+pname+" - "+ppoints);
+        		DvZ.sendPlayerMessageFormated(player, (i+1)+". "+pname+" - "+ppoints);
         	}
         	
         	if(pname.equals(player.getName())) {
@@ -62,7 +63,7 @@ public class HighscoreCommand extends DvZCommand {
         
         //print own
         if(position>topCount) {
-        	player.sendMessage("-> "+position+". "+player.getName()+" - "+ownpoints);
+        	DvZ.sendPlayerMessageFormated(player, "-> "+position+". "+player.getName()+" - "+ownpoints);
         }
         
 		return true;
