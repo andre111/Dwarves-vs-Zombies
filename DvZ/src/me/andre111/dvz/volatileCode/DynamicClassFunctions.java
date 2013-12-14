@@ -21,8 +21,8 @@ import org.bukkit.entity.Player;
 
 public class DynamicClassFunctions {
 	
-	public static String nmsPackage = "net.minecraft.server.v1_6_R2";
-	public static String obcPackage = "org.bukkit.craftbukkit.v1_6_R2";
+	public static String nmsPackage = "net.minecraft.server.v1_7_R1";
+	public static String obcPackage = "org.bukkit.craftbukkit.v1_7_R1";
 	
 	public static boolean setPackages() {
 		Server craftServer = Bukkit.getServer();
