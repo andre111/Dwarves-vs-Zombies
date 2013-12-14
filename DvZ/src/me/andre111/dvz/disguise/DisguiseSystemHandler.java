@@ -89,7 +89,7 @@ public class DisguiseSystemHandler implements Listener {
 			            try {
 			            	PacketContainer packet = event.getPacket();
 			                int target = packet.getSpecificModifier(int.class).read(1);
-			                int action = packet.getSpecificModifier(int.class).read(2);
+			                int action = packet.getSpecificModifier(byte.class).read(1);
 			                
 			                if (packet.getEntityModifier(player.getWorld()).read(1) == null) {
 			                	DvZInvalidInteractEvent newEvent = new DvZInvalidInteractEvent(player, target, action);
