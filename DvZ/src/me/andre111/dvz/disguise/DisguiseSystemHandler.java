@@ -81,11 +81,11 @@ public class DisguiseSystemHandler implements Listener {
 	//Interact with invalid stuff listener
 	public static void setupInteractListener() {
 		DvZ.protocolManager.addPacketListener(new PacketAdapter(DvZ.instance,
-			ConnectionSide.CLIENT_SIDE, ListenerPriority.NORMAL, 0x07) {
+			ConnectionSide.CLIENT_SIDE, ListenerPriority.NORMAL, 0x02) {
 			    @Override
 			    public void onPacketReceiving(PacketEvent event) {
 			    	Player player = event.getPlayer();
-			        if (event.getPacketID() == 0x07) {
+			        if (event.getPacketID() == 0x02) {
 			            try {
 			            	PacketContainer packet = event.getPacket();
 			                int target = packet.getSpecificModifier(int.class).read(1);
