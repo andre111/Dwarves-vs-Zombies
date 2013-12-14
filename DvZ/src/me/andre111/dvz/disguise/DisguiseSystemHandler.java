@@ -6,6 +6,7 @@ import me.andre111.dvz.event.DvZInvalidInteractEvent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -81,17 +82,28 @@ public class DisguiseSystemHandler implements Listener {
 	//Interact with invalid stuff listener
 	public static void setupInteractListener() {
 		DvZ.protocolManager.addPacketListener(new PacketAdapter(DvZ.instance,
-			ConnectionSide.CLIENT_SIDE, ListenerPriority.NORMAL, 0x02) {
+			ConnectionSide.CLIENT_SIDE, ListenerPriority.NORMAL, 0x07) {
 			    @Override
 			    public void onPacketReceiving(PacketEvent event) {
 			    	Player player = event.getPlayer();
-			        if (event.getPacketID() == 0x02) {
+			        if (event.getPacketID() == 0x07) {
 			            try {
 			            	PacketContainer packet = event.getPacket();
-			                int target = packet.getSpecificModifier(int.class).read(1);
-			                int action = packet.getSpecificModifier(byte.class).read(1);
+
+			            	int target = packet.getIntegers().read(0);
+			            	//TODO - somehow read action(Now an enum - grrr!)
+			            	int action = 0;//(Integer) packet.getModifier().read(1);
+			                //int target = packet.getSpecificModifier(int.class).read(1);
+			                //int action = packet.getSpecificModifier(byte.class).read(1);
 			                
-			                if (packet.getEntityModifier(player.getWorld()).read(1) == null) {
+			                boolean found = false;
+			                for(Entity e : player.getWorld().getEntities()) {
+			                	if(e.getEntityId()==target) {
+			                		found = true;
+			                		break;
+			                	}
+			                }
+			                if (!found) {
 			                	DvZInvalidInteractEvent newEvent = new DvZInvalidInteractEvent(player, target, action);
 			                    plugin.getServer().getPluginManager().callEvent(newEvent);
 			                }
