@@ -69,7 +69,8 @@ public class Listener_Player implements Listener  {
 		
 		//notify updates update
 		if (ConfigManager.getStaticConfig().getString("updateCheck", "true").equals("true") && player.isOp()) {
-			plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new DvZUpdateNotifier(plugin, player));
+			//TODO - write with new Method: http://wiki.bukkit.org/ServerMods_API
+			//plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new DvZUpdateNotifier(plugin, player));
 		}
 		
 		//if the player is not in the game->ignore
