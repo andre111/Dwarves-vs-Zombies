@@ -85,28 +85,32 @@ public class DisguiseSystemHandler implements Listener {
 			ConnectionSide.CLIENT_SIDE, ListenerPriority.NORMAL, 0x07) {
 			    @Override
 			    public void onPacketReceiving(PacketEvent event) {
-			    	Player player = event.getPlayer();
+			    	final Player player = event.getPlayer();
 			        if (event.getPacketID() == 0x07) {
 			            try {
 			            	PacketContainer packet = event.getPacket();
 
-			            	int target = packet.getIntegers().read(0);
+			            	final int target = packet.getIntegers().read(0);
 			            	//TODO - somehow read action(Now an enum - grrr!)
-			            	int action = 0;//(Integer) packet.getModifier().read(1);
+			            	final int action = 0;//(Integer) packet.getModifier().read(1);
 			                //int target = packet.getSpecificModifier(int.class).read(1);
 			                //int action = packet.getSpecificModifier(byte.class).read(1);
 			                
-			                boolean found = false;
-			                for(Entity e : player.getWorld().getEntities()) {
-			                	if(e.getEntityId()==target) {
-			                		found = true;
-			                		break;
-			                	}
-			                }
-			                if (!found) {
-			                	DvZInvalidInteractEvent newEvent = new DvZInvalidInteractEvent(player, target, action);
-			                    plugin.getServer().getPluginManager().callEvent(newEvent);
-			                }
+			            	Bukkit.getScheduler().runTask(DvZ.instance, new Runnable() {
+			            		public void run() {
+				            		boolean found = false;
+					                for(Entity e : player.getWorld().getEntities()) {
+					                	if(e.getEntityId()==target) {
+					                		found = true;
+					                		break;
+					                	}
+					                }
+					                if (!found) {
+					                	DvZInvalidInteractEvent newEvent = new DvZInvalidInteractEvent(player, target, action);
+					                    plugin.getServer().getPluginManager().callEvent(newEvent);
+					                }
+			            		}
+			            	});
 			            } catch (FieldAccessException e) {
 			                DvZ.log("Couldn't access a field in an 0x07-UseEntity packet!");
 			            }
@@ -120,14 +124,10 @@ public class DisguiseSystemHandler implements Listener {
 	//rightclicking invalidstuffs
 	@EventHandler
 	public void onPlayerInvalidInteractEntity(final DvZInvalidInteractEvent event) {
-		Bukkit.getScheduler().runTask(DvZ.instance, new Runnable() {
-			public void run() {
-				Player player = event.getPlayer();
-				if(player!=null) {
-					//clicking on "3D-Items"
-					DvZ.item3DHandler.clickOnInvalidEntity(player, event.getTarget());
-				}
-			}
-		});
+		Player player = event.getPlayer();
+		if(player!=null) {
+			//clicking on "3D-Items"
+			DvZ.item3DHandler.clickOnInvalidEntity(player, event.getTarget());
+		}
 	}
 }

@@ -26,7 +26,8 @@ public class StatManager {
 		}
 			
 		try {
-			player.setScoreboard(sc);
+			if(player.isValid())
+				player.setScoreboard(sc);
 		} catch(Exception e) {
 			DvZ.log("Exception showing "+player.getName()+" a scoreboard: "+e);
 			return;
