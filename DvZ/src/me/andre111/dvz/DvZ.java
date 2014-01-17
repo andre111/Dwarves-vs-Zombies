@@ -409,7 +409,9 @@ public class DvZ extends JavaPlugin {
 			}
 		} else {
 			if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
-				player.setScoreboard(HighscoreManager.getScoreboard());
+				if(player.isValid()) {
+					player.setScoreboard(HighscoreManager.getScoreboard());
+				}
 			}
 		}
 	}
