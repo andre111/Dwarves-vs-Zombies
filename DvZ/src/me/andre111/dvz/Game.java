@@ -1153,7 +1153,7 @@ public class Game {
 		
 		//Monster
 		if(isMonster(pname) && itemId==358) Spellcontroller.spellTeleport(this, player);
-		if(isMonster(pname) && itemId==370) Spellcontroller.spellSuizide(this, player);
+		//if(isMonster(pname) && itemId==370) Spellcontroller.spellSuizide(this, player);
 		
 		//dragon
 		if(dragon!=null) {
@@ -1271,11 +1271,10 @@ public class Game {
 			inv.addItem(it);
 			
 			if(plugin.getConfig().getString("monster_suizidepill", "true")=="true") {
-				it = new ItemStack(Material.GHAST_TEAR, 1);
-				im = it.getItemMeta();
-				im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_suizide","Suizidepill"));
-				it.setItemMeta(im);
-				inv.addItem(it);
+				it = ItemHandler.decodeItem("internSuicidePill");
+				if(it!=null) {
+					inv.addItem(it);
+				}
 			}
 			
 			DvZ.updateInventory(player);

@@ -553,6 +553,31 @@ items:
          cost: 0
        casts: []
    # monsters
+   # this item "internSuicidePill" is used for the suicide pill
+   internSuicidePill:
+     name: "lang:string_spell_suizide"
+     lore: 
+       - "lang:string_used_seconds:300"
+     id: 370
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       cooldown: 300
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemKill"
+           require: -1
+           castVars:
+             - 1
    internCreeperExplode:
      name: "lang:string_default_item_monster_explode"
      lore: 
