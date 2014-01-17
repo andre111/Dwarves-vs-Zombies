@@ -15,8 +15,8 @@ public class Classswitcher {
 		becomeMonster(game, player, true);
 	}
 	public static void becomeMonster(final Game game, final Player player, boolean buff) {
-		if (buff) game.addMonsterBuff(player);
 		game.resetCountdowns(player.getName());
+		if (buff) game.addMonsterBuff(player);
 		
 		InventoryHandler.clearInv(player, false);
 		player.setTotalExperience(0);

@@ -43,6 +43,8 @@ public class CustomMonster {
 	
 	//become custom Monster
 	public void becomeMonster(Game game, final Player player) {
+		PlayerHandler.resetPotionEffects(player);
+		
 		Classswitcher.becomeMonster(game, player, true);
 		game.setPlayerState(player.getName(), id+Game.monsterMin);
 		ManaManager.setMaxMana(player.getName(), getMaxMana(), true);
@@ -53,8 +55,6 @@ public class CustomMonster {
 		
 		if(!startMessage.equals(""))
 			DvZ.sendPlayerMessageFormated(player, startMessage);
-		
-		PlayerHandler.resetPotionEffects(player);
 		
 		player.setHealth(startHealth);
 		player.setFoodLevel(startHunger);
