@@ -485,6 +485,7 @@ public class Game {
 		for(String st : remove) {
 			customCooldown.remove(st);
 		}
+		remove.clear();
 	}
 	
 	//fastticker 20 times per second

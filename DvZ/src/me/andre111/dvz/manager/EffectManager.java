@@ -136,7 +136,7 @@ public class EffectManager {
 	}
 	
 	public double getDwarfKillMultiplier(Game game, String dwarf) {
-		if(game.getCustomCooldown(dwarf, "effects_kill")>=0) {
+		if(game.getCustomCooldown(dwarf, "effects_kill")>0) {
 			return 20;
 		}
 		
