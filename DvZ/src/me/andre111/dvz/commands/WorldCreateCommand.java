@@ -23,9 +23,11 @@ public class WorldCreateCommand extends DvZCommand {
 			DvZ.sendPlayerMessageFormated(sender, "You don't have the Permission to do that!");
 			return false;
 		}
-
-		WorldManager.createWorld(sender, player.getWorld().getName());
+		if(args.length>0) {
+			WorldManager.createWorld(sender, player.getWorld().getName(), args[0]);
+			return true;
+		}
 		
-		return true;
+		return false;
 	}
 }

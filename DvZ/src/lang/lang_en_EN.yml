@@ -105,6 +105,7 @@ string_become_dragon: "You became the -0-!"
 # Backup
 string_save_fail: "Could not save the World!"
 string_save_succes: "Saved a Copy of the World!"
+string_save_exists: "A world with that name allready exists!"
 # Tp
 string_tp_reset: "World is resetting - You have been teleported to the Lobby"
 # Stats

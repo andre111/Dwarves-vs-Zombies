@@ -89,7 +89,7 @@ commands:
    dvz_createworld:
       description: Saves the current world as a automatic World
       aliases: [dvz_create,d_createworld,d_create]
-      usage: /<command>
+      usage: /<command> [worldname]
       permission: dvz.save
    dvz_release:
       description: Releases the Monsters

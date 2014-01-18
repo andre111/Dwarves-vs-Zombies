@@ -3,6 +3,7 @@ package me.andre111.dvz.manager;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -20,8 +21,10 @@ import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class WorldManager {
-
+public abstract class WorldManager {
+	private static ArrayList<String> worlds = new ArrayList<String>();
+	private static ArrayList<String> type1_worlds = new ArrayList<String>();
+	private static ArrayList<String> type2_worlds = new ArrayList<String>();
 	
 	public static void saveWorld(CommandSender sender, String name) {
 		Date dt = new Date();
@@ -42,12 +45,15 @@ public class WorldManager {
 		}
 	}
 	
-	public static void createWorld(CommandSender sender, String name) {
+	public static void createWorld(CommandSender sender, String name, String newName) {
 		File world = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+name+"/");
 		
-		String free = getFreeWorld("");
+		File cworld = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+newName+"/");
+		if(cworld.exists()) {
+			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_save_exists","A world with that name allready exists!"));
+			return;
+		}
 		
-		File cworld = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+free+"/");
 		boolean failed = false;
 		try {
 			FileHandler.copyFolder(world, cworld);
@@ -60,20 +66,6 @@ public class WorldManager {
 		if(!failed) {
 			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_save_succes","Saved a Copy of the World!"));
 		}
-		
-		maxWorld = getFreeWorld("");
-	}
-	
-	private static String getFreeWorld(String add) {
-		int akt = 0;
-		
-		File f;
-		do {
-			akt++;
-			f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+akt+"/");
-		} while(f.exists());
-		
-		return ""+akt;
 	}
 	
 	public static void resetMainWorld(final int id) {
@@ -117,41 +109,48 @@ public class WorldManager {
 		}
 	}
 	
+	private static void searchWorlds() {
+		worlds.clear();
+		type1_worlds.clear();
+		type2_worlds.clear();
+		
+		File f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/");
+		if(f.listFiles()!=null)
+		for(File file : f.listFiles()) {
+			if(file.isDirectory() && !file.getName().equals("Type1") && !file.getName().equals("Type2")) {
+				worlds.add(file.getName());
+			}
+		}
+		f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/Type1/");
+		if(f.listFiles()!=null)
+		for(File file : f.listFiles()) {
+			if(file.isDirectory()) {
+				worlds.add("Type1/"+file.getName());
+			}
+		}
+		f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/Type2/");
+		if(f.listFiles()!=null)
+		for(File file : f.listFiles()) {
+			if(file.isDirectory()) {
+				worlds.add("Type2/"+file.getName());
+			}
+		}
+	}
+	
 	//TODO - Neue Main Welt generieren
 	private static Random mapRandom = new Random();
-	private static String maxWorld = "";
-	private static String maxWorldType1 = "";
-	private static String maxWorldType2 = "";
 	public static void newMainWorld(final int id) {
 		int gameType = GameType.getDwarfAndMonsterTypes(DvZ.instance.getGame(id).getGameType());
 		
-		if(maxWorld.equals("")) {
-			maxWorld = getFreeWorld("");
-		}
-		if(maxWorldType1.equals("")) {
-			maxWorldType1 = getFreeWorld("Type1/");
-		}
-		if(maxWorldType2.equals("")) {
-			maxWorldType2 = getFreeWorld("Type2/");
-		}
+		ArrayList<String> new_worlds = new ArrayList<String>();
+		new_worlds.addAll(worlds);
+		if(gameType==1) new_worlds.addAll(type1_worlds);
+		if(gameType==2) new_worlds.addAll(type2_worlds);
 		
-		int extra = Integer.parseInt(maxWorldType1)-1;
-		if(gameType==2) extra = Integer.parseInt(maxWorldType2)-1;
-		
-		int normal = Integer.parseInt(maxWorld)-1;
-		int max = normal + extra;
-		
-		if(max>0) {
-			int pos = mapRandom.nextInt(max)+1;
-			String add = "";
-			//if it excedes the normal number, use the special worlds
-			if(pos>normal) {
-				pos = pos - normal;
-				add = "Type1/";
-				if(gameType==2) add = "Type2/";
-			}
+		if(new_worlds.size()>0) {
+			int pos = mapRandom.nextInt(new_worlds.size());
 			
-			File worldfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+add+""+pos+"/");
+			File worldfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+new_worlds.get(pos)+"/");
 			File mainfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
 			try {
 				FileHandler.copyFolder(worldfile, mainfile);
@@ -167,8 +166,6 @@ public class WorldManager {
 	}
 	
 	public static void reload() {
-		maxWorld = "";
-		maxWorldType1 = "";
-		maxWorldType2 = "";
+		searchWorlds();
 	}
 }

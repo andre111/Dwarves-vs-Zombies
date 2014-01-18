@@ -24,6 +24,7 @@ import me.andre111.dvz.manager.BreakManager;
 import me.andre111.dvz.manager.EffectManager;
 import me.andre111.dvz.manager.HighscoreManager;
 import me.andre111.dvz.manager.ItemStandManager;
+import me.andre111.dvz.manager.WorldManager;
 import me.andre111.dvz.monster.MonsterManager;
 import me.andre111.dvz.players.SpecialPlayerManager;
 import me.andre111.dvz.utils.FileHandler;
@@ -154,6 +155,7 @@ public class DvZ extends JavaPlugin {
 		HighscoreManager.init();
 		HighscoreManager.loadHighscore();
 		BlockManager.loadConfig();
+		WorldManager.reload();
 		
 		try {
 		    Metrics metrics = new Metrics(this);
