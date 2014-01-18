@@ -53,13 +53,12 @@ import com.comphenix.protocol.ProtocolManager;
 
 public class DvZ extends JavaPlugin {
 	public static DvZ instance;
-	//public Game game;
+	
 	private Game[] games = new Game[10];
 	private GameDummy gameDummy = new GameDummy();
 	public static int startedGames = 0;
 	private Lobby lobby;
 	
-	//public static DisguiseCraftAPI api;
 	public static ProtocolManager protocolManager;
 	public static SpellItems spellItems;
 	
@@ -107,12 +106,6 @@ public class DvZ extends JavaPlugin {
 		
 		//Disguisecraft check
 		if (!ConfigManager.getStaticConfig().getString("disable_dcraft_check", "false").equals("true")) {
-			/*if (!Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
-			{
-				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"DisguiseCraft could not be found, disabling...");
-				Bukkit.getPluginManager().disablePlugin(this);
-				return;
-			}*/
 			if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
 			{
 				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
@@ -136,7 +129,6 @@ public class DvZ extends JavaPlugin {
 		DvZPackets.setEntityID(DisguiseSystemHandler.newEntityID());
 		
 		Spellcontroller.plugin = this;
-		Classswitcher.plugin = this;
 		IconMenuHandler.instance = new IconMenuHandler(this);
 		
 		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
@@ -212,7 +204,6 @@ public class DvZ extends JavaPlugin {
 			File f2 = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Main"+i+"/");
 			if(f2.exists()) FileHandler.deleteFolder(f2);
 		}
-		//w_main = Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Main"));
 		
 		lobby = new Lobby(this);
 		

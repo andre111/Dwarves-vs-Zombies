@@ -15,9 +15,7 @@ import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.players.SpecialPlayer;
-import me.andre111.dvz.update.DvZUpdateNotifier;
 import me.andre111.dvz.utils.InventoryHandler;
-import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -49,9 +47,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 
-//import pgDev.bukkit.DisguiseCraft.DisguiseCraft;
-//import pgDev.bukkit.DisguiseCraft.api.PlayerUndisguiseEvent;
-//import pgDev.bukkit.DisguiseCraft.listeners.PlayerInvalidInteractEvent;
 
 public class Listener_Player implements Listener  {
 	private DvZ plugin;
@@ -81,11 +76,8 @@ public class Listener_Player implements Listener  {
 				&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
 			event.setJoinMessage("");
 		}
-		//TODO - maybe change to not always join game 0
+		
 		if (plugin.getPlayerGame(player.getName())==null && ConfigManager.getStaticConfig().getString("autojoin_on_join", "true").equals("true")) {
-			//if(plugin.getGame(0)==null) return;
-			
-			//plugin.getGame(0).addPlayer(player.getName());
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
 			DvZ.sendPlayerMessageFormated(player, "--------------------------------");
 			if(ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true"))
@@ -94,41 +86,6 @@ public class Listener_Player implements Listener  {
 			event.setJoinMessage(ConfigManager.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
 			
 			plugin.joinGame(player, true);
-			//game not started -> teleport to the lobby
-			/*if(plugin.getGame(0).getState()==1) {
-				plugin.getGame(0).setPlayerState(player.getName(), 1);
-				InventoryHandler.clearInv(player, false);
-				
-				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
-					player.teleport(Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
-			}
-			//autoadd player
-			if(plugin.getGame(0).getState()>1) {
-				Bukkit.getServer().getScheduler().runTaskLater(DvZ.instance, new Runnable() {
-					public void run() {
-						if(!player.isOnline()) return;
-						if(plugin.getPlayerGame(player.getName())!=null) return;
-						
-						if (plugin.getConfig().getString("autoadd_players","false")=="true") {
-							if(!plugin.getGame(0).released) {
-								plugin.getGame(0).setPlayerState(player.getName(), 2);
-								InventoryHandler.clearInv(player, false);
-								DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
-								plugin.getGame(0).addDwarfItems(player);
-
-								plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
-							} else {
-								plugin.getGame(0).setPlayerState(player.getName(), 3);
-								InventoryHandler.clearInv(player, false);
-								DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
-								plugin.getGame(0).addMonsterItems(player);
-
-								plugin.getGame(0).broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
-							}
-						}
-					}
-				}, 2);
-			}*/
 		} else if (plugin.getPlayerGame(player.getName())!=null) {
 			int pstate = plugin.getPlayerGame(player.getName()).getPlayerState(player.getName());
 			//redisguise
@@ -153,13 +110,6 @@ public class Listener_Player implements Listener  {
 			event.setQuitMessage("");
 		}
 	}
-
-	/*@EventHandler
-	public void onPlayerMove(PlayerMoveEvent event) {
-		Player player = event.getPlayer();
-		Location playerp = player.getLocation();
-		
-	}*/
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
@@ -360,7 +310,6 @@ public class Listener_Player implements Listener  {
 				
 				prefix = DvZ.monsterManager.getMonster(did).getPrefix();
 				suffix = DvZ.monsterManager.getMonster(did).getSuffix();
-				//event.setMessage(ConfigManager.getLanguage().getString("string_chat_monster","§5Monster§f>")+" "+event.getMessage());
 			}
 			//player specific
 			if(DvZ.playerManager.getPlayer(player.getName())!=null) {

@@ -2,12 +2,12 @@ package me.andre111.dvz.monster;
 
 import java.util.ArrayList;
 
-import me.andre111.dvz.Classswitcher;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.manager.StatManager;
+import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.ManaManager;
@@ -45,7 +45,25 @@ public class CustomMonster {
 	public void becomeMonster(Game game, final Player player) {
 		PlayerHandler.resetPotionEffects(player);
 		
-		Classswitcher.becomeMonster(game, player, true);
+		//old code from classswitcher
+		//------------------------------
+		game.resetCountdowns(player.getName());
+		game.addMonsterBuff(player);
+		
+		InventoryHandler.clearInv(player, false);
+		player.setTotalExperience(0);
+		player.setLevel(0);
+		player.setExp(0);
+		
+		if(!game.released) {
+			/*Bukkit.getScheduler().scheduleSyncDelayedTask(game.getPlugin(), new Runnable() {
+				public void run() {
+					//TODO - diabled until I can fix it
+					game.waitm.open(player);
+				}
+			}, 2);*/
+		}
+		//------------------------------
 		game.setPlayerState(player.getName(), id+Game.monsterMin);
 		ManaManager.setMaxMana(player.getName(), getMaxMana(), true);
 		ManaManager.setManaRegen(player.getName(), getManaRegen());

@@ -233,7 +233,7 @@ public class Listener_Entity implements Listener {
 	    Game game = plugin.getPlayerGame(damager.getName());
 	    if (game!=null) {
 	    	if(game.isDwarf(player.getName(), true) && game.getPlayerState(damager.getName())==Game.assasinState) {
-	    		game.setCountdown(damager.getName(), 3, -1);
+	    		game.resetCustomCooldown(damager.getName(), "assassin_time");
 	    	}
 	    }
 	}

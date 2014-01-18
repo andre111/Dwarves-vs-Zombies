@@ -9,7 +9,6 @@ import java.util.Random;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.GameType;
 import me.andre111.dvz.config.ConfigManager;
-import me.andre111.dvz.disguise.SupportedDisguises;
 import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.MultiverseHandler;

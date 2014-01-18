@@ -1,36 +1,33 @@
 package me.andre111.dvz;
 
 import java.util.HashSet;
-import java.util.Random;
 
 import me.andre111.dvz.config.ConfigManager;
-import me.andre111.dvz.utils.InventoryHandler;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
 import org.bukkit.util.Vector;
 
 public class Spellcontroller {
 	public static DvZ plugin;
 	
 	public static void spellDisablePortal(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 4)==0) {
-			game.setCountdown(player.getName(), 4, plugin.getConfig().getInt("spelltime_disableportal",3));
+		if(game.getCustomCooldown(player.getName(), "oldspell_dwarf_disable_portal")==0) {
+			game.setCustomCooldown(player.getName(), "oldspell_dwarf_disable_portal", plugin.getConfig().getInt("spelltime_disableportal",3));
 			
 			if(game.enderPortal!=null) {
 				game.enderActive = false;
 				
 				game.broadcastMessage(ConfigManager.getLanguage().getString("string_portal_disable","The Portal has been disabled!"));
 			} else {
-				game.setCountdown(player.getName(), 4, 0);
+				game.setCustomCooldown(player.getName(), "oldspell_dwarf_disable_portal", 0);
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
 			}
 		} else {
-			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCustomCooldown(player.getName(), "oldspell_dwarf_disable_portal")));
 		}
 	}
 	
@@ -38,19 +35,7 @@ public class Spellcontroller {
 	//Monster
 	//###################################
 	//rest in Listener_Entity onEntityDamaged
-	private static double forwardVelocity = 40 / 10D;
-    private static double upwardVelocity = 15 / 10D;
     public final static HashSet<Player> jumping = new HashSet<Player>();
-	public static void spellIronGolemLeap(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 2)==0) {
-			game.setCountdown(player.getName(), 2, plugin.getConfig().getInt("spelltime_ironjump",30));
-			
-            spellLeap(player, forwardVelocity, upwardVelocity, 1, true);
-            jumping.add(player);
-		} else {
-			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
-		}
-	}
 	
 	public static void spellIronGolemLand(Player player) {
 		World w = player.getWorld();
@@ -73,51 +58,26 @@ public class Spellcontroller {
 	//rest in Listener_Entity onEntitydamagedEntity
 	public static float identifier = (float)Math.random() * 20F;
 	public static int sdamage = 8;
-	public static void spellSnowGolemThrow(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 2)==0) {
-			if(InventoryHandler.countItems(player, 332, 0)>=96) {
-				InventoryHandler.removeItems(player, 332, 0, 96);
-				game.setCountdown(player.getName(), 2, plugin.getConfig().getInt("spelltime_snowgolemthrow",0));
-			
-				 Random rand = new Random();
-                 Vector mod;
-                 for (int i = 0; i < 250; i++) {
-                	 Snowball snowball = player.launchProjectile(Snowball.class);
-                	 snowball.setFallDistance(identifier); // tag the snowballs
-                	 mod = new Vector((rand.nextDouble() - .5) * 15 / 10.0, (rand.nextDouble() - .5) * 5 / 10.0, (rand.nextDouble() - .5) * 15 / 10.0);
-                	 snowball.setVelocity(snowball.getVelocity().add(mod));
-                 }
-			} else {
-				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_need_snow","You need 96 Snowballs!"));
-			}
-		} else {
-			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 2)));
-		}
-	}
 	
 	public static void spellTeleport(Game game, Player player) {
-		if(game.getCountdown(player.getName(), 4)==0) {
-			game.setCountdown(player.getName(), 4, plugin.getConfig().getInt("spelltime_teleport",15));
+		if(game.getCustomCooldown(player.getName(), "oldspell_monster_teleport_portal")==0) {
+			game.setCustomCooldown(player.getName(), "oldspell_monster_teleport_portal", plugin.getConfig().getInt("spelltime_teleport", 15));
 			
 			if(game.enderPortal!=null) {
 				if(game.enderActive) {
 					player.teleport(game.enderPortal);
 					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_success","You teleported to the Enderman Portal!"));
 				} else {
-					game.setCountdown(player.getName(), 4, 0);
+					game.setCustomCooldown(player.getName(), "oldspell_monster_teleport_portal", plugin.getConfig().getInt("spelltime_teleport", 0));
 					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_inactive","The Enderman Portal has been deactivated!"));
 				}
 			} else {
-				game.setCountdown(player.getName(), 4, 0);
+				game.setCustomCooldown(player.getName(), "oldspell_monster_teleport_portal", plugin.getConfig().getInt("spelltime_teleport", 0));
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_teleport_noportal","The Enderman Portal does not exist yet!"));
 			}
 		} else {
-			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCountdown(player.getName(), 4)));
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_wait","You have to wait -0- Seconds!").replace("-0-", ""+game.getCustomCooldown(player.getName(), "oldspell_monster_teleport_portal")));
 		}
-	}
-	
-	public static void spellSuizide(Game game, Player player) {
-		player.damage((double) 1000);
 	}
 	
 	//create the portalblocks

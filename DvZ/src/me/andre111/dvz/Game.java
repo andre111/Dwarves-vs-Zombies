@@ -99,13 +99,6 @@ public class Game {
 	
 	private Dragon dragon;
 	
-	private HashMap<String, Integer> spell1time = new HashMap<String, Integer>();
-	private HashMap<String, Integer> spell2time = new HashMap<String, Integer>();
-	private HashMap<String, Integer> spell3time = new HashMap<String, Integer>(); //3 = bei assasin time until kill
-	private HashMap<String, Integer> spell4time = new HashMap<String, Integer>(); //4 = immer map für monster/immer disable portal für dwarves
-	
-	private HashMap<String, Integer> invultimer = new HashMap<String, Integer>();
-	
 	//used for custom cooldowns String: Playername:CooldownName
 	private HashMap<String, Integer> customCooldown = new HashMap<String, Integer>();
 	
@@ -247,11 +240,6 @@ public class Game {
 		canWin = ConfigManager.getStaticConfig().getString("can_win", "false").equals("true");
 		gracetime = 0;
 		
-		spell1time.clear();
-		spell2time.clear();
-		spell3time.clear();
-		spell4time.clear();
-		invultimer.clear();
 		customCooldown.clear();
 		
 		WorldManager.resetMainWorld(plugin.getGameID(this));
@@ -419,59 +407,6 @@ public class Game {
 	//Tick für Countdown
 	//#######################################
 	private void countdownTicker() {
-		for(Map.Entry<String, Integer> e : spell1time.entrySet()){
-			String player = e.getKey();
-			int time = e.getValue();
-			
-			if(time>0) {
-				time--; 
-				if(time==0) countdownEnd(player, 1);
-			}
-			spell1time.put(player, time);
-		}
-		for(Map.Entry<String, Integer> e : spell2time.entrySet()){
-			String player = e.getKey();
-			int time = e.getValue();
-			
-			if(time>0) {
-				time--; 
-				if(time==0) countdownEnd(player, 2);
-			}
-			spell2time.put(player, time);
-		}
-		for(Map.Entry<String, Integer> e : spell3time.entrySet()){
-			String player = e.getKey();
-			int time = e.getValue();
-			
-			if(time>0) {
-				time--; 
-				if(time==0) countdownEnd(player, 3);
-			}
-			spell3time.put(player, time);
-		}
-		for(Map.Entry<String, Integer> e : spell4time.entrySet()){
-			String player = e.getKey();
-			int time = e.getValue();
-			
-			if(time>0) {
-				time--; 
-				if(time==0) countdownEnd(player, 4);
-			}
-			spell4time.put(player, time);
-		}
-		
-		for(Map.Entry<String, Integer> e : invultimer.entrySet()){
-			String player = e.getKey();
-			int time = e.getValue();
-			
-			if(time>0) {
-				time--; 
-				if(time==0) addMonsterMap(Bukkit.getPlayerExact(player));
-			}
-
-			if(time==0) invultimer.remove(player);
-			else invultimer.put(player, time);
-		}
 		//save for cuncurrentmodification
 		ArrayList<String> remove = new ArrayList<String>();
 		for(Map.Entry<String, Integer> e : customCooldown.entrySet()){
@@ -480,6 +415,12 @@ public class Game {
 			
 			time--; 
 			customCooldown.put(key, time);
+			//end
+			if(time==0) {
+				String[] split = key.split(":");
+				
+				countdownEnd(split[0], split[1]);
+			}
 			if(time<=0) remove.add(key);
 		}
 		for(String st : remove) {
@@ -760,52 +701,45 @@ public class Game {
 			Player player = Bukkit.getServer().getPlayerExact(playern);
 			
 			//check for Playercount
-				int ammountPlayers = 0;
-				for (int j=0; j<rplayers.length; j++) {
-					playern = (String) rplayers[j];
-					if(isDwarf(playern, false) && player!=null) {
-						ammountPlayers += 1;
-					}
+			int ammountPlayers = 0;
+			for (int j=0; j<rplayers.length; j++) {
+				playern = (String) rplayers[j];
+				if(isDwarf(playern, false) && player!=null) {
+					ammountPlayers += 1;
 				}
-				if (ammountPlayers<count && !chooseOne) {
-					broadcastMessage(ConfigManager.getLanguage().getString("string_no_assasins","No Assasins have been chosen - Because there where not enough online Dwarves!!"));
-					return;
-				}
+			}
+			if (ammountPlayers<count && !chooseOne) {
+				broadcastMessage(ConfigManager.getLanguage().getString("string_no_assasins","No Assasins have been chosen - Because there where not enough online Dwarves!!"));
+				return;
+			}
 			while(!isDwarf(playern, false) || player==null) {
 				playern = (String) rplayers[rand.nextInt(rplayers.length)];
 				player = Bukkit.getServer().getPlayerExact(playern);
 			}
-			
+
 			chooseOne = true;
-			//Player player = Bukkit.getServer().getPlayerExact(playern);
-			//if(player!=null) {
+
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
-				
-				playerstate.put(player.getName(), Game.assasinState);
-				
-				//time
-				int asstime = ConfigManager.getClassFile().getInt("assasin_time_minutes",5);
-				if(asstime>0) {
-					spell3time.put(player.getName(), asstime*60);
-					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
+
+			playerstate.put(player.getName(), Game.assasinState);
+
+			//time
+			int asstime = ConfigManager.getClassFile().getInt("assasin_time_minutes",5);
+			if(asstime>0) {
+				setCustomCooldown(player.getName(), "assassin_time", asstime*60);
+
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
+			}
+
+			//add assasin items to inventory
+			PlayerInventory inv = player.getInventory();
+			List<String> itemstrings = ConfigManager.getClassFile().getStringList("assasin_items");
+			for(int j=0; j<itemstrings.size(); j++) {
+				ItemStack it = ItemHandler.decodeItem(itemstrings.get(j));
+				if(it!=null) {
+					inv.addItem(it);
 				}
-				
-				//add assasin items to inventory
-				PlayerInventory inv = player.getInventory();
-				List<String> itemstrings = ConfigManager.getClassFile().getStringList("assasin_items");
-				for(int j=0; j<itemstrings.size(); j++) {
-					ItemStack it = ItemHandler.decodeItem(itemstrings.get(j));
-					if(it!=null) {
-						inv.addItem(it);
-					}
-				}
-				/*for(int j=1; j<=10; j++) {
-					ItemStack it = ItemHandler.decodeItem(plugin.getConfig().getString("assasin_item"+j, "0"));
-					if(it!=null) {
-						inv.addItem(it);
-					}
-				}*/
-			//}
+			}
 		}
 		broadcastMessage(ConfigManager.getLanguage().getString("string_assasins","-0- Assasins have been chosen!!").replace("-0-", ""+count));
 	}
@@ -813,16 +747,20 @@ public class Game {
 	//#######################################
 	//Countdown Over
 	//#######################################
-	public void countdownEnd(String player, int countdown) {
+	public void countdownEnd(String player, String countdown) {
 		//assasin
 		if(playerstate.get(player)==Game.assasinState) {
-			if(countdown==3) {
+			if(countdown=="assassin_time") {
 				Player playern = Bukkit.getServer().getPlayerExact(player);
 				if(playern!=null) {
 					playern.damage((double) 1000);
 					DvZ.sendPlayerMessageFormated(playern, ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
 				}
 			}
+		}
+		
+		if(countdown=="monster_invulnarability") {
+			addMonsterMap(Bukkit.getPlayerExact(player));
 		}
 	}
 	
@@ -1148,12 +1086,9 @@ public class Game {
 		}
 		
 		if(isDwarf(pname, true) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
-		//crstal chest is no longer a global config option
-		//if(isDwarf(pname) && itemId==388) Spellcontroller.spellEnderChest(this, player, getCrystalChest(pname, false), getCrystalChest(pname, true));
 		
 		//Monster
 		if(isMonster(pname) && itemId==358) Spellcontroller.spellTeleport(this, player);
-		//if(isMonster(pname) && itemId==370) Spellcontroller.spellSuizide(this, player);
 		
 		//dragon
 		if(dragon!=null) {
@@ -1185,7 +1120,6 @@ public class Game {
 		if(!isPlayer(player.getName())) return;
 		if(item==null) return;
 		int itemId = item.getTypeId();
-		//int itemD = item.getDurability();
 		String pname = player.getName();
 		
 		//disable clicking when monsters are not released
@@ -1202,7 +1136,6 @@ public class Game {
 			} else {
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_needexp","You don't have enough exp!"));
 			}
-			//Spellcontroller.spellLaunchPotion(this, player, itemD);
 		}
 	}
 	
@@ -1223,10 +1156,6 @@ public class Game {
 		//nur wenn noch nicht eingetragen und spiel nicht gestartet
 		if (!playerstate.containsKey(player) && state==1) {
 			playerstate.put(player, 1);	//nix, pregame
-			spell1time.put(player, 0);  //spellcountdown
-			spell2time.put(player, 0);  //spellcountdown
-			spell3time.put(player, 0);  //spellcountdown
-			spell4time.put(player, 0);  //spellcountdown
 			DvZ.log(player+" added to the Game.");
 			return true;
 		}
@@ -1253,7 +1182,7 @@ public class Game {
 		
 		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replace("-0-", ""+time));
 		
-		invultimer.put(player.getName(), time);
+		setCustomCooldown(player.getName(), "monster_invulnarability", time);
 	}
 	
 	private void addMonsterMap(Player player) {
@@ -1282,7 +1211,7 @@ public class Game {
 	}
 	
 	public boolean isBuffed(String player) {
-		return invultimer.containsKey(player);
+		return getCustomCooldown(player, "monster_invulnarability")>0;
 	}
 	
 	//#######################################
@@ -1622,45 +1551,7 @@ public class Game {
 		}
 	}
 	
-	public int getCountdown(String player, int id) {
-		switch(id) {
-		case 1:
-			return spell1time.get(player);
-		case 2:
-			return spell2time.get(player);
-		case 3:
-			return spell3time.get(player);
-		case 4:
-			return spell4time.get(player);
-		default:
-			return 1;
-		}
-	}
-	
-	public void setCountdown(String player, int id, int t) {
-		switch(id) {
-		case 1:
-			spell1time.put(player, t);
-			break;
-		case 2:
-			spell2time.put(player, t);
-			break;
-		case 3:
-			spell3time.put(player, t);
-			break;
-		case 4:
-			spell4time.put(player, t);
-			break;
-		default: break;
-		}
-	}
-	
 	public void resetCountdowns(String player) {
-		spell1time.put(player, 0);
-		spell2time.put(player, 0);
-		spell3time.put(player, 0);
-		spell4time.put(player, 0);
-		invultimer.remove(player);
 		crystalPerPlayer.remove(player);
 	}
 	
