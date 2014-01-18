@@ -1258,7 +1258,7 @@ public class Game {
 	
 	private void addMonsterMap(Player player) {
 		//only monsters are allowed to get these items
-		if(getPlayerState(player.getName())>=Game.monsterMin && getPlayerState(player.getName())<=Game.monsterMax) {
+		if(player!=null && getPlayerState(player.getName())>=Game.monsterMin && getPlayerState(player.getName())<=Game.monsterMax) {
 			PlayerInventory inv = player.getInventory();
 			
 			ItemStack it = new ItemStack(Material.MAP, 1);
