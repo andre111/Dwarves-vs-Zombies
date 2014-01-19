@@ -30,6 +30,25 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 	}
 	
 	@Override
+	public void disguiseP(Player player, DvZDisguiseType disguise) {
+		switch(disguise) {
+		case VILLAGER_ZOMBIE:
+			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Zombie!");
+			Disguise dis1 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), null);
+			api.addDisguise(player, dis1);
+			break;
+		case WITHER_SKELETON:
+			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Skeleton!");
+			Disguise dis2 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), null);
+			api.addDisguise(player, dis2);
+			break;
+		default:
+			Disguise dis3 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), null);
+			api.addDisguise(player, dis3);
+			break;
+		}
+	}
+	@Override
 	public void disguiseP(Player player, String disguise) {
 		EntityType et = EntityType.fromName(disguise);
 		if(et==null) et = EntityType.valueOf(disguise);

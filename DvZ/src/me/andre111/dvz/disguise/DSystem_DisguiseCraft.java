@@ -5,6 +5,7 @@ import me.andre111.dvz.Game;
 import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,6 +30,122 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
+	@Override
+	public void disguiseP(Player player, DvZDisguiseType disguise) {
+		DisguiseType dt = DisguiseType.fromString(disguise.getNames().get(0));
+		Disguise dis = null;
+		
+		switch(disguise) {
+		case ZOMBIE:
+			dt = DisguiseType.Zombie;
+			break;
+		case VILLAGER_ZOMBIE:
+			dt = DisguiseType.Zombie;
+			dis = new Disguise(api.newEntityID(), "", dt);
+			dis.setSingleData("infected");
+			break;
+		case SKELETON:
+			dt = DisguiseType.Skeleton;
+			break;
+		case WITHER_SKELETON:
+			dt = DisguiseType.Skeleton;
+			dis = new Disguise(api.newEntityID(), "", dt);
+			dis.setSingleData("wither");
+			break;
+		case CREEPER:
+			dt = DisguiseType.Creeper;
+			break;
+		case SLIME:
+			dt = DisguiseType.Slime;
+			break;
+		case WITCH:
+			dt = DisguiseType.Witch;
+			break;
+		case BLAZE:
+			dt = DisguiseType.Blaze;
+			break;
+		case GHAST:
+			dt = DisguiseType.Ghast;
+			break;
+		case MAGMA_CUBE:
+			dt = DisguiseType.MagmaCube;
+			break;
+		case SILVERFISH:
+			dt = DisguiseType.Silverfish;
+			break;
+		//NEUTRAL
+		case SPIDER:
+			dt = DisguiseType.Spider;
+			break;
+		case CAVE_SPIDER:
+			dt = DisguiseType.CaveSpider;
+			break;
+		case ENDERMAN:
+			dt = DisguiseType.Enderman;
+			break;
+		case WOLF:
+			dt = DisguiseType.Wolf;
+			break;
+		case ZOMBIE_PIGMAN:
+			dt = DisguiseType.PigZombie;
+			break;
+		//TAMABLE
+		case OCELOT:
+			dt = DisguiseType.Ocelot;
+			break;
+		case HORSE:
+			dt = DisguiseType.Horse;
+			break;
+		//PASSIVE
+		case CHICKEN:
+			dt = DisguiseType.Chicken;
+			break;
+		case COW:
+			dt = DisguiseType.Cow;
+			break;
+		case PIG:
+			dt = DisguiseType.Pig;
+			break;
+		case SHEEP:
+			dt = DisguiseType.Sheep;
+			break;
+		case SQUID:
+			dt = DisguiseType.Squid;
+			break;
+		case BAT:
+			dt = DisguiseType.Bat;
+			break;
+		case VILLAGER:
+			dt = DisguiseType.Villager;
+			break;
+		case MOOSHROOM:
+			dt = DisguiseType.MushroomCow;
+			break;
+		//UTILITY
+		case SNOW_GOLEM:
+			dt = DisguiseType.Snowman;
+			break;
+		case IRON_GOLEM:
+			dt = DisguiseType.IronGolem;
+			break;
+		//BOSSES
+		case ENDER_DRAGON:
+			dt = DisguiseType.EnderDragon;
+			break;
+		case WITHER:
+			dt = DisguiseType.Wither;
+			break;
+		//UNUSED
+		case GIANT:
+			dt = DisguiseType.Giant;
+			break;
+		}
+		
+		if(dis==null) {
+			dis = new Disguise(api.newEntityID(), "", dt);
+		}
+		disguiseP(player, dis);
+	}
 	@Override
 	public void disguiseP(Player player, String disguise) {
 		DisguiseType dt = DisguiseType.fromString(disguise);

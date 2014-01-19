@@ -64,7 +64,13 @@ public class DisguiseSystemHandler implements Listener {
 	}
 	
 	public static void disguiseP(Player player, String disguise) {
-		disguisesystem.disguiseP(player, disguise);
+		DvZDisguiseType dtype = DvZDisguiseType.getDisguise(disguise);
+		if(dtype!=null) {
+			disguisesystem.disguiseP(player, dtype);
+		} else {
+			DvZ.log("Disguise unknown - "+disguise+" - trying to let the Disguiseplugin interpret it!");
+			disguisesystem.disguiseP(player, disguise);
+		}
 	}
 	
 	public static void undisguiseP(Player player) {

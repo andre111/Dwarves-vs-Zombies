@@ -750,7 +750,7 @@ public class Game {
 	public void countdownEnd(String player, String countdown) {
 		//assasin
 		if(playerstate.get(player)==Game.assasinState) {
-			if(countdown=="assassin_time") {
+			if(countdown.equals("assassin_time")) {
 				Player playern = Bukkit.getServer().getPlayerExact(player);
 				if(playern!=null) {
 					playern.damage((double) 1000);
@@ -759,7 +759,7 @@ public class Game {
 			}
 		}
 		
-		if(countdown=="monster_invulnarability") {
+		if(countdown.equals("monster_invulnarability")) {
 			addMonsterMap(Bukkit.getPlayerExact(player));
 		}
 	}
