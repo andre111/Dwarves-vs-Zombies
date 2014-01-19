@@ -152,7 +152,6 @@ public class DvZ extends JavaPlugin {
 		playerManager = new SpecialPlayerManager();
 		playerManager.loadPlayers();
 		
-		HighscoreManager.init();
 		HighscoreManager.loadHighscore();
 		BlockManager.loadConfig();
 		WorldManager.reload();
@@ -406,7 +405,7 @@ public class DvZ extends JavaPlugin {
 		} else {
 			if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
 				if(player.isValid()) {
-					player.setScoreboard(HighscoreManager.getScoreboard());
+					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getName()));
 				}
 			}
 		}

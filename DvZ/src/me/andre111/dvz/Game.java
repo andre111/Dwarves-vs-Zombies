@@ -292,7 +292,7 @@ public class Game {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replace("-0-", ""+playerstate.size()).replace("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
 				}
 			}
-		//Autostart{
+			//Autostart{
 			if(lobby_Player>0) {
 				if(playerstate.size()>=lobby_Player) {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("lobby_starttime", 60)));
@@ -305,8 +305,13 @@ public class Game {
 					}
 				}
 			}
+			
+			updateHighscore();
 		} else {
-			if (starttime>=0) starttime--;
+			if (starttime>=0) {
+				starttime--;
+				updateHighscore();
+			}
 			
 			if (starttime==60*5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
 			else if (starttime==60) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
@@ -437,6 +442,18 @@ public class Game {
 				}
 				
 				countdownTicker();
+			}
+		}
+	}
+	
+	private void updateHighscore() {
+		//Highscore
+		if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
+			for(String st : playerstate.keySet()) {
+				Player player = Bukkit.getPlayerExact(st);
+				if(player.isValid()) {
+					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getName()));
+				}
 			}
 		}
 	}

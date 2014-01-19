@@ -2,6 +2,8 @@ package me.andre111.dvz.manager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -17,16 +19,7 @@ import org.bukkit.scoreboard.Scoreboard;
 
 public class HighscoreManager {
 	private static HashMap<String, PlayerScore> pointMap = new HashMap<String, PlayerScore>();
-	private static Scoreboard sb;
-	private static Objective ob;
-	private static String objectiveName = "dvz_score";
-	
-	public static void init() {
-		sb = Bukkit.getScoreboardManager().getNewScoreboard();
-		ob = sb.registerNewObjective(objectiveName, "dummy");
-		ob.setDisplayName(ConfigManager.getLanguage().getString("highscore_name", "Highscore"));
-		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
-	}
+	private static HashMap<String, Scoreboard> playerScoreboard = new HashMap<String, Scoreboard>();
 	
 	public static void addPoints(String player, int add) {
 		if(pointMap.containsKey(player)) {
@@ -40,7 +33,6 @@ public class HighscoreManager {
 			pointMap.put(player, new PlayerScore());
 		}
 		pointMap.get(player).setPoints(set);
-		ob.getScore(Bukkit.getOfflinePlayer(player)).setScore(set);
 	}
 	
 	public static int getPoints(String player) {
@@ -54,9 +46,42 @@ public class HighscoreManager {
 		return pointMap.get(player);
 	}
 	
-	public static Scoreboard getScoreboard() {
+	public static Scoreboard createOrRefreshPlayerScore(String player) {
+		if(!pointMap.containsKey(player)) {
+			pointMap.put(player, new PlayerScore());
+		}
+		PlayerScore pscore = pointMap.get(player);
+		//create scoreboard
+		if(!playerScoreboard.containsKey(player)) {
+			Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
+			playerScoreboard.put(player, sb);
+			Objective ob = sb.registerNewObjective("dvz_score", "dummy");
+			ob.setDisplayName(ConfigManager.getLanguage().getString("score_stats_name", "Scores/Stats"));
+			ob.setDisplaySlot(DisplaySlot.SIDEBAR);
+		}
+		
+		Scoreboard sb = playerScoreboard.get(player);
+			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_kills", "Kills"))).setScore(pscore.getKills());
+			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_deaths", "Deaths"))).setScore(pscore.getDeaths());
+			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_victories", "Victories"))).setScore(pscore.getVictories());
+			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_losses", "Losses"))).setScore(pscore.getLosses());
+			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_classpoints", "Class-Points"))).setScore(pscore.getClasspoints());
+			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_score", "Score"))).setScore(pscore.getCalculatedScore());
+			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_rank", "Rank"))).setScore(getRank(pscore.getCalculatedScore()));
 		return sb;
 	}
+	private static int getRank(int score) {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		
+		for(PlayerScore pscore : pointMap.values()) {
+			scores.add(pscore.getCalculatedScore());
+		}
+		
+		Collections.sort(scores);
+		
+		return scores.indexOf(score)+1;
+	}
+	
 	public static HashMap<String, Integer> getPoints() {
 		HashMap<String, Integer> points = new HashMap<String, Integer>();
 		
