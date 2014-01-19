@@ -15,7 +15,7 @@ public class Spellcontroller {
 	public static DvZ plugin;
 	
 	public static void spellDisablePortal(Game game, Player player) {
-		if(game.getCustomCooldown(player.getName(), "oldspell_dwarf_disable_portal")==0) {
+		if(game.getCustomCooldown(player.getName(), "oldspell_dwarf_disable_portal")<=0) {
 			game.setCustomCooldown(player.getName(), "oldspell_dwarf_disable_portal", plugin.getConfig().getInt("spelltime_disableportal",3));
 			
 			if(game.enderPortal!=null) {
@@ -60,7 +60,7 @@ public class Spellcontroller {
 	public static int sdamage = 8;
 	
 	public static void spellTeleport(Game game, Player player) {
-		if(game.getCustomCooldown(player.getName(), "oldspell_monster_teleport_portal")==0) {
+		if(game.getCustomCooldown(player.getName(), "oldspell_monster_teleport_portal")<=0) {
 			game.setCustomCooldown(player.getName(), "oldspell_monster_teleport_portal", plugin.getConfig().getInt("spelltime_teleport", 15));
 			
 			if(game.enderPortal!=null) {
