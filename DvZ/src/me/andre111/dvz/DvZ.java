@@ -266,21 +266,24 @@ public class DvZ extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		if(DvZ.instance!=null)
-			DvZ.instance = null;
+		//Done in game reset
+		//HighscoreManager.saveHighscore();
 		
 		//remove all zombies
 		if(item3DHandler!=null)
 			item3DHandler.removeAll();
-		
+				
 		DvZCommand.unregisterCommands();
-		
+				
 		//remove all release inventories
 		for(int i=0; i<games.length; i++) {
 			if (games[i]!=null) {
 				games[i].reset(false);
 			}
 		}
+		
+		if(DvZ.instance!=null)
+			DvZ.instance = null;
 	}
 	
 	public static void reloadItems() {

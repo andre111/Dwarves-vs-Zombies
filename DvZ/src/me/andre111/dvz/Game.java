@@ -264,6 +264,7 @@ public class Game {
 		customCooldown.clear();
 		
 		WorldManager.resetMainWorld(plugin.getGameID(this));
+		HighscoreManager.saveHighscore();
 		
 		//rejoin
 		if(plugin.getConfig().getString("auto_rejoin", "false").equals("true")) {

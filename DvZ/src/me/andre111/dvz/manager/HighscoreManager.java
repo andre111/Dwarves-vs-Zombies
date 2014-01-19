@@ -9,13 +9,14 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 public class HighscoreManager {
-	private static HashMap<String, Integer> pointMap = new HashMap<String, Integer>();
+	private static HashMap<String, PlayerScore> pointMap = new HashMap<String, PlayerScore>();
 	private static Scoreboard sb;
 	private static Objective ob;
 	private static String objectiveName = "dvz_score";
@@ -29,19 +30,22 @@ public class HighscoreManager {
 	
 	public static void addPoints(String player, int add) {
 		if(pointMap.containsKey(player)) {
-			setPoints(player, pointMap.get(player)+add);
+			setPoints(player, pointMap.get(player).getPoints()+add);
 		} else {
 			setPoints(player, add);
 		}
 	}
 	public static void setPoints(String player, int set) {
-		pointMap.put(player, set);
+		if(!pointMap.containsKey(player)) {
+			pointMap.put(player, new PlayerScore());
+		}
+		pointMap.get(player).setPoints(set);
 		ob.getScore(Bukkit.getOfflinePlayer(player)).setScore(set);
 	}
 	
 	public static int getPoints(String player) {
 		if(pointMap.containsKey(player)) {
-			return pointMap.get(player);
+			return pointMap.get(player).getPoints();
 		}
 		return 0;
 	}
@@ -50,7 +54,13 @@ public class HighscoreManager {
 		return sb;
 	}
 	public static HashMap<String, Integer> getPoints() {
-		return pointMap;
+		HashMap<String, Integer> points = new HashMap<String, Integer>();
+		
+		for(String player : pointMap.keySet()) {
+			points.put(player, pointMap.get(player).getPoints());
+		}
+		
+		return points;
 	}
 	
 	//save and load highscore data
@@ -65,7 +75,7 @@ public class HighscoreManager {
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 
 		for(String player : pointMap.keySet()) {
-			rewardFile.set(player, pointMap.get(player));
+			pointMap.get(player).save(rewardFile, player);
 		}
 		try {
 			rewardFile.save(file);
@@ -84,7 +94,7 @@ public class HighscoreManager {
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 
 		for (Entry<String, Object> m : rewardFile.getValues(false).entrySet()) {
-			setPoints(m.getKey(), (Integer)m.getValue());
+			pointMap.put(m.getKey(), PlayerScore.load(m.getKey(), (MemorySection) m.getValue()));
 		}
 	}
 }
