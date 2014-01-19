@@ -116,6 +116,11 @@ commands:
       aliases: [d_reload]
       usage: /<command> [plugin|all|dwarves|monsters|items|enchantments|rewards|blocks|worlds|language]
       permission: dvz.reload
+   dvz_vote:
+      description: Vote for a Map
+      aliases: [d_vote]
+      usage: /<command> [map_Number]
+      permission: dvz.vote
 
 permissions:
    dvz.*:
@@ -138,6 +143,7 @@ permissions:
          dvz.give: true
          dvz.itemstand: true
          dvz.quarry: true
+         dvz.vote: true
    dvz.start:
       description: Starting the Game
       default: op
@@ -201,3 +207,6 @@ permissions:
    dvz.test:
       description: Testing some stuff(do not use this)
       default: op
+   dvz.vote:
+      description: Vote for a Map
+      default: true

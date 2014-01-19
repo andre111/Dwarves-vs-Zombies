@@ -29,6 +29,12 @@ string_wait_release: "Waiting for release..."
 string_release: "The Monsters have been released!"
 string_release_wait: "&cMonsters are not released yet!"
 string_release_time: "&cMaximum Time until release: &6-0- Minutes -1- Seconds"
+string_vote: "Vote for your favourite map with /dvz vote!"
+# 0: map number   1: map name   2: votes
+string_vote_map: "-0-. -1- - -2- votes"
+string_vote_allready_voted: "You have allready voted!"
+string_vote_invalid: "Please vote for an existing Map!"
+string_vote_success: "You voted for -0-!"
 # Chat
 string_chat_death: "-0- was killed by a monster!"
 # Classes

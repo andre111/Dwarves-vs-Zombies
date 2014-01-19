@@ -52,7 +52,14 @@ public class Game {
 	private int gameType;
 	
 	private int state;
-	private int time;
+	private int starttime;
+	
+	private boolean voting;
+	private HashMap<Integer, Integer> votes = new HashMap<Integer, Integer>();
+	private int maxVote;
+	private boolean currentlyVoting;
+	private ArrayList<String> votingPlayers = new ArrayList<String>();
+	
 	private int dauer;
 	private int ticker;
 	private int fastticker;
@@ -127,12 +134,17 @@ public class Game {
 	//Neues Spiel
 	//#######################################
 	public Game(DvZ p, int type) {
-		this.gameType = type;
+		gameType = type;
 		
-		this.state = 1;
-		this.time = 30;//60;
-		this.plugin = p;
-		this.dauer = 0;
+		state = 1;
+		starttime = 30;//60;
+		
+		voting = ConfigManager.getStaticConfig().getBoolean("lobby_voting", false);
+		currentlyVoting = false;
+		votingPlayers.clear();
+		
+		plugin = p;
+		dauer = 0;
 		ticker = 0;
 		fastticker = 0;
 		starting = false;
@@ -174,11 +186,16 @@ public class Game {
 		if (!event.isCancelled()){
 			if(!starting) {
 				starting = true;
-				this.time = time;
+				this.starttime = time;
+				
+				if(voting) {
+					maxVote = WorldManager.getWorldIDSize(plugin.getGameID(this));
+					currentlyVoting = true;
+				}
 			//change the countdown when allready starting
 			} else {
-				if(this.time>0) {
-					this.time = time;
+				if(this.starttime>0) {
+					this.starttime = time;
 				}
 			}
 		}
@@ -219,6 +236,10 @@ public class Game {
 		
 		String[] players = playerstate.keySet().toArray(new String[playerstate.keySet().size()]);
 		playerstate.clear();
+		votes.clear();
+		maxVote = -1;
+		currentlyVoting = false;
+		votingPlayers.clear();
 		dauer = 0;
 		ticker = 0;
 		enderActive = false;
@@ -283,19 +304,34 @@ public class Game {
 				}
 			}
 		} else {
-			if (time>=0) time--;
+			if (starttime>=0) starttime--;
 			
-			if (time==60*5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
-			else if (time==60) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
-			else if (time==10) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "10"));
-			else if (time==5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "5"));
-			else if (time==4) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "4"));
-			else if (time==3) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "3"));
-			else if (time==2) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "2"));
-			else if (time==1) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_second","-0- Second left!").replace("-0-", "1"));
-			else if (time==0) startGame();//timeUp();
+			if (starttime==60*5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
+			else if (starttime==60) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
+			else if (starttime==10) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "10"));
+			else if (starttime==5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "5"));
+			else if (starttime==4) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "4"));
+			else if (starttime==3) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "3"));
+			else if (starttime==2) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "2"));
+			else if (starttime==1) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_second","-0- Second left!").replace("-0-", "1"));
+			else if (starttime==0) startGame();//timeUp();
 			
-			if (time<=0) {
+			//Voting
+			if(voting && starttime%10==0 && starttime>0) {
+				broadcastMessage(ConfigManager.getLanguage().getString("string_vote","Vote for your favourite map with /dvz vote!"));
+				for(int i=0; i<maxVote; i++) {
+					int vote = 0;
+					if(votes.containsKey(i))
+						vote = votes.get(i);
+
+					broadcastMessage(ConfigManager.getLanguage().getString("string_vote_map","-0-. -1- - -2- votes")
+										.replace("-0-", (i+1)+"")
+										.replace("-1-", WorldManager.getWorldName(plugin.getGameID(this), i))
+										.replace("-2-", vote+""));
+				}
+			}
+			
+			if (starttime<=0) {
 				dauer++;
 				ticker++;
 				
@@ -445,11 +481,37 @@ public class Game {
 	//#######################################
 	//TODO - Start anders machen/moderator...
 	private int taskid;
+	private Random rand = new Random();
 	public void startGame() {
 		if (state==1) {
-			final Game gea = this;
+			currentlyVoting = false;
 			
-			WorldManager.newMainWorld(plugin.getGameID(gea));
+			//welt erstellen
+			if(voting) {
+				//sieger der Abstimmung suchen
+				int pos = 0;
+				int highestVote = -1;
+				ArrayList<Integer> highestMaps = new ArrayList<Integer>();
+				
+				for(int i=0; i<maxVote; i++) {
+					if(votes.containsKey(i)) {
+						if(votes.get(i)>highestVote) {
+							highestMaps.clear();
+							highestVote = votes.get(i);
+							highestMaps.add(i);
+						} else if(votes.get(i)==highestVote) {
+							highestMaps.add(i);
+						}
+					}
+				}
+				
+				//unentschieden -> zufall
+				pos = highestMaps.get(rand.nextInt(highestMaps.size()));
+				
+				WorldManager.newMainWorld(plugin.getGameID(this), pos);
+			} else {
+				WorldManager.newRandomMainWorld(plugin.getGameID(this));
+			}
 			
 			final int gtemp = plugin.getGameID(this);
 			
@@ -1551,6 +1613,37 @@ public class Game {
 		}
 	}
 	
+	//#######################################
+	//Voting
+	//#######################################
+	public boolean acceptsVotes() {
+		return currentlyVoting;
+	}
+	public boolean vote(Player player, int pos) {
+		if(votingPlayers.contains(player.getName())) {
+			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_vote_allready_voted", "You have allready voted!"));
+			return false;
+		} else {
+			if(pos>maxVote || pos<1) {
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_vote_invalid", "Please vote for an existing Map!"));
+				return false;
+			}
+			
+			votingPlayers.add(player.getName());
+			
+			int vote = 0;
+			if(votes.containsKey(pos-1))
+				vote = votes.get(pos-1);
+			vote++;
+			votes.put(pos-1, vote);
+			
+			return true;
+		}
+	}
+	
+	//#######################################
+	//public Methoden Cooldowns(getters/...
+	//#######################################
 	public void resetCountdowns(String player) {
 		crystalPerPlayer.remove(player);
 	}
@@ -1600,7 +1693,7 @@ public class Game {
 	}
 	
 	public int getStartTime() {
-		return time;
+		return starttime;
 	}
 	
 	public int getDauer() {

@@ -29,6 +29,12 @@ string_wait_release: "Warte auf Freilassung..."
 string_release: "Die Monster wurden freigelassen!"
 string_release_wait: "&cDie Monster sind noch nicht freigelassen!"
 string_release_time: "&cMaximale Zeit bis zur Freilassung: -0- Minuten -1- Sekunden"
+string_vote: "Stimme mit /dvz vote für deine Lieblingsmap!"
+# 0: map nummer   1: map name   2: stimmen
+string_vote_map: "-0-. -1- - -2- Stimmen"
+string_vote_allready_voted: "Du hast bereits abgestimmt!"
+string_vote_invalid: "Bitte stimme für eine existierende Map!"
+string_vote_success: "Du hast für -0- gestimmt!"
 # Chat
 string_chat_death: "-0- wurde von einem Monster getötet!"
 # Classes

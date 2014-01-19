@@ -139,17 +139,22 @@ public abstract class WorldManager {
 	
 	//TODO - Neue Main Welt generieren
 	private static Random mapRandom = new Random();
-	public static void newMainWorld(final int id) {
-		int gameType = GameType.getDwarfAndMonsterTypes(DvZ.instance.getGame(id).getGameType());
-		
-		ArrayList<String> new_worlds = new ArrayList<String>();
-		new_worlds.addAll(worlds);
-		if(gameType==1) new_worlds.addAll(type1_worlds);
-		if(gameType==2) new_worlds.addAll(type2_worlds);
+	public static void newRandomMainWorld(final int id) {
+		ArrayList<String> new_worlds = getFittingWorlds(id);
 		
 		if(new_worlds.size()>0) {
 			int pos = mapRandom.nextInt(new_worlds.size());
 			
+			newMainWorld(id, pos);
+		} else {
+			DvZ.instance.getGame(id).broadcastMessage("No saved DvZ world found! Cannot start the Game!");
+			//Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Main"));
+		}
+	}
+	public static void newMainWorld(final int id, int pos) {
+		ArrayList<String> new_worlds = getFittingWorlds(id);
+		
+		if(new_worlds.size()>pos) {
 			File worldfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Worlds/"+new_worlds.get(pos)+"/");
 			File mainfile = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Main"+id+"/");
 			try {
@@ -163,6 +168,34 @@ public abstract class WorldManager {
 			DvZ.instance.getGame(id).broadcastMessage("No saved DvZ world found! Cannot start the Game!");
 			//Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Main"));
 		}
+	}
+	
+	public static int getWorldIDSize(int id) {
+		int gameType = GameType.getDwarfAndMonsterTypes(DvZ.instance.getGame(id).getGameType());
+		
+		ArrayList<String> new_worlds = new ArrayList<String>();
+		new_worlds.addAll(worlds);
+		if(gameType==1) new_worlds.addAll(type1_worlds);
+		if(gameType==2) new_worlds.addAll(type2_worlds);
+		
+		return getFittingWorlds(id).size();
+	}
+	
+	public static String getWorldName(int id, int pos) {
+		ArrayList<String> new_worlds = getFittingWorlds(id);
+		
+		return new_worlds.get(pos).replace("Type1/", "").replace("Type2/", "");
+	}
+	
+	private static ArrayList<String> getFittingWorlds(int id) {
+		int gameType = GameType.getDwarfAndMonsterTypes(DvZ.instance.getGame(id).getGameType());
+		
+		ArrayList<String> new_worlds = new ArrayList<String>();
+		new_worlds.addAll(worlds);
+		if(gameType==1) new_worlds.addAll(type1_worlds);
+		if(gameType==2) new_worlds.addAll(type2_worlds);
+		
+		return new_worlds;
 	}
 	
 	public static void reload() {

@@ -5,7 +5,6 @@ import me.andre111.dvz.Game;
 import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

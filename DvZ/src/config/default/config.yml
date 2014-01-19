@@ -106,6 +106,8 @@ lobby_playerperassasin: 10
 lobby_assasintime: 20
 # Max Deaths -> More Deaths -> No Assasins
 lobby_assasindeath: 2
+# Enable voting for maps
+lobby_voting: false
 
 # ----------------------------------------------------------------------------------
 # Highscore

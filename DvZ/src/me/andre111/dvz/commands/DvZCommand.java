@@ -32,6 +32,7 @@ public class DvZCommand {
 		new QuarryCommand("dvz_quarry");
 		new ReloadCommand("dvz_reload");
 		new HighscoreCommand("dvz_highscore");
+		new VoteCommand("dvz_vote");
 	}
 	
 	public static void unregisterCommands() {
