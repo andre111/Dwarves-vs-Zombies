@@ -50,6 +50,10 @@ public class HighscoreManager {
 		return 0;
 	}
 	
+	public static PlayerScore getPlayerScore(String player) {
+		return pointMap.get(player);
+	}
+	
 	public static Scoreboard getScoreboard() {
 		return sb;
 	}

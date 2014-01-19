@@ -41,6 +41,7 @@
 # castVar1: Target_Player(0=dwarves,1=monsters)
 # castVar2: Range
 ######################################
+# "ItemClassCheckt"
 # Checks for the players class
 #
 # castVar0: self or clicked player(1=self)
@@ -54,6 +55,12 @@
 # castVar1: self(1=true)
 # castVar2: minimumDistance
 # castVar3: maximumDistance
+######################################
+# "ItemDvZClassPoint"
+# Gives/removes classpoints
+#
+# castVar0: self or clicked player(1=self)
+# castVar1: ammount
 ######################################
 # ""
 # 
@@ -439,6 +446,12 @@ items:
            castVars:
              - 1
              - 32
+         4:
+           cast: "ItemDvZClassPoint"
+           require: 0
+           castVars:
+             - 1
+             - 1
      leftclick:
        effects: []
        cooldown: 30
@@ -494,6 +507,12 @@ items:
            castVars:
              - 1
              - 32
+         4:
+           cast: "ItemDvZClassPoint"
+           require: 0
+           castVars:
+             - 1
+             - 1
      leftclick:
        effects: []
        cooldown: 30
@@ -546,6 +565,12 @@ items:
            castVars:
              - 1
              - 32
+         4:
+           cast: "ItemDvZClassPoint"
+           require: 0
+           castVars:
+             - 1
+             - 1
      leftclick:
        effects: []
        cooldown: 30

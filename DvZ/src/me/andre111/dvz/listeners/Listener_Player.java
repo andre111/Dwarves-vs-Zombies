@@ -12,6 +12,8 @@ import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.manager.BlockManager;
+import me.andre111.dvz.manager.HighscoreManager;
+import me.andre111.dvz.manager.PlayerScore;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.players.SpecialPlayer;
@@ -358,6 +360,11 @@ public class Listener_Player implements Listener  {
     public void onPLayerDeath(PlayerDeathEvent event)
     {
 		Player p = event.getEntity();
+		//Score/Stats
+		if(plugin.getPlayerGame(p.getName())!=null && plugin.getPlayerGame(p.getName()).isRunning()) {
+			PlayerScore pscore = HighscoreManager.getPlayerScore(p.getName());
+			pscore.setDeaths(pscore.getDeaths()+1);
+		}
 		
 		//is killer a player?
 		if(event.getEntity().getKiller()==null) return;
@@ -371,6 +378,12 @@ public class Listener_Player implements Listener  {
 		
 		Game game = plugin.getPlayerGame(p.getName());
 		if(game!=null) {
+			//Score/Stats
+			if(plugin.getPlayerGame(k.getName())!=null && plugin.getPlayerGame(k.getName()).isRunning()) {
+				PlayerScore pscore = HighscoreManager.getPlayerScore(k.getName());
+				pscore.setKills(pscore.getKills()+1);
+			}
+			
 			//Is dwarv
 			if (game.isDwarf(p.getName(), true)) {
 				//Is killer monster

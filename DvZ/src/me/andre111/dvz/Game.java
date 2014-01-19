@@ -15,6 +15,7 @@ import me.andre111.dvz.dwarf.CustomDwarf;
 import me.andre111.dvz.event.DVZGameEndEvent;
 import me.andre111.dvz.event.DVZGameStartEvent;
 import me.andre111.dvz.manager.HighscoreManager;
+import me.andre111.dvz.manager.PlayerScore;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.manager.WorldManager;
 import me.andre111.dvz.monster.CustomMonster;
@@ -639,6 +640,17 @@ public class Game {
 			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument_dwarves","Dwarves who failed to protect the Monument:"));
 			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_loose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"));
 			
+			//Score/Stats
+			for(String st : playerstate.keySet()){
+				if(isDwarf(st, true)) {
+					Player player = Bukkit.getServer().getPlayerExact(st);
+					if (player!=null) {
+						PlayerScore pscore = HighscoreManager.getPlayerScore(player.getName());
+						pscore.setLosses(pscore.getLosses()+1);
+					}
+				}
+			}
+			
 			reset(true);
 		}
 	}
@@ -648,6 +660,17 @@ public class Game {
 		
 		broadcastMessage(ConfigManager.getLanguage().getString("string_win_dwarves","Dwarves who survived and protected the Monument:"));
 		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20), ConfigManager.getLanguage().getString("highscore_get_win","You received -0- for winning!"));
+		
+		//Score/Stats
+		for(String st : playerstate.keySet()){
+			if(isDwarf(st, true)) {
+				Player player = Bukkit.getServer().getPlayerExact(st);
+				if (player!=null) {
+					PlayerScore pscore = HighscoreManager.getPlayerScore(player.getName());
+					pscore.setVictories(pscore.getVictories()+1);
+				}
+			}
+		}
 		
 		reset(true);
 	}
