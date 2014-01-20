@@ -879,6 +879,35 @@ items:
            cast: "ItemPortal"
            require: -1
            castVars: []
+         1:
+           cast: "ItemGetItem"
+           require: 0
+           castVars:
+             - "internEndermanReinforcePortal"
+             - 1
+   internEndermanReinforcePortal:
+     name: "lang:string_default_item_monster_reinforceportal"
+     lore: 
+       - "lang:string_used_seconds:10"
+     id: 90
+     data: 0
+     useUp: false
+     leftclick:
+       effects: []
+       cooldown: 0
+       mana:
+         cost: 0
+       casts: []
+     rightclick:
+       effects: []
+       cooldown: 10
+       mana:
+         cost: 0
+       casts:
+         0:
+           cast: "ItemReinforcePortal"
+           require: -1
+           castVars: []
    internCatHunger:
      name: "lang:string_default_item_monster_hunger"
      lore: 
