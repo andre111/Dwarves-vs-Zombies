@@ -513,14 +513,16 @@ public class Game {
 				ArrayList<Integer> highestMaps = new ArrayList<Integer>();
 				
 				for(int i=0; i<maxVote; i++) {
-					if(votes.containsKey(i)) {
-						if(votes.get(i)>highestVote) {
-							highestMaps.clear();
-							highestVote = votes.get(i);
-							highestMaps.add(i);
-						} else if(votes.get(i)==highestVote) {
-							highestMaps.add(i);
-						}
+					int vote = 0;
+					if(votes.containsKey(i))
+						vote = votes.get(i);
+					
+					if(vote>highestVote) {
+						highestMaps.clear();
+						highestVote = votes.get(i);
+						highestMaps.add(i);
+					} else if(vote==highestVote) {
+						highestMaps.add(i);
 					}
 				}
 				
