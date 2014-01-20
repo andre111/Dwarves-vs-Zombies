@@ -41,12 +41,12 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 		
 		switch(disguise) {
 		case VILLAGER_ZOMBIE:
-			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Zombie!");
+			DvZ.log("Entity Subtypes are not supported by BeTheMob - using normal Zombie!");
 			Disguise dis1 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
 			api.addDisguise(player, dis1);
 			break;
 		case WITHER_SKELETON:
-			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Skeleton!");
+			DvZ.log("Entity Subtypes are not supported by BeTheMob - using normal Skeleton!");
 			Disguise dis2 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
 			api.addDisguise(player, dis2);
 			break;
@@ -56,7 +56,7 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 		//HORSES
 		case UNDEAD_HORSE:
 		case SKELETON_HORSE:
-			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Horse!");
+			DvZ.log("Entity Subtypes are not supported by BeTheMob - using normal Horse!");
 			Disguise disH = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
 			api.addDisguise(player, disH);
 			break;

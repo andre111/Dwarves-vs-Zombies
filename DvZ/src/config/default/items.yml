@@ -41,7 +41,7 @@
 # castVar1: Target_Player(0=dwarves,1=monsters)
 # castVar2: Range
 ######################################
-# "ItemClassCheckt"
+# "ItemClassCheck"
 # Checks for the players class
 #
 # castVar0: self or clicked player(1=self)
