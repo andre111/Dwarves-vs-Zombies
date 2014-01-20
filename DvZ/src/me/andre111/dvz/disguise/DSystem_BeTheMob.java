@@ -1,5 +1,8 @@
 package me.andre111.dvz.disguise;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.items.SpellItems;
@@ -31,19 +34,41 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 	
 	@Override
 	public void disguiseP(Player player, DvZDisguiseType disguise) {
+		List<String> extras = new ArrayList<String>();
+		if(disguise.isBaby()) {
+			extras.add("-baby");
+		}
+		
 		switch(disguise) {
 		case VILLAGER_ZOMBIE:
 			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Zombie!");
-			Disguise dis1 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), null);
+			Disguise dis1 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
 			api.addDisguise(player, dis1);
 			break;
 		case WITHER_SKELETON:
 			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Skeleton!");
-			Disguise dis2 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), null);
+			Disguise dis2 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
 			api.addDisguise(player, dis2);
 			break;
+		//----------
+		//SPECIAL
+		//----------
+		//HORSES
+		case UNDEAD_HORSE:
+		case SKELETON_HORSE:
+			DvZ.log("Entity Subtypes are now supported by BeTheMob - using normal Horse!");
+			Disguise disH = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
+			api.addDisguise(player, disH);
+			break;
+		//CHARGED
+		case CHARGED_CREEPER:
+			extras.add("-charged");
+			
+			Disguise disCC = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
+			api.addDisguise(player, disCC);
+			break;
 		default:
-			Disguise dis3 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), null);
+			Disguise dis3 = api.createDisguise(player, player.getLocation(), disguise.getEntityType(), extras);
 			api.addDisguise(player, dis3);
 			break;
 		}

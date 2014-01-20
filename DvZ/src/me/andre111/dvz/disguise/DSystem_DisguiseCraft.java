@@ -138,10 +138,33 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 		case GIANT:
 			dt = DisguiseType.Giant;
 			break;
+		//----------
+		//SPECIAL
+		//----------
+		//HORSES
+		case UNDEAD_HORSE:
+			dt = DisguiseType.Horse;
+			dis = new Disguise(api.newEntityID(), "", dt);
+			dis.setSingleData("undead");
+			break;
+		case SKELETON_HORSE:
+			dt = DisguiseType.Horse;
+			dis = new Disguise(api.newEntityID(), "", dt);
+			dis.setSingleData("skeletal");
+			break;
+		//CHARGED
+		case CHARGED_CREEPER:
+			dt = DisguiseType.Creeper;
+			dis = new Disguise(api.newEntityID(), "", dt);
+			dis.setSingleData("charged");
+			break;
 		}
 		
 		if(dis==null) {
 			dis = new Disguise(api.newEntityID(), "", dt);
+		}
+		if(disguise.isBaby()) {
+			dis.addSingleData("baby");
 		}
 		disguiseP(player, dis);
 	}

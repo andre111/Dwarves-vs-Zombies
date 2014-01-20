@@ -42,10 +42,19 @@ public enum DvZDisguiseType {
 	ENDER_DRAGON(EntityType.ENDER_DRAGON, "enderdragon", "dragon"),
 	WITHER(EntityType.WITHER, "wither"),
 	//UNUSED
-	GIANT(EntityType.GIANT, "giant");
+	GIANT(EntityType.GIANT, "giant"),
+	//----------
+	//SPECIAL
+	//----------
+    //HORSES
+    UNDEAD_HORSE(EntityType.HORSE, "undeadhorse"),
+    SKELETON_HORSE(EntityType.HORSE, "skeletonhorse"),
+    //CHARGED
+    CHARGED_CREEPER(EntityType.CREEPER, "chargedcreeper");
 	
 	private ArrayList<String> anames = new ArrayList<String>();
 	private EntityType etype;
+	private boolean baby = false;
 	
 	private DvZDisguiseType(EntityType entitytype, String ...names) {
 		etype = entitytype;
@@ -55,6 +64,12 @@ public enum DvZDisguiseType {
 		}
 	}
 	
+	public void setBaby(boolean flag) {
+		baby = flag;
+	}
+	public boolean isBaby() {
+		return baby;
+	}
 	public ArrayList<String> getNames() {
 		return anames;
 	}
@@ -63,13 +78,22 @@ public enum DvZDisguiseType {
 	}
 	
 	public static DvZDisguiseType getDisguise(String name) {
+		name = name.toLowerCase();
+		
+		boolean isBaby = false;
+		if(name.contains("baby") || name.contains("small")) {
+			isBaby = true;
+			name = name.replace("baby", "");
+			name = name.replace("small", "");
+		}
+		
 		name = name.replace("_", "");
 		name = name.replace(" ", "");
-		name = name.toLowerCase();
 		
 		for(DvZDisguiseType dtype : DvZDisguiseType.values()) {
 			for(String st : dtype.getNames()) {
 				if(st.equals(name)) {
+					dtype.setBaby(isBaby);
 					return dtype;
 				}
 			}

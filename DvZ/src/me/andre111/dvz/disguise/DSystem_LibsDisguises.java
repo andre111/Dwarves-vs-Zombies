@@ -6,6 +6,7 @@ import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.CreeperWatcher;
 import me.libraryaddict.disguise.events.UndisguiseEvent;
 
 import org.bukkit.entity.Entity;
@@ -28,13 +29,29 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 	public void disguiseP(Player player, DvZDisguiseType disguise) {
 		switch(disguise) {
 		case VILLAGER_ZOMBIE:
-			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.ZOMBIE_VILLAGER, true, true));
+			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.ZOMBIE_VILLAGER, !disguise.isBaby(), true));
 			break;
 		case WITHER_SKELETON:
-			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.WITHER_SKELETON, true, true));
+			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.WITHER_SKELETON, !disguise.isBaby(), true));
+			break;
+		//----------
+		//SPECIAL
+		//----------
+		//HORSES
+		case UNDEAD_HORSE:
+			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.UNDEAD_HORSE, !disguise.isBaby(), true));
+			break;
+		case SKELETON_HORSE:
+			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.SKELETON_HORSE, !disguise.isBaby(), true));
+			break;
+		//CHARGED
+		case CHARGED_CREEPER:
+			MobDisguise mdis = new MobDisguise(DisguiseType.CREEPER, !disguise.isBaby(), true);
+			((CreeperWatcher) mdis.getWatcher()).setPowered(true);
+			DisguiseAPI.disguiseToAll(player, mdis);
 			break;
 		default:
-			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.getType(disguise.getEntityType()), true, true));
+			DisguiseAPI.disguiseToAll(player, new MobDisguise(DisguiseType.getType(disguise.getEntityType()), !disguise.isBaby(), true));
 			break;
 		}
 	}
