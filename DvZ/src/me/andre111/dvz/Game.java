@@ -519,7 +519,7 @@ public class Game {
 					
 					if(vote>highestVote) {
 						highestMaps.clear();
-						highestVote = votes.get(i);
+						highestVote = vote;
 						highestMaps.add(i);
 					} else if(vote==highestVote) {
 						highestMaps.add(i);
