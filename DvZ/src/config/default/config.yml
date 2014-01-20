@@ -104,7 +104,7 @@ lobby_starttime: 60
 lobby_playerperassasin: 10
 # Minutes until assasins "spawn"
 lobby_assasintime: 20
-# Max Deaths -> More Deaths -> No Assasins
+# Max Deaths -> More Deaths -> No Assasins(0 to disable)
 lobby_assasindeath: 2
 # Enable voting for maps
 lobby_voting: false

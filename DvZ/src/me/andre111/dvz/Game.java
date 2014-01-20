@@ -299,9 +299,8 @@ public class Game {
 					start(plugin.getConfig().getInt("lobby_starttime", 60));
 					
 					if(plugin.getConfig().getInt("lobby_playerperassasin", 10)>0) {
-						int assa = playerstate.size()/plugin.getConfig().getInt("lobby_playerperassasin", 10);
-						if (assa==0) assa=1;
-						assasins(plugin.getConfig().getInt("lobby_assasintime", 30), assa, plugin.getConfig().getInt("lobby_assasindeath", 2));
+						//-1 => calculate assassin count
+						assasins(plugin.getConfig().getInt("lobby_assasintime", 30), -1, plugin.getConfig().getInt("lobby_assasindeath", 2));
 					}
 				}
 			}
@@ -367,7 +366,12 @@ public class Game {
 						a_ticker = 0;
 						a_minutes--;
 						if(a_minutes==0) {
-							if(deaths<=a_maxdeaths) {
+							if(deaths<=a_maxdeaths || a_maxdeaths<=0) {
+								//-1 => calculate assassin count
+								if(a_count==-1) {
+									a_count = playerstate.size()/plugin.getConfig().getInt("lobby_playerperassasin", 10);
+									if (a_count==0) a_count=1;
+								}
 								addAssasins(a_count);
 							}
 						}
