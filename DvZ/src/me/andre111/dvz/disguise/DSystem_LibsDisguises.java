@@ -3,6 +3,7 @@ package me.andre111.dvz.disguise;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.libraryaddict.disguise.DisguiseAPI;
+import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
@@ -20,7 +21,7 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 	
 	@Override
 	public void initListeners(DvZ plugin) {
-		DisguiseAPI.setHearSelfDisguise(true);
+		DisguiseConfig.setHearSelfDisguise(true);
 		
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
