@@ -43,6 +43,9 @@ public class HighscoreManager {
 	}
 	
 	public static PlayerScore getPlayerScore(String player) {
+		if(!pointMap.containsKey(player)) {
+			pointMap.put(player, new PlayerScore());
+		}
 		return pointMap.get(player);
 	}
 	
