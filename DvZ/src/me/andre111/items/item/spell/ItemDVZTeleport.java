@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,10 +11,11 @@ import org.bukkit.entity.Player;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.SpellVariable;
 
 public class ItemDVZTeleport extends ItemSpell {
 	private String location = "";
-	private boolean self = true;
+	private String playername = "";
 	private int minDistance = 0;
 	private int maxDistance = 0;
 	
@@ -22,21 +24,27 @@ public class ItemDVZTeleport extends ItemSpell {
 	@Override
 	public void setCastVar(int id, String var) {
 		if(id==0) location = var;
+		else if(id==1) playername = var;
 	}
 	@Override
 	public void setCastVar(int id, double var) {
-		if(id==1) self = (var==1);
 		if(id==2) minDistance = (int) Math.floor(var);
-		if(id==3) maxDistance = (int) Math.floor(var);
+		else if(id==3) maxDistance = (int) Math.floor(var);
+	}
+	
+	@Override
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) location = var.getAsString();
+		else if(id==1) playername = var.getAsString();
+		else if(id==2) minDistance = var.getAsInt();
+		else if(id==3) maxDistance = var.getAsInt();
 	}
 	
 	@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
-		Player pTarget = null;
-		if(self) {
+		Player pTarget = Bukkit.getPlayerExact(playername);
+		if(playername.equals("")) {
 			pTarget = player;
-		} else if(target!=null) {
-			pTarget = target;
 		}
 		
 		if(pTarget!=null) {

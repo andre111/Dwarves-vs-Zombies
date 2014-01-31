@@ -19,6 +19,7 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.SpellVariable;
 
 public class ItemPotions extends ItemSpell {
 	//0=dwarves, 1=monsters
@@ -36,6 +37,13 @@ public class ItemPotions extends ItemSpell {
 	public void setCastVar(int id, double var) {
 		if(id==1) target = (int) Math.round(var);
 		else if(id==2) radius = (int) Math.round(var);
+	}
+	
+	@Override
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) itemS = ItemHandler.decodeItem(var.getAsString());
+		else if(id==1) target = var.getAsInt();
+		else if(id==2) radius = var.getAsInt();
 	}
 	
 	@Override

@@ -44,7 +44,7 @@
 # "ItemClassCheck"
 # Checks for the players class
 #
-# castVar0: self or clicked player(1=self)
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: Type("dwarf" or "monster")
 # castVar2: Classid
 ######################################
@@ -52,14 +52,14 @@
 # Teleports the Player(or targeted player) to(or near) a dvz location
 # Current available locations: monument
 # castVar0: Location
-# castVar1: self(1=true)
+# castVar1: playername/variable with player/"" for casting player
 # castVar2: minimumDistance
 # castVar3: maximumDistance
 ######################################
 # "ItemDvZClassPoint"
 # Gives/removes classpoints
 #
-# castVar0: self or clicked player(1=self)
+# castVar0: playername/variable with player/"" for casting player
 # castVar1: ammount
 ######################################
 # ""
@@ -141,7 +141,7 @@ items:
            cast: "ItemPotionEffect"
            require: -1
            castVars:
-             - 1
+             - ""
              - "15:60:0"
    crystalGlobal:
      name: "lang:string_crystal_storage"
@@ -173,7 +173,7 @@ items:
            cast: "ItemPotionEffect"
            require: -1
            castVars:
-             - 1
+             - ""
              - "15:60:0"
    internDiamond:
      name: "lang:string_default_item_armor"
@@ -194,16 +194,22 @@ items:
          cost: 0
        casts:
          0:
-           cast: "ItemArmorCheck"
+           cast: "ItemVariableSet"
            require: -1
            castVars:
              - 0
-             - 0
+             - "target"
          1:
-           cast: "ItemArmorSet"
+           cast: "ItemArmorCheck"
            require: 0
            castVars:
+             - "var:0"
              - 0
+         2:
+           cast: "ItemArmorSet"
+           require: 1
+           castVars:
+             - "var:0"
              - "310 1"
              - "311 1"
              - "312 1"
@@ -340,7 +346,7 @@ items:
            cast: "ItemDamage"
            require: -1
            castVars:
-             - 1
+             - ""
              - -4
      rightclick:
        effects: []
@@ -366,7 +372,7 @@ items:
            cast: "ItemClassCheck"
            require: -1
            castVars:
-             - 1
+             - ""
              - "dwarf"
              - 0
          1:
@@ -386,7 +392,7 @@ items:
            cast: "ItemExperience"
            require: 0
            castVars:
-             - 1
+             - ""
              - 3
      leftclick:
        effects: []
@@ -411,7 +417,7 @@ items:
            cast: "ItemClassCheck"
            require: -1
            castVars:
-             - 1
+             - ""
              - "dwarf"
              - 1
          1:
@@ -438,19 +444,19 @@ items:
            cast: "ItemExperience"
            require: 1
            castVars:
-             - 1
+             - ""
              - 6
          3:
            cast: "ItemRewardPoints"
            require: 1
            castVars:
-             - 1
+             - ""
              - 32
          4:
            cast: "ItemDvZClassPoint"
-           require: 0
+           require: 1
            castVars:
-             - 1
+             - ""
              - 1
      leftclick:
        effects: []
@@ -475,7 +481,7 @@ items:
            cast: "ItemClassCheck"
            require: -1
            castVars:
-             - 1
+             - ""
              - "dwarf"
              - 2
          1:
@@ -499,19 +505,19 @@ items:
            cast: "ItemExperience"
            require: 1
            castVars:
-             - 1
+             - ""
              - 6
          3:
            cast: "ItemRewardPoints"
            require: 1
            castVars:
-             - 1
+             - ""
              - 32
          4:
            cast: "ItemDvZClassPoint"
-           require: 0
+           require: 1
            castVars:
-             - 1
+             - ""
              - 1
      leftclick:
        effects: []
@@ -536,7 +542,7 @@ items:
            cast: "ItemClassCheck"
            require: -1
            castVars:
-             - 1
+             - ""
              - "dwarf"
              - 3
          1:
@@ -557,19 +563,19 @@ items:
            cast: "ItemExperience"
            require: 1
            castVars:
-             - 1
+             - ""
              - 6
          3:
            cast: "ItemRewardPoints"
            require: 1
            castVars:
-             - 1
+             - ""
              - 32
          4:
            cast: "ItemDvZClassPoint"
-           require: 0
+           require: 1
            castVars:
-             - 1
+             - ""
              - 1
      leftclick:
        effects: []
@@ -602,7 +608,7 @@ items:
            cast: "ItemKill"
            require: -1
            castVars:
-             - 1
+             - ""
    internCreeperExplode:
      name: "lang:string_default_item_monster_explode"
      lore: 
@@ -667,10 +673,16 @@ items:
          cost: 0
        casts:
          0:
-           cast: "ItemPotionEffect"
+           cast: "ItemVariableSet"
            require: -1
            castVars:
              - 0
+             - "target"
+         1:
+           cast: "ItemPotionEffect"
+           require: 0
+           castVars:
+             - "var:0"
              - "19:60:4"
      rightclick:
        effects: []
@@ -1057,10 +1069,16 @@ items:
          cost: 0
        casts: 
          0:
-           cast: "ItemDamage"
+           cast: "ItemVariableSet"
            require: -1
            castVars:
              - 0
+             - "target"
+         1:
+           cast: "ItemDamage"
+           require: 0
+           castVars:
+             - "var:0"
              - 60
      rightclick:
        effects: []
@@ -1091,7 +1109,7 @@ items:
            cast: "ItemPotionEffect"
            require: 0
            castVars:
-             - 1
+             - ""
              - "5:600:0"
          2:
            cast: "ItemRandom"
@@ -1102,7 +1120,7 @@ items:
            cast: "ItemPotionEffect"
            require: 2
            castVars:
-             - 1
+             - ""
              - "1:600:0"
          4:
            cast: "ItemRandom"
@@ -1113,7 +1131,7 @@ items:
            cast: "ItemPotionEffect"
            require: 4
            castVars:
-             - 1
+             - ""
              - "8:600:0"
          6:
            cast: "ItemRandom"
@@ -1124,7 +1142,7 @@ items:
            cast: "ItemPotionEffect"
            require: 6
            castVars:
-             - 1
+             - ""
              - "10:600:0"
          8:
            cast: "ItemRandom"
@@ -1135,7 +1153,7 @@ items:
            cast: "ItemPotionEffect"
            require: 8
            castVars:
-             - 1
+             - ""
              - "19:100:0"
 
 enchantments:
@@ -1144,10 +1162,16 @@ enchantments:
      effects: []
      casts:
        0:
-         cast: "ItemPotionEffect"
+         cast: "ItemVariableSet"
          require: -1
          castVars:
            - 0
+           - "target"
+       1:
+         cast: "ItemPotionEffect"
+         require: 0
+         castVars:
+           - "var:0"
            - "19:400:1"
    freezing:
      name: "Freezing"
@@ -1155,20 +1179,26 @@ enchantments:
        - "Target ItemEffectNormal STEP_SOUND:79"
      casts:
        0:
-         cast: "ItemPotionEffect"
+         cast: "ItemVariableSet"
          require: -1
          castVars:
            - 0
-           - "2:200:7"
+           - "target"
        1:
          cast: "ItemPotionEffect"
-         require: -1
+         require: 0
          castVars:
-           - 0
-           - "8:200:128"
+           - "var:0"
+           - "2:200:7"
        2:
          cast: "ItemPotionEffect"
-         require: -1
+         require: 0
          castVars:
-           - 0
+           - "var:0"
+           - "8:200:128"
+       3:
+         cast: "ItemPotionEffect"
+         require: 0
+         castVars:
+           - "var:0"
            - "4:200:7"

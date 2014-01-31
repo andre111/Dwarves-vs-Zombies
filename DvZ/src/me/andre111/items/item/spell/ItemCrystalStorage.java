@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.item.SpellVariable;
 
 public class ItemCrystalStorage extends ItemSpell {
 	private boolean global = false;
@@ -14,6 +15,11 @@ public class ItemCrystalStorage extends ItemSpell {
 	@Override
 	public void setCastVar(int id, double var) {
 		if(id==0) global = (var==1);
+	}
+	
+	@Override
+	public void setCastVar(int id, SpellVariable var) {
+		if(id==0) global = var.getAsIntBoolean();
 	}
 	
 	@Override
