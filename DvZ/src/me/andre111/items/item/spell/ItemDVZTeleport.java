@@ -8,13 +8,11 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import me.andre111.dvz.DvZ;
-import me.andre111.dvz.Game;
 import me.andre111.items.item.ItemSpell;
 import me.andre111.items.item.SpellVariable;
 
 public class ItemDVZTeleport extends ItemSpell {
-	private String location = "";
+	private Location location = null;
 	private String playername = "";
 	private int minDistance = 0;
 	private int maxDistance = 0;
@@ -23,8 +21,7 @@ public class ItemDVZTeleport extends ItemSpell {
 	
 	@Override
 	public void setCastVar(int id, String var) {
-		if(id==0) location = var;
-		else if(id==1) playername = var;
+		if(id==1) playername = var;
 	}
 	@Override
 	public void setCastVar(int id, double var) {
@@ -34,7 +31,7 @@ public class ItemDVZTeleport extends ItemSpell {
 	
 	@Override
 	public void setCastVar(int id, SpellVariable var) {
-		if(id==0) location = var.getAsString();
+		if(id==0) location = var.getAsLocation();
 		else if(id==1) playername = var.getAsString();
 		else if(id==2) minDistance = var.getAsInt();
 		else if(id==3) maxDistance = var.getAsInt();
@@ -55,11 +52,8 @@ public class ItemDVZTeleport extends ItemSpell {
 	}
 	
 	private boolean castIntern(Player player) {
-		Game game = DvZ.instance.getPlayerGame(player.getName());
-		if(game==null) return false;
-		
-		if(game.monumentexists && location.equalsIgnoreCase("monument")) {
-			Location loc = game.monument.clone();
+		if(location!=null) {
+			Location loc = location.clone();
 			loc.add(minDistance+rand.nextInt(maxDistance-minDistance), minDistance+rand.nextInt(maxDistance-minDistance), minDistance+rand.nextInt(maxDistance-minDistance));
 			loc = loc.getWorld().getHighestBlockAt(loc).getLocation();
 			

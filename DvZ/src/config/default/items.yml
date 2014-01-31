@@ -50,8 +50,7 @@
 ######################################
 # "ItemDVZTeleport"
 # Teleports the Player(or targeted player) to(or near) a dvz location
-# Current available locations: monument
-# castVar0: Location
+# castVar0: Variable with Location
 # castVar1: playername/variable with player/"" for casting player
 # castVar2: minimumDistance
 # castVar3: maximumDistance
@@ -61,6 +60,14 @@
 #
 # castVar0: playername/variable with player/"" for casting player
 # castVar1: ammount
+######################################
+# "ItemVariableSetDvZ"
+# Sets a variable to the given Object
+#
+# castVar0: variableID(int)
+# castVar1: value
+# Available values:
+# Locations: monument
 ######################################
 # ""
 # 
