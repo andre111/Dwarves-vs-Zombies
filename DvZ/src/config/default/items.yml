@@ -138,18 +138,7 @@ items:
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemCrystalStorage"
-           require: -1
-           castVars:
-             - 0
-         1:
-           cast: "ItemPotionEffect"
-           require: -1
-           castVars:
-             - ""
-             - "15:60:0"
+       lua: "crystalPerPlayer"
    crystalGlobal:
      name: "lang:string_crystal_storage"
      lore:
@@ -157,70 +146,25 @@ items:
      id: 388
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       sounds: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: 
          - "Caster ItemEffectSound CHEST_OPEN:0.5:1"
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemCrystalStorage"
-           require: -1
-           castVars:
-             - 1
-         1:
-           cast: "ItemPotionEffect"
-           require: -1
-           castVars:
-             - ""
-             - "15:60:0"
+       lua: "crystalGlobal"
    internDiamond:
      name: "lang:string_default_item_armor"
      lore: []
      id: 264
      data: 0
      useUp: true
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemVariableSet"
-           require: -1
-           castVars:
-             - 0
-             - "target"
-         1:
-           cast: "ItemArmorCheck"
-           require: 0
-           castVars:
-             - "var:0"
-             - 0
-         2:
-           cast: "ItemArmorSet"
-           require: 1
-           castVars:
-             - "var:0"
-             - "310 1"
-             - "311 1"
-             - "312 1"
-             - "313 1"
+       lua: "internDiamond"
    internConcrete:
      name: "lang:string_default_item_glue"
      lore: []
@@ -233,42 +177,14 @@ items:
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemReplace"
-           require: -1
-           castVars:
-             - 2
-             - "4:0"
-             - "98:0"
-         1:
-           cast: "ItemReplace"
-           require: -1
-           castVars:
-             - 2
-             - "98:2"
-             - "98:0"
+       lua: "internConcrete"
      rightclick:
        effects: 
          - "Caster ItemEffectNormal POTION_BREAK:8270"
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemReplace"
-           require: -1
-           castVars:
-             - 2
-             - "4:0"
-             - "98:0"
-         1:
-           cast: "ItemReplace"
-           require: -1
-           castVars:
-             - 2
-             - "98:2"
-             - "98:0"
+       lua: "internConcrete"
    # TODO - add effects/enchants
    internDwarfSword:
      name: "lang:string_default_item_sword"
@@ -317,24 +233,7 @@ items:
        cooldown: 0
        mana:
          cost: 20
-       casts:
-         0:
-           cast: "ItemGetItem"
-           require: -1
-           castVars:
-             - "262 5"
-             - 1
-         1:
-           cast: "ItemSetDamage"
-           require: -1
-           castVars:
-             - 0
-     rightclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
+       lua: "internDwarfBow"
    internDwarfPotion:
      name: "lang:string_default_item_potion"
      lore:
@@ -348,19 +247,7 @@ items:
        cooldown: 0
        mana:
          cost: 100
-       casts:
-         0:
-           cast: "ItemDamage"
-           require: -1
-           castVars:
-             - ""
-             - -4
-     rightclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
+       lua: "internDwarfPotion"
    # transmute books
    internBuilderBook:
      name: "lang:string_default_builder_spell"
@@ -374,39 +261,7 @@ items:
        cooldown: 30
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemClassCheck"
-           require: -1
-           castVars:
-             - ""
-             - "dwarf"
-             - 0
-         1:
-           cast: "ItemTransmute"
-           require: 0
-           castVars:
-             - 0
-             - 0
-             - 0
-             - ""
-             - 0
-             - "98 64 40"
-             - "98:1 64 40"
-             - "98:2 64 40"
-             - "4 64 40"
-         2:
-           cast: "ItemExperience"
-           require: 0
-           castVars:
-             - ""
-             - 3
-     leftclick:
-       effects: []
-       cooldown: 30
-       mana:
-         cost: 0
-       casts: []
+       lua: "internBuilderBook"
    internAlchemyBook:
      name: "lang:string_default_alchemy_spell"
      lore:
@@ -419,58 +274,7 @@ items:
        cooldown: 30
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemClassCheck"
-           require: -1
-           castVars:
-             - ""
-             - "dwarf"
-             - 1
-         1:
-           cast: "ItemTransmute"
-           require: 0
-           castVars:
-             - 373
-             - 64
-             - 3
-             - "lang:string_default_alchemy_fail"
-             - 0
-             - "352 9"
-             - "373:8421 1 20"
-             - "373:8421 1 20"
-             - "373:8421 1 20"
-             - "373:8421 1 20"
-             - "373:11449 1 20"
-             - "373:16274 1 20"
-             - "373:16310 1 20"
-             - "335 5 20"
-             - "354 5 20"
-             - "373:8259 1 5"
-         2:
-           cast: "ItemExperience"
-           require: 1
-           castVars:
-             - ""
-             - 6
-         3:
-           cast: "ItemRewardPoints"
-           require: 1
-           castVars:
-             - ""
-             - 32
-         4:
-           cast: "ItemDvZClassPoint"
-           require: 1
-           castVars:
-             - ""
-             - 1
-     leftclick:
-       effects: []
-       cooldown: 30
-       mana:
-         cost: 0
-       casts: []
+       lua: "internAlchemyBook"
    internBlacksmithBook:
      name: "lang:string_default_blacksmith_spell"
      lore:
@@ -483,55 +287,7 @@ items:
        cooldown: 30
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemClassCheck"
-           require: -1
-           castVars:
-             - ""
-             - "dwarf"
-             - 2
-         1:
-           cast: "ItemTransmute"
-           require: 0
-           castVars:
-             - 347
-             - 0
-             - 3
-             - "lang:string_default_blacksmith_fail"
-             - 0
-             - "263 10"
-             - "74 8"
-             - "276 1 45"
-             - "267 1 45"
-             - "279 1 45"
-             - "287 3 45"
-             - "288 32 50"
-             - "318 32 50"
-         2:
-           cast: "ItemExperience"
-           require: 1
-           castVars:
-             - ""
-             - 6
-         3:
-           cast: "ItemRewardPoints"
-           require: 1
-           castVars:
-             - ""
-             - 32
-         4:
-           cast: "ItemDvZClassPoint"
-           require: 1
-           castVars:
-             - ""
-             - 1
-     leftclick:
-       effects: []
-       cooldown: 30
-       mana:
-         cost: 0
-       casts: []
+       lua: "internBlacksmithBook"
    internTailorBook:
      name: "lang:string_default_tailor_spell"
      lore:
@@ -544,52 +300,7 @@ items:
        cooldown: 30
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemClassCheck"
-           require: -1
-           castVars:
-             - ""
-             - "dwarf"
-             - 3
-         1:
-           cast: "ItemTransmute"
-           require: 0
-           castVars:
-             - 297
-             - 0
-             - 3
-             - "lang:string_default_tailor_fail"
-             - 0
-             - "14 1"
-             - "310 1:2 40"
-             - "311 1:2 40"
-             - "312 1:2 40"
-             - "313 1:2 40"
-         2:
-           cast: "ItemExperience"
-           require: 1
-           castVars:
-             - ""
-             - 6
-         3:
-           cast: "ItemRewardPoints"
-           require: 1
-           castVars:
-             - ""
-             - 32
-         4:
-           cast: "ItemDvZClassPoint"
-           require: 1
-           castVars:
-             - ""
-             - 1
-     leftclick:
-       effects: []
-       cooldown: 30
-       mana:
-         cost: 0
-       casts: []
+       lua: "internTailorBook"
    # monsters
    # this item "internSuicidePill" is used for the suicide pill
    internSuicidePill:
@@ -599,23 +310,12 @@ items:
      id: 370
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 300
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemKill"
-           require: -1
-           castVars:
-             - ""
+       lua: "internSuicidePill"
    internCreeperExplode:
      name: "lang:string_default_item_monster_explode"
      lore: 
@@ -623,24 +323,12 @@ items:
      id: 289
      data: 10
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 10
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemExplode"
-           require: -1
-           castVars:
-             - 6
-             - 1
+       lua: "internCreeperExplode"
    internSpiderConfuse:
      name: "lang:string_default_item_monster_confuse"
      lore: 
@@ -648,24 +336,12 @@ items:
      id: 375
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemConfuse"
-           require: -1
-           castVars:
-             - 300
-             - 0
+       lua: "internSpiderConfuse"
    internSpiderPosion:
      name: "lang:string_default_item_monster_poison"
      lore: 
@@ -678,25 +354,7 @@ items:
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemVariableSet"
-           require: -1
-           castVars:
-             - 0
-             - "target"
-         1:
-           cast: "ItemPotionEffect"
-           require: 0
-           castVars:
-             - "var:0"
-             - "19:60:4"
-     rightclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
+       lua: "internSpiderPosion"
    internIronGolemSmash:
      name: "lang:string_default_item_monster_smash"
      lore: 
@@ -704,24 +362,12 @@ items:
      id: 265
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 1
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemSmash"
-           require: -1
-           castVars:
-             - 1
-             - 1
+       lua: "internIronGolemSmash"
    internIronGolemLeap:
      name: "lang:string_default_item_monster_leap"
      lore: 
@@ -729,24 +375,12 @@ items:
      id: 341
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 30
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemLeap"
-           require: -1
-           castVars:
-             - 4
-             - 1.5
+       lua: "internIronGolemLeap"
    internSnowGolemGet:
      name: "lang:string_default_item_monster_snow"
      lore: 
@@ -754,24 +388,12 @@ items:
      id: 353
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 60
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemGetItem"
-           require: -1
-           castVars:
-             - "internSnowGolemBall 8:16"
-             - 20
+       lua: "internSnowGolemGet"
    internSnowGolemBall:
      name: "lang:string_default_item_monster_barricade"
      lore: 
@@ -779,25 +401,12 @@ items:
      id: 332
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 0
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemSnowballs"
-           require: -1
-           castVars:
-             - 96
-             - "You need 96 Snowballs!"
-             - 1
+       lua: "internSnowGolemBall"
    internBroodmotherRoar:
      name: "lang:string_default_item_monster_roar"
      lore: 
@@ -805,24 +414,12 @@ items:
      id: 350
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 3
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemRoar"
-           require: -1
-           castVars:
-             - 15
-             - "A Broodmother roars!"
+       lua: "internBroodmotherRoar"
    internBroodmotherLay:
      name: "lang:string_default_item_monster_lay"
      lore: 
@@ -830,24 +427,12 @@ items:
      id: 349
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 3
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemLay"
-           require: -1
-           castVars:
-             - 1
-             - "A Broodmother is laying her eggs!"
+       lua: "internBroodmotherLay"
    internEndermanBlink:
      name: "lang:string_default_item_monster_blink"
      lore: 
@@ -855,12 +440,6 @@ items:
      id: 378
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects:
          - "Caster ItemEffectNormal ENDER_SIGNAL:0"
@@ -869,12 +448,7 @@ items:
        cooldown: 18
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemBlink"
-           require: -1
-           castVars:
-             - 75
+       lua: "internEndermanBlink"
    internEndermanPortal:
      name: "lang:string_default_item_monster_portal"
      lore: 
@@ -882,28 +456,12 @@ items:
      id: 90
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 10
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemPortal"
-           require: -1
-           castVars: []
-         1:
-           cast: "ItemGetItem"
-           require: 0
-           castVars:
-             - "internEndermanReinforcePortal"
-             - 1
+       lua: "internEndermanPortal"
    internEndermanReinforcePortal:
      name: "lang:string_default_item_monster_reinforceportal"
      lore: 
@@ -911,22 +469,12 @@ items:
      id: 90
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 10
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemReinforcePortal"
-           require: -1
-           castVars: []
+       lua: "internEndermanReinforcePortal"
    internCatHunger:
      name: "lang:string_default_item_monster_hunger"
      lore: 
@@ -934,23 +482,12 @@ items:
      id: 351
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 2
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemHunger"
-           require: -1
-           castVars:
-             - 2
+       lua: "internCatHunger"
    internCatSteal:
      name: "lang:string_default_item_monster_steal"
      lore: 
@@ -958,22 +495,12 @@ items:
      id: 372
      data: 0
      useUp: false
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 2
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemDrop"
-           require: -1
-           castVars: []
+       lua: "internCatSteal"
    internCreeperExplodeNew:
      name: "lang:string_default_item_monster_explode"
      lore: 
@@ -991,24 +518,12 @@ items:
          move: false
          damage: true
          itemSwitch: true
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 10
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemExplode"
-           require: -1
-           castVars:
-             - 6
-             - 1
+       lua: "internCreeperExplodeNew"
    rewardPoint:
      name: "lang:string_rewardPoint"
      lore: 
@@ -1018,48 +533,12 @@ items:
      id: 341
      data: 0
      useUp: true
-     leftclick:
-       effects: []
-       cooldown: 0
-       mana:
-         cost: 0
-       casts: []
      rightclick:
        effects: []
        cooldown: 2
        mana:
          cost: 0
-       casts:
-         0:
-           cast: "ItemGetItem"
-           require: -1
-           castVars:
-             - "261 1 10 poisonous:0,-10:0 Bow of ..."
-             - 1
-         1:
-           cast: "ItemGetItem"
-           require: -1
-           castVars:
-             - "332 32 10 freezing:0,-10:0 Freezing Snowballs"
-             - 1
-         2:
-           cast: "ItemGetItem"
-           require: -1
-           castVars:
-             - "lightningsword 1 10 -10:0"
-             - 1
-         3:
-           cast: "ItemGetItem"
-           require: -1
-           castVars:
-             - "potionpie 4 10"
-             - 1
-         4:
-           cast: "ItemGetItem"
-           require: -1
-           castVars:
-             - "369 1 10 20:1 Fire Rod"
-             - 1
+       lua: "rewardPoint"
    lightningsword:
      name: "lang:string_lightningsword"
      lore: 
@@ -1074,25 +553,7 @@ items:
        cooldown: 0
        mana:
          cost: 0
-       casts: 
-         0:
-           cast: "ItemVariableSet"
-           require: -1
-           castVars:
-             - 0
-             - "target"
-         1:
-           cast: "ItemDamage"
-           require: 0
-           castVars:
-             - "var:0"
-             - 60
-     rightclick:
-       effects: []
-       cooldown: 2
-       mana:
-         cost: 0
-       casts: []
+       lua: "lightningsword"
    potionpie:
      name: "lang:string_potionpie"
      lore: 
@@ -1106,106 +567,15 @@ items:
        cooldown: 0
        mana:
          cost: 0
-       casts: 
-         0:
-           cast: "ItemRandom"
-           require: -1
-           castVars:
-             - 2
-         1:
-           cast: "ItemPotionEffect"
-           require: 0
-           castVars:
-             - ""
-             - "5:600:0"
-         2:
-           cast: "ItemRandom"
-           require: -1
-           castVars:
-             - 2
-         3:
-           cast: "ItemPotionEffect"
-           require: 2
-           castVars:
-             - ""
-             - "1:600:0"
-         4:
-           cast: "ItemRandom"
-           require: -1
-           castVars:
-             - 2
-         5:
-           cast: "ItemPotionEffect"
-           require: 4
-           castVars:
-             - ""
-             - "8:600:0"
-         6:
-           cast: "ItemRandom"
-           require: -1
-           castVars:
-             - 2
-         7:
-           cast: "ItemPotionEffect"
-           require: 6
-           castVars:
-             - ""
-             - "10:600:0"
-         8:
-           cast: "ItemRandom"
-           require: -1
-           castVars:
-             - 20
-         9:
-           cast: "ItemPotionEffect"
-           require: 8
-           castVars:
-             - ""
-             - "19:100:0"
+       lua: "potionpie"
 
 enchantments:
    poisonous:
      name: "Poisonous"
      effects: []
-     casts:
-       0:
-         cast: "ItemVariableSet"
-         require: -1
-         castVars:
-           - 0
-           - "target"
-       1:
-         cast: "ItemPotionEffect"
-         require: 0
-         castVars:
-           - "var:0"
-           - "19:400:1"
+     lua: "poisonous"
    freezing:
      name: "Freezing"
      effects:
        - "Target ItemEffectNormal STEP_SOUND:79"
-     casts:
-       0:
-         cast: "ItemVariableSet"
-         require: -1
-         castVars:
-           - 0
-           - "target"
-       1:
-         cast: "ItemPotionEffect"
-         require: 0
-         castVars:
-           - "var:0"
-           - "2:200:7"
-       2:
-         cast: "ItemPotionEffect"
-         require: 0
-         castVars:
-           - "var:0"
-           - "8:200:128"
-       3:
-         cast: "ItemPotionEffect"
-         require: 0
-         castVars:
-           - "var:0"
-           - "4:200:7"
+     lua: "freezing"

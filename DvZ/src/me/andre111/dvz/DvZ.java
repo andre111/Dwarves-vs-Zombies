@@ -38,6 +38,7 @@ import me.andre111.dvz.utils.MovementStopper;
 import me.andre111.dvz.volatileCode.DvZPackets;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 import me.andre111.items.SpellItems;
+import me.andre111.items.item.spell.DvZSpellLoader;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -96,6 +97,8 @@ public class DvZ extends JavaPlugin {
 		DynamicClassFunctions.setClasses();
 		DynamicClassFunctions.setMethods();
 		DynamicClassFunctions.setFields();
+		
+		DvZSpellLoader.addSpells();
 	}
 	
 	@Override
@@ -134,6 +137,8 @@ public class DvZ extends JavaPlugin {
 		
 		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
 		SpellItems.addRewardsFromConfiguration(ConfigManager.getRewardFile());
+		SpellItems.luacontroller.loadScript(new File(DvZ.instance.getDataFolder(), "spells.lua").getAbsolutePath());
+		
 		dwarfManager = new DwarfManager();
 		dwarfManager.loadDwarfes();
 		monsterManager = new MonsterManager();

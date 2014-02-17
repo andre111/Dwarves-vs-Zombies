@@ -2,6 +2,7 @@ package me.andre111.items.item.spell;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -11,21 +12,45 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.Varargs;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 
 public class ItemPortal extends ItemSpell {
-
-	@Override
+	/*@Override
 	public boolean cast(Player player, Location loc, Player target, Block block) {
 		if(player==null) return false;
 
 		return castIntern(player, loc);
+	}*/
+	
+	@Override
+	public Varargs invoke(Varargs args) {
+		if(args.narg()>=2) {
+			LuaValue playerN = args.arg(1);
+			LuaValue locN = args.arg(2);
+			
+			if(playerN.isstring() && locN.isuserdata(Location.class)) {
+				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Location loc = (Location) locN.touserdata(Location.class);
+				
+				if(player!=null && loc!=null) {
+					if(castIntern(player, loc))
+						return RETURN_TRUE;
+				}
+			}
+		} else {
+			SpellItems.log("Missing Argument for "+getClass().getCanonicalName());
+		}
+		
+		return RETURN_FALSE;
 	}
-
+	
 	private boolean castIntern(Player player, Location loc) {
 		Game game = DvZ.instance.getPlayerGame(player.getName());
 

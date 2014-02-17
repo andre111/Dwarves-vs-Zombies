@@ -73,6 +73,11 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/rewards.yml"), new File(plugin.getDataFolder(), "rewards.yml"));
 			} catch (IOException e) {}
 		}
+		if (!new File(plugin.getDataFolder(), "spells.lua").exists()) {
+			try {
+				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/spells.lua"), new File(plugin.getDataFolder(), "spells.lua"));
+			} catch (IOException e) {}
+		}
 		configfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
 		
 		lang = configfile.getString("language", "en_EN");
@@ -98,6 +103,7 @@ public class ConfigManager {
 		plugin.saveResource("config/default/blocks.yml", true);
 		plugin.saveResource("config/default/players.yml", true);
 		plugin.saveResource("config/default/rewards.yml", true);
+		plugin.saveResource("config/default/spells.lua", true);
 		//language
 		for(String st : Language.getPossibleLanguages()) {
 			if(plugin.getResource("lang/lang_"+st+".yml")!=null)
