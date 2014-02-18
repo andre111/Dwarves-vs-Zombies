@@ -6,11 +6,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -23,50 +19,12 @@ import me.andre111.dvz.Game;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
-import me.andre111.items.item.SpellVariable;
 
 public class ItemPotions extends ItemSpell {
 	//0=dwarves, 1=monsters
 	/*private int target = 0;
 	private int radius = 2;
-	private ItemStack itemS;
-
-
-	@Override
-	public void setCastVar(int id, String var) {
-		if(id==0) itemS = ItemHandler.decodeItem(var);
-	}
-
-	@Override
-	public void setCastVar(int id, double var) {
-		if(id==1) target = (int) Math.round(var);
-		else if(id==2) radius = (int) Math.round(var);
-	}
-	
-	@Override
-	public void setCastVar(int id, SpellVariable var) {
-		if(id==0) itemS = ItemHandler.decodeItem(var.getAsString());
-		else if(id==1) target = var.getAsInt();
-		else if(id==2) radius = var.getAsInt();
-	}
-	
-	@Override
-	public boolean cast(Player player, Location loc, Player target, Block block) {
-		if(player==null) return false;
-		
-		Game game = DvZ.instance.getPlayerGame(player.getName());
-		if(game==null) return false;
-		
-		if(loc==player.getLocation()) {
-			return castAtEntity(game, player);
-		} else {
-			Arrow a = (Arrow) target.getWorld().spawnEntity(loc, EntityType.ARROW);
-			boolean success = castAtEntity(game, a);
-			a.remove();
-			
-			return success;
-		}
-	}*/
+	private ItemStack itemS;*/
 	
 	@Override
 	public Varargs invoke(Varargs args) {

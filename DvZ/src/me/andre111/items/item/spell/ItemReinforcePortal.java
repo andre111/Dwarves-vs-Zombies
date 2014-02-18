@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -22,13 +21,6 @@ import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 
 public class ItemReinforcePortal extends ItemSpell {
-	/*@Override
-	public boolean cast(Player player, Location loc, Player target, Block block) {
-		if(player==null) return false;
-		
-		return castIntern(player, loc);
-	}*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=2) {

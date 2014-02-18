@@ -22,13 +22,6 @@ import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
 
 public class ItemPortal extends ItemSpell {
-	/*@Override
-	public boolean cast(Player player, Location loc, Player target, Block block) {
-		if(player==null) return false;
-
-		return castIntern(player, loc);
-	}*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=2) {
