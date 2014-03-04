@@ -106,7 +106,7 @@ public class CustomMonster {
 		
 		//items
 		for(int i=0; i<items.length; i++) {
-			ItemStack it = ItemHandler.decodeItem(items[i]);
+			ItemStack it = ItemHandler.decodeItem(items[i], player);
 			if(it!=null) {
 				inv.addItem(it);
 			}

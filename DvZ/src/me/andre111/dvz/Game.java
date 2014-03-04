@@ -844,7 +844,7 @@ public class Game {
 			PlayerInventory inv = player.getInventory();
 			List<String> itemstrings = ConfigManager.getClassFile().getStringList("assasin_items");
 			for(int j=0; j<itemstrings.size(); j++) {
-				ItemStack it = ItemHandler.decodeItem(itemstrings.get(j));
+				ItemStack it = ItemHandler.decodeItem(itemstrings.get(j), player);
 				if(it!=null) {
 					inv.addItem(it);
 				}
@@ -1309,7 +1309,7 @@ public class Game {
 			inv.addItem(it);
 			
 			if(plugin.getConfig().getString("monster_suizidepill", "true")=="true") {
-				it = ItemHandler.decodeItem("internSuicidePill");
+				it = ItemHandler.decodeItem("!spellitems:internSuicidePill", player);
 				if(it!=null) {
 					inv.addItem(it);
 				}

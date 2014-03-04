@@ -89,7 +89,7 @@ public class ItemStandManager {
 			public void run(Player player) {
 				if(once && players.contains(player.getName())) return;
 				
-				ItemStack it = ItemHandler.decodeItem(formatedItem);
+				ItemStack it = ItemHandler.decodeItem(formatedItem, null);
 					
 				if(it!=null) {
 					Item ie = player.getWorld().dropItemNaturally(player.getLocation().clone().add(0, 1, 0), it);

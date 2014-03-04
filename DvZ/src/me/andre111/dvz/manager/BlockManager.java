@@ -141,7 +141,7 @@ public class BlockManager {
 				}
 				
 				for(int i=2; i<split.length; i++) {
-					ItemStack it = ItemHandler.decodeItem(split[i]);
+					ItemStack it = ItemHandler.decodeItem(split[i], null);
 					
 					if(it!=null) {
 						block.getWorld().dropItemNaturally(block.getLocation(), it);

@@ -18,7 +18,7 @@ public class SpecialPlayer {
 		Inventory cinv = game.getCrystalChest(player.getName(), false);
 
 		for(int i=0; i<crystalItems.length; i++) {
-			ItemStack cit = ItemHandler.decodeItem(crystalItems[i]);
+			ItemStack cit = ItemHandler.decodeItem(crystalItems[i], player);
 			if(cit!=null) {
 				cinv.addItem(cit);
 			}

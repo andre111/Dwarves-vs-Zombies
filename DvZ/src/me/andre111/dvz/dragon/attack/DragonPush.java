@@ -5,7 +5,6 @@ import java.util.List;
 import me.andre111.dvz.dragon.DragonAttack;
 
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -31,7 +30,8 @@ public class DragonPush extends DragonAttack {
 	@Override
 	public void cast(Entity entity) {
 		//entity.getWorld().playSound(entity.getLocation(), Sound.ENDERDRAGON_WINGS, 1F, 1F);
-		entity.getWorld().playSound(entity.getLocation(), Sound.BREATH, 2F, 0.4F);
+		//TODO . fix sound
+		//entity.getWorld().playSound(entity.getLocation(), Sound.BREATH, 2F, 0.4F);
 		
 		List<Entity> allNearby = entity.getNearbyEntities(range, range, range);
 		allNearby.remove(entity);

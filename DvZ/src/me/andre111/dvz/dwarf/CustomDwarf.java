@@ -102,7 +102,7 @@ public class CustomDwarf {
 		
 		//items
 		for(int i=0; i<items.length; i++) {
-			ItemStack it = ItemHandler.decodeItem(items[i]);
+			ItemStack it = ItemHandler.decodeItem(items[i], player);
 			if(it!=null) {
 				inv.addItem(it);
 			}
@@ -114,7 +114,7 @@ public class CustomDwarf {
 		Inventory cinv = game.getCrystalChest(player.getName(), false);
 
 		for(int i=0; i<crystalItems.length; i++) {
-			ItemStack cit = ItemHandler.decodeItem(crystalItems[i]);
+			ItemStack cit = ItemHandler.decodeItem(crystalItems[i], player);
 			if(cit!=null) {
 				cinv.addItem(cit);
 			}
@@ -164,7 +164,7 @@ public class CustomDwarf {
 					}
 
 					//drop item
-					ItemStack it = ItemHandler.decodeItem(split[5]);
+					ItemStack it = ItemHandler.decodeItem(split[5], player);
 					if(it!=null) {
 						player.getWorld().dropItemNaturally(player.getLocation(), it);
 					}
@@ -225,7 +225,7 @@ public class CustomDwarf {
 						}
 						
 						//drop item
-						ItemStack it = ItemHandler.decodeItem(split[5]);
+						ItemStack it = ItemHandler.decodeItem(split[5], player);
 						if(it!=null) {
 							player.getWorld().dropItemNaturally(player.getLocation(), it);
 						}

@@ -38,7 +38,7 @@ public class ItemPotions extends ItemSpell {
 				Player player = Bukkit.getPlayerExact(playerN.toString());
 				int target = targetN.toint();
 				int radius = radiusN.toint();
-				ItemStack itemS = ItemHandler.decodeItem(itemSN.toString());
+				ItemStack itemS = ItemHandler.decodeItem(itemSN.toString(), player);
 				
 				if(player!=null) {
 					Game game = DvZ.instance.getPlayerGame(player.getName());

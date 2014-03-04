@@ -35,13 +35,13 @@ public class GiveCommand extends DvZCommand {
 				}
 				
 				//get the tem
-				ItemStack it = ItemHandler.decodeItem(itemSt);
+				ItemStack it = ItemHandler.decodeItem(itemSt, player);
 				if(it!=null) {
 					player.getInventory().addItem(it);
 					
 					return true;
 				} else {
-					DvZ.sendPlayerMessageFormated(sender, "Could not decode Itemstring: "+itemSt);
+					//DvZ.sendPlayerMessageFormated(sender, "Could not decode Itemstring: "+itemSt);
 					return false;
 				}
 			} else {
