@@ -54,6 +54,8 @@ public class DisguiseSystemHandler implements Listener {
 		case LIBSDISGUISES:
 			disguisesystem = new DSystem_LibsDisguises();
 			break;
+		default:
+			break;
 		}
 		disguisesystem.initListeners(DvZ.instance);
 		

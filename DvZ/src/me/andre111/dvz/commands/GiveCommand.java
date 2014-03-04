@@ -41,7 +41,7 @@ public class GiveCommand extends DvZCommand {
 					
 					return true;
 				} else {
-					//DvZ.sendPlayerMessageFormated(sender, "Could not decode Itemstring: "+itemSt);
+					DvZ.sendPlayerMessageFormated(sender, "Could not decode Itemstring: "+itemSt);
 					return false;
 				}
 			} else {
