@@ -65,8 +65,8 @@ public class CustomMonster {
 		}
 		//------------------------------
 		game.setPlayerState(player.getName(), id+Game.monsterMin);
-		ManaManager.setMaxMana(player.getName(), getMaxMana(), true);
-		ManaManager.setManaRegen(player.getName(), getManaRegen());
+		ManaManager.setMaxMana(player.getUniqueId(), getMaxMana(), true);
+		ManaManager.setManaRegen(player.getUniqueId(), getManaRegen());
 		
 		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		DisguiseSystemHandler.disguiseP(player, getDisguise());

@@ -56,8 +56,8 @@ public class CustomDwarf {
 	public void becomeDwarf(Game game, final Player player) {
 		game.setPlayerState(player.getName(), id+Game.dwarfMin);
 		game.resetCountdowns(player.getName());
-		ManaManager.setMaxMana(player.getName(), getMaxMana(), true);
-		ManaManager.setManaRegen(player.getName(), getManaRegen());
+		ManaManager.setMaxMana(player.getUniqueId(), getMaxMana(), true);
+		ManaManager.setManaRegen(player.getUniqueId(), getManaRegen());
 		
 		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
 		
