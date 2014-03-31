@@ -1,9 +1,12 @@
 package me.andre111.dvz.commands;
 
+import java.io.File;
+
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.WorldManager;
+import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -45,6 +48,10 @@ public class ReloadCommand extends DvZCommand {
 			if(rs.equalsIgnoreCase("items") || rs.equalsIgnoreCase("all")) {
 				ConfigManager.reloadConfig("items");
 				DvZ.reloadItems();
+				reload = true;
+			}
+			if(rs.equalsIgnoreCase("spells") || rs.equalsIgnoreCase("all")) {
+				SpellItems.luacontroller.loadScript(new File(DvZ.instance.getDataFolder(), "spells.lua").getAbsolutePath());
 				reload = true;
 			}
 			if(rs.equalsIgnoreCase("enchantments") || rs.equalsIgnoreCase("all")) {
