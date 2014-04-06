@@ -54,7 +54,8 @@ public class ItemReinforcePortal extends ItemSpell {
 	}
 	
 	private boolean reinforePortal(Game game, Player player) {
-		if(player.getUniqueId().equals(game.enderMan)) {
+		//TODO - maybe add this lock to the original enderman in the LUA script, to be able to change it
+		//if(player.getUniqueId().equals(game.enderMan)) {
 			Location nloc = game.enderPortal;
 			World w = nloc.getWorld();
 			
@@ -80,7 +81,7 @@ public class ItemReinforcePortal extends ItemSpell {
 			game.broadcastMessage(ConfigManager.getLanguage().getString("string_portal_reinforce","The Portal has been reinforced!"));
 			
 			return true;
-		}
-		return false;
+		//}
+		//return false;
 	}
 }
