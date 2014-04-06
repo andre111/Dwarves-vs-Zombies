@@ -54,8 +54,8 @@ public class CustomDwarf {
 	
 	//become custom Dwarf
 	public void becomeDwarf(Game game, final Player player) {
-		game.setPlayerState(player.getName(), id+Game.dwarfMin);
-		game.resetCountdowns(player.getName());
+		game.setPlayerState(player.getUniqueId(), id+Game.dwarfMin);
+		game.resetCountdowns(player.getUniqueId());
 		ManaManager.setMaxMana(player.getUniqueId(), getMaxMana(), true);
 		ManaManager.setManaRegen(player.getUniqueId(), getManaRegen());
 		
@@ -111,7 +111,7 @@ public class CustomDwarf {
 		
 		
 		//crystalchest items
-		Inventory cinv = game.getCrystalChest(player.getName(), false);
+		Inventory cinv = game.getCrystalChest(player.getUniqueId(), false);
 
 		for(int i=0; i<crystalItems.length; i++) {
 			ItemStack cit = ItemHandler.decodeItem(crystalItems[i], player);

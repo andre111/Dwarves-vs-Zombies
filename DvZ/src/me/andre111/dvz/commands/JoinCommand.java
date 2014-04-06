@@ -33,7 +33,7 @@ public class JoinCommand extends DvZCommand {
 		Game game = getGameFromIDSearchFree(gameID, sender);
 		
 		if(game!=null) {
-			if(!game.isPlayer(player.getName())) {
+			if(!game.isPlayer(player.getUniqueId())) {
 				if(InventoryHandler.isInvEmpty(player, false) || ignoreItems) {
 					DvZ.instance.joinGame(player, game);
 				}

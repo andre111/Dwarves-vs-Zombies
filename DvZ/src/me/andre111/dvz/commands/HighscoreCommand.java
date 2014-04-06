@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
@@ -30,7 +31,7 @@ public class HighscoreCommand extends DvZCommand {
 		}
 		Player player = (Player)sender;
 		
-		HashMap<String, Integer> pointMap = HighscoreManager.getPoints();
+		HashMap<UUID, Integer> pointMap = HighscoreManager.getPoints();
 		int topCount = 5;
 		
 		//own
@@ -42,13 +43,13 @@ public class HighscoreCommand extends DvZCommand {
 		
 		//sort
 		ValueComparator bvc = new ValueComparator(pointMap);
-        TreeMap<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
+        TreeMap<UUID, Integer> sorted_map = new TreeMap<UUID, Integer>(bvc);
         sorted_map.putAll(pointMap);
 		
         DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("highscore_leaders", "Highscore Leaders: "));
         //print top
         for(int i=0; i<pointMap.size(); i++) {
-        	String pname = sorted_map.lastKey();
+        	UUID pname = sorted_map.lastKey();
         	int ppoints = pointMap.get(pname);
         	sorted_map.remove(pname);
         	
@@ -70,15 +71,15 @@ public class HighscoreCommand extends DvZCommand {
 	}
 }
 
-class ValueComparator implements Comparator<String> {
+class ValueComparator implements Comparator<UUID> {
 
-    Map<String, Integer> base;
-    public ValueComparator(Map<String, Integer> base) {
+    Map<UUID, Integer> base;
+    public ValueComparator(Map<UUID, Integer> base) {
         this.base = base;
     }
 
     // Note: this comparator imposes orderings that are inconsistent with equals.    
-    public int compare(String a, String b) {
+    public int compare(UUID a, UUID b) {
         if (base.get(a) >= base.get(b)) {
             return -1;
         } else {

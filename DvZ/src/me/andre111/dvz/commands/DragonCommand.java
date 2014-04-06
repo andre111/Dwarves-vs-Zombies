@@ -31,7 +31,7 @@ public class DragonCommand extends DvZCommand {
 		//int type = 1;
 		//if(args.length>0)
 		//	type = Integer.parseInt(args[0].replace("+", ""));
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 
 		if(game != null) {
 			int dID = -1;

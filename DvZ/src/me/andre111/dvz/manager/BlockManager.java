@@ -62,12 +62,12 @@ public class BlockManager {
 		byte data = event.getBlock().getData();
 		
 		Player player = event.getPlayer();
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 		
 		if(game!=null) {
 			int gType = game.getGameType();
 			//Blockbreak blacklist
-			if(game.isDwarf(player.getName(), true)) {
+			if(game.isDwarf(player.getUniqueId(), true)) {
 				if(gType==1) if(isBlackListed(blockID, data, blacklist1_dwarf)) {
 					event.setCancelled(true);
 					return;
@@ -88,7 +88,7 @@ public class BlockManager {
 			}
 			
 			//change drops
-			if(game.isDwarf(player.getName(), true)) {
+			if(game.isDwarf(player.getUniqueId(), true)) {
 				if(gType==1) changeDrops(event, gameType1_dwarf);
 				else if(gType==2) changeDrops(event, gameType2_dwarf);
 			} else {
@@ -97,7 +97,7 @@ public class BlockManager {
 			}
 			
 			//change block on break
-			if(game.isDwarf(player.getName(), true)) {
+			if(game.isDwarf(player.getUniqueId(), true)) {
 				if(gType==1) changeBreak(event, blockID, data, changeBreak1_dwarf);
 				else if(gType==2) changeBreak(event, blockID, data, changeBreak2_dwarf);
 			} else {
@@ -174,7 +174,7 @@ public class BlockManager {
 	//infinite cake
 	public static void onInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 		
 		if(game!=null) {
 			int gType = game.getGameType();
@@ -184,10 +184,10 @@ public class BlockManager {
 	
 	private static void cakeEaten(PlayerInteractEvent event, int gameType) {
 		Player player = event.getPlayer();
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 		
 		if(game!=null) {
-			if(game.isDwarf(player.getName(), true)) {
+			if(game.isDwarf(player.getUniqueId(), true)) {
 				if(gameType==1 && !infiniteCake1_dwarf) return;
 				if(gameType==2 && !infiniteCake2_dwarf) return;
 			} else {

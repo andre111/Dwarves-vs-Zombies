@@ -33,7 +33,7 @@ public class PistonManager {
 		if(player!=null) {
 			//not use gametypes, but only add the abilities of the new dvz
 			//is game of the new type
-			Game game = DvZ.instance.getPlayerGame(player.getName());
+			Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 			if(game!=null) {
 				//if(game.getGameType()==Game.GAMETYPE_NEW) {
 					checkPlayer(event, player, player.getLocation(), maxDistance, blist);
@@ -43,10 +43,10 @@ public class PistonManager {
 	}
 	
 	private static void checkPlayer(BlockPistonExtendEvent event, Player player, final Location loc, final double maxD, final List<Block> blist) {
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 		
 		if(game!=null) {
-			int dSt = game.getPlayerState(player.getName()) - Game.dwarfMin;
+			int dSt = game.getPlayerState(player.getUniqueId()) - Game.dwarfMin;
 			if(dSt>=0 && dSt<DvZ.dwarfManager.getCount()) {
 				CustomDwarf cd = DvZ.dwarfManager.getDwarf(dSt);
 				

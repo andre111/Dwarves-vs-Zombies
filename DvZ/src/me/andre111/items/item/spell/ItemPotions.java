@@ -41,7 +41,7 @@ public class ItemPotions extends ItemSpell {
 				ItemStack itemS = ItemHandler.decodeItem(itemSN.toString(), player);
 				
 				if(player!=null) {
-					Game game = DvZ.instance.getPlayerGame(player.getName());
+					Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 					if(game==null) return RETURN_FALSE;
 					
 					if(castAtEntity(game, player, target, radius, itemS))
@@ -70,9 +70,9 @@ public class ItemPotions extends ItemSpell {
 		for(Entity e : entities) {
 			if(e instanceof Player) {
 				Player p = (Player) e;
-				if(game.isPlayer(p.getName())) {
-					if(target==0 && game.isDwarf(p.getName(), false)) players.add(p);
-					else if(target==1 && game.isMonster(p.getName())) players.add(p);
+				if(game.isPlayer(p.getUniqueId())) {
+					if(target==0 && game.isDwarf(p.getUniqueId(), false)) players.add(p);
+					else if(target==1 && game.isMonster(p.getUniqueId())) players.add(p);
 				}
 			}
 		}

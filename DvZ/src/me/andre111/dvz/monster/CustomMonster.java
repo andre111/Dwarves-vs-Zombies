@@ -47,7 +47,7 @@ public class CustomMonster {
 		
 		//old code from classswitcher
 		//------------------------------
-		game.resetCountdowns(player.getName());
+		game.resetCountdowns(player.getUniqueId());
 		game.addMonsterBuff(player);
 		
 		InventoryHandler.clearInv(player, false);
@@ -64,7 +64,7 @@ public class CustomMonster {
 			}, 2);*/
 		}
 		//------------------------------
-		game.setPlayerState(player.getName(), id+Game.monsterMin);
+		game.setPlayerState(player.getUniqueId(), id+Game.monsterMin);
 		ManaManager.setMaxMana(player.getUniqueId(), getMaxMana(), true);
 		ManaManager.setManaRegen(player.getUniqueId(), getManaRegen());
 		

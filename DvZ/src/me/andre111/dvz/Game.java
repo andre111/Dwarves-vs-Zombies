@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
@@ -59,7 +60,7 @@ public class Game {
 	private HashMap<Integer, Integer> votes = new HashMap<Integer, Integer>();
 	private int maxVote;
 	private boolean currentlyVoting;
-	private ArrayList<String> votingPlayers = new ArrayList<String>();
+	private ArrayList<UUID> votingPlayers = new ArrayList<UUID>();
 	
 	private int dauer;
 	private int ticker;
@@ -71,7 +72,7 @@ public class Game {
 	
 	public boolean enderActive;
 	public Location enderPortal;
-	public String enderMan;
+	public UUID enderMan;
 	
 	public Location monument;
 	public boolean monumentexists;
@@ -79,9 +80,9 @@ public class Game {
 	private String lastdwarf;
 	
 	private Inventory globalCrystalChest;
-	private HashMap<String, Inventory> crystalPerPlayer = new HashMap<String, Inventory>();
+	private HashMap<UUID, Inventory> crystalPerPlayer = new HashMap<UUID, Inventory>();
 	
-	public HashMap<String, Integer> playerstate = new HashMap<String, Integer>();
+	public HashMap<UUID, Integer> playerstate = new HashMap<UUID, Integer>();
 	//1 = nix
 	//2 = choose dwarf
 	//3 = choose monster
@@ -107,11 +108,11 @@ public class Game {
 	
 	private Dragon dragon;
 	
-	//used for custom cooldowns String: Playername:CooldownName
+	//used for custom cooldowns String: Playeruuidstring||CooldownName
 	private HashMap<String, Integer> customCooldown = new HashMap<String, Integer>();
 	
 	//monument distance counting down to 0
-	private HashMap<String, Integer> monDistance = new HashMap<String, Integer>();
+	private HashMap<UUID, Integer> monDistance = new HashMap<UUID, Integer>();
 	
 	private boolean autoassasin;
 	private int a_minutes;
@@ -152,7 +153,7 @@ public class Game {
 		monumentexists = false;
 		enderActive = false;
 		enderPortal = null;
-		enderMan = "";
+		enderMan = null;
 		autoassasin = false;
 		a_ticker = 0;
 		deaths = 0;
@@ -211,8 +212,8 @@ public class Game {
 			Bukkit.getServer().getPluginManager().callEvent(event);
 		}
 		
-		for(String playern : playerstate.keySet()) {			
-			Player player = Bukkit.getServer().getPlayerExact(playern);
+		for(UUID playern : playerstate.keySet()) {			
+			Player player = PlayerHandler.getPlayerFromUUID(playern);
 			
 			if(player!=null) {
 				//undisguise
@@ -246,7 +247,7 @@ public class Game {
 		enderActive = false;
 		monumentexists = false;
 		enderPortal = null;
-		enderMan = "";
+		enderMan = null;
 		autoassasin = false;
 		a_ticker = 0;
 		deaths = 0;
@@ -403,9 +404,9 @@ public class Game {
 				
 				//monument distance
 				if(monumentexists)
-				for(String playern : playerstate.keySet()) {
+				for(UUID playern : playerstate.keySet()) {
 					if(isDwarf(playern, true)) {
-						Player player = Bukkit.getPlayerExact(playern);
+						Player player = PlayerHandler.getPlayerFromUUID(playern);
 						
 						if(player!=null) {
 							Location tempPLoc = player.getLocation().clone();
@@ -453,10 +454,10 @@ public class Game {
 	private void updateHighscore() {
 		//Highscore
 		if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
-			for(String st : playerstate.keySet()) {
-				Player player = Bukkit.getPlayerExact(st);
+			for(UUID st : playerstate.keySet()) {
+				Player player = PlayerHandler.getPlayerFromUUID(st);
 				if(player.isValid()) {
-					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getName()));
+					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getUniqueId()));
 				}
 			}
 		}
@@ -476,7 +477,7 @@ public class Game {
 			customCooldown.put(key, time);
 			//end
 			if(time==0) {
-				String[] split = key.split(":");
+				String[] split = key.split("||");
 				
 				countdownEnd(split[0], split[1]);
 			}
@@ -556,12 +557,12 @@ public class Game {
 						
 						DvZ.startedGames += 1;
 						
-						for(Map.Entry<String, Integer> e : playerstate.entrySet()){
-							String players = e.getKey();
+						for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
+							UUID players = e.getKey();
 							int pstate = e.getValue();
 							
 							if (pstate==1) {
-								Player player = Bukkit.getServer().getPlayerExact(players);
+								Player player = PlayerHandler.getPlayerFromUUID(players);
 								if(player!=null) {
 									InventoryHandler.clearInv(player, false);
 									//this doesn't really seem to work
@@ -601,16 +602,16 @@ public class Game {
 		int mons = 0;
 		int monsoff = 0;
 		
-		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
+		for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
 			boolean online = false;
-			Player player = Bukkit.getServer().getPlayerExact(e.getKey());
+			Player player = PlayerHandler.getPlayerFromUUID(e.getKey());
 			if (player!=null) online = true;
 			
 			if (isDwarf(e.getKey(), true)) {
 				if (online) {
 					dwarf++; //else dwarfoff++;
 					//only the last standing and online dwarf
-					lastdwarf = e.getKey();
+					lastdwarf = player.getName();
 				}
 			}
 			if (isMonster(e.getKey())) {
@@ -648,8 +649,8 @@ public class Game {
 		
 		//healthbar
 		if(ConfigManager.getStaticConfig().getString("show_monument_bar", "true").equals("true")) {
-			for(String st : playerstate.keySet()){
-				Player player = Bukkit.getServer().getPlayerExact(st);
+			for(UUID st : playerstate.keySet()){
+				Player player = PlayerHandler.getPlayerFromUUID(st);
 				if (player!=null) {
 					DvZPackets.sendInfoBar(player, monumentHealth/100D, ConfigManager.getLanguage().getString("monument_bar","Monument"));
 				}
@@ -664,11 +665,11 @@ public class Game {
 			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_loose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"));
 			
 			//Score/Stats
-			for(String st : playerstate.keySet()){
+			for(UUID st : playerstate.keySet()){
 				if(isDwarf(st, true)) {
-					Player player = Bukkit.getServer().getPlayerExact(st);
+					Player player = PlayerHandler.getPlayerFromUUID(st);
 					if (player!=null) {
-						PlayerScore pscore = HighscoreManager.getPlayerScore(player.getName());
+						PlayerScore pscore = HighscoreManager.getPlayerScore(player.getUniqueId());
 						pscore.setLosses(pscore.getLosses()+1);
 					}
 				}
@@ -685,11 +686,11 @@ public class Game {
 		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20), ConfigManager.getLanguage().getString("highscore_get_win","You received -0- for winning!"));
 		
 		//Score/Stats
-		for(String st : playerstate.keySet()){
+		for(UUID st : playerstate.keySet()){
 			if(isDwarf(st, true)) {
-				Player player = Bukkit.getServer().getPlayerExact(st);
+				Player player = PlayerHandler.getPlayerFromUUID(st);
 				if (player!=null) {
-					PlayerScore pscore = HighscoreManager.getPlayerScore(player.getName());
+					PlayerScore pscore = HighscoreManager.getPlayerScore(st);
 					pscore.setVictories(pscore.getVictories()+1);
 				}
 			}
@@ -703,8 +704,8 @@ public class Game {
 		int pcount = 0;
 		int pmaxCount = 5;
 		
-		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
-			Player player = Bukkit.getServer().getPlayerExact(e.getKey());
+		for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
+			Player player = PlayerHandler.getPlayerFromUUID(e.getKey());
 			
 			//only online players
 			if (player!=null) {
@@ -739,19 +740,19 @@ public class Game {
 		int assa = 0;
 		int mons = 0;
 		
-		for(Map.Entry<String, Integer> e : playerstate.entrySet()){
+		for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
 			if (isDwarf(e.getKey(), false)) {
 				//online check
-				if(Bukkit.getServer().getPlayer(e.getKey())!=null)
+				if(PlayerHandler.getPlayerFromUUID(e.getKey())!=null)
 					dwarf++;
 			} else if (isDwarf(e.getKey(), true)) {
 				//online check
-				if(Bukkit.getServer().getPlayer(e.getKey())!=null)
+				if(PlayerHandler.getPlayerFromUUID(e.getKey())!=null)
 					assa++;
 			}
 			if (isMonster(e.getKey())) {
 				//online check
-				if(Bukkit.getServer().getPlayer(e.getKey())!=null)
+				if(PlayerHandler.getPlayerFromUUID(e.getKey())!=null)
 					mons++;
 			}
 		}
@@ -806,13 +807,13 @@ public class Game {
 		boolean chooseOne = false;
 		for(int i=0; i<count; i++) {
 			Object[] rplayers = playerstate.keySet().toArray();
-			String playern = (String) rplayers[rand.nextInt(rplayers.length)];
-			Player player = Bukkit.getServer().getPlayerExact(playern);
+			UUID playern = (UUID) rplayers[rand.nextInt(rplayers.length)];
+			Player player = PlayerHandler.getPlayerFromUUID(playern);
 			
 			//check for Playercount
 			int ammountPlayers = 0;
 			for (int j=0; j<rplayers.length; j++) {
-				playern = (String) rplayers[j];
+				playern = (UUID) rplayers[j];
 				if(isDwarf(playern, false) && player!=null) {
 					ammountPlayers += 1;
 				}
@@ -822,20 +823,20 @@ public class Game {
 				return;
 			}
 			while(!isDwarf(playern, false) || player==null) {
-				playern = (String) rplayers[rand.nextInt(rplayers.length)];
-				player = Bukkit.getServer().getPlayerExact(playern);
+				playern = (UUID) rplayers[rand.nextInt(rplayers.length)];
+				player = PlayerHandler.getPlayerFromUUID(playern);
 			}
 
 			chooseOne = true;
 
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
 
-			playerstate.put(player.getName(), Game.assasinState);
+			playerstate.put(player.getUniqueId(), Game.assasinState);
 
 			//time
 			int asstime = ConfigManager.getClassFile().getInt("assasin_time_minutes",5);
 			if(asstime>0) {
-				setCustomCooldown(player.getName(), "assassin_time", asstime*60);
+				setCustomCooldown(player.getUniqueId(), "assassin_time", asstime*60);
 
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin_time","If you don't kill someone within the next -0- minutes you will die!").replace("-0-", ""+asstime));
 			}
@@ -880,7 +881,7 @@ public class Game {
 		Random rand = new Random();
 		PlayerInventory inv = player.getInventory();
 		
-		resetCountdowns(player.getName());
+		resetCountdowns(player.getUniqueId());
 		
 		ItemStack[] dwarfItems = new ItemStack[DvZ.dwarfManager.getCount()];
 		
@@ -912,7 +913,7 @@ public class Game {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
-	            	if(!isPlayer(event.getPlayer().getName())) {
+	            	if(!isPlayer(event.getPlayer().getUniqueId())) {
 	            		event.setWillClose(true);
 	                    event.setWillDestroy(true);
 	                    return;
@@ -941,7 +942,7 @@ public class Game {
 	    			}
 	    			
 	    			if (dwarf) {
-	    				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getName());
+	    				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
 	    				if(sp!=null) {
 	    					sp.addCrytalItems(game, player);
 	    				}
@@ -994,7 +995,7 @@ public class Game {
 		Random rand = new Random();
 		PlayerInventory inv = player.getInventory();
 
-		resetCountdowns(player.getName());
+		resetCountdowns(player.getUniqueId());
 		
 		ItemStack[] monsterItems = new ItemStack[DvZ.monsterManager.getCount()];
 		
@@ -1025,7 +1026,7 @@ public class Game {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
-	            	if(!isPlayer(event.getPlayer().getName())) {
+	            	if(!isPlayer(event.getPlayer().getUniqueId())) {
 	            		event.setWillClose(true);
 	                    event.setWillDestroy(true);
 	                    return;
@@ -1095,7 +1096,7 @@ public class Game {
 	}
 	
 	public void resetPlayerToWorldLobby(final Player player) {
-		playerstate.put(player.getName(), 1);
+		playerstate.put(player.getUniqueId(), 1);
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
@@ -1116,13 +1117,13 @@ public class Game {
 	//Spieler hat rechtsgeklickt
 	//#######################################
 	public void playerRC(PlayerInteractEvent event, Player player, ItemStack item, Block block) {
-		if(!isPlayer(player.getName())) return;
+		if(!isPlayer(player.getUniqueId())) return;
 		if(item==null) return;
 		int itemId = item.getTypeId();
 		int itemD = item.getDurability();
-		String pname = player.getName();
+		UUID puuid = player.getUniqueId();
 		
-		if(getPlayerState(pname)==2) { //dwarf werden
+		if(getPlayerState(puuid)==2) { //dwarf werden
 			boolean dwarf = false;
 			
 			//safety for not running games
@@ -1141,7 +1142,7 @@ public class Game {
 			}
 			
 			if (dwarf) {
-				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getName());
+				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
 				if(sp!=null) {
 					sp.addCrytalItems(this, player);
 				}
@@ -1151,7 +1152,7 @@ public class Game {
 				}
 			}
 		}
-		if(getPlayerState(pname)==3) { //monster werden
+		if(getPlayerState(puuid)==3) { //monster werden
 			boolean monster = false;
 			
 			//safety for not running games
@@ -1175,13 +1176,13 @@ public class Game {
 		}
 		
 		//disable clicking when monsters are not released
-		if(isMonster(player.getName()) && !released) {
+		if(isMonster(puuid) && !released) {
 			return;
 		}
 		
 		//custom dwarves - rightclick
-		if(isDwarf(player.getName(), false)) {
-			int dId = getPlayerState(player.getName())-dwarfMin;
+		if(isDwarf(puuid, false)) {
+			int dId = getPlayerState(puuid)-dwarfMin;
 			if(dId>=0 && dId<DvZ.monsterManager.getCount()) {
 				CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
 				
@@ -1194,10 +1195,10 @@ public class Game {
 			}
 		}
 		
-		if(isDwarf(pname, true) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
+		if(isDwarf(puuid, true) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
 		
 		//Monster
-		if(isMonster(pname) && itemId==358) Spellcontroller.spellTeleport(this, player);
+		if(isMonster(puuid) && itemId==358) Spellcontroller.spellTeleport(this, player);
 		
 		//dragon
 		if(dragon!=null) {
@@ -1213,11 +1214,11 @@ public class Game {
 	//Spieler hat rechtsgeklickt auf anderen Spieler
 	//#######################################
 	public void playerRCPlayer(Player player, ItemStack item, Player target) {
-		if(!isPlayer(player.getName())) return;
+		if(!isPlayer(player.getUniqueId())) return;
 		if(item==null) return;
 		
 		//disable clicking when monsters are not released
-		if(isMonster(player.getName()) && !released) {
+		if(isMonster(player.getUniqueId()) && !released) {
 			return;
 		}
 	}
@@ -1226,17 +1227,17 @@ public class Game {
 	//Spieler hat linksgeklickt
 	//#######################################
 	public void playerLC(Player player, ItemStack item, Block block) {
-		if(!isPlayer(player.getName())) return;
+		if(!isPlayer(player.getUniqueId())) return;
 		if(item==null) return;
 		int itemId = item.getTypeId();
-		String pname = player.getName();
+		UUID puuid = player.getUniqueId();
 		
 		//disable clicking when monsters are not released
-		if(isMonster(player.getName()) && !released) {
+		if(isMonster(puuid) && !released) {
 			return;
 		}
 		
-		if(itemId == 373 && isDwarf(pname, true)) {
+		if(itemId == 373 && isDwarf(puuid, true)) {
 			//changed from old hacky potionhandler to new bukkit functionallity
 			if(ExperienceUtils.getCurrentExp(player)>=plugin.getConfig().getInt("dwarf_potion_exp", 2)) {
 				ExperienceUtils.changeExp(player, -plugin.getConfig().getInt("dwarf_potion_exp", 2));
@@ -1249,8 +1250,8 @@ public class Game {
 	}
 	
 	public void playerBreakBlock(Player player, Block block) {
-		if(isDwarf(player.getName(), false)) {
-			int dId = getPlayerState(player.getName()) - Game.dwarfMin;
+		if(isDwarf(player.getUniqueId(), false)) {
+			int dId = getPlayerState(player.getUniqueId()) - Game.dwarfMin;
 			CustomDwarf cd = DvZ.dwarfManager.getDwarf(dId);
 			
 			if(cd != null)
@@ -1261,7 +1262,7 @@ public class Game {
 	//#######################################
 	//Anfang des Spieles Spieler hizufügen
 	//#######################################
-	public boolean addPlayer(String player) {
+	public boolean addPlayer(UUID player) {
 		//nur wenn noch nicht eingetragen und spiel nicht gestartet
 		if (!playerstate.containsKey(player) && state==1) {
 			playerstate.put(player, 1);	//nix, pregame
@@ -1274,7 +1275,7 @@ public class Game {
 	//#######################################
 	//Spieler entfernen
 	//#######################################
-	public void removePlayer(String player) {
+	public void removePlayer(UUID player) {
 		if(playerstate.containsKey(player)) {
 			playerstate.remove(player);
 		}
@@ -1291,12 +1292,12 @@ public class Game {
 		
 		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_invulnarable","You are -0- seconds invulnarable!").replace("-0-", ""+time));
 		
-		setCustomCooldown(player.getName(), "monster_invulnarability", time);
+		setCustomCooldown(player.getUniqueId(), "monster_invulnarability", time);
 	}
 	
 	private void addMonsterMap(Player player) {
 		//only monsters are allowed to get these items
-		if(player!=null && getPlayerState(player.getName())>=Game.monsterMin && getPlayerState(player.getName())<=Game.monsterMax) {
+		if(player!=null && getPlayerState(player.getUniqueId())>=Game.monsterMin && getPlayerState(player.getUniqueId())<=Game.monsterMax) {
 			PlayerInventory inv = player.getInventory();
 			
 			ItemStack it = new ItemStack(Material.MAP, 1);
@@ -1319,7 +1320,7 @@ public class Game {
 		}
 	}
 	
-	public boolean isBuffed(String player) {
+	public boolean isBuffed(UUID player) {
 		return getCustomCooldown(player, "monster_invulnarability")>0;
 	}
 	
@@ -1356,20 +1357,20 @@ public class Game {
 	//#######################################
 	//Spieler schon registriert?
 	//#######################################
-	public boolean isPlayer(String player) {
+	public boolean isPlayer(UUID player) {
 		return playerstate.containsKey(player);
 	}
 	
 	//#######################################
 	//Bekomme Playerstate
 	//#######################################
-	public int getPlayerState(String player) {
+	public int getPlayerState(UUID player) {
 		if (playerstate.containsKey(player))
 			return playerstate.get(player);
 		else
 			return 0;
 	}
-	public boolean isDwarf(String player, boolean assassins) {
+	public boolean isDwarf(UUID player, boolean assassins) {
 		if(playerstate.containsKey(player)) {
 			int pstate = playerstate.get(player);
 			if((pstate>=Game.dwarfMin && pstate<=Game.dwarfMax)
@@ -1384,7 +1385,7 @@ public class Game {
 		
 		return false;
 	}
-	public boolean isMonster(String player) {
+	public boolean isMonster(UUID player) {
 		if(playerstate.containsKey(player)) {
 			int pstate = playerstate.get(player);
 			if(pstate>=Game.monsterMin && pstate<=Game.monsterMax) {
@@ -1398,7 +1399,7 @@ public class Game {
 	//#######################################
 	//Setze Playerstate
 	//#######################################
-	public void setPlayerState(String player, int pstate) {
+	public void setPlayerState(UUID player, int pstate) {
 		playerstate.put(player, pstate);
 	}
 	
@@ -1410,8 +1411,8 @@ public class Game {
 			public void run() {
 				Object[] rplayers = playerstate.keySet().toArray();
 				for(int i=0; i<rplayers.length; i++) {
-					String playern = (String) rplayers[i];
-					Player player = Bukkit.getServer().getPlayerExact(playern);
+					UUID playern = (UUID) rplayers[i];
+					Player player = PlayerHandler.getPlayerFromUUID(playern);
 					
 					if (player!=null) {
 						DisguiseSystemHandler.redisguiseP(player);
@@ -1512,9 +1513,9 @@ public class Game {
 		
 		Object[] rplayers = playerstate.keySet().toArray();
 		for(int i=0; i<rplayers.length; i++) {
-			String playern = (String) rplayers[i];
+			UUID playern = (UUID) rplayers[i];
 			if(isMonster(playern)) {
-				Player player = Bukkit.getServer().getPlayerExact(playern);
+				Player player = PlayerHandler.getPlayerFromUUID(playern);
 	
 				if(player!=null) {
 					if (ticker==10) {
@@ -1545,22 +1546,22 @@ public class Game {
 		if(w!=null) {
 			for(Player p : w.getPlayers()) {
 				//not playing -> kick to lobby
-				if(!isPlayer(p.getName()) || getPlayerState(p.getName())==1) {
+				if(!isPlayer(p.getUniqueId()) || getPlayerState(p.getUniqueId())==1) {
 					resetPlayerToWorldLobby(p);
-					playerstate.remove(p.getName());
+					playerstate.remove(p.getUniqueId());
 					//DvZ.instance.joinGame(p, this, false);
 				}
 				//picking monster -> to monsterspawn
-				if(getPlayerState(p.getName())==Game.pickMonster) {
+				if(getPlayerState(p.getUniqueId())==Game.pickMonster) {
 					if(spawnMonsters!=null) {
 						if(spawnMonsters.distanceSquared(p.getLocation())>2)
 							p.teleport(spawnMonsters);
 					}
 				}
 				//pickdwarf -> rejoin
-				if(getPlayerState(p.getName())==Game.pickDwarf) {
+				if(getPlayerState(p.getUniqueId())==Game.pickDwarf) {
 					resetPlayerToWorldLobby(p);
-					playerstate.remove(p.getName());
+					playerstate.remove(p.getUniqueId());
 					/*if(state>1) {
 						DvZ.instance.joinGame(p, this, true);
 					}*/
@@ -1578,14 +1579,14 @@ public class Game {
 		if(wl!=null) {
 			for(Player p : wl.getPlayers()) {
 				//dwarves
-				if(isDwarf(p.getName(), true)) {
+				if(isDwarf(p.getUniqueId(), true)) {
 					Location loc = wl.getSpawnLocation();
 					if(spawnDwarves!=null) loc = spawnDwarves;
 					
 					p.teleport(loc);
 				}
 				//monsters
-				if(isMonster(p.getName())) {
+				if(isMonster(p.getUniqueId())) {
 					Location loc = wl.getSpawnLocation();
 					if(spawnMonsters!=null) loc = spawnMonsters;
 					
@@ -1667,7 +1668,7 @@ public class Game {
 		return currentlyVoting;
 	}
 	public boolean vote(Player player, int pos) {
-		if(votingPlayers.contains(player.getName())) {
+		if(votingPlayers.contains(player.getUniqueId())) {
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_vote_allready_voted", "You have allready voted!"));
 			return false;
 		} else {
@@ -1676,7 +1677,7 @@ public class Game {
 				return false;
 			}
 			
-			votingPlayers.add(player.getName());
+			votingPlayers.add(player.getUniqueId());
 			
 			int vote = 0;
 			if(votes.containsKey(pos-1))
@@ -1691,25 +1692,25 @@ public class Game {
 	//#######################################
 	//public Methoden Cooldowns(getters/...
 	//#######################################
-	public void resetCountdowns(String player) {
+	public void resetCountdowns(UUID player) {
 		crystalPerPlayer.remove(player);
 	}
 	
-	public void setCustomCooldown(String player, String name, int time) {
-		customCooldown.put(player+":"+name, time);
+	public void setCustomCooldown(UUID player, String name, int time) {
+		customCooldown.put(player+"||"+name, time);
 	}
-	public int getCustomCooldown(String player, String name) {
-		if(customCooldown.containsKey(player+":"+name)) {
-			return customCooldown.get(player+":"+name);
+	public int getCustomCooldown(UUID player, String name) {
+		if(customCooldown.containsKey(player+"||"+name)) {
+			return customCooldown.get(player+"||"+name);
 		}
 		
 		return -1;
 	}
-	public void resetCustomCooldown(String player, String name) {
-		customCooldown.remove(player+":"+name);
+	public void resetCustomCooldown(UUID player, String name) {
+		customCooldown.remove(player+"||"+name);
 	}
 	
-	public Inventory getCrystalChest(String pname, boolean global) {
+	public Inventory getCrystalChest(UUID pname, boolean global) {
 		if(global) {
 			return globalCrystalChest;
 		} else {

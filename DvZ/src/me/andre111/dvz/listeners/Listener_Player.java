@@ -5,6 +5,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
@@ -18,6 +19,7 @@ import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.players.SpecialPlayer;
 import me.andre111.dvz.utils.InventoryHandler;
+import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -71,15 +73,15 @@ public class Listener_Player implements Listener  {
 		}
 		
 		//if the player is not in the game->ignore
-		if(event.getPlayer().getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby") && (plugin.getPlayerGame(event.getPlayer().getName())==null))
+		if(event.getPlayer().getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby") && (plugin.getPlayerGame(event.getPlayer().getUniqueId())==null))
 			event.getPlayer().teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 		
-		if (plugin.getPlayerGame(player.getName())!=null
+		if (plugin.getPlayerGame(player.getUniqueId())!=null
 				&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
 			event.setJoinMessage("");
 		}
 		
-		if (plugin.getPlayerGame(player.getName())==null && ConfigManager.getStaticConfig().getString("autojoin_on_join", "true").equals("true")) {
+		if (plugin.getPlayerGame(player.getUniqueId())==null && ConfigManager.getStaticConfig().getString("autojoin_on_join", "true").equals("true")) {
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
 			DvZ.sendPlayerMessageFormated(player, "--------------------------------");
 			if(ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true"))
@@ -88,8 +90,8 @@ public class Listener_Player implements Listener  {
 			event.setJoinMessage(ConfigManager.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
 			
 			plugin.joinGame(player, true);
-		} else if (plugin.getPlayerGame(player.getName())!=null) {
-			int pstate = plugin.getPlayerGame(player.getName()).getPlayerState(player.getName());
+		} else if (plugin.getPlayerGame(player.getUniqueId())!=null) {
+			int pstate = plugin.getPlayerGame(player.getUniqueId()).getPlayerState(player.getUniqueId());
 			//redisguise
 			CustomMonster cm = DvZ.monsterManager.getMonster(pstate-Game.monsterMin);
 			if(cm!=null) {
@@ -97,8 +99,8 @@ public class Listener_Player implements Listener  {
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replace("-0-", cm.getName()));
 			}
 			//player leave during start
-			if(pstate==1 && plugin.getPlayerGame(player.getName()).getState()>1) {
-				plugin.joinGame(player, plugin.getPlayerGame(player.getName()), true);
+			if(pstate==1 && plugin.getPlayerGame(player.getUniqueId()).getState()>1) {
+				plugin.joinGame(player, plugin.getPlayerGame(player.getUniqueId()), true);
 			}
 		}
 	}
@@ -107,7 +109,7 @@ public class Listener_Player implements Listener  {
 	public void onPlayerLeave(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		
-		if (plugin.getPlayerGame(player.getName())!=null
+		if (plugin.getPlayerGame(player.getUniqueId())!=null
 			&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
 			event.setQuitMessage("");
 		}
@@ -116,11 +118,11 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 		
 		if (game!=null) {
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getName())==Game.pickDwarf || game.getPlayerState(player.getName())==Game.pickMonster) {
+			if(game.getPlayerState(player.getUniqueId())==Game.pickDwarf || game.getPlayerState(player.getUniqueId())==Game.pickMonster) {
 				event.setCancelled(true);
 			}
 			
@@ -152,7 +154,7 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 		
 		if (game!=null) {
 			Entity entity = event.getRightClicked();
@@ -162,7 +164,7 @@ public class Listener_Player implements Listener  {
 			}
 			
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getName())==Game.pickDwarf || game.getPlayerState(player.getName())==Game.pickMonster) {
+			if(game.getPlayerState(player.getUniqueId())==Game.pickDwarf || game.getPlayerState(player.getUniqueId())==Game.pickMonster) {
 				event.setCancelled(true);
 			}
 		}
@@ -171,11 +173,11 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
 		Player player = event.getPlayer();
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 
 		if (game!=null) {
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getName())==Game.pickDwarf || game.getPlayerState(player.getName())==Game.pickMonster) {
+			if(game.getPlayerState(player.getUniqueId())==Game.pickDwarf || game.getPlayerState(player.getUniqueId())==Game.pickMonster) {
 				event.setCancelled(true);
 			}
 		}
@@ -186,21 +188,21 @@ public class Listener_Player implements Listener  {
 		//disable picking up Items flagged for only one player
 		if (!event.getItem().getMetadata("dvz_onlyPickup").isEmpty()) {
 			String pname = event.getItem().getMetadata("dvz_onlyPickup").get(0).asString();
-			if (!pname.equals(event.getPlayer().getName())) {
+			if (!pname.equals(event.getPlayer().getUniqueId().toString())) {
 				event.setCancelled(true);
 				return;
 			}
 		}
 		
 		Player player = event.getPlayer();
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if (game!=null) {
-			if(game.getPlayerState(player.getName())<4) {
+			if(game.getPlayerState(player.getUniqueId())<4) {
 				event.setCancelled(true);
 				return;
 			}
 			//monster können nichts aufheben
-			if(game.isMonster(player.getName())) {
+			if(game.isMonster(player.getUniqueId())) {
 				event.setCancelled(true);
 				return;
 			}
@@ -210,14 +212,14 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerItemDrop(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if (game!=null) {
-			if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
+			if(game.getPlayerState(player.getUniqueId())<4 && !player.isOp()) {
 				event.setCancelled(true);
 				return;
 			}
 			//monster können nichts droppen
-			if(game.isMonster(player.getName()) && !player.isOp()) {
+			if(game.isMonster(player.getUniqueId()) && !player.isOp()) {
 				event.setCancelled(true);
 				return;
 			}
@@ -227,8 +229,8 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		final String pname = player.getName();
-		final Game game = plugin.getPlayerGame(player.getName());
+		final UUID puuid = player.getUniqueId();
+		final Game game = plugin.getPlayerGame(player.getUniqueId());
 		
 		if (game!=null) {
 			//Redisguise no longer needed->disguiscraft fix
@@ -238,9 +240,9 @@ public class Listener_Player implements Listener  {
 				player.removePotionEffect(pet.getType());
 			}
 																	//fix for getting killed when chosing monsterclass
-			if(game.isDwarf(pname, true) || game.isMonster(pname) || game.getPlayerState(pname)==Game.pickMonster) {
+			if(game.isDwarf(puuid, true) || game.isMonster(puuid) || game.getPlayerState(puuid)==Game.pickMonster) {
 				//deaths
-				if(game.isDwarf(pname, true)) {
+				if(game.isDwarf(puuid, true)) {
 					game.deaths++;
 				}
 				
@@ -251,7 +253,7 @@ public class Listener_Player implements Listener  {
 				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						Player player = Bukkit.getPlayerExact(pname);
+						Player player = PlayerHandler.getPlayerFromUUID(puuid);
 						
 						if(player!=null) {
 							if(game.spawnMonsters!=null) player.teleport(game.spawnMonsters);
@@ -260,12 +262,12 @@ public class Listener_Player implements Listener  {
 					}
 				}, 1);
 				
-				game.setPlayerState(player.getName(), 3);
+				game.setPlayerState(puuid, 3);
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 	
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						Player player = Bukkit.getPlayerExact(pname);
+						Player player = PlayerHandler.getPlayerFromUUID(puuid);
 						
 						if(player!=null) {
 							InventoryHandler.clearInv(player, false);
@@ -286,7 +288,7 @@ public class Listener_Player implements Listener  {
 		if(event.isCancelled()) return;
 		
 		Player player = event.getPlayer();
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 		
 		if (game!=null) {
 			//default
@@ -295,7 +297,7 @@ public class Listener_Player implements Listener  {
 			String prefix = "";
 			String suffix = "";
 			//normal classes
-			int pstate = game.getPlayerState(player.getName());
+			int pstate = game.getPlayerState(player.getUniqueId());
 			if(pstate>=Game.dwarfMin && pstate<=Game.dwarfMax) {
 				int did = pstate - Game.dwarfMin;
 				CustomDwarf cd = DvZ.dwarfManager.getDwarf(did);
@@ -307,15 +309,15 @@ public class Listener_Player implements Listener  {
 				prefix = ConfigManager.getClassFile().getString("assassin_prefix", "");
 				suffix = ConfigManager.getClassFile().getString("assassin_suffix", " the Assassin");
 			}
-			if(game.isMonster(player.getName())) {
+			if(game.isMonster(player.getUniqueId())) {
 				int did = pstate - Game.monsterMin;
 				
 				prefix = DvZ.monsterManager.getMonster(did).getPrefix();
 				suffix = DvZ.monsterManager.getMonster(did).getSuffix();
 			}
 			//player specific
-			if(DvZ.playerManager.getPlayer(player.getName())!=null) {
-				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getName());
+			if(DvZ.playerManager.getPlayer(player.getUniqueId())!=null) {
+				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
 				
 				if(!sp.getPrefix().equals("")) {
 					prefix = sp.getPrefix();
@@ -337,7 +339,7 @@ public class Listener_Player implements Listener  {
 				try{
 					while(playerit.hasNext()) {
 						Player p = playerit.next();
-						if(!game.isPlayer(p.getName()) && !player.isOp()) {
+						if(!game.isPlayer(p.getUniqueId()) && !player.isOp()) {
 							playerit.remove();
 						}
 					}
@@ -361,8 +363,8 @@ public class Listener_Player implements Listener  {
     {
 		Player p = event.getEntity();
 		//Score/Stats
-		if(plugin.getPlayerGame(p.getName())!=null && plugin.getPlayerGame(p.getName()).isRunning()) {
-			PlayerScore pscore = HighscoreManager.getPlayerScore(p.getName());
+		if(plugin.getPlayerGame(p.getUniqueId())!=null && plugin.getPlayerGame(p.getUniqueId()).isRunning()) {
+			PlayerScore pscore = HighscoreManager.getPlayerScore(p.getUniqueId());
 			pscore.setDeaths(pscore.getDeaths()+1);
 		}
 		
@@ -376,27 +378,27 @@ public class Listener_Player implements Listener  {
 		}
 		
 		
-		Game game = plugin.getPlayerGame(p.getName());
+		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
 			//Score/Stats
-			if(plugin.getPlayerGame(k.getName())!=null && plugin.getPlayerGame(k.getName()).isRunning()) {
-				PlayerScore pscore = HighscoreManager.getPlayerScore(k.getName());
+			if(plugin.getPlayerGame(k.getUniqueId())!=null && plugin.getPlayerGame(k.getUniqueId()).isRunning()) {
+				PlayerScore pscore = HighscoreManager.getPlayerScore(k.getUniqueId());
 				pscore.setKills(pscore.getKills()+1);
 			}
 			
 			//Is dwarv
-			if (game.isDwarf(p.getName(), true)) {
+			if (game.isDwarf(p.getUniqueId(), true)) {
 				//Is killer monster
-				if (game.isMonster(k.getName())) {
+				if (game.isMonster(k.getUniqueId())) {
 					//TODO - change monstername
 					if (plugin.getConfig().getString("change_death_message", "true").equals("true")) {
 						event.setDeathMessage(ChatColor.YELLOW+ConfigManager.getLanguage().getString("string_chat_death", "-0- was killed by a monster!").replace("-0-", p.getName()));
 					}
 				}
 			//is Monster
-			} else if(game.isMonster(p.getName())) {
+			} else if(game.isMonster(p.getUniqueId())) {
 				//Is killer dwarv
-				if (game.isDwarf(k.getName(), true)) {
+				if (game.isDwarf(k.getUniqueId(), true)) {
 					//Item stats
 					//----
 					if (plugin.getConfig().getString("item_stats", "true").equals("true")) {
@@ -449,8 +451,8 @@ public class Listener_Player implements Listener  {
 		Game game = null;
 		List<HumanEntity> hList = event.getViewers();
 		for(HumanEntity he : hList) {
-			if(plugin.getPlayerGame(he.getName())!=null) {
-				game = plugin.getPlayerGame(he.getName());
+			if(plugin.getPlayerGame(he.getUniqueId())!=null) {
+				game = plugin.getPlayerGame(he.getUniqueId());
 				break;
 			}
 		}
@@ -471,8 +473,8 @@ public class Listener_Player implements Listener  {
 		Game game = null;
 		List<HumanEntity> hList = event.getViewers();
 		for(HumanEntity he : hList) {
-			if(plugin.getPlayerGame(he.getName())!=null) {
-				game = plugin.getPlayerGame(he.getName());
+			if(plugin.getPlayerGame(he.getUniqueId())!=null) {
+				game = plugin.getPlayerGame(he.getUniqueId());
 				break;
 			}
 		}
@@ -493,10 +495,10 @@ public class Listener_Player implements Listener  {
 		if(event.isCancelled()) return;
 		
 		Player p  = event.getPlayer();
-		Game game = plugin.getPlayerGame(p.getName());
+		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game==null) return;
 		//don't spam packets when the monsters are not released->WaitingMEnu
-		if(game.isMonster(p.getName()) && !game.released) return;
+		if(game.isMonster(p.getUniqueId()) && !game.released) return;
 		
 		if(event.isSneaking()) {
 			StatManager.show(p);
@@ -507,10 +509,10 @@ public class Listener_Player implements Listener  {
 	@EventHandler
 	public void onPlayerInventoryClose(InventoryCloseEvent event) {
 		Player p  = (Player) event.getPlayer();
-		Game game = plugin.getPlayerGame(p.getName());
+		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game==null) return;
 		//don't spam packets when the monsters are not released->WaitingMEnu
-		if(game.isMonster(p.getName()) && !game.released) return;
+		if(game.isMonster(p.getUniqueId()) && !game.released) return;
 		
 		StatManager.onInventoryClose(p);
 	}

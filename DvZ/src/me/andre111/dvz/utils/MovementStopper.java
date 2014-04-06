@@ -2,6 +2,7 @@ package me.andre111.dvz.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 
@@ -14,13 +15,13 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class MovementStopper implements Listener {
 	//TODO - use something else then the movement listener
-	private List<String> entites;
+	private List<UUID> entites;
 	private DvZ plugin;
 	
 	public MovementStopper(DvZ plugin){
 		this.plugin = plugin;
 
-		entites = new ArrayList<String>();
+		entites = new ArrayList<UUID>();
 	}
 	
 	public void addEntity(Player entity) {
@@ -28,11 +29,11 @@ public class MovementStopper implements Listener {
 		if(entites.size()==0)
 			plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		
-		entites.add(entity.getName());
+		entites.add(entity.getUniqueId());
 	}
 	
 	public void removeEntity(Player entity) {
-		entites.remove(entity.getName());
+		entites.remove(entity.getUniqueId());
 		
 		//only letting the listener run when it is needed
 		if(entites.size()==0)
@@ -41,10 +42,10 @@ public class MovementStopper implements Listener {
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
-		String entityID = event.getPlayer().getName();
+		UUID entityID = event.getPlayer().getUniqueId();
 			
 		for(int i=0; i<entites.size(); i++) {
-			String did = entites.get(i);
+			UUID did = entites.get(i);
 			if(did.equals(entityID)) {
 				Location to = event.getTo().clone();
 				to.setX(event.getFrom().getX());

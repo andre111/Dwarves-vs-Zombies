@@ -2,9 +2,11 @@ package me.andre111.dvz.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -14,15 +16,15 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 public class StatManager {
-	private static HashMap<String, Scoreboard> stats = new HashMap<String, Scoreboard>();
+	private static HashMap<UUID, Scoreboard> stats = new HashMap<UUID, Scoreboard>();
 	private static String objectiveName = "dvz_stats";
 	
 	//show the Playerstats
 	public static void show(Player player) {
-		Scoreboard sc = stats.get(player.getName());
+		Scoreboard sc = stats.get(player.getUniqueId());
 		if(sc==null) {
 			sc = newScoreboard();
-			stats.put(player.getName(), sc);
+			stats.put(player.getUniqueId(), sc);
 		}
 			
 		try {
@@ -42,7 +44,7 @@ public class StatManager {
 	}
 	
 	//set a stat of a Player
-	public static void setStat(String player, String stat, int value) {
+	public static void setStat(UUID player, String stat, int value) {
 		Scoreboard sc = stats.get(player);
 		if(sc==null) {
 			sc = newScoreboard();
@@ -53,13 +55,13 @@ public class StatManager {
 		
 		//show stats, when they should always show
 		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
-			Player p = Bukkit.getPlayer(player);
+			Player p = PlayerHandler.getPlayerFromUUID(player);
 			if(p!=null) show(p);
 		}
 	}
 	//set a stat for all Players
 	public static void setGlobalStat(String stat, int value) {
-		for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
+		for(Map.Entry<UUID, Scoreboard> mapE : stats.entrySet()) {
 			mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(value);
 		}
 	}
@@ -83,7 +85,7 @@ public class StatManager {
 		}
 		else
 		{
-			for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
+			for(Map.Entry<UUID, Scoreboard> mapE : stats.entrySet()) {
 				if(time>0)
 					mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(stat)).setScore(time);
 				else
@@ -93,7 +95,7 @@ public class StatManager {
 	}
 	//removes a timer scoreboard that starts with this name
 	private static void sendRemoveTimer(String name, String newT) {
-		for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
+		for(Map.Entry<UUID, Scoreboard> mapE : stats.entrySet()) {
 			for(OfflinePlayer ofP : mapE.getValue().getPlayers()) {
 				if(ofP.getName().startsWith(name) && !ofP.getName().equals(newT)) {
 					mapE.getValue().resetScores(ofP);
@@ -103,7 +105,7 @@ public class StatManager {
 	}
 	//adds a timer
 	private static void sendNewTimer(String name) {
-		for(Map.Entry<String, Scoreboard> mapE : stats.entrySet()) {
+		for(Map.Entry<UUID, Scoreboard> mapE : stats.entrySet()) {
 			mapE.getValue().getObjective(objectiveName).getScore(Bukkit.getOfflinePlayer(name)).setScore(1000);
 		}
 	}
@@ -115,7 +117,7 @@ public class StatManager {
 	}
 	
 	//reset stats for a Player
-	public static void resetPlayer(String player) {
+	public static void resetPlayer(UUID player) {
 		stats.remove(player);
 	}
 	

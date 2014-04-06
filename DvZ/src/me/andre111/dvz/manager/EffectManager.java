@@ -2,6 +2,7 @@ package me.andre111.dvz.manager;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
@@ -62,11 +63,11 @@ public class EffectManager {
 	}
 	
 	private void addMonsterEffect(Game game, int id, int level) {
-		for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
-			String playern = e.getKey();
+		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
+			UUID playern = e.getKey();
 			
 			if(game.isMonster(playern)) {
-				Player player = Bukkit.getServer().getPlayerExact(playern);
+				Player player = PlayerHandler.getPlayerFromUUID(playern);
 				
 				if(player!=null) {
 					if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
@@ -78,11 +79,11 @@ public class EffectManager {
 	}
 	
 	private void addDwarfEffects(Game game) {
-		for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
-			String playern = e.getKey();
+		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
+			UUID playern = e.getKey();
 			
 			if(game.isDwarf(playern, true)) {
-				Player player = Bukkit.getServer().getPlayerExact(playern);
+				Player player = PlayerHandler.getPlayerFromUUID(playern);
 				if(player!=null) {
 					int light = player.getLocation().getBlock().getLightLevel();
 
@@ -112,9 +113,9 @@ public class EffectManager {
 	public void killEffects(Game game) {
 		if(!killEffectParticles) return;
 		
-		for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
-			String playern = e.getKey();
-			Player player = Bukkit.getServer().getPlayerExact(playern);
+		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
+			UUID playern = e.getKey();
+			Player player = PlayerHandler.getPlayerFromUUID(playern);
 			
 			if(player!=null) {
 				if(game.isDwarf(playern, true)) {
@@ -131,11 +132,11 @@ public class EffectManager {
 			//Strenght is broken with Disguisecraft
 			//dwarf.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, killEffectTime*20, 20), true);
 			
-			game.setCustomCooldown(dwarf.getName(), "effects_kill", killEffectTime);
+			game.setCustomCooldown(dwarf.getUniqueId(), "effects_kill", killEffectTime);
 		}
 	}
 	
-	public double getDwarfKillMultiplier(Game game, String dwarf) {
+	public double getDwarfKillMultiplier(Game game, UUID dwarf) {
 		if(game.getCustomCooldown(dwarf, "effects_kill")>0) {
 			return 20;
 		}

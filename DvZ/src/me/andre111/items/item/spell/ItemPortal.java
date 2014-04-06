@@ -45,7 +45,7 @@ public class ItemPortal extends ItemSpell {
 	}
 	
 	private boolean castIntern(Player player, Location loc) {
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 
 		if(game.enderPortal!=null) {
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_portal_exists","A Portal allready exists!"));
@@ -86,7 +86,7 @@ public class ItemPortal extends ItemSpell {
 
 		game.enderPortal = nloc;
 		game.enderActive = true;
-		game.enderMan = player.getName();
+		game.enderMan = player.getUniqueId();
 
 		game.broadcastMessage(ConfigManager.getLanguage().getString("string_portal_create","An Enderman has created a Portal!"));
 	}

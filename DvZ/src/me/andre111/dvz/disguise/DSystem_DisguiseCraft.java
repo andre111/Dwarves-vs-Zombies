@@ -217,7 +217,7 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 			public void run() {
 				Player player = event.getPlayer();
 				if(player!=null) {
-					Game game = plugin.getPlayerGame(player.getName());
+					Game game = plugin.getPlayerGame(player.getUniqueId());
 
 					if (game!=null) {
 						DisguiseCraft dc = (DisguiseCraft) Bukkit.getPluginManager().getPlugin("DisguiseCraft"); //TODO - maybe a better way of getting Disguisecraft(or when the API changes use it)
@@ -241,10 +241,10 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 		Player p = event.getPlayer();
 		if(p==null) return;
 		
-		Game game = plugin.getPlayerGame(p.getName());
+		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
 			if(game.getState()>1)
-				if(game.isMonster(p.getName()) || game.getPlayerState(p.getName())>Game.dragonMin) {
+				if(game.isMonster(p.getUniqueId()) || game.getPlayerState(p.getUniqueId())>Game.dragonMin) {
 					event.setCancelled(true);
 				}
 		}

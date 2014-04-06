@@ -94,10 +94,10 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 		if(!(e instanceof Player)) return;
 		
 		Player p = (Player) event.getEntity();
-		Game game = DvZ.instance.getPlayerGame(p.getName());
+		Game game = DvZ.instance.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
 			if(game.getState()>1)
-				if(game.isMonster(p.getName()) || game.getPlayerState(p.getName())>Game.dragonMin) {
+				if(game.isMonster(p.getUniqueId()) || game.getPlayerState(p.getUniqueId())>Game.dragonMin) {
 					event.setCancelled(true);
 				}
 		}

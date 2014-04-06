@@ -3,6 +3,7 @@ package me.andre111.dvz;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +54,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 
+//TODO - change every playerreference from names to uuids
 public class DvZ extends JavaPlugin {
 	public static DvZ instance;
 	
@@ -315,7 +317,7 @@ public class DvZ extends JavaPlugin {
 	//#######################################
 	//Bekomme Spiel in dem das der Spieler ist
 	//#######################################
-	public Game getPlayerGame(String player) {
+	public Game getPlayerGame(UUID player) {
 		for(int i=0; i<games.length; i++) {
 			if (games[i]!=null) {
 				if (games[i].isPlayer(player))
@@ -377,9 +379,9 @@ public class DvZ extends JavaPlugin {
     }
 	
 	public void joinGame(Player player, Game game, boolean autojoin) {
-		if(!(getConfig().getString("autoadd_players","false").equals("true") || autojoin) && game.getPlayerState(player.getName())>1) return;
+		if(!(getConfig().getString("autoadd_players","false").equals("true") || autojoin) && game.getPlayerState(player.getUniqueId())>1) return;
 		
-		game.setPlayerState(player.getName(), 1);
+		game.setPlayerState(player.getUniqueId(), 1);
 		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
 			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 		InventoryHandler.clearInv(player, false);
@@ -394,13 +396,13 @@ public class DvZ extends JavaPlugin {
 		if(game.getState()>1) {
 			if (getConfig().getString("autoadd_players","false").equals("true") || autojoin) {
 				if(!game.released) {
-					game.setPlayerState(player.getName(), 2);
+					game.setPlayerState(player.getUniqueId(), 2);
 					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 					game.addDwarfItems(player);
 
 					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 				} else {
-					game.setPlayerState(player.getName(), 3);
+					game.setPlayerState(player.getUniqueId(), 3);
 					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 					game.addMonsterItems(player);
 
@@ -410,7 +412,7 @@ public class DvZ extends JavaPlugin {
 		} else {
 			if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
 				if(player.isValid()) {
-					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getName()));
+					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getUniqueId()));
 				}
 			}
 		}

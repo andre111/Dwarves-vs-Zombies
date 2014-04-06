@@ -44,7 +44,7 @@ public class ItemReinforcePortal extends ItemSpell {
 	}
 	
 	private boolean castIntern(Player player, Location loc) {
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 		
 		if(game.enderPortal!=null) {
 			return reinforePortal(game, player);
@@ -54,7 +54,7 @@ public class ItemReinforcePortal extends ItemSpell {
 	}
 	
 	private boolean reinforePortal(Game game, Player player) {
-		if(player.getName().equals(game.enderMan)) {
+		if(player.getUniqueId().equals(game.enderMan)) {
 			Location nloc = game.enderPortal;
 			World w = nloc.getWorld();
 			

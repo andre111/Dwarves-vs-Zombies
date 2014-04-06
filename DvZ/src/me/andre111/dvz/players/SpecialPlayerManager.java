@@ -2,6 +2,7 @@ package me.andre111.dvz.players;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import me.andre111.dvz.config.ConfigManager;
 
@@ -31,7 +32,7 @@ public class SpecialPlayerManager {
 	private void loadPlayer(String player) {
 		SpecialPlayer spTemp = new SpecialPlayer();
 		
-		spTemp.setName(player);
+		spTemp.setUUID(player);
 		List<String> citems = ConfigManager.getPlayerFile().getStringList("players."+player+".crystalItems");
 		spTemp.setCrystalItems(citems.toArray(new String[citems.size()]));
 		
@@ -42,9 +43,9 @@ public class SpecialPlayerManager {
 		playerCounter++;
 	}
 	
-	public SpecialPlayer getPlayer(String name) {
+	public SpecialPlayer getPlayer(UUID uuid) {
 		for(int i=0; i<players.length; i++) {
-			if(players[i].getName().equals(name)) {
+			if(players[i].getUUID().equals(uuid.toString())) {
 				return players[i];
 			}
 		}

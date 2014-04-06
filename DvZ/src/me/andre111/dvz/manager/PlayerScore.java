@@ -1,5 +1,7 @@
 package me.andre111.dvz.manager;
 
+import java.util.UUID;
+
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -15,8 +17,8 @@ public class PlayerScore {
 	private int classpoints;
 	
 
-	public void save(YamlConfiguration file, String player) {
-		file.set(player, "");
+	public void save(YamlConfiguration file, UUID player) {
+		file.set(player+"", "");
 		file.set(player+".points", points);
 		file.set(player+".kills", kills);
 		file.set(player+".deaths", deaths);
@@ -24,7 +26,7 @@ public class PlayerScore {
 		file.set(player+".losses", losses);
 		file.set(player+".classpoints", classpoints);
 	}
-	public static PlayerScore load(String name, MemorySection section) {
+	public static PlayerScore load(UUID name, MemorySection section) {
 		PlayerScore pscore = new PlayerScore();
 			pscore.setPoints(section.getInt("points", 0));
 			pscore.setKills(section.getInt("kills", 0));

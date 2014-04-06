@@ -8,14 +8,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class SpecialPlayer {
-	private String name;
+	private String uuid;
 	private String[] crystalItems;
 	
 	private String prefix;
 	private String suffix;
 	
 	public void addCrytalItems(Game game, Player player) {
-		Inventory cinv = game.getCrystalChest(player.getName(), false);
+		Inventory cinv = game.getCrystalChest(player.getUniqueId(), false);
 
 		for(int i=0; i<crystalItems.length; i++) {
 			ItemStack cit = ItemHandler.decodeItem(crystalItems[i], player);
@@ -25,11 +25,11 @@ public class SpecialPlayer {
 		}
 	}
 	
-	public String getName() {
-		return name;
+	public String getUUID() {
+		return uuid;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUUID(String name) {
+		this.uuid = name;
 	}
 	public String[] getCrystalItems() {
 		return crystalItems;

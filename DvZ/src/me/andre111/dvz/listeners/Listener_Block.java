@@ -31,23 +31,23 @@ public class Listener_Block implements Listener {
 	public void onBlockPlace(BlockPlaceEvent event){
 		Player player = event.getPlayer();
 		
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if(game==null) return;
 		
-		if(game.getPlayerState(player.getName())<4 && !player.isOp()) {
+		if(game.getPlayerState(player.getUniqueId())<4 && !player.isOp()) {
 			event.setCancelled(true);
 			return;
 		}
 		//rewards on blockplace
-		if(game.isDwarf(player.getName(), false)) {
-			int id = game.getPlayerState(player.getName()) - Game.dwarfMin;
+		if(game.isDwarf(player.getUniqueId(), false)) {
+			int id = game.getPlayerState(player.getUniqueId()) - Game.dwarfMin;
 			if(DvZ.dwarfManager.getDwarf(id).isRewardOnBlockPlace()) {
 				RewardManager.addRewardPoints(player, 1);
 			}
 		}
 		//fix für das platzieren von köpfen/Enderman das Portal zu platzieren - deaktiviert, da jetzt custom monster existieren
-		if(game.isMonster(player.getName())) {
-			int id = game.getPlayerState(player.getName()) - Game.monsterMin;
+		if(game.isMonster(player.getUniqueId())) {
+			int id = game.getPlayerState(player.getUniqueId()) - Game.monsterMin;
 			if(!DvZ.monsterManager.getMonster(id).isPlaceBlocks()) {
 				event.setCancelled(true);
 				return;
@@ -63,17 +63,17 @@ public class Listener_Block implements Listener {
 		
 		Player player = event.getPlayer();
 		
-		Game game = plugin.getPlayerGame(player.getName());
+		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if (game!=null) {
 			//monument
 			if (game.isMonument(event.getBlock())) {
 				//dwarves/assasins
-				if(game.isDwarf(player.getName(), true)) {
+				if(game.isDwarf(player.getUniqueId(), true)) {
 					event.setCancelled(true);
 					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));
 				}
 				//monsters
-				if(game.isMonster(player.getName())) {
+				if(game.isMonster(player.getUniqueId())) {
 					String message = ConfigManager.getLanguage().getString("string_destroyed_monument","Someone is destroying the monument!");
 					
 					if(!message.equals("") && !message.equals(" ")) {

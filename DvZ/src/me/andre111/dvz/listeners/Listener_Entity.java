@@ -1,5 +1,7 @@
 package me.andre111.dvz.listeners;
 
+import java.util.UUID;
+
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
@@ -38,10 +40,10 @@ public class Listener_Entity implements Listener {
 		if (event.getEntityType()==EntityType.PLAYER) {
 			Player player = (Player)event.getEntity();
 			
-			Game game = plugin.getPlayerGame(player.getName());
+			Game game = plugin.getPlayerGame(player.getUniqueId());
 			if (game!=null) {
 				//Monster Droppen nix
-				if (game.isMonster(player.getName())) {
+				if (game.isMonster(player.getUniqueId())) {
 					event.getDrops().clear();
 				}
 			}
@@ -64,9 +66,9 @@ public class Listener_Entity implements Listener {
 		if (event.isCancelled()) return;
 		if(event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			Game game = plugin.getPlayerGame(player.getName());
+			Game game = plugin.getPlayerGame(player.getUniqueId());
 			if(game!=null) {
-				if(game.isMonster(player.getName()) || game.isDwarf(player.getName(), true)) {
+				if(game.isMonster(player.getUniqueId()) || game.isDwarf(player.getUniqueId(), true)) {
 					String damage = "";
 					
 					if(event.getCause() == DamageCause.CONTACT) {
@@ -90,15 +92,15 @@ public class Listener_Entity implements Listener {
 					}
 					
 					if(!damage.equals("")) {
-						if(game.isMonster(player.getName())) {
-							int pid = game.getPlayerState(player.getName()) - Game.monsterMin;
+						if(game.isMonster(player.getUniqueId())) {
+							int pid = game.getPlayerState(player.getUniqueId()) - Game.monsterMin;
 							CustomMonster cm = DvZ.monsterManager.getMonster(pid);
 							
 							if(cm.isDamageDisabled(damage)) {
 								event.setCancelled(true);
 							}
-						} else if(game.isDwarf(player.getName(), true)) {
-							int pid = game.getPlayerState(player.getName()) - Game.dwarfMin;
+						} else if(game.isDwarf(player.getUniqueId(), true)) {
+							int pid = game.getPlayerState(player.getUniqueId()) - Game.dwarfMin;
 							CustomDwarf cd = DvZ.dwarfManager.getDwarf(pid);
 							
 							if(cd != null && cd.isDamageDisabled(damage)) {
@@ -109,7 +111,7 @@ public class Listener_Entity implements Listener {
 				}
 				
 				//graceperiode
-				if(game.isGraceTime() && game.isDwarf(player.getName(), true)) {
+				if(game.isGraceTime() && game.isDwarf(player.getUniqueId(), true)) {
 					event.setCancelled(true);
 				}
 			}
@@ -122,11 +124,11 @@ public class Listener_Entity implements Listener {
 
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			//disable friendly fire
-			Game game = plugin.getPlayerGame(((Player)event.getEntity()).getName());
+			Game game = plugin.getPlayerGame(((Player)event.getEntity()).getUniqueId());
 			if (game!=null) {
 				if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
-					String player = ((Player)event.getEntity()).getName();
-					String damager = ((Player)event.getDamager()).getName();
+					UUID player = ((Player)event.getEntity()).getUniqueId();
+					UUID damager = ((Player)event.getDamager()).getUniqueId();
 					
 					if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
 					   (game.isMonster(player) && game.isMonster(damager))) {
@@ -148,11 +150,12 @@ public class Listener_Entity implements Listener {
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Projectile) {
 			if(((Projectile)event.getDamager()).getShooter() instanceof Player) {
 				//disable friendly fire
-				Game game = plugin.getPlayerGame(((Player)event.getEntity()).getName());
+				Game game = plugin.getPlayerGame(((Player)event.getEntity()).getUniqueId());
 				if (game!=null) {
 					if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
-						String player = ((Player)event.getEntity()).getName();
-						String damager = ((Player)((Projectile)event.getDamager()).getShooter()).getName();
+						UUID player = ((Player)event.getEntity()).getUniqueId();
+						UUID damager = ((Player)((Projectile)event.getDamager()).getShooter()).getUniqueId();
+						
 						if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
 								   (game.isMonster(player) && game.isMonster(damager))) {
 							event.setCancelled(true);
@@ -177,26 +180,26 @@ public class Listener_Entity implements Listener {
 		//irongolem deaktiviert, da custom monster existieren
 		if(event.getDamager() instanceof Player) {
 			Player dgm = (Player) event.getDamager();
-			Game game = plugin.getPlayerGame(dgm.getName());
+			Game game = plugin.getPlayerGame(dgm.getUniqueId());
 			if (game!=null) {
-				if(game.isPlayer(dgm.getName())) {
-					if(/*game.getPlayerState(dgm.getName())==35 ||*/ game.isBuffed(dgm.getName())) {
+				if(game.isPlayer(dgm.getUniqueId())) {
+					if(/*game.getPlayerState(dgm.getUniqueId())==35 ||*/ game.isBuffed(dgm.getUniqueId())) {
 						event.setDamage(event.getDamage()*5);
 					}
 					//custom dwarf
-					if(game.isDwarf(dgm.getName(), false)) {
-						int id = game.getPlayerState(dgm.getName()) - Game.dwarfMin;
+					if(game.isDwarf(dgm.getUniqueId(), false)) {
+						int id = game.getPlayerState(dgm.getUniqueId()) - Game.dwarfMin;
 						event.setDamage(event.getDamage()*DvZ.dwarfManager.getDwarf(id).getDamageBuff());
 					}
 					//custom monster
-					if(game.isMonster(dgm.getName())) {
-						int id = game.getPlayerState(dgm.getName()) - Game.monsterMin;
+					if(game.isMonster(dgm.getUniqueId())) {
+						int id = game.getPlayerState(dgm.getUniqueId()) - Game.monsterMin;
 						event.setDamage(event.getDamage()*DvZ.monsterManager.getMonster(id).getDamageBuff());
 					}
 					
 					//Dwarf kill effects
-					if(game.isDwarf(dgm.getName(), false)) {
-						event.setDamage(event.getDamage()*DvZ.effectManager.getDwarfKillMultiplier(game, dgm.getName()));
+					if(game.isDwarf(dgm.getUniqueId(), false)) {
+						event.setDamage(event.getDamage()*DvZ.effectManager.getDwarfKillMultiplier(game, dgm.getUniqueId()));
 					}
 				}
 			}
@@ -230,10 +233,10 @@ public class Listener_Entity implements Listener {
 	    if(e.getDamage()<player.getHealth())
 	    	return;
 	    
-	    Game game = plugin.getPlayerGame(damager.getName());
+	    Game game = plugin.getPlayerGame(damager.getUniqueId());
 	    if (game!=null) {
-	    	if(game.isDwarf(player.getName(), true) && game.getPlayerState(damager.getName())==Game.assasinState) {
-	    		game.resetCustomCooldown(damager.getName(), "assassin_time");
+	    	if(game.isDwarf(player.getUniqueId(), true) && game.getPlayerState(damager.getUniqueId())==Game.assasinState) {
+	    		game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
 	    	}
 	    }
 	}

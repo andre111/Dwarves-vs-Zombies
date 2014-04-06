@@ -24,10 +24,10 @@ public class ItemCrystalStorage extends ItemSpell {
 				boolean global = globalN.toboolean();
 				
 				if(player!=null) {
-					Game game = DvZ.instance.getPlayerGame(player.getName());
+					Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 					if(game==null) return RETURN_FALSE;
 					
-					player.openInventory(game.getCrystalChest(player.getName(), global));
+					player.openInventory(game.getCrystalChest(player.getUniqueId(), global));
 					
 					return RETURN_TRUE;
 				}

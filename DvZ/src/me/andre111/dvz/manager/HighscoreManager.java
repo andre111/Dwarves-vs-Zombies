@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
@@ -18,38 +19,38 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 public class HighscoreManager {
-	private static HashMap<String, PlayerScore> pointMap = new HashMap<String, PlayerScore>();
-	private static HashMap<String, Scoreboard> playerScoreboard = new HashMap<String, Scoreboard>();
+	private static HashMap<UUID, PlayerScore> pointMap = new HashMap<UUID, PlayerScore>();
+	private static HashMap<UUID, Scoreboard> playerScoreboard = new HashMap<UUID, Scoreboard>();
 	
-	public static void addPoints(String player, int add) {
+	public static void addPoints(UUID player, int add) {
 		if(pointMap.containsKey(player)) {
 			setPoints(player, pointMap.get(player).getPoints()+add);
 		} else {
 			setPoints(player, add);
 		}
 	}
-	public static void setPoints(String player, int set) {
+	public static void setPoints(UUID player, int set) {
 		if(!pointMap.containsKey(player)) {
 			pointMap.put(player, new PlayerScore());
 		}
 		pointMap.get(player).setPoints(set);
 	}
 	
-	public static int getPoints(String player) {
+	public static int getPoints(UUID player) {
 		if(pointMap.containsKey(player)) {
 			return pointMap.get(player).getPoints();
 		}
 		return 0;
 	}
 	
-	public static PlayerScore getPlayerScore(String player) {
+	public static PlayerScore getPlayerScore(UUID player) {
 		if(!pointMap.containsKey(player)) {
 			pointMap.put(player, new PlayerScore());
 		}
 		return pointMap.get(player);
 	}
 	
-	public static Scoreboard createOrRefreshPlayerScore(String player) {
+	public static Scoreboard createOrRefreshPlayerScore(UUID player) {
 		if(!pointMap.containsKey(player)) {
 			pointMap.put(player, new PlayerScore());
 		}
@@ -85,10 +86,10 @@ public class HighscoreManager {
 		return scores.indexOf(score)+1;
 	}
 	
-	public static HashMap<String, Integer> getPoints() {
-		HashMap<String, Integer> points = new HashMap<String, Integer>();
+	public static HashMap<UUID, Integer> getPoints() {
+		HashMap<UUID, Integer> points = new HashMap<UUID, Integer>();
 		
-		for(String player : pointMap.keySet()) {
+		for(UUID player : pointMap.keySet()) {
 			points.put(player, pointMap.get(player).getPoints());
 		}
 		
@@ -106,7 +107,7 @@ public class HighscoreManager {
 			}
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 
-		for(String player : pointMap.keySet()) {
+		for(UUID player : pointMap.keySet()) {
 			pointMap.get(player).save(rewardFile, player);
 		}
 		try {
@@ -126,7 +127,7 @@ public class HighscoreManager {
 		YamlConfiguration rewardFile = YamlConfiguration.loadConfiguration(file);
 
 		for (Entry<String, Object> m : rewardFile.getValues(false).entrySet()) {
-			pointMap.put(m.getKey(), PlayerScore.load(m.getKey(), (MemorySection) m.getValue()));
+			pointMap.put(UUID.fromString(m.getKey()), PlayerScore.load(UUID.fromString(m.getKey()), (MemorySection) m.getValue()));
 		}
 	}
 }

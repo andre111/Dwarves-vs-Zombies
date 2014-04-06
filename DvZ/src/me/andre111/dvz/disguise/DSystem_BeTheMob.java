@@ -114,7 +114,7 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 			public void run() {
 				Player player = event.getPlayer();
 				if(player!=null) {
-					Game game = plugin.getPlayerGame(player.getName());
+					Game game = plugin.getPlayerGame(player.getUniqueId());
 
 					if (game!=null) {
 						Player target = event.getDisguised().getPlayer();
@@ -133,10 +133,10 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 	@EventHandler
 	public void onPlayerUndisguise(PlayerUndisguiseEvent event) {
 		Player p = event.getPlayer();
-		Game game = plugin.getPlayerGame(p.getName());
+		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
 			if(game.getState()>1)
-				if(game.isMonster(p.getName()) || game.getPlayerState(p.getName())>Game.dragonMin) {
+				if(game.isMonster(p.getUniqueId()) || game.getPlayerState(p.getUniqueId())>Game.dragonMin) {
 					event.setCancelled(true);
 				}
 		}

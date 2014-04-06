@@ -1,12 +1,13 @@
 package me.andre111.dvz.commands;
 
 import java.util.Map;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.utils.PlayerHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -39,9 +40,9 @@ public class InfoCommand extends DvZCommand {
 				int mons = 0;
 				int monsoff = 0;
 				
-				for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
+				for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
 					boolean online = false;
-					Player player = Bukkit.getServer().getPlayerExact(e.getKey());
+					Player player = PlayerHandler.getPlayerFromUUID(e.getKey());
 					if (player!=null) online = true;
 					
 					if (game.isDwarf(e.getKey(), true)) {

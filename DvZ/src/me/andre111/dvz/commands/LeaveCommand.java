@@ -26,11 +26,11 @@ public class LeaveCommand extends DvZCommand {
 			return false;
 		}
 
-		Game game = DvZ.instance.getPlayerGame(player.getName());
+		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 
 		if(game!=null) {
-			if(game.getState()==1 && game.getPlayerState(player.getName())==1) {
-				game.removePlayer(player.getName());
+			if(game.getState()==1 && game.getPlayerState(player.getUniqueId())==1) {
+				game.removePlayer(player.getUniqueId());
 
 				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
 					player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());

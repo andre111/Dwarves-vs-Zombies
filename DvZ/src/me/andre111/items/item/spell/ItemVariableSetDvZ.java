@@ -29,8 +29,8 @@ public class ItemVariableSetDvZ extends ItemSpell {
 				
 				//Locations
 				if(value.equalsIgnoreCase("monument")) {
-					if(player!=null && DvZ.instance.getPlayerGame(player.getName())!=null) {
-						Game game = DvZ.instance.getPlayerGame(player.getName());
+					if(player!=null && DvZ.instance.getPlayerGame(player.getUniqueId())!=null) {
+						Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 						
 						if(game.monumentexists) {
 							returnValue[1] = LuaValue.userdataOf(game.monument);

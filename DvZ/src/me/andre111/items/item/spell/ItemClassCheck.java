@@ -28,21 +28,21 @@ public class ItemClassCheck extends ItemSpell {
 				int classid = classidN.toint();
 				
 				if(player!=null) {
-					Game game = DvZ.instance.getPlayerGame(player.getName());
+					Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 					if(game==null) return RETURN_FALSE;
 					
 					//dwarves
 					if(type.equals("dwarf") || type.equals("dwarves")) {
-						if(game.isDwarf(player.getName(), true)) {
-							int dId = game.getPlayerState(player.getName())-Game.dwarfMin;
+						if(game.isDwarf(player.getUniqueId(), true)) {
+							int dId = game.getPlayerState(player.getUniqueId())-Game.dwarfMin;
 							
 							if(dId==classid) return RETURN_TRUE;
 						}
 					}
 					//monsters
 					if(type.equals("monster") || type.equals("monsters")) {
-						if(game.isMonster(player.getName())) {
-							int mId = game.getPlayerState(player.getName())-Game.monsterMin;
+						if(game.isMonster(player.getUniqueId())) {
+							int mId = game.getPlayerState(player.getUniqueId())-Game.monsterMin;
 							
 							if(mId==classid) return RETURN_TRUE;
 						}

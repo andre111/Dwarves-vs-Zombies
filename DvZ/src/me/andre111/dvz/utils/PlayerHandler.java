@@ -2,7 +2,9 @@ package me.andre111.dvz.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -72,5 +74,15 @@ public class PlayerHandler {
 			//TODO - find a way not using the workaround override method
 			player.addPotionEffect(new PotionEffect(pet.getType(), 1, 1), true);
 		}
+	}
+	
+	public static Player getPlayerFromUUID(UUID uuid) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			if(player.getUniqueId().equals(uuid)) {
+				return player;
+			}
+		}
+		
+		return null;
 	}
 }

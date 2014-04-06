@@ -25,7 +25,7 @@ public class ItemDvZClassPoint extends ItemSpell {
 				int points = pointsN.toint();
 				
 				if(player!=null) {
-					PlayerScore pscore = HighscoreManager.getPlayerScore(player.getName());
+					PlayerScore pscore = HighscoreManager.getPlayerScore(player.getUniqueId());
 					pscore.setClasspoints(pscore.getClasspoints()+points);
 					
 					return RETURN_TRUE;

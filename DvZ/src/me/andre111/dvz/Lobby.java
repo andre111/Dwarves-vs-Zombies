@@ -1,6 +1,7 @@
 package me.andre111.dvz;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerPortalEvent;
@@ -9,7 +10,7 @@ public class Lobby {
 	private DvZ plugin;
 	
 	private Location[] portals = new Location[10]; 
-	public HashMap<String, Integer> playerstate = new HashMap<String, Integer>();
+	public HashMap<UUID, Integer> playerstate = new HashMap<UUID, Integer>();
 	//-1: in Lobby
 	//0-9: in Lobby Game world
 	
@@ -28,7 +29,7 @@ public class Lobby {
 				if(ppos.distanceSquared(pos)<=4) {
 					boolean found = false;
 					
-					String player = event.getPlayer().getName();
+					UUID player = event.getPlayer().getUniqueId();
 					if (playerstate.get(player)==-1) {
 						playerstate.put(player, i);
 						DvZ.sendPlayerMessageFormated(event.getPlayer(), "You joined the Lobby for Game ID "+i+"!");
@@ -52,7 +53,7 @@ public class Lobby {
 		return false;
 	}
 	
-	public void addPlayer(String player) {
+	public void addPlayer(UUID player) {
 		playerstate.put(player, -1);
 	}
 }
