@@ -3,12 +3,11 @@ package me.andre111.dvz.disguise;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.libraryaddict.disguise.DisguiseAPI;
-import me.libraryaddict.disguise.DisguiseConfig;
-import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.DisguiseType;
-import me.libraryaddict.disguise.disguisetypes.MobDisguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.CreeperWatcher;
-import me.libraryaddict.disguise.events.UndisguiseEvent;
+import me.libraryaddict.disguise.DisguiseTypes.Disguise;
+import me.libraryaddict.disguise.DisguiseTypes.DisguiseType;
+import me.libraryaddict.disguise.DisguiseTypes.MobDisguise;
+import me.libraryaddict.disguise.DisguiseTypes.Watchers.CreeperWatcher;
+import me.libraryaddict.disguise.Events.UndisguiseEvent;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -21,7 +20,7 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 	
 	@Override
 	public void initListeners(DvZ plugin) {
-		DisguiseConfig.setHearSelfDisguise(true);
+		DisguiseAPI.setHearSelfDisguise(true);
 		
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}

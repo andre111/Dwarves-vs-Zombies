@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>me.andre111</groupId>
+  <artifactId>DvZ</artifactId>
+  <version>1.7.1-SNAPSHOT</version>
+  <name>Dwarves vs Zombies</name>
+  <repositories>
+    <repository>
+      <id>bukkit-repo</id>
+      <url>http://repo.bukkit.org/content/groups/public/</url>
+    </repository>
+    <repository>
+      <id>comphenix-repo</id>
+      <name>Comphenix Repository</name>
+      <url>http://repo.comphenix.net/content/groups/public</url>
+    </repository>
+    <repository>
+      <id>disguisecraft-repo</id>
+      <name>Disguisecraft Repository</name>
+      <url>http://build.yu8.me:8080/plugin/repository/everything</url>
+    </repository>
+    <!-- LibsDisguises Repository -->
+    <repository>
+      <id>md-5-repo</id>
+      <name>md-5 Repository</name>
+      <url>http://repo.md-5.net/content/groups/public</url>
+    </repository>
+    <!-- Multiverse Core Repository -->
+    <repository>
+      <id>OnARandomBox</id>
+      <url>http://repo.onarandombox.com/content/groups/public</url>
+    </repository>
+  </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>org.bukkit</groupId>
+      <artifactId>bukkit</artifactId>
+      <version>1.7.2-R0.3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>org.bukkit</groupId>
+        <artifactId>craftbukkit</artifactId>
+        <version>1.7.2-R0.3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>com.comphenix.protocol</groupId>
+        <artifactId>ProtocolLib</artifactId>
+        <version>3.2.0</version>
+    </dependency>
+    <dependency>
+        <groupId>pgDev</groupId>
+        <artifactId>DisguiseCraft</artifactId>
+        <version>5.1</version>
+    </dependency>
+    <dependency>
+        <groupId>LibsDisguises</groupId>
+        <artifactId>LibsDisguises</artifactId>
+        <version>7.2.4</version>
+    </dependency>
+    <dependency>
+        <groupId>com.onarandombox.multiversecore</groupId>
+        <artifactId>Multiverse-Core</artifactId>
+        <version>2.5</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

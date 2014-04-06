@@ -28,8 +28,8 @@ public class DisguiseSystemHandler implements Listener {
 			if (Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
 			{
 				dsystem = SupportedDisguises.DISGUISECRAFT;
-			} else if (Bukkit.getPluginManager().isPluginEnabled("BeTheMob")) {
-				dsystem = SupportedDisguises.BETHEMOB;
+			//} else if (Bukkit.getPluginManager().isPluginEnabled("BeTheMob")) {
+			//	dsystem = SupportedDisguises.BETHEMOB;
 			} else if (Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
 				dsystem = SupportedDisguises.LIBSDISGUISES;
 			}
@@ -48,9 +48,9 @@ public class DisguiseSystemHandler implements Listener {
 		case DISGUISECRAFT:
 			disguisesystem = new DSystem_DisguiseCraft();
 			break;
-		case BETHEMOB:
-			disguisesystem = new DSystem_BeTheMob();
-			break;
+		//case BETHEMOB:
+		//	disguisesystem = new DSystem_BeTheMob();
+		//	break;
 		case LIBSDISGUISES:
 			disguisesystem = new DSystem_LibsDisguises();
 			break;
