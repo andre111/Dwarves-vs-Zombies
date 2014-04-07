@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.andre111</groupId>
   <artifactId>DvZ</artifactId>
-  <version>1.7.1-SNAPSHOT</version>
+  <version>1.7.1</version>
   <name>Dwarves vs Zombies</name>
   <repositories>
     <repository>
@@ -29,6 +29,11 @@
     <repository>
       <id>OnARandomBox</id>
       <url>http://repo.onarandombox.com/content/groups/public</url>
+    </repository>
+    <!-- Spellitems Repository -->
+    <repository>
+      <id>andre111-repo</id>
+      <url>https://www.dropbox.com/sh/3sywxnxbm82lmqg/b5DNrW2gFn</url>
     </repository>
   </repositories>
   <dependencies>
