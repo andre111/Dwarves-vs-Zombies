@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.bukkit.Bukkit;
+import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
+import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.items.ItemHandler;
+import me.andre111.items.SpellItems;
+import me.andre111.items.item.ItemSpell;
+
 import org.bukkit.Effect;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -13,12 +19,6 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
-
-import me.andre111.dvz.DvZ;
-import me.andre111.dvz.Game;
-import me.andre111.items.ItemHandler;
-import me.andre111.items.SpellItems;
-import me.andre111.items.item.ItemSpell;
 
 public class ItemPotions extends ItemSpell {
 	//0=dwarves, 1=monsters
@@ -35,7 +35,7 @@ public class ItemPotions extends ItemSpell {
 			LuaValue itemSN = args.arg(4);
 			
 			if(playerN.isstring() && targetN.isnumber() && radiusN.isnumber() && itemSN.isstring()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				int target = targetN.toint();
 				int radius = radiusN.toint();
 				ItemStack itemS = ItemHandler.decodeItem(itemSN.toString(), player);

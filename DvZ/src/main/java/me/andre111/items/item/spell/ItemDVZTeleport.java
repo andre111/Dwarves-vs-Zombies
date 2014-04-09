@@ -2,15 +2,15 @@ package me.andre111.items.item.spell;
 
 import java.util.Random;
 
-import org.bukkit.Bukkit;
+import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.items.SpellItems;
+import me.andre111.items.item.ItemSpell;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
-
-import me.andre111.items.SpellItems;
-import me.andre111.items.item.ItemSpell;
 
 public class ItemDVZTeleport extends ItemSpell {
 	/*private Location location = null;
@@ -30,7 +30,7 @@ public class ItemDVZTeleport extends ItemSpell {
 			
 			if(locN.isuserdata(Location.class) && playerN.isstring() && minDistanceN.isnumber() && maxDistanceN.isnumber()) {
 				Location loc = (Location) locN.touserdata(Location.class);
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				int minDistance = minDistanceN.toint();
 				int maxDistance = maxDistanceN.toint();
 				

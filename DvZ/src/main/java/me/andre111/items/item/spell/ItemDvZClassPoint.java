@@ -1,14 +1,14 @@
 package me.andre111.items.item.spell;
 
-import org.bukkit.Bukkit;
+import me.andre111.dvz.manager.HighscoreManager;
+import me.andre111.dvz.manager.PlayerScore;
+import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.items.SpellItems;
+import me.andre111.items.item.ItemSpell;
+
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
-
-import me.andre111.dvz.manager.HighscoreManager;
-import me.andre111.dvz.manager.PlayerScore;
-import me.andre111.items.SpellItems;
-import me.andre111.items.item.ItemSpell;
 
 public class ItemDvZClassPoint extends ItemSpell {
 	/*private String playername = "";
@@ -21,7 +21,7 @@ public class ItemDvZClassPoint extends ItemSpell {
 			LuaValue pointsN = args.arg(2);
 			
 			if(playerN.isstring() && pointsN.isnumber()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				int points = pointsN.toint();
 				
 				if(player!=null) {

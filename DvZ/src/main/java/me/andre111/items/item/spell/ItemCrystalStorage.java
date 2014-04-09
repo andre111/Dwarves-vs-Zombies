@@ -1,14 +1,14 @@
 package me.andre111.items.item.spell;
 
-import org.bukkit.Bukkit;
+import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
+import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.items.SpellItems;
+import me.andre111.items.item.ItemSpell;
+
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
-
-import me.andre111.dvz.DvZ;
-import me.andre111.dvz.Game;
-import me.andre111.items.SpellItems;
-import me.andre111.items.item.ItemSpell;
 
 public class ItemCrystalStorage extends ItemSpell {
 	/*private boolean global = false;*/
@@ -20,7 +20,7 @@ public class ItemCrystalStorage extends ItemSpell {
 			LuaValue globalN = args.arg(2);
 			
 			if(playerN.isstring() && globalN.isboolean()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				boolean global = globalN.toboolean();
 				
 				if(player!=null) {

@@ -861,7 +861,7 @@ public class Game {
 		//assasin
 		if(playerstate.get(player)==Game.assasinState) {
 			if(countdown.equals("assassin_time")) {
-				Player playern = Bukkit.getServer().getPlayerExact(player);
+				Player playern = PlayerHandler.getPlayerFromUUID(player);
 				if(playern!=null) {
 					playern.damage((double) 1000);
 					DvZ.sendPlayerMessageFormated(playern, ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
@@ -870,7 +870,7 @@ public class Game {
 		}
 		
 		if(countdown.equals("monster_invulnarability")) {
-			addMonsterMap(Bukkit.getPlayerExact(player));
+			addMonsterMap(PlayerHandler.getPlayerFromUUID(player));
 		}
 	}
 	

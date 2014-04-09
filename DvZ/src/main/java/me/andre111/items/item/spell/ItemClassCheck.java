@@ -1,14 +1,14 @@
 package me.andre111.items.item.spell;
 
-import org.bukkit.Bukkit;
+import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
+import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.items.SpellItems;
+import me.andre111.items.item.ItemSpell;
+
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
-
-import me.andre111.dvz.DvZ;
-import me.andre111.dvz.Game;
-import me.andre111.items.SpellItems;
-import me.andre111.items.item.ItemSpell;
 
 public class ItemClassCheck extends ItemSpell {
 	/*private String playername = "";
@@ -23,7 +23,7 @@ public class ItemClassCheck extends ItemSpell {
 			LuaValue classidN = args.arg(3);
 			
 			if(playerN.isstring() && typeN.isstring() && classidN.isnumber()) {
-				Player player = Bukkit.getPlayerExact(playerN.toString());
+				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				String type = typeN.toString();
 				int classid = classidN.toint();
 				
