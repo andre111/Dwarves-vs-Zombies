@@ -65,13 +65,13 @@ public class HighscoreManager {
 		}
 		
 		Scoreboard sb = playerScoreboard.get(player);
-			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_kills", "Kills"))).setScore(pscore.getKills());
-			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_deaths", "Deaths"))).setScore(pscore.getDeaths());
-			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_victories", "Victories"))).setScore(pscore.getVictories());
-			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_losses", "Losses"))).setScore(pscore.getLosses());
-			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_classpoints", "Class-Points"))).setScore(pscore.getClasspoints());
-			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_score", "Score"))).setScore(pscore.getCalculatedScore());
-			sb.getObjective("dvz_score").getScore(Bukkit.getOfflinePlayer(ConfigManager.getLanguage().getString("score_stats_rank", "Rank"))).setScore(getRank(pscore.getCalculatedScore()));
+			sb.getObjective("dvz_score").getScore(ConfigManager.getLanguage().getString("score_stats_kills", "Kills")).setScore(pscore.getKills());
+			sb.getObjective("dvz_score").getScore(ConfigManager.getLanguage().getString("score_stats_deaths", "Deaths")).setScore(pscore.getDeaths());
+			sb.getObjective("dvz_score").getScore(ConfigManager.getLanguage().getString("score_stats_victories", "Victories")).setScore(pscore.getVictories());
+			sb.getObjective("dvz_score").getScore(ConfigManager.getLanguage().getString("score_stats_losses", "Losses")).setScore(pscore.getLosses());
+			sb.getObjective("dvz_score").getScore(ConfigManager.getLanguage().getString("score_stats_classpoints", "Class-Points")).setScore(pscore.getClasspoints());
+			sb.getObjective("dvz_score").getScore(ConfigManager.getLanguage().getString("score_stats_score", "Score")).setScore(pscore.getCalculatedScore());
+			sb.getObjective("dvz_score").getScore(ConfigManager.getLanguage().getString("score_stats_rank", "Rank")).setScore(getRank(pscore.getCalculatedScore()));
 		return sb;
 	}
 	private static int getRank(int score) {

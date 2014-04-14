@@ -236,7 +236,7 @@ public class Game {
 		int type = ConfigManager.getStaticConfig().getInt("game"+plugin.getGameID(this), 1);
 		this.gameType = GameType.fromID(type).getNextType(this.gameType);
 		
-		String[] players = playerstate.keySet().toArray(new String[playerstate.keySet().size()]);
+		UUID[] players = playerstate.keySet().toArray(new UUID[playerstate.keySet().size()]);
 		playerstate.clear();
 		votes.clear();
 		maxVote = -1;
@@ -270,8 +270,8 @@ public class Game {
 		
 		//rejoin
 		if(plugin.getConfig().getString("auto_rejoin", "false").equals("true")) {
-			for(String playern : players) {
-				Player player = Bukkit.getServer().getPlayerExact(playern);
+			for(UUID playern : players) {
+				Player player = Bukkit.getServer().getPlayer(playern);
 				
 				if(player!=null) {
 					plugin.joinGame(player, this);
@@ -1622,8 +1622,8 @@ public class Game {
 				public void run() {
 					if(ii>=rplayers.length) this.cancel();
 					
-					String playern = (String) rplayers[ii];
-					Player player = Bukkit.getServer().getPlayerExact(playern);
+					UUID playern = (UUID) rplayers[ii];
+					Player player = Bukkit.getServer().getPlayer(playern);
 					
 					if (player!=null && w!=null) {
 						player.teleport(w.getSpawnLocation());
@@ -1636,8 +1636,8 @@ public class Game {
 		} else {
 			//instant teleportation
 			for(int i=0; i<rplayers.length; i++) {
-				String playern = (String) rplayers[i];
-				Player player = Bukkit.getServer().getPlayerExact(playern);
+				UUID playern = (UUID) rplayers[i];
+				Player player = Bukkit.getServer().getPlayer(playern);
 				
 				if (player!=null && w!=null) {
 					player.teleport(w.getSpawnLocation());
@@ -1652,8 +1652,8 @@ public class Game {
 	public void broadcastMessage(String message) {
 		Object[] rplayers = playerstate.keySet().toArray();
 		for(int i=0; i<rplayers.length; i++) {
-			String playern = (String) rplayers[i];
-			Player player = Bukkit.getServer().getPlayerExact(playern);
+			UUID playern = (UUID) rplayers[i];
+			Player player = Bukkit.getServer().getPlayer(playern);
 			
 			if(player!=null) {
 				DvZ.sendPlayerMessageFormated(player, message);
