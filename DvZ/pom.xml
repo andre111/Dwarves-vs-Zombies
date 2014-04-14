@@ -60,7 +60,7 @@
     <dependency>
         <groupId>LibsDisguises</groupId>
         <artifactId>LibsDisguises</artifactId>
-        <version>8.0.8-SNAPSHOT</version>
+        <version>8.0.9-SNAPSHOT</version>
     </dependency>
     <dependency>
         <groupId>com.onarandombox.multiversecore</groupId>
