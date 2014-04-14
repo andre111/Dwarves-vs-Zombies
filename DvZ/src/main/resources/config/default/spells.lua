@@ -16,7 +16,7 @@ end
 
 function internDiamond(player, target, block, location)
     if(spell.ItemArmorCheck(target, false)) then
-        spell.ItemArmorSet(target, "310 1", "311 1", "312 1", "313 1")
+        spell.ItemArmorSet(target, "!minecraft:diamond_helmet 0 1", "!minecraft:diamond_chestplate 0 1", "!minecraft:diamond_leggings 0 1", "!minecraft:diamond_boots 0 1")
         
         return true
     end
@@ -38,7 +38,7 @@ function internConcrete(player, target, block, location)
 end
 
 function internDwarfBow(player, target, block, location)
-    spell.ItemGetItem(player, "262 5", 1)
+    spell.ItemGetItem(player, "!minecraft:arrow 0 5", 1)
     spell.ItemSetDamage(player, 0)
 
     return true
@@ -53,7 +53,7 @@ end
 --Transmute Books
 function internBuilderBook(player, target, block, location)
     if(spell.ItemClassCheck(player, "dwarf", 0)) then
-        spell.ItemTransmute(player, 0, 0, 0, "", false, "98 64 40", "98:1 64 40", "98:2 64 40", "4 64 40")
+        spell.ItemTransmute(player, 0, 0, 0, "", false, "!minecraft:stonebrick 0 64 40", "!minecraft:stonebrick 1 64 40", "!minecraft:stonebrick 2 64 40", "!minecraft:cobblestone 0 64 40")
         
         dwarfGetExperience(player, 3)
         return true
@@ -64,7 +64,7 @@ end
 
 function internAlchemyBook(player, target, block, location)
     if(spell.ItemClassCheck(player, "dwarf", 1)) then
-        if(spell.ItemTransmute(player, 373, 64, 3, "lang:string_default_alchemy_fail", false, "352 9", "373:8421 1 20", "373:8421 1 20", "373:8421 1 20", "373:8421 1 20", "373:11449 1 20", "373:16274 1 20", "373:16310 1 20", "335 5 20", "354 5 20", "373:8259 1 5")) then
+        if(spell.ItemTransmute(player, 373, 64, 3, "lang:string_default_alchemy_fail", false, "!minecraft:bone 0 9", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 11449 1 20", "373 16274 1 20", "!minecraft:potion 16310 1 20", "!minecraft:milk_bucket 0 5 20", "!minecraft:cake 0 5 20", "!minecraft:potion 8259 1 5")) then
             dwarfSpecialClassSuccess(player)
             return true
         end
@@ -75,7 +75,7 @@ end
 
 function internBlacksmithBook(player, target, block, location)
     if(spell.ItemClassCheck(player, "dwarf", 2)) then
-        if(spell.ItemTransmute(player, 347, 0, 3, "lang:string_default_blacksmith_fail", false, "263 10", "74 8", "276 1 45", "267 1 45", "279 1 45", "287 3 45", "288 32 50", "318 32 50")) then
+        if(spell.ItemTransmute(player, 347, 0, 3, "lang:string_default_blacksmith_fail", false, "!minecraft:coal 0 10", "!minecraft:redstone_ore 0 8", "!minecraft:diamond_sword 0 1 45", "!minecraft:iron_sword 0 1 45", "!minecraft:diamond_axe 0 1 45", "!minecraft:string 0 3 45", "!minecraft:feather 0 32 50", "!minecraft:flint 0 32 50")) then
             dwarfSpecialClassSuccess(player)
             return true
         end
@@ -86,7 +86,7 @@ end
 
 function internTailorBook(player, target, block, location)
     if(spell.ItemClassCheck(player, "dwarf", 3)) then
-        if(spell.ItemTransmute(player, 297, 0, 3, "lang:string_default_tailor_fail", false, "14 1", "310 1:2 40", "311 1:2 40", "312 1:2 40", "313 1:2 40")) then
+        if(spell.ItemTransmute(player, 297, 0, 3, "lang:string_default_tailor_fail", false, "!minecraft:gold_ore 0 1", "!minecraft:diamond_helmet 0 1:2 40", "!minecraft:diamond_chestplate 0 1:2 40", "!minecraft:diamond_leggings 0 1:2 40", "!minecraft:diamond_boots 0 1:2 40")) then
             dwarfSpecialClassSuccess(player)
             return true
         end
@@ -156,7 +156,7 @@ function internIronGolemLeap(player, target, block, location)
 end
 
 function internSnowGolemGet(player, target, block, location)
-    spell.ItemGetItem(player, "internSnowGolemBall 8:16", 20)
+    spell.ItemGetItem(player, "!spellitems:internSnowGolemBall 0 8:16", 20)
     
     return true
 end
@@ -194,7 +194,7 @@ function internEndermanPortal(player, target, block, location)
 
     if(success) then
         if(spell.ItemPortal(player, pPos)) then
-            spell.ItemGetItem(player, "internEndermanReinforcePortal", 1)
+            spell.ItemGetItem(player, "!spellitems:internEndermanReinforcePortal", 1)
             return true
         end
     end
@@ -245,11 +245,11 @@ end
 
 --Reward Items
 function rewardPoint(player, target, block, location)
-    spell.ItemGetItem(player, "261 1 10 poisonous:0,-10:0 Bow of ...", 1)
-    spell.ItemGetItem(player, "332 32 10 freezing:0,-10:0 Freezing Snowballs", 1)
-    spell.ItemGetItem(player, "lightningsword 1 10 -10:0", 1)
-    spell.ItemGetItem(player, "potionpie 4 10", 1)
-    spell.ItemGetItem(player, "369 1 10 20:1 Fire Rod", 1)
+    spell.ItemGetItem(player, "!minecraft:bow 0 1 10 poisonous:0,-10:0 Bow of ...", 1)
+    spell.ItemGetItem(player, "!minecraft:snowball 0 32 10 freezing:0,-10:0 Freezing Snowballs", 1)
+    spell.ItemGetItem(player, "!spellitems:lightningsword 0 1 10 -10:0", 1)
+    spell.ItemGetItem(player, "!spellitems:potionpie 0 4 10", 1)
+    spell.ItemGetItem(player, "!minecraft:blaze_rod 0 1 10 20:1 Fire Rod", 1)
     
     return true
 end
