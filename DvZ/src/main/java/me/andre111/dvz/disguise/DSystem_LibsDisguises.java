@@ -58,8 +58,9 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 	}
 	@Override
 	public void disguiseP(Player player, String disguise) {
-		EntityType et = EntityType.fromName(disguise);
-		if(et==null) et = EntityType.valueOf(disguise);
+		//EntityType et = EntityType.fromName(disguise);
+		//if(et==null) et = EntityType.valueOf(disguise);
+		EntityType et = EntityType.valueOf(disguise);
 		if(et==null) {
 			DvZ.log("Unknown Entity-Disguise: "+disguise);
 			return;

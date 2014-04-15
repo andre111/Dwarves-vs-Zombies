@@ -54,11 +54,11 @@ public class PlayerHandler {
 		return target;
 	}
 	
-	public static boolean hasHigherPotionEffect(Player player, int id, int level) {
-		if(player.hasPotionEffect(PotionEffectType.getById(id))) {
+	public static boolean hasHigherPotionEffect(Player player, PotionEffectType type, int level) {
+		if(player.hasPotionEffect(type)) {
 			PotionEffect[] effects = (PotionEffect[]) player.getActivePotionEffects().toArray(new PotionEffect[player.getActivePotionEffects().size()]);
 			for(int i=0; i<effects.length; i++) {
-				if(effects[i].getType()==PotionEffectType.getById(id)) {
+				if(effects[i].getType()==type) {
 					if(effects[i].getAmplifier()>level) {
 						return true;
 					}

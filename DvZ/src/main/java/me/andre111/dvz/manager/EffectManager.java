@@ -53,16 +53,16 @@ public class EffectManager {
 		}
 		
 		for(int i=0; i<effects.length; i++) {
-			int effect = effects[i][0];
+			PotionEffectType effect = PotionEffectType.getById(effects[i][0]);
 			int level = effects[i][1];
 			
-			if(effect!=-1) {
+			if(effect!=null) {
 				addMonsterEffect(game, effect, level);
 			}
 		}
 	}
 	
-	private void addMonsterEffect(Game game, int id, int level) {
+	private void addMonsterEffect(Game game, PotionEffectType id, int level) {
 		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
 			
@@ -71,7 +71,7 @@ public class EffectManager {
 				
 				if(player!=null) {
 					if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
-						player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), 3*20, level), true);
+						player.addPotionEffect(new PotionEffect(id, 3*20, level), true);
 					}
 				}
 			}
@@ -89,20 +89,20 @@ public class EffectManager {
 
 					//above
 					for(int i=light-1; i>=0; i--) {
-						int id = effectDwarfAbove[i][0];
+						PotionEffectType effect = PotionEffectType.getById(effectDwarfAbove[i][0]);
 						int level = effectDwarfAbove[i][1];
-						if(id!=-1)
-						if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
-							player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), 3*20, level), true);
+						if(effect!=null)
+						if(!PlayerHandler.hasHigherPotionEffect(player, effect, level)) {
+							player.addPotionEffect(new PotionEffect(effect, 3*20, level), true);
 						}
 					}
 					//below
 					for(int i=light+1; i<16; i++) {
-						int id = effectDwarfBelow[i][0];
+						PotionEffectType effect = PotionEffectType.getById(effectDwarfBelow[i][0]);
 						int level = effectDwarfBelow[i][1];
-						if(id!=-1)
-						if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
-							player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), 3*20, level), true);
+						if(effect!=null)
+						if(!PlayerHandler.hasHigherPotionEffect(player, effect, level)) {
+							player.addPotionEffect(new PotionEffect(effect, 3*20, level), true);
 						}
 					}
 				}

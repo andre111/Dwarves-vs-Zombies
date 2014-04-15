@@ -13,6 +13,7 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.ManaManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -26,7 +27,7 @@ public class CustomMonster {
 	private String prefix;
 	private String suffix;
 	private String disguise;
-	private int classItem;
+	private Material classItem;
 	private int classItemDamage;
 	private int classChance;
 	private String[] items;
@@ -161,10 +162,10 @@ public class CustomMonster {
 	public void setDisguise(String disguise) {
 		this.disguise = disguise;
 	}
-	public int getClassItem() {
+	public Material getClassItem() {
 		return classItem;
 	}
-	public void setClassItem(int classItem) {
+	public void setClassItem(Material classItem) {
 		this.classItem = classItem;
 	}
 	public int getClassItemDamage() {

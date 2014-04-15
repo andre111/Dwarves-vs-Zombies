@@ -7,6 +7,7 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.permissions.Permission;
@@ -48,7 +49,9 @@ public class MonsterManager {
 		monTemp.setDisguise(ConfigManager.getMonsterFile().getString("monsters."+mo+".disguise", ""));
 		monTemp.setPrefix(ConfigManager.getMonsterFile().getString("monsters."+mo+".chatPrefix", ""));
 		monTemp.setSuffix(ConfigManager.getMonsterFile().getString("monsters."+mo+".chatSuffix", ""));
-		monTemp.setClassItem(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classItem", 0));
+		
+		Material mat = Material.getMaterial(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classItem", 0));
+		monTemp.setClassItem(mat);
 		monTemp.setClassItemDamage(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classItemDamage", 0));
 		monTemp.setClassChance(ConfigManager.getMonsterFile().getInt("monsters."+mo+".classChance", 100));
 		//items

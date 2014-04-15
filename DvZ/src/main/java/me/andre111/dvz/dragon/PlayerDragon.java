@@ -1,5 +1,7 @@
 package me.andre111.dvz.dragon;
 
+import java.util.UUID;
+
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
 
@@ -12,18 +14,18 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class PlayerDragon implements Dragon {
-	private String player;
+	private UUID player;
 	
 	private int dID;
 	private int mana;
 	
 	public PlayerDragon(Player pl) {
-		this.player = pl.getName();
+		this.player = pl.getUniqueId();
 	}
 
 	@Override
 	public Entity getEntity() {
-		return Bukkit.getServer().getPlayerExact(player);
+		return Bukkit.getServer().getPlayer(player);
 	}
 
 	@Override
@@ -71,7 +73,7 @@ public class PlayerDragon implements Dragon {
 	}
 
 	private Player getPlayer() {
-		return Bukkit.getServer().getPlayerExact(player);
+		return Bukkit.getServer().getPlayer(player);
 	}
 
 	public void playerRC(ItemStack item, Block block) {

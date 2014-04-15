@@ -3,7 +3,6 @@ package me.andre111.dvz.dragon;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.utils.Animation;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
@@ -53,8 +52,8 @@ public class ControlledDragon implements Dragon {
 			Location target = position.clone();
 			
 			//target.add(1, 0, 1);
-			target = Bukkit.getServer().getPlayerExact("andre111").getLocation();
-			target.add(0, 6, 0);
+			//target = Bukkit.getServer().getPlayerExact("andre111").getLocation();
+			//target.add(0, 6, 0);
 			
 			move(oldpos, target);
 			

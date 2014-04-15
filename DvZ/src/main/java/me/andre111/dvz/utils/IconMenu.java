@@ -3,6 +3,7 @@ package me.andre111.dvz.utils;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -93,7 +94,7 @@ public class IconMenu {
 			if(optionNames!=null)
 			if (slot >= 0 && slot < size && optionNames[slot] != null) {
 				Plugin plugin = this.plugin;
-				OptionClickEvent e = new OptionClickEvent((Player)event.getWhoClicked(), slot, optionNames[slot], event.getCurrentItem().getTypeId(), event.getCurrentItem().getDurability());
+				OptionClickEvent e = new OptionClickEvent((Player)event.getWhoClicked(), slot, optionNames[slot], event.getCurrentItem().getType(), event.getCurrentItem().getDurability());
 				handler.onOptionClick(e);
 				if (e.willClose()) {
 					final Player p = (Player)event.getWhoClicked();
@@ -122,16 +123,16 @@ public class IconMenu {
 		private String name;
 		private boolean close;
 		private boolean destroy;
-		private int itemID;
+		private Material item;
 		private int itemDamage;
 		
-		public OptionClickEvent(Player player, int position, String name, int itemID, int itemDamage) {
+		public OptionClickEvent(Player player, int position, String name, Material itemID, int itemDamage) {
 			this.player = player;
 			this.position = position;
 			this.name = name;
 			this.close = false;
 			this.destroy = false;
-			this.itemID = itemID;
+			this.item = itemID;
 			this.itemDamage = itemDamage;
 		}
 
@@ -163,8 +164,8 @@ public class IconMenu {
 			this.destroy = destroy;
 		}
 		
-		public int getItemID() {
-			return itemID;
+		public Material getItem() {
+			return item;
 		}
 		
 		public int getItemDamage() {

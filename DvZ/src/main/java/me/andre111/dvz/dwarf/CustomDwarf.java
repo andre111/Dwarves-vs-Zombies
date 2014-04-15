@@ -13,6 +13,7 @@ import me.andre111.items.ItemHandler;
 import me.andre111.items.ManaManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ public class CustomDwarf {
 	private String name;
 	private String prefix;
 	private String suffix;
-	private int classItem;
+	private Material classItem;
 	private int classItemDamage;
 	private int classChance;
 	private String[] items;
@@ -171,7 +172,7 @@ public class CustomDwarf {
 
 					//substract item
 					if(item.getAmount()-1<=0)
-						item.setTypeId(0);
+						item.setType(Material.AIR);
 					else
 						item.setAmount(item.getAmount()-1);
 
@@ -232,7 +233,7 @@ public class CustomDwarf {
 						
 						//substract item
 						if(item.getAmount()-1<=0)
-							item.setTypeId(0);
+							item.setType(Material.AIR);
 						else
 							item.setAmount(item.getAmount()-1);
 						inv.setItem(i, item);
@@ -280,10 +281,10 @@ public class CustomDwarf {
 	public void setSuffix(String suffix) {
 		this.suffix = suffix;
 	}
-	public int getClassItem() {
+	public Material getClassItem() {
 		return classItem;
 	}
-	public void setClassItem(int classItem) {
+	public void setClassItem(Material classItem) {
 		this.classItem = classItem;
 	}
 	public int getClassItemDamage() {

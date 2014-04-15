@@ -929,7 +929,7 @@ public class Game {
 	            	}
 	            	
 	            	boolean dwarf = false;
-	            	int itemId = event.getItemID();
+	            	Material itemId = event.getItem();
 	            	int itemD = event.getItemDamage();
 	            	final Player player = event.getPlayer();
 	    			
@@ -1042,7 +1042,7 @@ public class Game {
 	            	}
 	            	
 	            	boolean monster = false;
-	            	int itemId = event.getItemID();
+	            	Material itemId = event.getItem();
 	            	int itemD = event.getItemDamage();
 	            	final Player player = event.getPlayer();
 	            	
@@ -1119,7 +1119,7 @@ public class Game {
 	public void playerRC(PlayerInteractEvent event, Player player, ItemStack item, Block block) {
 		if(!isPlayer(player.getUniqueId())) return;
 		if(item==null) return;
-		int itemId = item.getTypeId();
+		Material itemId = item.getType();
 		int itemD = item.getDurability();
 		UUID puuid = player.getUniqueId();
 		
@@ -1195,10 +1195,10 @@ public class Game {
 			}
 		}
 		
-		if(isDwarf(puuid, true) && itemId==121) Spellcontroller.spellDisablePortal(this, player);
+		if(isDwarf(puuid, true) && itemId==Material.ENDER_STONE) Spellcontroller.spellDisablePortal(this, player);
 		
 		//Monster
-		if(isMonster(puuid) && itemId==358) Spellcontroller.spellTeleport(this, player);
+		if(isMonster(puuid) && itemId==Material.MAP) Spellcontroller.spellTeleport(this, player);
 		
 		//dragon
 		if(dragon!=null) {
@@ -1229,7 +1229,7 @@ public class Game {
 	public void playerLC(Player player, ItemStack item, Block block) {
 		if(!isPlayer(player.getUniqueId())) return;
 		if(item==null) return;
-		int itemId = item.getTypeId();
+		Material itemMat = item.getType();
 		UUID puuid = player.getUniqueId();
 		
 		//disable clicking when monsters are not released
@@ -1237,7 +1237,7 @@ public class Game {
 			return;
 		}
 		
-		if(itemId == 373 && isDwarf(puuid, true)) {
+		if(itemMat == Material.POTION && isDwarf(puuid, true)) {
 			//changed from old hacky potionhandler to new bukkit functionallity
 			if(ExperienceUtils.getCurrentExp(player)>=plugin.getConfig().getInt("dwarf_potion_exp", 2)) {
 				ExperienceUtils.changeExp(player, -plugin.getConfig().getInt("dwarf_potion_exp", 2));

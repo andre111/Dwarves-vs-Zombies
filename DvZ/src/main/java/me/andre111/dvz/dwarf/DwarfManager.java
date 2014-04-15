@@ -8,6 +8,7 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.permissions.Permission;
@@ -48,7 +49,9 @@ public class DwarfManager {
 		dwTemp.setName(ConfigManager.getClassFile().getString("dwarves."+dw+".name", ""));
 		dwTemp.setPrefix(ConfigManager.getClassFile().getString("dwarves."+dw+".chatPrefix", ""));
 		dwTemp.setSuffix(ConfigManager.getClassFile().getString("dwarves."+dw+".chatSuffix", ""));
-		dwTemp.setClassItem(ConfigManager.getClassFile().getInt("dwarves."+dw+".classItem", 0));
+		
+		Material mat = Material.getMaterial(ConfigManager.getClassFile().getInt("dwarves."+dw+".classItem", 0));
+		dwTemp.setClassItem(mat);
 		dwTemp.setClassItemDamage(ConfigManager.getClassFile().getInt("dwarves."+dw+".classItemDamage", 0));
 		dwTemp.setClassChance(ConfigManager.getClassFile().getInt("dwarves."+dw+".classChance", 100));
 		//items

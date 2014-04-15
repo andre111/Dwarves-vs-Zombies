@@ -8,6 +8,7 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Language;
 import me.andre111.dvz.utils.FileHandler;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -125,7 +126,9 @@ public class ConfigManager {
 		}
 	}
 	
-	public static boolean isCraftDisabled(int id, int gameType) {
+	public static boolean isCraftDisabled(Material mat, int gameType) {
+		int id = mat.getId();
+		
 		if (gameType==1)
 			return disabledCrafts.contains(id);
 		else if (gameType==2)

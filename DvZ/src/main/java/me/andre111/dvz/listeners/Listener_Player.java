@@ -459,9 +459,8 @@ public class Listener_Player implements Listener  {
 		
 		if(game != null) {
 			ItemStack result = event.getRecipe().getResult();
-			int id = result.getTypeId();
 			
-			if(ConfigManager.isCraftDisabled(id, game.getGameType())) {
+			if(ConfigManager.isCraftDisabled(result.getType(), game.getGameType())) {
 				event.getInventory().setResult(new ItemStack(Material.AIR));
 			}
 		}
@@ -481,9 +480,8 @@ public class Listener_Player implements Listener  {
 		
 		if(game != null) {
 			ItemStack result = event.getRecipe().getResult();
-			int id = result.getTypeId();
 			
-			if(ConfigManager.isCraftDisabled(id, game.getGameType())) {
+			if(ConfigManager.isCraftDisabled(result.getType(), game.getGameType())) {
 				event.setCancelled(true);
 			}
 		}
