@@ -1491,8 +1491,8 @@ public class Game {
 		
 		Object[] rplayers = playerstate.keySet().toArray();
 		for(int i=0; i<rplayers.length; i++) {
-			String playern = (String) rplayers[i];
-			Player player = Bukkit.getServer().getPlayerExact(playern);
+			UUID playern = (UUID) rplayers[i];
+			Player player = Bukkit.getServer().getPlayer(playern);
 
 			if(player!=null) {
 				waitm.release(player);
