@@ -7,7 +7,7 @@ import me.andre111.dvz.DvZ;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-import com.comphenix.protocol.Packets;
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
@@ -24,7 +24,7 @@ public abstract class DvZPackets {
 	
 	//Maxhealth: 200
 	public static void sendBossbar(Player player, double currentHealth, String name) {
-		PacketContainer pc = new PacketContainer(Packets.Server.MOB_SPAWN);
+		PacketContainer pc = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
 		
 		pc.getIntegers().
 		write(0, D_ENTITY_ID).

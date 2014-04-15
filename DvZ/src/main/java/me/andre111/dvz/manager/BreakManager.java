@@ -8,7 +8,7 @@ import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import com.comphenix.protocol.Packets;
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
 public class BreakManager {
@@ -39,7 +39,7 @@ public class BreakManager {
 	}
 	
 	private static void sendToPlayer(Player player, Location loc, byte data) {
-		PacketContainer fakeXPChange = DvZ.protocolManager.createPacket(Packets.Server.BLOCK_BREAK_ANIMATION);
+		PacketContainer fakeXPChange = DvZ.protocolManager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
 		
 		fakeXPChange.getIntegers().
 			write(0, DisguiseSystemHandler.newEntityID()).

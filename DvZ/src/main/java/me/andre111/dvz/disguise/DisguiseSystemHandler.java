@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.comphenix.protocol.events.ConnectionSide;
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
@@ -90,11 +90,11 @@ public class DisguiseSystemHandler implements Listener {
 	//Interact with invalid stuff listener
 	public static void setupInteractListener() {
 		DvZ.protocolManager.addPacketListener(new PacketAdapter(DvZ.instance,
-			ConnectionSide.CLIENT_SIDE, ListenerPriority.NORMAL, 0x07) {
+		ListenerPriority.NORMAL, PacketType.Play.Client.USE_ENTITY) {
 			    @Override
 			    public void onPacketReceiving(PacketEvent event) {
 			    	final Player player = event.getPlayer();
-			        if (event.getPacketID() == 0x07) {
+			        //if (event.getPacketID() == 0x07) {
 			            try {
 			            	PacketContainer packet = event.getPacket();
 
@@ -122,7 +122,7 @@ public class DisguiseSystemHandler implements Listener {
 			            } catch (FieldAccessException e) {
 			                DvZ.log("Couldn't access a field in an 0x07-UseEntity packet!");
 			            }
-			        }
+			        //}
 			    }
 		});
 		

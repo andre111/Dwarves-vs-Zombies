@@ -15,7 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.comphenix.protocol.Packets;
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
@@ -159,7 +159,7 @@ public class Item3DHandler {
 			return;
 		}
 		
-		PacketContainer newPacket = new PacketContainer(24);
+		PacketContainer newPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
 
 		//entitiy id
 		newPacket.getIntegers().
@@ -182,7 +182,7 @@ public class Item3DHandler {
 		write(0, zombieW);
 		
 		//equipment
-		PacketContainer ePacket = new PacketContainer(Packets.Server.ENTITY_EQUIPMENT);
+		PacketContainer ePacket = new PacketContainer(PacketType.Play.Server.ENTITY_EQUIPMENT);
 		
 		ePacket.getIntegers().
 		write(0, entityID);
@@ -199,7 +199,7 @@ public class Item3DHandler {
 	}
 	
 	private void sendRemovePacket(Player p, int eid) {
-		PacketContainer newPacket = new PacketContainer(Packets.Server.ENTITY_STATUS);
+		PacketContainer newPacket = new PacketContainer(PacketType.Play.Server.ENTITY_STATUS);
 	
 		//entitiy id
 		newPacket.getIntegers().
@@ -210,7 +210,7 @@ public class Item3DHandler {
 		
 		
 		//teleport out of sight
-		PacketContainer tPacket = new PacketContainer(Packets.Server.ENTITY_TELEPORT);
+		PacketContainer tPacket = new PacketContainer(PacketType.Play.Server.ENTITY_TELEPORT);
 		
 		//entitiy id
 		tPacket.getIntegers().
