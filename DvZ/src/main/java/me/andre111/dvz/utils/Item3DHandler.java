@@ -1,24 +1,15 @@
 package me.andre111.dvz.utils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
+import me.andre111.dvz.volatileCode.DvZPackets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public class Item3DHandler {
 	private ArrayList<Integer> entityIDs;
@@ -28,8 +19,6 @@ public class Item3DHandler {
 	
 	private int standCounter;
 	
-	private WrappedDataWatcher zombieWatcher;
-	
 	public Item3DHandler(DvZ plugin) {
 		entityIDs = new ArrayList<Integer>();
 		entityInfo = new HashMap<Integer, Item3DInfo>();
@@ -37,8 +26,6 @@ public class Item3DHandler {
 		actions = new HashMap<Integer, Item3DRunnable>();
 		
 		standCounter = 0;
-		
-		zombieWatcher = getDefaultWatcher(Bukkit.getServer().getWorlds().get(0), EntityType.ZOMBIE);
 	}
 	
 	//Spawn a clickable "3d-Item" around the block
@@ -123,7 +110,7 @@ public class Item3DHandler {
 	public void removeAll() {
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			for(Integer eid : entityIDs) {
-				sendRemovePacket(p, eid);
+				DvZPackets.sendFakeZombieRemove(p, eid);
 			}
 		}
 	}
@@ -144,95 +131,12 @@ public class Item3DHandler {
 		info.setItemID(itemID);
 		entityInfo.put(eid, info);
 		
-		sendPacket(p, world, x, y, z, rotation, eid, itemID);
+		DvZPackets.sendFakeZombieSpawn(p, world, x, y, z, rotation, eid, itemID);
 	}
 	
 	//respawn an old zombie
 	private void spawnOldZombie(Player p, String world, int x, int y, int z, byte rotation, int itemID, int eid, int stand) {
-		sendPacket(p, world, x, y, z, rotation, eid, itemID);
-	}
-
-	//Spawn a zombie
-	private void sendPacket(Player p, String world, int x, int y, int z, byte rotation, int entityID, int itemID) {
-		//world check
-		if(p==null || !p.getWorld().getName().equals(world)) {
-			return;
-		}
-		
-		PacketContainer newPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
-
-		//entitiy id
-		newPacket.getIntegers().
-		write(0, entityID).
-		write(1, (int) EntityType.ZOMBIE.getTypeId()).
-		//position
-		write(2, (int) x).
-		write(3, (int) y).
-		write(4, (int) z);
-		
-		//rotation
-		newPacket.getBytes().
-		write(2, rotation);
-
-		//invisibility
-		WrappedDataWatcher zombieW = zombieWatcher.deepClone();
-		zombieW.setObject(0, (byte) 0x20);
-		
-		newPacket.getDataWatcherModifier().
-		write(0, zombieW);
-		
-		//equipment
-		PacketContainer ePacket = new PacketContainer(PacketType.Play.Server.ENTITY_EQUIPMENT);
-		
-		ePacket.getIntegers().
-		write(0, entityID);
-		
-		ePacket.getItemModifier().
-		write(0, new ItemStack(itemID));
-
-		try {
-			ProtocolLibrary.getProtocolManager().sendServerPacket(p, newPacket);
-			ProtocolLibrary.getProtocolManager().sendServerPacket(p, ePacket);
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void sendRemovePacket(Player p, int eid) {
-		PacketContainer newPacket = new PacketContainer(PacketType.Play.Server.ENTITY_STATUS);
-	
-		//entitiy id
-		newPacket.getIntegers().
-		write(0, eid);
-		
-		newPacket.getBytes().
-		write(0, (byte) 3);
-		
-		
-		//teleport out of sight
-		PacketContainer tPacket = new PacketContainer(PacketType.Play.Server.ENTITY_TELEPORT);
-		
-		//entitiy id
-		tPacket.getIntegers().
-		write(0, eid).
-		write(1, 0).
-		write(2, 1000*32).
-		write(3, 0);
-		
-		try {
-			ProtocolLibrary.getProtocolManager().sendServerPacket(p, tPacket);
-			ProtocolLibrary.getProtocolManager().sendServerPacket(p, newPacket);
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public WrappedDataWatcher getDefaultWatcher(World world, EntityType type) {
-		Entity entity = world.spawnEntity(new Location(world, 0, 256, 0), type);
-		WrappedDataWatcher watcher = WrappedDataWatcher.getEntityWatcher(entity).deepClone();
-
-		entity.remove();
-		return watcher;
+		DvZPackets.sendFakeZombieSpawn(p, world, x, y, z, rotation, eid, itemID);
 	}
 	
 	//runnable class

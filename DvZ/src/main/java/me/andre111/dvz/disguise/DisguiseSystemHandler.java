@@ -3,20 +3,13 @@ package me.andre111.dvz.disguise;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.event.DvZInvalidInteractEvent;
+import me.andre111.dvz.volatileCode.DvZPackets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.reflect.FieldAccessException;
 
 public class DisguiseSystemHandler implements Listener {
 	private static SupportedDisguises dsystem = SupportedDisguises.NOONE;
@@ -89,44 +82,9 @@ public class DisguiseSystemHandler implements Listener {
 	
 	//Interact with invalid stuff listener
 	public static void setupInteractListener() {
-		DvZ.protocolManager.addPacketListener(new PacketAdapter(DvZ.instance,
-		ListenerPriority.NORMAL, PacketType.Play.Client.USE_ENTITY) {
-			    @Override
-			    public void onPacketReceiving(PacketEvent event) {
-			    	final Player player = event.getPlayer();
-			        //if (event.getPacketID() == 0x07) {
-			            try {
-			            	PacketContainer packet = event.getPacket();
-
-			            	final int target = packet.getIntegers().read(0);
-			            	//TODO - somehow read action(Now an enum - grrr!)
-			            	final int action = 0;//(Integer) packet.getModifier().read(1);
-			                //int target = packet.getSpecificModifier(int.class).read(1);
-			                //int action = packet.getSpecificModifier(byte.class).read(1);
-			                
-			            	Bukkit.getScheduler().runTask(DvZ.instance, new Runnable() {
-			            		public void run() {
-				            		boolean found = false;
-					                for(Entity e : player.getWorld().getEntities()) {
-					                	if(e.getEntityId()==target) {
-					                		found = true;
-					                		break;
-					                	}
-					                }
-					                if (!found) {
-					                	DvZInvalidInteractEvent newEvent = new DvZInvalidInteractEvent(player, target, action);
-					                    plugin.getServer().getPluginManager().callEvent(newEvent);
-					                }
-			            		}
-			            	});
-			            } catch (FieldAccessException e) {
-			                DvZ.log("Couldn't access a field in an 0x07-UseEntity packet!");
-			            }
-			        //}
-			    }
-		});
+		DvZPackets.setupInvalidEntityInteractListener();
 		
-		DvZ.instance.getServer().getPluginManager().registerEvents(new DisguiseSystemHandler(), DvZ.instance);
+		Bukkit.getPluginManager().registerEvents(new DisguiseSystemHandler(), DvZ.instance);
 	}
 	
 	//rightclicking invalidstuffs
