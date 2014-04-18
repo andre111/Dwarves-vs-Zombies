@@ -456,7 +456,7 @@ public class Game {
 		if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
 			for(UUID st : playerstate.keySet()) {
 				Player player = PlayerHandler.getPlayerFromUUID(st);
-				if(player.isValid()) {
+				if(player!=null && player.isValid()) {
 					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getUniqueId()));
 				}
 			}
