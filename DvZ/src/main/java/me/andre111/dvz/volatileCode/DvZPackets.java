@@ -35,7 +35,7 @@ public abstract class DvZPackets {
 	}
 
 	//Maxhealth: 200
-	public static void sendBossbar(Player player, double currentHealth, String name) {
+	private static void sendBossbar(Player player, double currentHealth, String name) {
 		PacketContainer pc = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
 
 		pc.getIntegers().

@@ -479,7 +479,7 @@ public class Game {
 			if(time==0) {
 				String[] split = key.split("||");
 				
-				countdownEnd(split[0], split[1]);
+				countdownEnd(UUID.fromString(split[0]), split[1]);
 			}
 			if(time<=0) remove.add(key);
 		}
@@ -857,7 +857,7 @@ public class Game {
 	//#######################################
 	//Countdown Over
 	//#######################################
-	public void countdownEnd(String player, String countdown) {
+	public void countdownEnd(UUID player, String countdown) {
 		//assasin
 		if(playerstate.get(player)==Game.assasinState) {
 			if(countdown.equals("assassin_time")) {

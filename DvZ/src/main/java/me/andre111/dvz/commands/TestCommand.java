@@ -3,6 +3,8 @@ package me.andre111.dvz.commands;
 import me.andre111.dvz.DvZ;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 public class TestCommand extends DvZCommand {
@@ -27,9 +29,12 @@ public class TestCommand extends DvZCommand {
 		
 		//Spellcontroller.spellEnderChest(plugin.game, player);
 		
-		player.getInventory().clear();
-		DvZ.instance.getPlayerGame(player.getUniqueId()).setPlayerState(player.getUniqueId(), 3);
-		DvZ.instance.getPlayerGame(player.getUniqueId()).addMonsterItems(player);
+		//player.getInventory().clear();
+		//DvZ.instance.getPlayerGame(player.getUniqueId()).setPlayerState(player.getUniqueId(), 3);
+		//DvZ.instance.getPlayerGame(player.getUniqueId()).addMonsterItems(player);
+		
+		Entity e = player.getWorld().spawnEntity(player.getLocation(), EntityType.SKELETON);
+		player.setPassenger(e);
 		
 		/*if(test==null) {
 			test = DvZWorldProvider.generateNewWorld();
