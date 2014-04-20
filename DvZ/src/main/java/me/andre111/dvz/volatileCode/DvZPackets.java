@@ -21,6 +21,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.FieldAccessException;
+import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public abstract class DvZPackets {
@@ -186,8 +187,21 @@ public abstract class DvZPackets {
 			            	PacketContainer packet = event.getPacket();
 
 			            	final int target = packet.getIntegers().read(0);
-			            	//TODO - somehow read action(Now an enum - grrr!)
-			            	final int action = 0;//(Integer) packet.getModifier().read(1);
+			            	
+			            	EntityUseAction eaction = packet.getEntityUseActions().read(0);
+			            	int act = 0;
+			            	switch(eaction) {
+							case ATTACK:
+								act = 0;
+								break;
+							case INTERACT:
+								act = 1;
+								break;
+							default:
+								break;
+			            	}
+			            	final int action = act;
+			            	//(Integer) packet.getModifier().read(1);
 			                //int target = packet.getSpecificModifier(int.class).read(1);
 			                //int action = packet.getSpecificModifier(byte.class).read(1);
 			                

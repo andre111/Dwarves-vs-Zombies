@@ -909,7 +909,7 @@ public class Game {
 		}
 		else
 		{
-			final IconMenu im = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 9, new GameOptionClickEventHandler(this) {
+			final IconMenu im = new IconMenu(ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 9, new GameOptionClickEventHandler(this) {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
@@ -961,6 +961,7 @@ public class Game {
 	                //DvZ.sendPlayerMessageFormated(event.getPlayer(), "You have chosen " + event.getName());
 	            }
 	        },  plugin);
+			im.setSpecificTo(player);
 
 			//adding
 			int pos = 0;
@@ -1022,7 +1023,7 @@ public class Game {
 		}
 		else
 		{
-			final IconMenu icm = new IconMenu(player.getName()+" - "+ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 18, new GameOptionClickEventHandler(this) {
+			final IconMenu icm = new IconMenu(ConfigManager.getLanguage().getString("string_choose","Choose your class!"), 18, new GameOptionClickEventHandler(this) {
 				
 	            @Override
 	            public void onOptionClick(IconMenu.OptionClickEvent event) {
@@ -1068,6 +1069,7 @@ public class Game {
 	    			}
 	            }
 	        },  plugin);
+			icm.setSpecificTo(player);
 			
 			//adding
 			int pos = 0;
