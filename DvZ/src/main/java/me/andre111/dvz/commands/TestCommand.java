@@ -1,6 +1,9 @@
 package me.andre111.dvz.commands;
 
 import me.andre111.dvz.DvZ;
+import me.libraryaddict.disguise.DisguiseAPI;
+import me.libraryaddict.disguise.disguisetypes.DisguiseType;
+import me.libraryaddict.disguise.disguisetypes.MobDisguise;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -33,7 +36,14 @@ public class TestCommand extends DvZCommand {
 		//DvZ.instance.getPlayerGame(player.getUniqueId()).setPlayerState(player.getUniqueId(), 3);
 		//DvZ.instance.getPlayerGame(player.getUniqueId()).addMonsterItems(player);
 		
+		//TODO - create Dragon with this technique:
+		//Use invisible and controllable entity and let the dragon ride it
+		//when he "catches" a player set the player
+		//riding the entity and the dragon riding the player
+		//OR
+		//create a custom entity class(will break with every update)
 		Entity e = player.getWorld().spawnEntity(player.getLocation(), EntityType.SKELETON);
+		DisguiseAPI.disguiseToAll(e, new MobDisguise(DisguiseType.ENDER_DRAGON));
 		player.setPassenger(e);
 		
 		/*if(test==null) {

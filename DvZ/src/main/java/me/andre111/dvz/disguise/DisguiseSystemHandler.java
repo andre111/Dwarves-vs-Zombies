@@ -18,13 +18,12 @@ public class DisguiseSystemHandler implements Listener {
 	public static boolean init() {
 		//Disguise-Plugin check
 		if (!ConfigManager.getStaticConfig().getString("disable_dcraft_check", "false").equals("true")) {
-			if (Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft"))
-			{
+			if (Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
+				dsystem = SupportedDisguises.LIBSDISGUISES;
+			} else if (Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft")) {
 				dsystem = SupportedDisguises.DISGUISECRAFT;
 			//} else if (Bukkit.getPluginManager().isPluginEnabled("BeTheMob")) {
 			//	dsystem = SupportedDisguises.BETHEMOB;
-			} else if (Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
-				dsystem = SupportedDisguises.LIBSDISGUISES;
 			}
 			
 			if(dsystem==SupportedDisguises.NOONE) {

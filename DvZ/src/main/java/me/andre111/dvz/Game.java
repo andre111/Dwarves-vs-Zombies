@@ -929,8 +929,8 @@ public class Game {
 	            	}
 	            	
 	            	boolean dwarf = false;
-	            	Material itemId = event.getItem();
-	            	int itemD = event.getItemDamage();
+	            	Material itemId = event.getItem().getType();
+	            	int itemD = event.getItem().getDurability();
 	            	final Player player = event.getPlayer();
 	    			
 	    			for(int i=0; i<DvZ.dwarfManager.getCount(); i++) {
@@ -1042,8 +1042,8 @@ public class Game {
 	            	}
 	            	
 	            	boolean monster = false;
-	            	Material itemId = event.getItem();
-	            	int itemD = event.getItemDamage();
+	            	Material itemId = event.getItem().getType();
+	            	int itemD = event.getItem().getDurability();
 	            	final Player player = event.getPlayer();
 	            	
 	    			for(int i=0; i<DvZ.monsterManager.getCount(); i++) {
