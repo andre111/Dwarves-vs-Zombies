@@ -1,0 +1,71 @@
+# For now this is only an idea collection in form of
+# a configuration for the default dvz game
+
+# when I want to make dwarves/zombies into one class system
+# it would be best to merge monsters into dwarves
+# things missing in dwarf system:
+# - disguise
+# - placeBlocks
+# plus effectsystem ofcourse
+
+# commands:
+# win [team]
+# lose [team]
+# release [team]
+# starttimer [timer]
+# setstartteam [team]
+# addstartteam [team]
+# removestartteam [team]
+
+gamestart:
+   startteams:
+     - "dwarves"
+   starttimers:
+     - "release"
+
+teams:
+   dwarves:
+      name: "Dwarves"
+      respawn: "zombies"
+      needRelease: false
+      hasMonument: true
+      classes:
+        - ""
+        - ""
+        - ""
+      relation:
+         friendly: []
+         hostile:
+           - "zombies"
+      onDeath:
+        - "lose dwarves"
+   zombies:
+      name: "Zombies"
+      respawn: "zombies"
+      needRelease: true
+      hasMonument: false
+      classes:
+        - ""
+        - ""
+        - ""
+      relation:
+         friendly: []
+         hostile:
+           - "dwarves"
+      onDeath: []
+
+timer:
+   release:
+      time: 1200
+      showDisplay: true
+      display: "Monsterrelease"
+      onEnd:
+        - "starttimer win"
+        - "release zombies"
+        - "setstartteam zombies"
+   win:
+      time: 1200
+      showDisplay: true
+      display: "Victory"
+      onEnd:
+        - "win dwarves"
