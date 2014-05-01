@@ -68,17 +68,9 @@ public class Game {
 	private int fastticker;
 	private boolean starting;
 	
-	//public Location spawnDwarves;
-	//public Location spawnMonsters;
-	
 	public boolean enderActive;
 	public Location enderPortal;
 	public UUID enderMan;
-	
-	//public Location monument;
-	//public boolean monumentexists;
-	//private int monumentHealth;
-	//private String lastdwarf;
 	
 	private Inventory globalCrystalChest;
 	private HashMap<UUID, Inventory> crystalPerPlayer = new HashMap<UUID, Inventory>();
@@ -96,7 +88,6 @@ public class Game {
 	//?? - ?? = dragon
 	//TODO - use this vars everywhere
 	public static int pickClass = 2;
-	//public static int pickMonster = 3;
 	
 	public static int assasinState = 5;
 	public static int dragonWarrior = 6;
@@ -114,24 +105,8 @@ public class Game {
 	//used for custom cooldowns String: Playeruuidstring||CooldownName
 	private HashMap<String, Integer> customCooldown = new HashMap<String, Integer>();
 	
-	//monument distance counting down to 0
-	//private HashMap<UUID, Integer> monDistance = new HashMap<UUID, Integer>();
-	
-	//private boolean autoassasin;
-	//private int a_minutes;
-	//private int a_count;
-	//private int a_maxdeaths;
-	//private int a_ticker;
-	//public int deaths;
-	
 	private int infotimer;
 	private String lastTimerDisplay = "";
-	
-	//public boolean released;
-	//private int releasetime;
-	//private boolean canWin;
-	//private int wintime;
-	//private int gracetime;
 	
 	//lobby
 	private int lobby_Player;
@@ -173,9 +148,6 @@ public class Game {
 		}
 		waitm = new WaitingMenu(p, wadd);
 		waitm.close();
-		//released = ConfigManager.getStaticConfig().getString("need_release", "false").equals("false");
-		//canWin = ConfigManager.getStaticConfig().getString("can_win", "false").equals("true");
-		//gracetime = 0;
 		
 		initLobby();
 	}
@@ -251,9 +223,6 @@ public class Game {
 		enderActive = false;
 		enderPortal = null;
 		enderMan = null;
-		//autoassasin = false;
-		//a_ticker = 0;
-		//deaths = 0;
 		infotimer = 0;
 		dragon = null;
 		
@@ -262,9 +231,6 @@ public class Game {
 		
 		waitm.releaseAll();
 		waitm.close();
-		//released = ConfigManager.getStaticConfig().getString("need_release", "false").equals("false");
-		//canWin = ConfigManager.getStaticConfig().getString("can_win", "false").equals("true");
-		//gracetime = 0;
 		
 		customCooldown.clear();
 		
@@ -358,7 +324,7 @@ public class Game {
 				
 				if (ticker==10) {
 					ticker = 0;
-					checkLoose();
+
 					//healthbar
 					if(ConfigManager.getStaticConfig().getString("show_monument_bar", "true").equals("true")) {
 						for(UUID st : playerstate.keySet()){
@@ -373,9 +339,6 @@ public class Game {
 						}
 					}
 				}
-				//if(ticker%2==0) {
-				//	DvZ.effectManager.playerEffects(this);
-				//}
 				
 				//Assasin controller
 				//TODO - maybe read Auto-Assassin
@@ -405,73 +368,6 @@ public class Game {
 						System.out.println("Player: "+e.getKey()+" - State: "+e.getValue());
 					}
 				}
-				
-				//gracetime
-				/*if(gracetime>0 && state==2) {
-					gracetime -= 1;
-				}*/
-				
-				//release the monsters
-				/*if (releasetime>=0 && state==2) {
-					releasetime--;
-					if(releasetime==0 && state==2) {
-						release();
-					}
-				}*/
-				
-				//dwarf victory
-				/*if(released && canWin) {
-					if(wintime>=0 && state==2) {
-						wintime--;
-						if(wintime==0 && state==2) {
-							win();
-						}
-					}
-				}*/
-				
-				//monument distance
-				/*if(monumentexists)
-				for(UUID playern : playerstate.keySet()) {
-					if(isDwarf(playern, true)) {
-						Player player = PlayerHandler.getPlayerFromUUID(playern);
-						
-						if(player!=null) {
-							Location tempPLoc = player.getLocation().clone();
-							tempPLoc.setY(monument.getY());
-							if(tempPLoc.distanceSquared(monument)>ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)*ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)) {
-								int current = ConfigManager.getStaticConfig().getInt("max_monument_counter", 10);
-								if(monDistance.containsKey(playern)) {
-									current = monDistance.get(playern) - 1;
-								}
-								
-								if(current>0) {
-									monDistance.put(playern, current);
-									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("max_monument_warning", "&4WARNING: Get closer to the monument or you will loose points!"));
-									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("max_monument_wtime", "&4Time remaining: -0- Seconds!").replace("-0-", ""+current));
-								} else {
-									if(spawnDwarves!=null) {
-										player.teleport(spawnDwarves);
-									} else {
-										player.teleport(player.getLocation().getWorld().getSpawnLocation());
-									}
-									
-									monDistance.remove(playern);
-									
-									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("max_monument_teleport", "&4You have been teleported back because you went to far from the monument!"));
-									//score notice
-									int score = ConfigManager.getStaticConfig().getInt("", -1);
-									String score_text = ConfigManager.getLanguage().getString("highscore_loose_distance", "You lost -0- for being to far from the monument!");
-									if(Math.abs(score)==1)
-										DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
-									else
-										DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
-								}
-							} else {
-								monDistance.remove(playern);
-							}
-						}
-					}
-				}*/
 				
 				countdownTicker();
 			}
@@ -598,9 +494,6 @@ public class Game {
 						//TODO - disabled to not teleport wrong players
 						//teleportToMainWorld();
 						state = 2;
-						//releasetime = ConfigManager.getStaticConfig().getInt("time_release",30)*60;
-						//wintime = ConfigManager.getStaticConfig().getInt("time_win",30)*60;
-						//gracetime = ConfigManager.getStaticConfig().getInt("time_grace",5)*60;
 						
 						DvZ.startedGames += 1;
 						
@@ -638,83 +531,6 @@ public class Game {
 	private void endTask() {
 		Bukkit.getScheduler().cancelTask(taskid);
 		taskid = -1;
-	}
-	
-	//#######################################
-	//Spiel verloren?
-	//#######################################
-	private void checkLoose() {
-		//No more Dwarves
-		/*int dwarf = 0;
-		//int dwarfoff = 0;
-		int mons = 0;
-		int monsoff = 0;
-		
-		for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
-			boolean online = false;
-			Player player = PlayerHandler.getPlayerFromUUID(e.getKey());
-			if (player!=null) online = true;
-			
-			if (isDwarf(e.getKey(), true)) {
-				if (online) {
-					dwarf++; //else dwarfoff++;
-					//only the last standing and online dwarf
-					lastdwarf = player.getName();
-				}
-			}
-			if (isMonster(e.getKey())) {
-				if (online) mons++; else monsoff++;
-			}
-		}
-		
-		if (dwarf==0 && (mons>=1 || monsoff>=1)) {
-			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_dwarf","§4Game Over!§f No more Dwarves!"));
-			if(lastdwarf!=null)
-				broadcastMessage(ConfigManager.getLanguage().getString("string_last_dwarf","Last standing Dwarf - §e-0-§f! Congratulations!").replace("-0-", lastdwarf));
-			
-			reset(true);
-		}*/
-		//monument destroyed
-		/*boolean destr = false;
-		int destroyed = 0;
-		
-		if(monumentexists) {
-			Block block = monument.getWorld().getBlockAt(monument);
-			Block block2;
-	
-			for(int i=0; i<=1; i++) {
-				for(int j=0; j<=1; j++) {
-					block2 = block.getRelative(i, 3, j);
-					if(block2.getType()!=Material.ENCHANTMENT_TABLE) 
-						destroyed++;
-				}
-			}
-			if(destroyed==4) {
-				destr = true;
-			}
-		}
-		monumentHealth = 100 - (int) Math.round((100/(double)4)*destroyed);*/
-		
-		//loose
-		/*if (destr) {
-			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument","§4Game Over!§f The Monument has been destroyed!"));
-
-			broadcastMessage(ConfigManager.getLanguage().getString("string_lose_monument_dwarves","Dwarves who failed to protect the Monument:"));
-			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_loose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"));
-			
-			//Score/Stats
-			for(UUID st : playerstate.keySet()){
-				if(isDwarf(st, true)) {
-					Player player = PlayerHandler.getPlayerFromUUID(st);
-					if (player!=null) {
-						PlayerScore pscore = HighscoreManager.getPlayerScore(player.getUniqueId());
-						pscore.setLosses(pscore.getLosses()+1);
-					}
-				}
-			}
-			
-			reset(true);
-		}*/
 	}
 	
 	public void win(Team team) {
@@ -793,30 +609,6 @@ public class Game {
 	}
 	
 	private void updateGlobalStats() {
-		/*int dwarf = 0;
-		int assa = 0;
-		int mons = 0;
-		
-		for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
-			if (isDwarf(e.getKey(), false)) {
-				//online check
-				if(PlayerHandler.getPlayerFromUUID(e.getKey())!=null)
-					dwarf++;
-			} else if (isDwarf(e.getKey(), true)) {
-				//online check
-				if(PlayerHandler.getPlayerFromUUID(e.getKey())!=null)
-					assa++;
-			}
-			if (isMonster(e.getKey())) {
-				//online check
-				if(PlayerHandler.getPlayerFromUUID(e.getKey())!=null)
-					mons++;
-			}
-		}*/
-		
-		//StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_dwarves", "Dwarves"), dwarf);
-		//StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_assassins", "Assassins"), assa);
-		//StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_monsters", "Monsters"), mons);
 		for(Team team : teamSetup.getTeams()) {
 			int tcount = 0;
 			for(UUID puuid : getTeamPlayers(team)) {
@@ -831,9 +623,6 @@ public class Game {
 				StatManager.setGlobalStat(team.getMonumentName(), team.getMonumentHealth());
 			}
 		}
-		/*if(monumentexists) {
-			StatManager.setGlobalStat(ConfigManager.getLanguage().getString("scoreboard_monument", "Monument %"), monumentHealth);
-		}*/
 		
 		if(!teamSetup.getTimerDisplay().equals("") && !teamSetup.getTimerDisplay().equals(lastTimerDisplay)) {
 			if(!lastTimerDisplay.equals("")) {
@@ -844,12 +633,6 @@ public class Game {
 		if(teamSetup.isTimerDisplayed() && !teamSetup.getTimerDisplay().equals("")) {
 			StatManager.setTimeStat(teamSetup.getTimerDisplay(), teamSetup.getTimerDisplayVar()/20);
 		}
-		/*if(!released) {
-			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_release", "M.Release"), releasetime);
-		} else if(canWin) {
-			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_release", "M.Release"), 0);
-			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_victory", "Victory"), wintime);
-		}*/
 	}
 	
 	//#######################################
@@ -974,12 +757,6 @@ public class Game {
 		
 		HashMap<Integer, ItemStack> dwarfItems = new HashMap<Integer, ItemStack>();
 		
-		/*for(int i=0; i<DvZ.classManager.getCount(); i++) {
-			dwarfItems[i] = new ItemStack(DvZ.classManager.getClass(i).getClassItem(), 1, (short)DvZ.classManager.getClass(i).getClassItemDamage());
-			ItemMeta cim = dwarfItems[i].getItemMeta();
-			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.classManager.getClass(i).getName()));
-			dwarfItems[i].setItemMeta(cim);
-		}*/
 		for(int classI : getTeam(player.getUniqueId()).getClasses()) {
 			dwarfItems.put(classI, new ItemStack(DvZ.classManager.getClass(classI).getClassItem(), 1, (short)DvZ.classManager.getClass(classI).getClassItemDamage()));
 			ItemMeta cim = dwarfItems.get(classI).getItemMeta();
@@ -1362,31 +1139,6 @@ public class Game {
 		}
 		return ret;
 	}
-	/*public boolean isDwarf(UUID player, boolean assassins) {
-		if(playerstate.containsKey(player)) {
-			int pstate = playerstate.get(player);
-			if((pstate>=Game.classMin && pstate<=Game.classMax)
-			  || pstate==Game.dragonWarrior) {
-				return true;
-			}
-			
-			if(assassins && pstate==Game.assasinState) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	public boolean isMonster(UUID player) {
-		if(playerstate.containsKey(player)) {
-			int pstate = playerstate.get(player);
-			if(pstate>=Game.monsterMin && pstate<=Game.monsterMax) {
-				return true;
-			}
-		}
-		
-		return false;
-	}*/
 	
 	//#######################################
 	//Setze Playerstate
@@ -1750,10 +1502,6 @@ public class Game {
 	public World getWorld() {
 		return Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"");
 	}
-	
-	/*public boolean isGraceTime() {
-		return gracetime>0;
-	}*/
 	
 	public int getGameType() {
 		return gameType;
