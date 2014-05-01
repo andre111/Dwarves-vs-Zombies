@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 
 import me.andre111.dvz.commands.DvZCommand;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.customclass.ClassManager;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
-import me.andre111.dvz.dwarf.ClassManager;
 import me.andre111.dvz.event.DVZJoinGameEvent;
 import me.andre111.dvz.generator.DvZWorldProvider;
 import me.andre111.dvz.listeners.Listener_Block;

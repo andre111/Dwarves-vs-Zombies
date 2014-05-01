@@ -2,7 +2,7 @@ package me.andre111.dvz.disguise;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.dwarf.CustomClass;
+import me.andre111.dvz.customclass.CustomClass;
 import me.andre111.items.SpellItems;
 
 import org.bukkit.Bukkit;

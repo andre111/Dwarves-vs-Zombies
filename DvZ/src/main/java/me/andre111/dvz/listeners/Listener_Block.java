@@ -52,14 +52,6 @@ public class Listener_Block implements Listener {
 				RewardManager.addRewardPoints(player, 1);
 			}
 		}
-		//fix für das platzieren von köpfen/Enderman das Portal zu platzieren - deaktiviert, da jetzt custom monster existieren
-		/*if(game.isMonster(player.getUniqueId())) {
-			int id = game.getPlayerState(player.getUniqueId()) - Game.classMin;
-			if(!DvZ.classManager.getClass(id).isPlaceBlocks()) {
-				event.setCancelled(true);
-				return;
-			}
-		}*/
 	}
 	
 	@EventHandler
@@ -75,19 +67,8 @@ public class Listener_Block implements Listener {
 			Team team = game.getTeam(player.getUniqueId());
 			//monument
 			if (game.isMonument(event.getBlock(), team)) {
-				//dwarves/assasins
-				//if(game.isDwarf(player.getUniqueId(), true)) {
-					event.setCancelled(true);
-					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));
-				/*}
-				//monsters
-				if(game.isMonster(player.getUniqueId())) {
-					String message = ConfigManager.getLanguage().getString("string_destroyed_monument","Someone is destroying the monument!");
-					
-					if(!message.equals("") && !message.equals(" ")) {
-						game.broadcastMessage(message);
-					}
-				}*/
+				event.setCancelled(true);
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));
 			} else {
 				for(Team teamO : game.teamSetup.getTeams()) {
 					if(game.isMonument(event.getBlock(), teamO)) {

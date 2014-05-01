@@ -5,7 +5,7 @@ import java.util.UUID;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
-import me.andre111.dvz.dwarf.CustomClass;
+import me.andre111.dvz.customclass.CustomClass;
 import me.andre111.dvz.teams.Team;
 
 import org.bukkit.Bukkit;
@@ -34,12 +34,12 @@ public class Listener_Entity implements Listener {
 		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event) {
 		if (event.getEntityType()==EntityType.PLAYER) {
 			Player player = (Player)event.getEntity();
-			
+
 			Game game = plugin.getPlayerGame(player.getUniqueId());
 			if (game!=null) {
 				//Monster Droppen nix
@@ -49,11 +49,11 @@ public class Listener_Entity implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
-    public void onEntityDamage(EntityDamageEvent event) {
+	public void onEntityDamage(EntityDamageEvent event) {
 		if (event.isCancelled()) return;
-		
+
 		if (event.getCause() == DamageCause.FALL && event.getEntity() instanceof Player && Spellcontroller.jumpingNormal.contains((Player)event.getEntity())) {
 			event.setCancelled(true);
 			Spellcontroller.jumpingNormal.remove((Player)event.getEntity());
@@ -70,7 +70,7 @@ public class Listener_Entity implements Listener {
 			if(game!=null) {
 				if(game.isPlayer(player.getUniqueId())) {
 					String damage = "";
-					
+
 					if(event.getCause() == DamageCause.CONTACT) {
 						damage = "contact";
 					} else if(event.getCause() == DamageCause.DROWNING) {
@@ -90,38 +90,27 @@ public class Listener_Entity implements Listener {
 					} else if(event.getCause() == DamageCause.WITHER) {
 						damage = "wither";
 					}
-					
+
 					if(!damage.equals("")) {
-						/*if(game.isMonster(player.getUniqueId())) {
-							int pid = game.getPlayerState(player.getUniqueId()) - Game.monsterMin;
-							CustomMonster cm = DvZ.monsterManager.getMonster(pid);
-							
-							if(cm.isDamageDisabled(damage)) {
-								event.setCancelled(true);
-							}
-						} else*/ 
-						//if(game.isDwarf(player.getUniqueId(), true)) {
-							int pid = game.getPlayerState(player.getUniqueId()) - Game.classMin;
-							CustomClass cd = DvZ.classManager.getClass(pid);
-							
-							if(cd != null && cd.isDamageDisabled(damage)) {
-								event.setCancelled(true);
-							}
-						//}
+						int pid = game.getPlayerState(player.getUniqueId()) - Game.classMin;
+						CustomClass cd = DvZ.classManager.getClass(pid);
+
+						if(cd != null && cd.isDamageDisabled(damage)) {
+							event.setCancelled(true);
+						}
 					}
 				}
-				
+
 				//graceperiode
-				//if(game.isGraceTime() && game.isDwarf(player.getUniqueId(), true)) {
 				if(game.getTeam(player.getUniqueId()).isInvulnerable()) {
 					event.setCancelled(true);
 				}
 			}
 		}
-    }
-	
+	}
+
 	@EventHandler(priority=EventPriority.LOWEST)
-    public void onEntityDamageEntity(EntityDamageByEntityEvent event) {
+	public void onEntityDamageEntity(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
 
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
@@ -131,11 +120,11 @@ public class Listener_Entity implements Listener {
 				if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
 					UUID player = ((Player)event.getEntity()).getUniqueId();
 					UUID damager = ((Player)event.getDamager()).getUniqueId();
-					
+
 					Team pTeam = game.getTeam(player);
 					Team dTeam = game.getTeam(damager);
-					
-					if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire())) {
+
+					if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState)) {
 						event.setCancelled(true);
 						return;
 					}
@@ -159,11 +148,11 @@ public class Listener_Entity implements Listener {
 					if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
 						UUID player = ((Player)event.getEntity()).getUniqueId();
 						UUID damager = ((Player)((Projectile)event.getDamager()).getShooter()).getUniqueId();
-						
+
 						Team pTeam = game.getTeam(player);
 						Team dTeam = game.getTeam(damager);
-						
-						if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire())) {
+
+						if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState)) {
 							event.setCancelled(true);
 							return;
 						}
@@ -179,9 +168,9 @@ public class Listener_Entity implements Listener {
 				}
 			}
 		}
-		
+
 		if(event.isCancelled()) return;
-		
+
 		//IronGolem more damage/buffed monsters
 		//irongolem deaktiviert, da custom monster existieren
 		if(event.getDamager() instanceof Player) {
@@ -192,61 +181,52 @@ public class Listener_Entity implements Listener {
 					if(/*game.getPlayerState(dgm.getUniqueId())==35 ||*/ game.isBuffed(dgm.getUniqueId())) {
 						event.setDamage(event.getDamage()*5);
 					}
-					//custom dwarf
-					//if(game.isDwarf(dgm.getUniqueId(), false)) {
-						int id = game.getPlayerState(dgm.getUniqueId()) - Game.classMin;
-						event.setDamage(event.getDamage()*DvZ.classManager.getClass(id).getDamageBuff());
-					//}
-					//custom monster
-					/*if(game.isMonster(dgm.getUniqueId())) {
-						int id = game.getPlayerState(dgm.getUniqueId()) - Game.monsterMin;
-						event.setDamage(event.getDamage()*DvZ.monsterManager.getMonster(id).getDamageBuff());
-					}*/
-					
+
+					int id = game.getPlayerState(dgm.getUniqueId()) - Game.classMin;
+					event.setDamage(event.getDamage()*DvZ.classManager.getClass(id).getDamageBuff());
+
 					//Dwarf kill effects
-					//if(game.isDwarf(dgm.getUniqueId(), false)) {
-						event.setDamage(event.getDamage()*game.getTeam(dgm.getUniqueId()).getEffectManager().getKillMultiplier(game, dgm.getUniqueId()));
-					//}
+					event.setDamage(event.getDamage()*game.getTeam(dgm.getUniqueId()).getEffectManager().getKillMultiplier(game, dgm.getUniqueId()));
 				}
 			}
 		}
-		
+
 		if((event.getDamager() instanceof Snowball)) {
 			//Hurting Snowballs
 			if (event.getDamager().getFallDistance() == Spellcontroller.identifier) {
 				event.setDamage((double) Spellcontroller.sdamage);
 			}
 		}
-    }
-	
+	}
+
 	//Assasin kills
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onEntityDamage2(EntityDamageEvent e) {
 		if(e.isCancelled()) return;
-	    if(!(e instanceof EntityDamageByEntityEvent))
-	        return;
+		if(!(e instanceof EntityDamageByEntityEvent))
+			return;
 
-	    EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
-	    if(!(event.getDamager() instanceof Player))
-	        return;
-	    if(!(event.getEntity() instanceof Player))
-	    	return;
-	    
-	    Player player = (Player) event.getEntity();
-	    Player damager = (Player) event.getDamager();
-	    
-	    //is kill?
-	    if(e.getDamage()<player.getHealth())
-	    	return;
-	    
-	    Game game = plugin.getPlayerGame(damager.getUniqueId());
-	    if (game!=null) {
-	    	if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId())==Game.assasinState) {
-	    		game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
-	    	}
-	    }
+		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
+		if(!(event.getDamager() instanceof Player))
+			return;
+		if(!(event.getEntity() instanceof Player))
+			return;
+
+		Player player = (Player) event.getEntity();
+		Player damager = (Player) event.getDamager();
+
+		//is kill?
+				if(e.getDamage()<player.getHealth())
+					return;
+
+				Game game = plugin.getPlayerGame(damager.getUniqueId());
+				if (game!=null) {
+					if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId())==Game.assasinState) {
+						game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
+					}
+				}
 	}
-	
+
 	//Spielerteleports zur Lobby
 	@EventHandler
 	public void onEntityTeleport(EntityTeleportEvent event) {
@@ -255,7 +235,7 @@ public class Listener_Entity implements Listener {
 			World fw = event.getFrom().getWorld();
 			World lobby = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby");
 			World main = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main");
-			
+
 			if(w==lobby && fw!=main) {
 				//TODO - disable to toquestion wich game to join
 				//plugin.getGame(0).addPlayer(((Player)event.getEntity()).getName());
@@ -263,7 +243,7 @@ public class Listener_Entity implements Listener {
 			}
 		}
 	}
-	
+
 	//Enderdragon - disable portals
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityCreatePortalEvent(EntityCreatePortalEvent event) {

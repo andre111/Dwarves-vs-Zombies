@@ -4,7 +4,7 @@ import java.util.List;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.dwarf.CustomClass;
+import me.andre111.dvz.customclass.CustomClass;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;

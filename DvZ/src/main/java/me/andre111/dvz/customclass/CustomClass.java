@@ -1,4 +1,4 @@
-package me.andre111.dvz.dwarf;
+package me.andre111.dvz.customclass;
 
 import java.util.ArrayList;
 import java.util.List;

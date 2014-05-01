@@ -10,10 +10,10 @@ import java.util.UUID;
 
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.config.DVZFileConfiguration;
+import me.andre111.dvz.customclass.CustomClass;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.dragon.Dragon;
 import me.andre111.dvz.dragon.PlayerDragon;
-import me.andre111.dvz.dwarf.CustomClass;
 import me.andre111.dvz.event.DVZGameEndEvent;
 import me.andre111.dvz.event.DVZGameStartEvent;
 import me.andre111.dvz.manager.HighscoreManager;
