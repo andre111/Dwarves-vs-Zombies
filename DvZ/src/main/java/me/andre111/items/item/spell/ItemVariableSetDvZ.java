@@ -14,15 +14,18 @@ public class ItemVariableSetDvZ extends ItemSpell {
 	/*private int variable = 0;
 	private String value = "";*/
 	
+	//TODO - document teamvalue add(third argument)
 	@Override
 	public Varargs invoke(Varargs args) {
-		if(args.narg()>=2) {
+		if(args.narg()>=3) {
 			LuaValue playerN = args.arg(1);
 			LuaValue valueN = args.arg(2);
+			LuaValue teamN = args.arg(3);
 			
-			if(playerN.isstring() && valueN.isstring()) {
+			if(playerN.isstring() && valueN.isstring() && teamN.isstring()) {
 				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				String value = valueN.toString();
+				String team = teamN.toString();
 				
 				LuaValue[] returnValue = new LuaValue[2];
 				returnValue[0] = LuaValue.TRUE;
@@ -32,8 +35,8 @@ public class ItemVariableSetDvZ extends ItemSpell {
 					if(player!=null && DvZ.instance.getPlayerGame(player.getUniqueId())!=null) {
 						Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 						
-						if(game.monumentexists) {
-							returnValue[1] = LuaValue.userdataOf(game.monument);
+						if(game.teamSetup.getTeam(team).hasMonument()) {
+							returnValue[1] = LuaValue.userdataOf(game.teamSetup.getTeam(team).getMonumentLocation());
 							return LuaValue.varargsOf(returnValue);
 						}
 					}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.dwarf.CustomDwarf;
+import me.andre111.dvz.dwarf.CustomClass;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -46,9 +46,9 @@ public class PistonManager {
 		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 		
 		if(game!=null) {
-			int dSt = game.getPlayerState(player.getUniqueId()) - Game.dwarfMin;
-			if(dSt>=0 && dSt<DvZ.dwarfManager.getCount()) {
-				CustomDwarf cd = DvZ.dwarfManager.getDwarf(dSt);
+			int dSt = game.getPlayerState(player.getUniqueId()) - Game.classMin;
+			if(dSt>=0 && dSt<DvZ.classManager.getCount()) {
+				CustomClass cd = DvZ.classManager.getClass(dSt);
 				
 				if(cd.isPistonEnabled()) {
 					transform(event, loc, maxD, blist, cd.getPistonChange());

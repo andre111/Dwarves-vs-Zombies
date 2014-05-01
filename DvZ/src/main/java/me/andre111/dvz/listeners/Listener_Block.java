@@ -6,6 +6,7 @@ import me.andre111.dvz.GameType;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.PistonManager;
+import me.andre111.dvz.teams.Team;
 import me.andre111.items.RewardManager;
 
 import org.bukkit.Bukkit;
@@ -39,20 +40,26 @@ public class Listener_Block implements Listener {
 			return;
 		}
 		//rewards on blockplace
-		if(game.isDwarf(player.getUniqueId(), false)) {
-			int id = game.getPlayerState(player.getUniqueId()) - Game.dwarfMin;
-			if(DvZ.dwarfManager.getDwarf(id).isRewardOnBlockPlace()) {
+		if(game.isPlayer(player.getUniqueId())) {
+			int id = game.getPlayerState(player.getUniqueId()) - Game.classMin;
+			
+			if(!DvZ.classManager.getClass(id).isPlaceBlocks()) {
+				event.setCancelled(true);
+				return;
+			}
+			
+			if(DvZ.classManager.getClass(id).isRewardOnBlockPlace()) {
 				RewardManager.addRewardPoints(player, 1);
 			}
 		}
 		//fix für das platzieren von köpfen/Enderman das Portal zu platzieren - deaktiviert, da jetzt custom monster existieren
-		if(game.isMonster(player.getUniqueId())) {
-			int id = game.getPlayerState(player.getUniqueId()) - Game.monsterMin;
-			if(!DvZ.monsterManager.getMonster(id).isPlaceBlocks()) {
+		/*if(game.isMonster(player.getUniqueId())) {
+			int id = game.getPlayerState(player.getUniqueId()) - Game.classMin;
+			if(!DvZ.classManager.getClass(id).isPlaceBlocks()) {
 				event.setCancelled(true);
 				return;
 			}
-		}
+		}*/
 	}
 	
 	@EventHandler
@@ -65,19 +72,31 @@ public class Listener_Block implements Listener {
 		
 		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if (game!=null) {
+			Team team = game.getTeam(player.getUniqueId());
 			//monument
-			if (game.isMonument(event.getBlock())) {
+			if (game.isMonument(event.getBlock(), team)) {
 				//dwarves/assasins
-				if(game.isDwarf(player.getUniqueId(), true)) {
+				//if(game.isDwarf(player.getUniqueId(), true)) {
 					event.setCancelled(true);
 					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_destroy_monument","What are you trying to do? This is your monument!"));
-				}
+				/*}
 				//monsters
 				if(game.isMonster(player.getUniqueId())) {
 					String message = ConfigManager.getLanguage().getString("string_destroyed_monument","Someone is destroying the monument!");
 					
 					if(!message.equals("") && !message.equals(" ")) {
 						game.broadcastMessage(message);
+					}
+				}*/
+			} else {
+				for(Team teamO : game.teamSetup.getTeams()) {
+					if(game.isMonument(event.getBlock(), teamO)) {
+						//TODO - maybe fix wording for team(of Dwarfes?)
+						String message = ConfigManager.getLanguage().getString("string_destroyed_monument","Someone is destroying the monument of -0-!").replace("-0-", teamO.getDisplayName());
+						
+						if(!message.equals("") && !message.equals(" ")) {
+							game.broadcastMessage(message);
+						}
 					}
 				}
 			}

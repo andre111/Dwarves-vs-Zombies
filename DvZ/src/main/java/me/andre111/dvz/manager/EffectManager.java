@@ -6,49 +6,56 @@ import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.teams.Team;
 import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class EffectManager {
-	private int[][] effectMonsterDay;
-	private int[][] effectMonsterNight;
-	private int[][] effectMonsterMidNight;
-	private int[][] effectDwarfAbove;
-	private int[][] effectDwarfBelow;
+	private int[][] effectDay;
+	private int[][] effectNight;
+	private int[][] effectMidNight;
+	private int[][] effectAbove;
+	private int[][] effectBelow;
 	
 	private boolean killEffectEnabled;
 	private int killEffectTime;
 	private boolean killEffectParticles;
 	
-	public void playerEffects(Game game) {
-		addMonsterEffects(game);
-		addDwarfEffects(game);
+	private Team team;
+	
+	public EffectManager(Team t) {
+		team = t;
 	}
 	
-	private void addMonsterEffects(Game game) {
+	public void playerEffects(Game game) {
+		addDaytimeEffects(game);
+		addLightlevelEffects(game);
+	}
+	
+	private void addDaytimeEffects(Game game) {
 		int id = DvZ.instance.getGameID(game);
 		World w =  Bukkit.getServer().getWorld(DvZ.instance.getConfig().getString("world_prefix", "DvZ_")+"Main"+id+"");
 		if(w==null) return;
 		
 		long time = w.getTime();
-		int[][] effects = effectMonsterDay;
+		int[][] effects = effectDay;
 		//Day
 		if(time>=0 && time<=12000) {
-			effects = effectMonsterDay;
+			effects = effectDay;
 		//Night
 		} else {
 			//midnight
 			if(time>=18000-500 && time<=18000+500) {
-				effects = effectMonsterMidNight;
+				effects = effectMidNight;
 			} else {
-				effects = effectMonsterNight;
+				effects = effectNight;
 			}
 		}
 		
@@ -57,16 +64,16 @@ public class EffectManager {
 			int level = effects[i][1];
 			
 			if(effect!=null) {
-				addMonsterEffect(game, effect, level);
+				addDaytimeEffect(game, effect, level);
 			}
 		}
 	}
 	
-	private void addMonsterEffect(Game game, PotionEffectType id, int level) {
+	private void addDaytimeEffect(Game game, PotionEffectType id, int level) {
 		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
 			
-			if(game.isMonster(playern)) {
+			if(game.playerteam.get(playern).equals(team.getName())) {
 				Player player = PlayerHandler.getPlayerFromUUID(playern);
 				
 				if(player!=null) {
@@ -78,19 +85,19 @@ public class EffectManager {
 		}
 	}
 	
-	private void addDwarfEffects(Game game) {
+	private void addLightlevelEffects(Game game) {
 		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
 			
-			if(game.isDwarf(playern, true)) {
+			if(game.playerteam.get(playern).equals(team.getName())) {
 				Player player = PlayerHandler.getPlayerFromUUID(playern);
 				if(player!=null) {
 					int light = player.getLocation().getBlock().getLightLevel();
 
 					//above
 					for(int i=light-1; i>=0; i--) {
-						PotionEffectType effect = PotionEffectType.getById(effectDwarfAbove[i][0]);
-						int level = effectDwarfAbove[i][1];
+						PotionEffectType effect = PotionEffectType.getById(effectAbove[i][0]);
+						int level = effectAbove[i][1];
 						if(effect!=null)
 						if(!PlayerHandler.hasHigherPotionEffect(player, effect, level)) {
 							player.addPotionEffect(new PotionEffect(effect, 3*20, level), true);
@@ -98,8 +105,8 @@ public class EffectManager {
 					}
 					//below
 					for(int i=light+1; i<16; i++) {
-						PotionEffectType effect = PotionEffectType.getById(effectDwarfBelow[i][0]);
-						int level = effectDwarfBelow[i][1];
+						PotionEffectType effect = PotionEffectType.getById(effectBelow[i][0]);
+						int level = effectBelow[i][1];
 						if(effect!=null)
 						if(!PlayerHandler.hasHigherPotionEffect(player, effect, level)) {
 							player.addPotionEffect(new PotionEffect(effect, 3*20, level), true);
@@ -118,7 +125,7 @@ public class EffectManager {
 			Player player = PlayerHandler.getPlayerFromUUID(playern);
 			
 			if(player!=null) {
-				if(game.isDwarf(playern, true)) {
+				if(game.playerteam.get(playern).equals(team.getName())) {
 					if(game.getCustomCooldown(playern, "effects_kill")>=0) {
 						spawnParticle(game, player);
 					}
@@ -127,7 +134,7 @@ public class EffectManager {
 		}
 	}
 	
-	public void dwarfKilledMonster(Game game, Player dwarf) {
+	public void killedPlayer(Game game, Player dwarf) {
 		if(killEffectEnabled) {
 			//Strenght is broken with Disguisecraft
 			//dwarf.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, killEffectTime*20, 20), true);
@@ -136,7 +143,7 @@ public class EffectManager {
 		}
 	}
 	
-	public double getDwarfKillMultiplier(Game game, UUID dwarf) {
+	public double getKillMultiplier(Game game, UUID dwarf) {
 		if(game.getCustomCooldown(dwarf, "effects_kill")>0) {
 			return 20;
 		}
@@ -183,14 +190,14 @@ public class EffectManager {
 		}
 	}*/
 	
-	public void loadEffects() {
+	public void loadEffects(ConfigurationSection teamSec, String st) {
 		//monster
-		List<String> monsterDayEffects = ConfigManager.getMonsterFile().getStringList("effects.day");
-		List<String> monsterNightEffects = ConfigManager.getMonsterFile().getStringList("effects.night");
-		List<String> monsterMidNightEffects = ConfigManager.getMonsterFile().getStringList("effects.midnight");
+		List<String> monsterDayEffects = teamSec.getStringList(st+".effects.day");
+		List<String> monsterNightEffects = teamSec.getStringList(st+".effects.night");
+		List<String> monsterMidNightEffects = teamSec.getStringList(st+".effects.midnight");
 
 		//Day
-		effectMonsterDay = new int[monsterDayEffects.size()][2];
+		effectDay = new int[monsterDayEffects.size()][2];
 		for(int i=0; i<monsterDayEffects.size(); i++) {
 			String effect = monsterDayEffects.get(i);
 			while(effect.startsWith(" ")) effect = effect.substring(1);
@@ -203,11 +210,11 @@ public class EffectManager {
 			if(effectPart.length>0) eid = Integer.parseInt(effectPart[0]);
 			if(effectPart.length>1) elevel = Integer.parseInt(effectPart[1]);
 
-			effectMonsterDay[i][0] = eid;
-			effectMonsterDay[i][1] = elevel;
+			effectDay[i][0] = eid;
+			effectDay[i][1] = elevel;
 		}
 		//Night
-		effectMonsterNight = new int[monsterNightEffects.size()][2];
+		effectNight = new int[monsterNightEffects.size()][2];
 		for(int i=0; i<monsterNightEffects.size(); i++) {
 			String effect = monsterNightEffects.get(i);
 			while(effect.startsWith(" ")) effect = effect.substring(1);
@@ -220,11 +227,11 @@ public class EffectManager {
 			if(effectPart.length>0) eid = Integer.parseInt(effectPart[0]);
 			if(effectPart.length>1) elevel = Integer.parseInt(effectPart[1]);
 
-			effectMonsterNight[i][0] = eid;
-			effectMonsterNight[i][1] = elevel;
+			effectNight[i][0] = eid;
+			effectNight[i][1] = elevel;
 		}
 		//Night
-		effectMonsterMidNight = new int[monsterMidNightEffects.size()][2];
+		effectMidNight = new int[monsterMidNightEffects.size()][2];
 		for(int i=0; i<monsterMidNightEffects.size(); i++) {
 			String effect = monsterMidNightEffects.get(i);
 			while(effect.startsWith(" ")) effect = effect.substring(1);
@@ -237,19 +244,19 @@ public class EffectManager {
 			if(effectPart.length>0) eid = Integer.parseInt(effectPart[0]);
 			if(effectPart.length>1) elevel = Integer.parseInt(effectPart[1]);
 
-			effectMonsterMidNight[i][0] = eid;
-			effectMonsterMidNight[i][1] = elevel;
+			effectMidNight[i][0] = eid;
+			effectMidNight[i][1] = elevel;
 		}
 
 		//dwarves
-		effectDwarfAbove = new int[16][2];
-		effectDwarfBelow = new int[16][2];
+		effectAbove = new int[16][2];
+		effectBelow = new int[16][2];
 		for(int k=0; k<16; k++) {
 			//above
-			String dwarfEffects = ConfigManager.getClassFile().getString("effects.lightlevel.above."+k, "");
+			String dwarfEffects = teamSec.getString(st+".effects.lightlevel.above."+k, "");
 
-			effectDwarfAbove[k][0] = -1;
-			effectDwarfAbove[k][1] = 0;
+			effectAbove[k][0] = -1;
+			effectAbove[k][1] = 0;
 
 			if(!dwarfEffects.equals("")) {
 				while(dwarfEffects.startsWith(" ")) dwarfEffects = dwarfEffects.substring(1);
@@ -262,15 +269,15 @@ public class EffectManager {
 				if(effectPart.length>0) eid = Integer.parseInt(effectPart[0]);
 				if(effectPart.length>1) elevel = Integer.parseInt(effectPart[1]);
 
-				effectDwarfAbove[k][0] = eid;
-				effectDwarfAbove[k][1] = elevel;
+				effectAbove[k][0] = eid;
+				effectAbove[k][1] = elevel;
 			}
 
 			//below
-			String dwarfEffects2 = ConfigManager.getClassFile().getString("effects.lightlevel.below."+k, "");
+			String dwarfEffects2 = teamSec.getString(st+".effects.lightlevel.below."+k, "");
 
-			effectDwarfBelow[k][0] = -1;
-			effectDwarfBelow[k][1] = 0;
+			effectBelow[k][0] = -1;
+			effectBelow[k][1] = 0;
 
 			if(!dwarfEffects2.equals("")) {
 				while(dwarfEffects2.startsWith(" ")) dwarfEffects2 = dwarfEffects2.substring(1);
@@ -283,14 +290,14 @@ public class EffectManager {
 				if(effectPart2.length>0) eid2 = Integer.parseInt(effectPart2[0]);
 				if(effectPart2.length>1) elevel2 = Integer.parseInt(effectPart2[1]);
 
-				effectDwarfBelow[k][0] = eid2;
-				effectDwarfBelow[k][1] = elevel2;
+				effectBelow[k][0] = eid2;
+				effectBelow[k][1] = elevel2;
 			}
 		}
 		
 		//kill effects
-		killEffectEnabled = ConfigManager.getClassFile().getString("effects.kill.enabled", "true").equals("true");
-		killEffectTime = ConfigManager.getClassFile().getInt("effects.kill.duration", 3);
-		killEffectParticles = ConfigManager.getClassFile().getString("effects.kill.particles", "true").equals("true");
+		killEffectEnabled = teamSec.getString(st+".effects.kill.enabled", "true").equals("true");
+		killEffectTime = teamSec.getInt(st+".effects.kill.duration", 3);
+		killEffectParticles = teamSec.getString(st+".effects.kill.particles", "true").equals("true");
 	}
 }

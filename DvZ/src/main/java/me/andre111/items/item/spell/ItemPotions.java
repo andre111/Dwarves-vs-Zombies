@@ -71,8 +71,10 @@ public class ItemPotions extends ItemSpell {
 			if(e instanceof Player) {
 				Player p = (Player) e;
 				if(game.isPlayer(p.getUniqueId())) {
-					if(target==0 && game.isDwarf(p.getUniqueId(), false)) players.add(p);
-					else if(target==1 && game.isMonster(p.getUniqueId())) players.add(p);
+					//if(target==0 && game.isDwarf(p.getUniqueId(), false)) players.add(p);
+					//else if(target==1 && game.isMonster(p.getUniqueId())) players.add(p);
+					//TODO - Reenable support for teams
+					players.add(p);
 				}
 			}
 		}

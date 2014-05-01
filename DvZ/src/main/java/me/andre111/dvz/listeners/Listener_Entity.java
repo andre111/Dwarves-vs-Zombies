@@ -5,8 +5,8 @@ import java.util.UUID;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.Spellcontroller;
-import me.andre111.dvz.dwarf.CustomDwarf;
-import me.andre111.dvz.monster.CustomMonster;
+import me.andre111.dvz.dwarf.CustomClass;
+import me.andre111.dvz.teams.Team;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -43,7 +43,7 @@ public class Listener_Entity implements Listener {
 			Game game = plugin.getPlayerGame(player.getUniqueId());
 			if (game!=null) {
 				//Monster Droppen nix
-				if (game.isMonster(player.getUniqueId())) {
+				if (!game.getTeam(player.getUniqueId()).isDeathDropItems()) {
 					event.getDrops().clear();
 				}
 			}
@@ -68,7 +68,7 @@ public class Listener_Entity implements Listener {
 			Player player = (Player) event.getEntity();
 			Game game = plugin.getPlayerGame(player.getUniqueId());
 			if(game!=null) {
-				if(game.isMonster(player.getUniqueId()) || game.isDwarf(player.getUniqueId(), true)) {
+				if(game.isPlayer(player.getUniqueId())) {
 					String damage = "";
 					
 					if(event.getCause() == DamageCause.CONTACT) {
@@ -92,26 +92,28 @@ public class Listener_Entity implements Listener {
 					}
 					
 					if(!damage.equals("")) {
-						if(game.isMonster(player.getUniqueId())) {
+						/*if(game.isMonster(player.getUniqueId())) {
 							int pid = game.getPlayerState(player.getUniqueId()) - Game.monsterMin;
 							CustomMonster cm = DvZ.monsterManager.getMonster(pid);
 							
 							if(cm.isDamageDisabled(damage)) {
 								event.setCancelled(true);
 							}
-						} else if(game.isDwarf(player.getUniqueId(), true)) {
-							int pid = game.getPlayerState(player.getUniqueId()) - Game.dwarfMin;
-							CustomDwarf cd = DvZ.dwarfManager.getDwarf(pid);
+						} else*/ 
+						//if(game.isDwarf(player.getUniqueId(), true)) {
+							int pid = game.getPlayerState(player.getUniqueId()) - Game.classMin;
+							CustomClass cd = DvZ.classManager.getClass(pid);
 							
 							if(cd != null && cd.isDamageDisabled(damage)) {
 								event.setCancelled(true);
 							}
-						}
+						//}
 					}
 				}
 				
 				//graceperiode
-				if(game.isGraceTime() && game.isDwarf(player.getUniqueId(), true)) {
+				//if(game.isGraceTime() && game.isDwarf(player.getUniqueId(), true)) {
+				if(game.getTeam(player.getUniqueId()).isInvulnerable()) {
 					event.setCancelled(true);
 				}
 			}
@@ -130,8 +132,10 @@ public class Listener_Entity implements Listener {
 					UUID player = ((Player)event.getEntity()).getUniqueId();
 					UUID damager = ((Player)event.getDamager()).getUniqueId();
 					
-					if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
-					   (game.isMonster(player) && game.isMonster(damager))) {
+					Team pTeam = game.getTeam(player);
+					Team dTeam = game.getTeam(damager);
+					
+					if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire())) {
 						event.setCancelled(true);
 						return;
 					}
@@ -156,8 +160,10 @@ public class Listener_Entity implements Listener {
 						UUID player = ((Player)event.getEntity()).getUniqueId();
 						UUID damager = ((Player)((Projectile)event.getDamager()).getShooter()).getUniqueId();
 						
-						if((game.isDwarf(player, false) && game.isDwarf(damager, false)) ||
-								   (game.isMonster(player) && game.isMonster(damager))) {
+						Team pTeam = game.getTeam(player);
+						Team dTeam = game.getTeam(damager);
+						
+						if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire())) {
 							event.setCancelled(true);
 							return;
 						}
@@ -187,20 +193,20 @@ public class Listener_Entity implements Listener {
 						event.setDamage(event.getDamage()*5);
 					}
 					//custom dwarf
-					if(game.isDwarf(dgm.getUniqueId(), false)) {
-						int id = game.getPlayerState(dgm.getUniqueId()) - Game.dwarfMin;
-						event.setDamage(event.getDamage()*DvZ.dwarfManager.getDwarf(id).getDamageBuff());
-					}
+					//if(game.isDwarf(dgm.getUniqueId(), false)) {
+						int id = game.getPlayerState(dgm.getUniqueId()) - Game.classMin;
+						event.setDamage(event.getDamage()*DvZ.classManager.getClass(id).getDamageBuff());
+					//}
 					//custom monster
-					if(game.isMonster(dgm.getUniqueId())) {
+					/*if(game.isMonster(dgm.getUniqueId())) {
 						int id = game.getPlayerState(dgm.getUniqueId()) - Game.monsterMin;
 						event.setDamage(event.getDamage()*DvZ.monsterManager.getMonster(id).getDamageBuff());
-					}
+					}*/
 					
 					//Dwarf kill effects
-					if(game.isDwarf(dgm.getUniqueId(), false)) {
-						event.setDamage(event.getDamage()*DvZ.effectManager.getDwarfKillMultiplier(game, dgm.getUniqueId()));
-					}
+					//if(game.isDwarf(dgm.getUniqueId(), false)) {
+						event.setDamage(event.getDamage()*game.getTeam(dgm.getUniqueId()).getEffectManager().getKillMultiplier(game, dgm.getUniqueId()));
+					//}
 				}
 			}
 		}
@@ -235,7 +241,7 @@ public class Listener_Entity implements Listener {
 	    
 	    Game game = plugin.getPlayerGame(damager.getUniqueId());
 	    if (game!=null) {
-	    	if(game.isDwarf(player.getUniqueId(), true) && game.getPlayerState(damager.getUniqueId())==Game.assasinState) {
+	    	if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId())==Game.assasinState) {
 	    		game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
 	    	}
 	    }

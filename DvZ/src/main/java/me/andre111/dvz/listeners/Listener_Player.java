@@ -11,18 +11,19 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
-import me.andre111.dvz.dwarf.CustomDwarf;
+import me.andre111.dvz.dwarf.CustomClass;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.HighscoreManager;
 import me.andre111.dvz.manager.PlayerScore;
 import me.andre111.dvz.manager.StatManager;
-import me.andre111.dvz.monster.CustomMonster;
 import me.andre111.dvz.players.SpecialPlayer;
+import me.andre111.dvz.teams.Team;
 import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -93,8 +94,8 @@ public class Listener_Player implements Listener  {
 		} else if (plugin.getPlayerGame(player.getUniqueId())!=null) {
 			int pstate = plugin.getPlayerGame(player.getUniqueId()).getPlayerState(player.getUniqueId());
 			//redisguise
-			CustomMonster cm = DvZ.monsterManager.getMonster(pstate-Game.monsterMin);
-			if(cm!=null) {
+			CustomClass cm = DvZ.classManager.getClass(pstate-Game.classMin);
+			if(cm!=null && cm.getDisguise()!=null && !cm.getDisguise().equals("")) {
 				DisguiseSystemHandler.disguiseP(player, cm.getDisguise());
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replace("-0-", cm.getName()));
 			}
@@ -122,7 +123,7 @@ public class Listener_Player implements Listener  {
 		
 		if (game!=null) {
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getUniqueId())==Game.pickDwarf || game.getPlayerState(player.getUniqueId())==Game.pickMonster) {
+			if(game.getPlayerState(player.getUniqueId())==Game.pickClass) {
 				event.setCancelled(true);
 			}
 			
@@ -164,7 +165,7 @@ public class Listener_Player implements Listener  {
 			}
 			
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getUniqueId())==Game.pickDwarf || game.getPlayerState(player.getUniqueId())==Game.pickMonster) {
+			if(game.getPlayerState(player.getUniqueId())==Game.pickClass) {
 				event.setCancelled(true);
 			}
 		}
@@ -177,7 +178,7 @@ public class Listener_Player implements Listener  {
 
 		if (game!=null) {
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getUniqueId())==Game.pickDwarf || game.getPlayerState(player.getUniqueId())==Game.pickMonster) {
+			if(game.getPlayerState(player.getUniqueId())==Game.pickClass) {
 				event.setCancelled(true);
 			}
 		}
@@ -202,7 +203,7 @@ public class Listener_Player implements Listener  {
 				return;
 			}
 			//monster können nichts aufheben
-			if(game.isMonster(player.getUniqueId())) {
+			if(!game.getTeam(player.getUniqueId()).isCanPickupItems()) {
 				event.setCancelled(true);
 				return;
 			}
@@ -219,7 +220,7 @@ public class Listener_Player implements Listener  {
 				return;
 			}
 			//monster können nichts droppen
-			if(game.isMonster(player.getUniqueId()) && !player.isOp()) {
+			if(!game.getTeam(player.getUniqueId()).isCanDropItems() && !player.isOp()) {
 				event.setCancelled(true);
 				return;
 			}
@@ -240,29 +241,30 @@ public class Listener_Player implements Listener  {
 				player.removePotionEffect(pet.getType());
 			}
 																	//fix for getting killed when chosing monsterclass
-			if(game.isDwarf(puuid, true) || game.isMonster(puuid) || game.getPlayerState(puuid)==Game.pickMonster) {
+			if(game.isPlayer(puuid)) {
 				//deaths
-				if(game.isDwarf(puuid, true)) {
+				//TODO - readd deathcounter for assasins to not spawn
+				/*if(game.isDwarf(puuid, true)) {
 					game.deaths++;
-				}
+				}*/
 				
 				//respawn at spawnpoint of dvzworld
-				final World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(game)+"");
-				if(game.spawnMonsters!=null) event.setRespawnLocation(game.spawnMonsters);
-				else event.setRespawnLocation(w.getSpawnLocation());
+				World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(game)+"");
+				final Location loc = game.getTeam(puuid).getSpawnLocation(w);
+				event.setRespawnLocation(loc);
 				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
 						Player player = PlayerHandler.getPlayerFromUUID(puuid);
 						
 						if(player!=null) {
-							if(game.spawnMonsters!=null) player.teleport(game.spawnMonsters);
-							else player.teleport(w.getSpawnLocation());
+							player.teleport(loc);
 						}
 					}
 				}, 1);
 				
-				game.setPlayerState(puuid, 3);
+				game.setPlayerState(puuid, Game.pickClass);
+				game.setPlayerTeam(puuid, game.getTeam(puuid).getRespawnTeam());
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 	
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -272,7 +274,7 @@ public class Listener_Player implements Listener  {
 						if(player!=null) {
 							InventoryHandler.clearInv(player, false);
 						
-							game.addMonsterItems(player);
+							game.addClassItems(player);
 							
 							DisguiseSystemHandler.undisguiseP(player);
 						}
@@ -298,9 +300,9 @@ public class Listener_Player implements Listener  {
 			String suffix = "";
 			//normal classes
 			int pstate = game.getPlayerState(player.getUniqueId());
-			if(pstate>=Game.dwarfMin && pstate<=Game.dwarfMax) {
-				int did = pstate - Game.dwarfMin;
-				CustomDwarf cd = DvZ.dwarfManager.getDwarf(did);
+			if(pstate>=Game.classMin && pstate<=Game.classMax) {
+				int did = pstate - Game.classMin;
+				CustomClass cd = DvZ.classManager.getClass(did);
 
 				prefix = cd.getPrefix();
 				suffix = cd.getSuffix();
@@ -309,12 +311,12 @@ public class Listener_Player implements Listener  {
 				prefix = ConfigManager.getClassFile().getString("assassin_prefix", "");
 				suffix = ConfigManager.getClassFile().getString("assassin_suffix", " the Assassin");
 			}
-			if(game.isMonster(player.getUniqueId())) {
+			/*if(game.isMonster(player.getUniqueId())) {
 				int did = pstate - Game.monsterMin;
 				
 				prefix = DvZ.monsterManager.getMonster(did).getPrefix();
 				suffix = DvZ.monsterManager.getMonster(did).getSuffix();
-			}
+			}*/
 			//player specific
 			if(DvZ.playerManager.getPlayer(player.getUniqueId())!=null) {
 				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
@@ -386,37 +388,42 @@ public class Listener_Player implements Listener  {
 				pscore.setKills(pscore.getKills()+1);
 			}
 			
+			Team team = game.getTeam(p.getUniqueId());
+			//Team kteam = game.getTeam(k.getUniqueId());
+			
+			team.getEffectManager().killedPlayer(game, p);
+			
 			//Is dwarv
-			if (game.isDwarf(p.getUniqueId(), true)) {
+			/*if (game.isDwarf(p.getUniqueId(), true)) {
 				//Is killer monster
-				if (game.isMonster(k.getUniqueId())) {
-					//TODO - change monstername
-					if (plugin.getConfig().getString("change_death_message", "true").equals("true")) {
-						event.setDeathMessage(ChatColor.YELLOW+ConfigManager.getLanguage().getString("string_chat_death", "-0- was killed by a monster!").replace("-0-", p.getName()));
+				if (game.isMonster(k.getUniqueId())) {*/
+					if (plugin.getConfig().getString("change_death_message", "true").equals("true") && team.isHideKills()) {
+						event.setDeathMessage(ChatColor.YELLOW+ConfigManager.getLanguage().getString("string_chat_death", "-0- was killed by -1-!").replace("-0-", p.getName()).replace("-1-", team.getDisplayName()));
 					}
 				}
 			//is Monster
-			} else if(game.isMonster(p.getUniqueId())) {
+			//} else if(game.isMonster(p.getUniqueId())) {
 				//Is killer dwarv
-				if (game.isDwarf(k.getUniqueId(), true)) {
+				//if (game.isDwarf(k.getUniqueId(), true)) {
 					//Item stats
 					//----
+					//TODO - maybe change back to only monsters, but still supporting teams?
 					if (plugin.getConfig().getString("item_stats", "true").equals("true")) {
 						if (k.getItemInHand().getAmount() > 0) {
 							ItemStack it = k.getItemInHand();
 							ItemMeta im = it.getItemMeta();
 							if(im.hasLore()) {
 								String lore1 = im.getLore().get(0);
-								if(lore1.startsWith(ConfigManager.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: "))) {
-									int count = Integer.parseInt(lore1.replace(ConfigManager.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: "), ""));
+								if(lore1.startsWith(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": ")) {
+									int count = Integer.parseInt(lore1.replace(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": ", ""));
 									count += 1;
 									ArrayList<String> li = new ArrayList<String>();
-									li.add(ConfigManager.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: ")+count);
+									li.add(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": "+count);
 									im.setLore(li);
 								}
 							} else {
 								ArrayList<String> li = new ArrayList<String>();
-								li.add(ConfigManager.getLanguage().getString("string_stats_killed_monsters","Killed Monsters: ")+1);
+								li.add(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": "+1);
 								im.setLore(li);
 							}
 							it.setItemMeta(im);
@@ -427,10 +434,10 @@ public class Listener_Player implements Listener  {
 					//----
 					
 					//dwarf kill buffs
-					DvZ.effectManager.dwarfKilledMonster(game, k);
-				}
-			}
-		}
+					//DvZ.effectManager.dwarfKilledMonster(game, k);
+				//}
+			//}
+		//}
     }
 	
 	//Item Monster Damage listener maybe
@@ -496,7 +503,7 @@ public class Listener_Player implements Listener  {
 		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game==null) return;
 		//don't spam packets when the monsters are not released->WaitingMEnu
-		if(game.isMonster(p.getUniqueId()) && !game.released) return;
+		if(!game.getTeam(p.getUniqueId()).isReleased()) return;
 		
 		if(event.isSneaking()) {
 			StatManager.show(p);
@@ -510,7 +517,7 @@ public class Listener_Player implements Listener  {
 		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game==null) return;
 		//don't spam packets when the monsters are not released->WaitingMEnu
-		if(game.isMonster(p.getUniqueId()) && !game.released) return;
+		if(!game.getTeam(p.getUniqueId()).isReleased()) return;
 		
 		StatManager.onInventoryClose(p);
 	}

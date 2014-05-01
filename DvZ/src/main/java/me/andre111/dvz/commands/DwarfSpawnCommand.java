@@ -28,7 +28,8 @@ public class DwarfSpawnCommand extends DvZCommand {
 			return false;
 		}
 		
-		if(gameID==-1) {
+		//TODO - remove and replace command for teams
+		/*if(gameID==-1) {
 			DvZ.instance.getDummy().spawnDwarves = player.getLocation();
 			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_using_dummy","Using dummy Game"));
 		} else {
@@ -37,7 +38,7 @@ public class DwarfSpawnCommand extends DvZCommand {
 			else DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_not_game","Game ID -0- does not exist/is not activated!").replace("-0-", ""+0));
 			
 			if(game!=null) game.spawnDwarves = player.getLocation();
-		}
+		}*/
 		
 		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_setspawn_dwarf","Set Dwarf Spawn to your current Location!"));
 		

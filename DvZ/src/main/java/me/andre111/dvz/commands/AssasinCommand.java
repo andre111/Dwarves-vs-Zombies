@@ -2,6 +2,7 @@ package me.andre111.dvz.commands;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.teams.Team;
 
 import org.bukkit.command.CommandSender;
 
@@ -21,13 +22,19 @@ public class AssasinCommand extends DvZCommand {
 		Game game = getGameFromID(gameID, sender);
 		
 		if(game!=null) {
-			int count = 1;
-			if(args.length>1)
-				count = Integer.parseInt(args[1].replace("+", ""));
-			
-			game.addAssasins(count);
+			if(args.length>1) {
+				Team team = game.teamSetup.getTeam(args[1]);
+				if(team!=null) {
+					int percent = 1;
+					if(args.length>2)
+						percent = Integer.parseInt(args[2].replace("+", ""));
+					
+					game.addAssasins(team, percent);
+					return true;
+				}
+			}
 		}
 		
-		return true;
+		return false;
 	}
 }

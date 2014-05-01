@@ -21,15 +21,10 @@ commands:
       aliases: [d_start]
       usage: /<command> [gameID_default_0] <time> <minutes_till_assasins> <assasins> <maxdeaths>
       permission: dvz.start
-   dvz_dwarf:
-      description: Set the Spawnpoints for the Dwarves
-      aliases: [d_dwarf]
-      usage: /<command> <GameID_default_dummygame>
-      permission: dvz.setspawn
-   dvz_monster:
-      description: Set the Spawnpoints for the Monsters
-      aliases: [d_monster]
-      usage: /<command> <GameID_default_dummygame>
+   dvz_location:
+      description: Set the SpawnLocation/Monument for teams
+      aliases: [d_location]
+      usage: /<command> <GameID_or_-1> <team> <spawn/monument>
       permission: dvz.setspawn
    dvz_info:
       description: Get Information about the Gamestate
@@ -46,11 +41,6 @@ commands:
       aliases: [d_reset]
       usage: /<command> [gameID_default_0] 
       permission: dvz.reset
-   dvz_monument:
-      description: Create the Dwarf Monument at your current position
-      aliases: [d_monument]
-      usage: /<command> <GameID_default_dummygame>
-      permission: dvz.monument
    dvz_dragon:
       description: Turns you into a dragon
       aliases: [d_dragon]
@@ -132,7 +122,6 @@ permissions:
          dvz.info: true
          dvz.highscore: true
          dvz.reset: true
-         dvz.monument: true
          dvz.dragon: true
          dvz.add: true
          dvz.assasin: true
@@ -158,9 +147,6 @@ permissions:
       default: true
    dvz.reset:
       description: Reset all Playerstates
-      default: op
-   dvz.monument:
-      description: Create the Dwarf Monument at your current position
       default: op
    dvz.dragon:
       description: Turns you into a dragon

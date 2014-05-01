@@ -7,15 +7,15 @@ import org.bukkit.block.Block;
 public class GameDummy {
 	public Location spawnDwarves;
 	public Location spawnMonsters;
-	
+
 	public Location monument;
 	public boolean monumentexists;
-	
+
 	//#######################################
 	//Creating the Monument
 	//#######################################
-	public void createMonument(boolean obsi) {
-		Block block = monument.getWorld().getBlockAt(monument);
+	public void createMonument(Location loc, boolean obsi) {
+		Block block = loc.getWorld().getBlockAt(loc);
 		Block block2;
 
 		for(int i=-1; i<=2; i++) {

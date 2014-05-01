@@ -2,6 +2,7 @@ package me.andre111.dvz.disguise;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.dwarf.CustomClass;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
@@ -97,10 +98,12 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 		Player p = (Player) event.getEntity();
 		Game game = DvZ.instance.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
-			if(game.getState()>1)
-				if(game.isMonster(p.getUniqueId()) || game.getPlayerState(p.getUniqueId())>Game.dragonMin) {
+			if(game.getState()>1) {
+				CustomClass cc = game.getClass(p.getUniqueId());
+				if(cc.getDisguise()!=null && !cc.getDisguise().equals("")) {
 					event.setCancelled(true);
 				}
+			}
 		}
 	}
 }

@@ -19,34 +19,23 @@ public class ItemClassCheck extends ItemSpell {
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=3) {
 			LuaValue playerN = args.arg(1);
-			LuaValue typeN = args.arg(2);
-			LuaValue classidN = args.arg(3);
+			//LuaValue typeN = args.arg(2);
+			LuaValue classidN = args.arg(2);
+			//LuaValue teamN = args.arg(3);
 			
-			if(playerN.isstring() && typeN.isstring() && classidN.isnumber()) {
+			if(playerN.isstring() && classidN.isnumber()) {
 				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
-				String type = typeN.toString();
 				int classid = classidN.toint();
 				
 				if(player!=null) {
 					Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 					if(game==null) return RETURN_FALSE;
 					
-					//dwarves
-					if(type.equals("dwarf") || type.equals("dwarves")) {
-						if(game.isDwarf(player.getUniqueId(), true)) {
-							int dId = game.getPlayerState(player.getUniqueId())-Game.dwarfMin;
-							
-							if(dId==classid) return RETURN_TRUE;
-						}
-					}
-					//monsters
-					if(type.equals("monster") || type.equals("monsters")) {
-						if(game.isMonster(player.getUniqueId())) {
-							int mId = game.getPlayerState(player.getUniqueId())-Game.monsterMin;
-							
-							if(mId==classid) return RETURN_TRUE;
-						}
-					}
+					//if(game.isDwarf(player.getUniqueId(), true)) {
+						int dId = game.getPlayerState(player.getUniqueId())-Game.classMin;
+
+						if(dId==classid) return RETURN_TRUE;
+					//}
 				}
 			}
 		} else {

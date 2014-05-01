@@ -13,11 +13,9 @@ public class DvZCommand {
 	public static void initCommands() {
 		new TestCommand("dvztest");
 		new StartCommand("dvz_start");
-		new DwarfSpawnCommand("dvz_dwarf");
-		new MonsterSpawnCommand("dvz_monster");
+		new TeamLocationCommand("dvz_location");
 		new InfoCommand("dvz_info");
 		new ResetCommand("dvz_reset");
-		new MonumentCommand("dvz_monument");
 		new DragonCommand("dvz_dragon");
 		new AddPlayerCommand("dvz_add");
 		new AssasinCommand("dvz_assasin");

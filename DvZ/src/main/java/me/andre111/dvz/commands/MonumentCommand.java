@@ -28,7 +28,8 @@ public class MonumentCommand extends DvZCommand {
 			return false;
 		}
 		
-		if(gameID==-1) {
+		//TODO - remove and replace command for teams
+		/*if(gameID==-1) {
 			DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_using_dummy","Using dummy Game"));
 			
 			DvZ.instance.getDummy().monument = player.getLocation();
@@ -46,7 +47,7 @@ public class MonumentCommand extends DvZCommand {
 				player.teleport(new Location(game.monument.getWorld(), game.monument.getBlockX(), game.monument.getBlockY()+4, game.monument.getBlockZ()));
 				game.createMonument(true);
 			}
-		}
+		}*/
 		
 		String path = Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/dvz_mon.dat";
 		try {

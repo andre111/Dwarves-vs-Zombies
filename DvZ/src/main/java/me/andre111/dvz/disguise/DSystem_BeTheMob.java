@@ -135,10 +135,12 @@ public class DSystem_BeTheMob implements DSystem, Listener {
 		Player p = event.getPlayer();
 		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
-			if(game.getState()>1)
-				if(game.isMonster(p.getUniqueId()) || game.getPlayerState(p.getUniqueId())>Game.dragonMin) {
+			if(game.getState()>1) {
+				CustomClass cc = game.getClass(p.getUniqueId());
+				if(cc.getDisguise()!=null && !cc.getDisguise().equals("")) {
 					event.setCancelled(true);
 				}
+			}
 		}
 	}
 }*/

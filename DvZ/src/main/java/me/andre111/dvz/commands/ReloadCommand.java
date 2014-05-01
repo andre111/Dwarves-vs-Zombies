@@ -35,16 +35,16 @@ public class ReloadCommand extends DvZCommand {
 				
 				reload = true;
 			}
-			if(rs.equalsIgnoreCase("dwarves") || rs.equalsIgnoreCase("all")) {
-				ConfigManager.reloadConfig("dwarves");
-				DvZ.dwarfManager.reload();
+			if(rs.equalsIgnoreCase("classes") || rs.equalsIgnoreCase("all")) {
+				ConfigManager.reloadConfig("classes");
+				DvZ.classManager.reload();
 				reload = true;
 			}
-			if(rs.equalsIgnoreCase("monsters") || rs.equalsIgnoreCase("all")) {
-				ConfigManager.reloadConfig("monsters");
-				DvZ.monsterManager.reload();
-				reload = true;
-			}
+			//if(rs.equalsIgnoreCase("monsters") || rs.equalsIgnoreCase("all")) {
+			//	ConfigManager.reloadConfig("monsters");
+			//	DvZ.monsterManager.reload();
+			//	reload = true;
+			//}
 			if(rs.equalsIgnoreCase("items") || rs.equalsIgnoreCase("all")) {
 				ConfigManager.reloadConfig("items");
 				DvZ.reloadItems();

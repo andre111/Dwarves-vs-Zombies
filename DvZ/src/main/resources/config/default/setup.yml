@@ -16,12 +16,15 @@
 # setstartteam [team]
 # addstartteam [team]
 # removestartteam [team]
+# set [team] [invulnerable] [true/false]
+# assassins [team] [percentage_of_players]
 
 gamestart:
    startteams:
      - "dwarves"
    starttimers:
      - "release"
+     - "invulnerable"
 
 teams:
    dwarves:
@@ -29,42 +32,94 @@ teams:
       respawn: "zombies"
       needRelease: false
       hasMonument: true
+      monumentName: "Monument"
+      monumentBar: "dwarves"
       classes:
-        - ""
-        - ""
-        - ""
+        - 0
+        - 1
+        - 2
+        - 3
       relation:
          friendly: []
          hostile:
            - "zombies"
+      friendlyFire: false
+      invulnerable: true
+      hideKills: false
       onDeath:
         - "lose dwarves"
+      items:
+         pickup: true
+         drop: true
+         deathDrop: true
+      effects:
+         lightlevel:
+            above: []
+            below:
+               6: "15 0" 
+         kill:
+            enabled: true
+            duration: 3
+            particles: true
    zombies:
       name: "Zombies"
       respawn: "zombies"
       needRelease: true
       hasMonument: false
+      monumentBar: "dwarves"
       classes:
-        - ""
-        - ""
-        - ""
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
       relation:
          friendly: []
          hostile:
            - "dwarves"
+      friendlyFire: false
+      invulnerable: false
+      hideKills: true
       onDeath: []
+      items:
+         pickup: false
+         drop: false
+         deathDrop: false
+      effects:
+         day: []
+         night:
+           - 11 0
+           - 5 0
+         midnight:
+           - 11 0
+           - 5 0
 
 timer:
+   invulnerable:
+      # 10 Minutes 10*60*20
+      time: 12000
+      showDisplay: false
+      display: ""
+      onEnd:
+        - "set dwarves invulnerable false"
    release:
-      time: 1200
+      # 20 Minutes 20*60*20
+      time: 24000
       showDisplay: true
       display: "Monsterrelease"
       onEnd:
         - "starttimer win"
         - "release zombies"
         - "setstartteam zombies"
+        - "assassins dwarves 5"
    win:
-      time: 1200
+      # 20 Minutes 20*60*20
+      time: 24000
       showDisplay: true
       display: "Victory"
       onEnd:

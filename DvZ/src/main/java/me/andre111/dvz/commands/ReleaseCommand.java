@@ -2,6 +2,7 @@ package me.andre111.dvz.commands;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.teams.Team;
 
 import org.bukkit.command.CommandSender;
 
@@ -21,7 +22,11 @@ public class ReleaseCommand extends DvZCommand {
 		Game game = getGameFromID(gameID, sender);
 		
 		if(game!=null) {
-			game.release();
+			if(args.length>0) {
+				Team team = game.teamSetup.getTeam(args[0]);
+				if(team!=null)
+					game.release(team);
+			}
 		}
 		
 		return true;

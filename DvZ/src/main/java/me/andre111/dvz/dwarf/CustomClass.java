@@ -6,6 +6,7 @@ import java.util.List;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
@@ -23,18 +24,20 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class CustomDwarf {
+public class CustomClass {
 	private int id;
 	private int gameId;
 	private String name;
 	private String prefix;
 	private String suffix;
+	private String disguise;
 	private Material classItem;
 	private int classItemDamage;
 	private int classChance;
 	private String[] items;
 	private String[] crystalItems;
 	private String[] effects;
+	private boolean placeBlocks;
 	private double damageBuff;
 	private ArrayList<String> disabledDamage;
 	private int maxMana;
@@ -54,13 +57,15 @@ public class CustomDwarf {
 	private boolean rewardOnBlockPlace;
 	
 	//become custom Dwarf
-	public void becomeDwarf(Game game, final Player player) {
-		game.setPlayerState(player.getUniqueId(), id+Game.dwarfMin);
+	public void becomeClass(Game game, final Player player) {
+		game.setPlayerState(player.getUniqueId(), id+Game.classMin);
 		game.resetCountdowns(player.getUniqueId());
 		ManaManager.setMaxMana(player.getUniqueId(), getMaxMana(), true);
 		ManaManager.setManaRegen(player.getUniqueId(), getManaRegen());
 		
 		DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_have_become","You have become a -0-!").replace("-0-", getName()));
+		if(disguise!=null && !disguise.equals(""))
+			DisguiseSystemHandler.disguiseP(player, getDisguise());
 		
 		if(!startMessage.equals(""))
 			DvZ.sendPlayerMessageFormated(player, startMessage);
@@ -281,6 +286,12 @@ public class CustomDwarf {
 	public void setSuffix(String suffix) {
 		this.suffix = suffix;
 	}
+	public String getDisguise() {
+		return disguise;
+	}
+	public void setDisguise(String disguise) {
+		this.disguise = disguise;
+	}
 	public Material getClassItem() {
 		return classItem;
 	}
@@ -316,6 +327,12 @@ public class CustomDwarf {
 	}
 	public void setEffects(String[] effects) {
 		this.effects = effects;
+	}
+	public boolean isPlaceBlocks() {
+		return placeBlocks;
+	}
+	public void setPlaceBlocks(boolean placeBlocks) {
+		this.placeBlocks = placeBlocks;
 	}
 	public double getDamageBuff() {
 		return damageBuff;

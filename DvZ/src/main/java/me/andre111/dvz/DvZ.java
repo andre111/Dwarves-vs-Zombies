@@ -13,7 +13,7 @@ import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.dragon.DragonAttackListener;
 import me.andre111.dvz.dragon.DragonAttackManager;
 import me.andre111.dvz.dragon.DragonDeathListener;
-import me.andre111.dvz.dwarf.DwarfManager;
+import me.andre111.dvz.dwarf.ClassManager;
 import me.andre111.dvz.event.DVZJoinGameEvent;
 import me.andre111.dvz.generator.DvZWorldProvider;
 import me.andre111.dvz.listeners.Listener_Block;
@@ -22,11 +22,9 @@ import me.andre111.dvz.listeners.Listener_Game;
 import me.andre111.dvz.listeners.Listener_Player;
 import me.andre111.dvz.manager.BlockManager;
 import me.andre111.dvz.manager.BreakManager;
-import me.andre111.dvz.manager.EffectManager;
 import me.andre111.dvz.manager.HighscoreManager;
 import me.andre111.dvz.manager.ItemStandManager;
 import me.andre111.dvz.manager.WorldManager;
-import me.andre111.dvz.monster.MonsterManager;
 import me.andre111.dvz.players.SpecialPlayerManager;
 import me.andre111.dvz.utils.FileHandler;
 import me.andre111.dvz.utils.IconMenuHandler;
@@ -73,11 +71,10 @@ public class DvZ extends JavaPlugin {
 	public static Invulnerability inVul;
 	public static Item3DHandler item3DHandler;
 	public static ItemStandManager itemStandManager;
-	public static EffectManager effectManager;
+	//public static EffectManager effectManager;
 	public static SpecialPlayerManager playerManager;
 	
-	public static MonsterManager monsterManager;
-	public static DwarfManager dwarfManager;
+	public static ClassManager classManager;
 	
 	public static Logger logger;
 	public static String prefix = "[Dwarves vs Zombies] ";
@@ -141,10 +138,8 @@ public class DvZ extends JavaPlugin {
 		SpellItems.addRewardsFromConfiguration(ConfigManager.getRewardFile());
 		SpellItems.luacontroller.loadScript(new File(DvZ.instance.getDataFolder(), "spells.lua").getAbsolutePath());
 		
-		dwarfManager = new DwarfManager();
-		dwarfManager.loadDwarfes();
-		monsterManager = new MonsterManager();
-		monsterManager.loadMonsters();
+		classManager = new ClassManager();
+		classManager.loadClasses();
 		
 		dragonAtManager = new DragonAttackManager();
 		dragonAtManager.loadAttacks();
@@ -154,8 +149,8 @@ public class DvZ extends JavaPlugin {
 		inVul = new Invulnerability(this);
 		item3DHandler = new Item3DHandler(this);
 		itemStandManager = new ItemStandManager();
-		effectManager = new EffectManager();
-		effectManager.loadEffects();
+		//effectManager = new EffectManager();
+		//effectManager.loadEffects();
 		playerManager = new SpecialPlayerManager();
 		playerManager.loadPlayers();
 		
@@ -395,19 +390,13 @@ public class DvZ extends JavaPlugin {
 		//autoadd player
 		if(game.getState()>1) {
 			if (getConfig().getString("autoadd_players","false").equals("true") || autojoin) {
-				if(!game.released) {
-					game.setPlayerState(player.getUniqueId(), 2);
-					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
-					game.addDwarfItems(player);
+				game.setPlayerState(player.getUniqueId(), Game.pickClass);
+				game.setPlayerTeam(player.getUniqueId(), game.teamSetup.getStartTeam());
+				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
+				game.addClassItems(player);
 
-					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
-				} else {
-					game.setPlayerState(player.getUniqueId(), 3);
-					DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
-					game.addMonsterItems(player);
-
-					game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd_m","Autoadded -0- as a Monster to the Game!").replace("-0-", player.getDisplayName()));
-				}
+				//TODO - change message to teams
+				game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
 			}
 		} else {
 			if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {
