@@ -737,6 +737,24 @@ public class Game {
 		
 		reset(true);
 	}
+	public void lose(Team team) {
+		//TODO - change message for teams
+		broadcastMessage(ConfigManager.getLanguage().getString("string_lose","-0- lost the game:").replace("-0-", team.getDisplayName()));
+		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_loose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"), team);
+		
+		//Score/Stats
+		for(UUID st : playerstate.keySet()){
+			if(getTeam(st).getName().equals(team.getName())) {
+				Player player = PlayerHandler.getPlayerFromUUID(st);
+				if (player!=null) {
+					PlayerScore pscore = HighscoreManager.getPlayerScore(player.getUniqueId());
+					pscore.setLosses(pscore.getLosses()+1);
+				}
+			}
+		}
+		
+		reset(true);
+	}
 	
 	private void printSurvivingPlayers(int score, String score_text, Team team) {
 		String pmessage = "";

@@ -139,14 +139,16 @@ public class GameTeamSetup {
 	public void performCommand(String command) {
 		String[] split = command.split(" ");
 		
-		//TODO - add commands
 		if(split[0].equals("win")) {
 			Team team = getTeam(split[1]);
 			if(team!=null) {
 				DvZ.instance.getGame(gameID).win(team);
 			}
 		} else if(split[0].equals("lose")) {
-			
+			Team team = getTeam(split[1]);
+			if(team!=null) {
+				DvZ.instance.getGame(gameID).lose(team);
+			}
 		} else if(split[0].equals("release")) {
 			Team team = getTeam(split[1]);
 			if(team!=null) {
