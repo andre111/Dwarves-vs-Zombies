@@ -277,7 +277,7 @@ classes:
          transmuteBlockBreak:
             - "112;112;348:0;51:-1;-1;371:0 1 50"
       rewardOnBuild: false
-   7: 
+   6: 
       name: "lang:string_default_newblacksmith"
       chatPrefix: ""
       chatSuffix: "lang:string_default_newblacksmith_suf"
@@ -327,7 +327,7 @@ classes:
          transmuteBlockBreak:
             - "112;112;348:0;51:-1;-1;371:0 1 50"
       rewardOnBuild: false
-   8:
+   7:
      name: "lang:string_default_zombie"
      disguise: "Zombie"
      chatPrefix: ""
@@ -358,7 +358,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   9:
+   8:
      name: "lang:string_default_skeleton"
      disguise: "Skeleton"
      chatPrefix: ""
@@ -389,7 +389,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   10:
+   9:
      name: "lang:string_default_creeper"
      disguise: "Creeper"
      chatPrefix: ""
@@ -419,7 +419,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   11:
+   10:
      name: "lang:string_default_wolf"
      disguise: "Wolf"
      chatPrefix: ""
@@ -452,7 +452,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   12:
+   11:
      name: "lang:string_default_spider"
      disguise: "Spider"
      chatPrefix: ""
@@ -488,7 +488,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   13:
+   12:
      name: "lang:string_default_irongolem"
      disguise: "IronGolem"
      chatPrefix: ""
@@ -525,7 +525,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   14:
+   13:
      name: "lang:string_default_snowgolem"
      disguise: "Snowman"
      chatPrefix: ""
@@ -552,7 +552,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   15:
+   14:
      name: "lang:string_default_broodmother"
      disguise: "Silverfish"
      chatPrefix: ""
@@ -582,7 +582,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   16:
+   15:
      name: "lang:string_default_enderman"
      disguise: "Enderman"
      chatPrefix: ""
@@ -609,7 +609,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   17:
+   16:
      name: "lang:string_default_cat"
      disguise: "Ocelot"
      chatPrefix: ""
@@ -636,7 +636,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   18:
+   17:
      name: "lang:string_default_zombie"
      disguise: "Zombie"
      chatPrefix: ""
@@ -667,7 +667,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   19:
+   18:
      name: "lang:string_default_skeleton"
      disguise: "Skeleton"
      chatPrefix: ""
@@ -698,7 +698,7 @@ classes:
      startHunger: 20
      startSaturation: 20
      startMessage: ""
-   20:
+   19:
      name: "lang:string_default_creeper"
      disguise: "Creeper"
      chatPrefix: ""

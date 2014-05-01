@@ -504,7 +504,7 @@ public class Game {
 			customCooldown.put(key, time);
 			//end
 			if(time==0) {
-				String[] split = key.split("||");
+				String[] split = key.split("::");
 				
 				countdownEnd(UUID.fromString(split[0]), split[1]);
 			}
@@ -1125,6 +1125,7 @@ public class Game {
 				}
 				Location loc = getTeam(player.getUniqueId()).getSpawnLocation(getWorld());
 				player.getLocation(loc);
+				addMonsterBuff(player, getTeam(player.getUniqueId()).getSpawnBuff());
 			}
 		}
 		
@@ -1181,8 +1182,8 @@ public class Game {
 	public void playerLC(Player player, ItemStack item, Block block) {
 		if(!isPlayer(player.getUniqueId())) return;
 		if(item==null) return;
-		Material itemMat = item.getType();
-		UUID puuid = player.getUniqueId();
+		//Material itemMat = item.getType();
+		//UUID puuid = player.getUniqueId();
 		
 		//disable clicking when monsters are not released
 		if(!getTeam(player.getUniqueId()).isReleased()) {
@@ -1237,9 +1238,9 @@ public class Game {
 	//#######################################
 	//Monster unverwundbar für ... Sekunden
 	//#######################################
-	//TODO - recreate for team system
-	public void addMonsterBuff(Player player) {
-		int time = plugin.getConfig().getInt("monster_invulnarable", 30);
+	public void addMonsterBuff(Player player, int time) {
+		//int time = plugin.getConfig().getInt("monster_invulnarable", 30);
+		if(time<=0) return;
 		
 		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, time*20, 4), false);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, time*20, 6), false);
@@ -1470,7 +1471,7 @@ public class Game {
 								String[] strings = st.split(":");
 								Location spawnMonsters = new Location(Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+gtemp+""), 
 										Double.parseDouble(strings[0]), Double.parseDouble(strings[1]), Double.parseDouble(strings[2]), Float.parseFloat(strings[3]), Float.parseFloat(strings[4]));
-								Team mTeam = teamSetup.getTeam("monsters");
+								Team mTeam = teamSetup.getTeam("zombies");
 								if(mTeam!=null) {
 									mTeam.setSpawnLocation(spawnMonsters);
 								}
@@ -1573,10 +1574,11 @@ public class Game {
 					}
 				}*/
 				//pickdwarf -> rejoin
-				//TODO - disabled due to constant teleporting
 				if(getPlayerState(p.getUniqueId())==Game.pickClass) {
-					//Location loc = getTeam(p.getUniqueId()).getSpawnLocation(w);
-					//p.teleport(loc);
+					Location loc = getTeam(p.getUniqueId()).getSpawnLocation(w);
+					if(loc.distanceSquared(p.getLocation())>2) {
+						p.teleport(loc);
+					}
 					
 					/*resetPlayerToWorldLobby(p);
 					playerstate.remove(p.getUniqueId());
@@ -1704,17 +1706,17 @@ public class Game {
 	}
 	
 	public void setCustomCooldown(UUID player, String name, int time) {
-		customCooldown.put(player+"||"+name, time);
+		customCooldown.put(player+"::"+name, time);
 	}
 	public int getCustomCooldown(UUID player, String name) {
-		if(customCooldown.containsKey(player+"||"+name)) {
-			return customCooldown.get(player+"||"+name);
+		if(customCooldown.containsKey(player+"::"+name)) {
+			return customCooldown.get(player+"::"+name);
 		}
 		
 		return -1;
 	}
 	public void resetCustomCooldown(UUID player, String name) {
-		customCooldown.remove(player+"||"+name);
+		customCooldown.remove(player+"::"+name);
 	}
 	
 	public Inventory getCrystalChest(UUID pname, boolean global) {

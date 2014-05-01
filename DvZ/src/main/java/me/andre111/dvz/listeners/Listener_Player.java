@@ -265,6 +265,7 @@ public class Listener_Player implements Listener  {
 				
 				game.setPlayerState(puuid, Game.pickClass);
 				game.setPlayerTeam(puuid, game.getTeam(puuid).getRespawnTeam());
+
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 	
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {

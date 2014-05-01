@@ -32,6 +32,7 @@ public class Team {
 	private boolean deathDropItems;
 	private boolean invulnerable;
 	private boolean hideKills;
+	private int spawnBuff;
 
 	private Location spawnLocation;
 	private Location monumentLocation;
@@ -278,5 +279,11 @@ public class Team {
 	}
 	public void setHideKills(boolean hideKills) {
 		this.hideKills = hideKills;
+	}
+	public int getSpawnBuff() {
+		return spawnBuff;
+	}
+	public void setSpawnBuff(int spawnBuff) {
+		this.spawnBuff = spawnBuff;
 	}
 }

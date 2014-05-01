@@ -46,6 +46,7 @@ teams:
       friendlyFire: false
       invulnerable: true
       hideKills: false
+      spawnBuff: 0
       onDeath:
         - "lose dwarves"
       items:
@@ -68,6 +69,7 @@ teams:
       hasMonument: false
       monumentBar: "dwarves"
       classes:
+        - 7
         - 8
         - 9
         - 10
@@ -77,7 +79,6 @@ teams:
         - 14
         - 15
         - 16
-        - 17
       relation:
          friendly: []
          hostile:
@@ -85,6 +86,7 @@ teams:
       friendlyFire: false
       invulnerable: false
       hideKills: true
+      spawnBuff: 10
       onDeath: []
       items:
          pickup: false
