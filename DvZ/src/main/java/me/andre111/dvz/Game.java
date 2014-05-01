@@ -31,6 +31,7 @@ import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.utils.WaitingMenu;
 import me.andre111.dvz.volatileCode.DvZPackets;
 import me.andre111.items.ItemHandler;
+import me.andre111.items.utils.AttributeStorage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -124,7 +125,7 @@ public class Game {
 	//public int deaths;
 	
 	private int infotimer;
-	private String lastTimerDisplay;
+	private String lastTimerDisplay = "";
 	
 	//public boolean released;
 	//private int releasetime;
@@ -138,9 +139,9 @@ public class Game {
 	//#######################################
 	//Neues Spiel
 	//#######################################
-	public Game(DvZ p, int type) {
+	public Game(DvZ p, int type, int gid) {
 		gameType = type;
-		teamSetup = new GameTeamSetup(DvZ.instance.getGameID(this));
+		teamSetup = new GameTeamSetup(gid);
 		
 		state = 1;
 		starttime = 30;//60;
@@ -363,9 +364,11 @@ public class Game {
 						for(UUID st : playerstate.keySet()){
 							Player player = PlayerHandler.getPlayerFromUUID(st);
 							Team team = getTeam(st);
-							Team barTeam = teamSetup.getTeam(team.getMonumentBarTeam());
-							if (player!=null && barTeam!=null && barTeam.hasMonument()) {
-								DvZPackets.sendInfoBar(player, barTeam.getMonumentHealth()/100D, ConfigManager.getLanguage().getString("monument_bar","Monument"));
+							if(team!=null) {
+								Team barTeam = teamSetup.getTeam(team.getMonumentBarTeam());
+								if (player!=null && barTeam!=null && barTeam.hasMonument()) {
+									DvZPackets.sendInfoBar(player, barTeam.getMonumentHealth()/100D, ConfigManager.getLanguage().getString("monument_bar","Monument"));
+								}
 							}
 						}
 					}
@@ -395,7 +398,7 @@ public class Game {
 				}*/
 				
 				//TODO - remove test
-				if(state==2)
+				//if(state==2)
 				for(Map.Entry<UUID, Integer> e : playerstate.entrySet()) {
 					if(!playerteam.containsKey(e.getKey())) {
 						System.out.println("WARNING: Found player without team, this should not happen!");
@@ -531,7 +534,7 @@ public class Game {
 	//Starte das wirkliche Spiel/oder geht weiter
 	//#######################################
 	//TODO - Start anders machen/moderator...
-	private int taskid;
+	private int taskid = -1;
 	private Random rand = new Random();
 	public void startGame() {
 		if (state==1) {
@@ -574,8 +577,17 @@ public class Game {
 			DVZFileConfiguration sconfig = DVZFileConfiguration.loadConfiguration(file);
 			teamSetup.loadSetup(sconfig);
 			
+			for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
+				UUID players = e.getKey();
+				
+				if(!playerteam.containsKey(players) || playerteam.get(players).equals(GameTeamSetup.NO_TEAM)) {
+					playerteam.put(players, teamSetup.getStartTeam());
+				}
+			}
+			
 			final int gtemp = plugin.getGameID(this);
 			
+			if(taskid==-1)
 			taskid = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 				public void run() {
 					World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+gtemp+"");
@@ -596,13 +608,11 @@ public class Game {
 							UUID players = e.getKey();
 							int pstate = e.getValue();
 							
-							if(playerteam.get(players).equals(GameTeamSetup.NO_TEAM)) {
-								playerteam.put(players, teamSetup.getStartTeam());
-							}
-							
 							if (pstate==1) {
 								Player player = PlayerHandler.getPlayerFromUUID(players);
 								if(player!=null) {
+									playerstate.put(players, Game.pickClass);
+									
 									InventoryHandler.clearInv(player, false);
 									//this doesn't really seem to work
 									player.resetMaxHealth();
@@ -613,8 +623,6 @@ public class Game {
 									player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 									DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 									addClassItems(player);
-									
-									playerstate.put(players, Game.pickClass);
 								}
 							}
 						}
@@ -628,7 +636,8 @@ public class Game {
 		}
 	}
 	private void endTask() {
-		Bukkit.getServer().getScheduler().cancelTask(taskid);
+		Bukkit.getScheduler().cancelTask(taskid);
+		taskid = -1;
 	}
 	
 	//#######################################
@@ -829,7 +838,7 @@ public class Game {
 	//Gehört dieser block zum monument
 	//#######################################
 	public boolean isMonument(Block b, Team team) {
-		if(team.hasMonument()) {
+		if(team!=null && team.hasMonument()) {
 			Location monument = team.getMonumentLocation();
 			if (b.getWorld()==monument.getWorld()) {
 				Block block = monument.getWorld().getBlockAt(monument);
@@ -937,13 +946,15 @@ public class Game {
 	//#######################################
 	//Dwarf Items hinzufügen
 	//#######################################
+	//NEVER CHANGE this
+	private static final UUID classselectionID = UUID.fromString("95076b00-d15a-11e3-9c1a-0800200c9a66");
 	public void addClassItems(final Player player) {
 		Random rand = new Random();
 		PlayerInventory inv = player.getInventory();
 		
 		resetCountdowns(player.getUniqueId());
 		
-		ItemStack[] dwarfItems = new ItemStack[DvZ.classManager.getCount()];
+		HashMap<Integer, ItemStack> dwarfItems = new HashMap<Integer, ItemStack>();
 		
 		/*for(int i=0; i<DvZ.classManager.getCount(); i++) {
 			dwarfItems[i] = new ItemStack(DvZ.classManager.getClass(i).getClassItem(), 1, (short)DvZ.classManager.getClass(i).getClassItemDamage());
@@ -951,25 +962,26 @@ public class Game {
 			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.classManager.getClass(i).getName()));
 			dwarfItems[i].setItemMeta(cim);
 		}*/
-		int posI = 0;
 		for(int classI : getTeam(player.getUniqueId()).getClasses()) {
-			dwarfItems[posI] = new ItemStack(DvZ.classManager.getClass(classI).getClassItem(), 1, (short)DvZ.classManager.getClass(classI).getClassItemDamage());
-			ItemMeta cim = dwarfItems[posI].getItemMeta();
+			dwarfItems.put(classI, new ItemStack(DvZ.classManager.getClass(classI).getClassItem(), 1, (short)DvZ.classManager.getClass(classI).getClassItemDamage()));
+			ItemMeta cim = dwarfItems.get(classI).getItemMeta();
 			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.classManager.getClass(classI).getName()));
-			dwarfItems[posI].setItemMeta(cim);
-			posI++;
+			dwarfItems.get(classI).setItemMeta(cim);
+			AttributeStorage storage = AttributeStorage.newTarget(dwarfItems.get(classI), classselectionID);
+				storage.setData(""+classI);
+			dwarfItems.put(classI, storage.getTarget());
 		}
 		
 		//costum dwarves
 		if(!plugin.getConfig().getString("new_classselection","true").equals("true")) {
-			for(int i=0; i<DvZ.classManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.classManager.getClass(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.alldwarves")) {
+			for(Map.Entry<Integer, ItemStack> e : dwarfItems.entrySet()) {
+				if(rand.nextInt(100)<DvZ.classManager.getClass(e.getKey()).getClassChance() || player.hasPermission("dvz.allclasses")/* || player.hasPermission("dvz.alldwarves")*/) {
 					//game type
-					int gID = DvZ.classManager.getClass(i).getGameId();
+					int gID = DvZ.classManager.getClass(e.getKey()).getGameId();
 					if(gID==0 || gID==GameType.getDwarfAndMonsterTypes(getGameType())) {
 						//permissions
-						if(player.hasPermission("dvz.classes."+i)) {
-							inv.addItem(dwarfItems[i]);
+						if(player.hasPermission("dvz.classes."+e.getKey())) {
+							inv.addItem(e.getValue());
 						}
 					}
 				}
@@ -997,17 +1009,19 @@ public class Game {
 	            	}
 	            	
 	            	boolean classFound = false;
-	            	Material itemId = event.getItem().getType();
-	            	int itemD = event.getItem().getDurability();
+	            	//Material itemId = event.getItem().getType();
+	            	//int itemD = event.getItem().getDurability();
 	            	final Player player = event.getPlayer();
+	            	AttributeStorage storage = AttributeStorage.newTarget(event.getItem(), classselectionID);
+	            	int classID = Integer.parseInt(storage.getData(""+0));
 	    			
-	    			for(int i=0; i<DvZ.classManager.getCount(); i++) {
-	    				CustomClass cm = DvZ.classManager.getClass(i);
-	    				if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
+	    			//for(int i=0; i<DvZ.classManager.getCount(); i++) {
+	    				CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
+	    				//if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
 	    					cm.becomeClass(game, player);
 	    					classFound = true;
-	    				}
-	    			}
+	    			//	}
+	    			//}
 	    			
 	    			if (classFound) {
 	    				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
@@ -1032,14 +1046,14 @@ public class Game {
 
 			//adding
 			int pos = 0;
-			for(int i=0; i<DvZ.classManager.getCount(); i++) {
-				if(rand.nextInt(100)<DvZ.classManager.getClass(i).getClassChance() || player.hasPermission("dvz.allclasses") || player.hasPermission("dvz.alldwarves")) {
+			for(Map.Entry<Integer, ItemStack> e : dwarfItems.entrySet()) {
+				if(rand.nextInt(100)<DvZ.classManager.getClass(e.getKey()).getClassChance() || player.hasPermission("dvz.allclasses")/* || player.hasPermission("dvz.alldwarves")*/) {
 					//game type
-					int gID = DvZ.classManager.getClass(i).getGameId();
+					int gID = DvZ.classManager.getClass(e.getKey()).getGameId();
 					if(gID==0 || gID==GameType.getDwarfAndMonsterTypes(getGameType())) {
 						//permissions
-						if(player.hasPermission("dvz.classes."+i)) {
-							im.setOption(pos, dwarfItems[i]); 
+						if(player.hasPermission("dvz.classes."+e.getKey())) {
+							im.setOption(pos, e.getValue()); 
 							pos++;
 						}
 					}
@@ -1080,8 +1094,8 @@ public class Game {
 	public void playerRC(PlayerInteractEvent event, Player player, ItemStack item, Block block) {
 		if(!isPlayer(player.getUniqueId())) return;
 		if(item==null) return;
-		Material itemId = item.getType();
-		int itemD = item.getDurability();
+		//Material itemId = item.getType();
+		//int itemD = item.getDurability();
 		UUID puuid = player.getUniqueId();
 		
 		if(getPlayerState(puuid)==Game.pickClass) { //class pick
@@ -1094,13 +1108,15 @@ public class Game {
         	}
 			
 			//costum dwarves
-			for(int i=0; i<DvZ.classManager.getCount(); i++) {
-				CustomClass cm = DvZ.classManager.getClass(i);
-				if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
+        	AttributeStorage storage = AttributeStorage.newTarget(event.getItem(), classselectionID);
+        	int classID = Integer.parseInt(storage.getData(""+0));
+			//for(int i=0; i<DvZ.classManager.getCount(); i++) {
+				CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
+			//	if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
 					cm.becomeClass(this, player);
 					classFound = true;
-				}
-			}
+			//	}
+			//}
 			
 			if (classFound) {
 				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
@@ -1321,7 +1337,7 @@ public class Game {
 	public ArrayList<UUID> getTeamPlayers(Team team) {
 		ArrayList<UUID> ret = new ArrayList<UUID>();
 		for(UUID player : playerstate.keySet()) {
-			if(playerteam.get(player).equals(team.getName())) {
+			if(playerteam.get(player)!=null && playerteam.get(player).equals(team.getName())) {
 				ret.add(player);
 			}
 		}
@@ -1557,9 +1573,10 @@ public class Game {
 					}
 				}*/
 				//pickdwarf -> rejoin
+				//TODO - disabled due to constant teleporting
 				if(getPlayerState(p.getUniqueId())==Game.pickClass) {
-					Location loc = getTeam(p.getUniqueId()).getSpawnLocation(w);
-					p.teleport(loc);
+					//Location loc = getTeam(p.getUniqueId()).getSpawnLocation(w);
+					//p.teleport(loc);
 					
 					/*resetPlayerToWorldLobby(p);
 					playerstate.remove(p.getUniqueId());

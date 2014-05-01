@@ -221,7 +221,7 @@ public class DvZ extends JavaPlugin {
 			int type = getConfig().getInt("game"+i, 1);
 			
 			if(type!=0) {
-				games[i] = new Game(this, GameType.fromID(type).getFirstType());
+				games[i] = new Game(this, GameType.fromID(type).getFirstType(), i);
 				games[i].reset(false);
 			}
 		}

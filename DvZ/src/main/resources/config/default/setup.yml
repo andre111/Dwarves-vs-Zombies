@@ -111,7 +111,7 @@ timer:
       # 20 Minutes 20*60*20
       time: 24000
       showDisplay: true
-      display: "Monsterrelease"
+      display: "M-Release"
       onEnd:
         - "starttimer win"
         - "release zombies"

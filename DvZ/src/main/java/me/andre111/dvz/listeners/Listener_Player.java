@@ -517,8 +517,9 @@ public class Listener_Player implements Listener  {
 		Player p  = (Player) event.getPlayer();
 		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game==null) return;
+		Team team = game.getTeam(p.getUniqueId());
 		//don't spam packets when the monsters are not released->WaitingMEnu
-		if(!game.getTeam(p.getUniqueId()).isReleased()) return;
+		if(team!=null && !team.isReleased()) return;
 		
 		StatManager.onInventoryClose(p);
 	}

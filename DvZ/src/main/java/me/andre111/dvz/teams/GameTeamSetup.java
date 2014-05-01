@@ -64,6 +64,8 @@ public class GameTeamSetup {
 			EffectManager effects = new EffectManager(team);
 			effects.loadEffects(teamSec, st);
 			team.setEffectManager(effects);
+			
+			teams.add(team);
 		}
 		
 		//timers
@@ -77,6 +79,8 @@ public class GameTeamSetup {
 			for(String command : timerSec.getStringList(st+".onEnd")) {
 				timer.addCommand(command);
 			}
+			
+			counters.add(timer);
 		}
 		
 		//start

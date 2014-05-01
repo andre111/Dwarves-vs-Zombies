@@ -17,7 +17,7 @@ public class ItemClassCheck extends ItemSpell {
 	
 	@Override
 	public Varargs invoke(Varargs args) {
-		if(args.narg()>=3) {
+		if(args.narg()>=2) {
 			LuaValue playerN = args.arg(1);
 			//LuaValue typeN = args.arg(2);
 			LuaValue classidN = args.arg(2);

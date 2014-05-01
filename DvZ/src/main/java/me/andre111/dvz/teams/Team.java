@@ -114,7 +114,7 @@ public class Team {
 				if(player!=null) {
 					Location tempPLoc = player.getLocation().clone();
 					tempPLoc.setY(monumentLocation.getY());
-					if(tempPLoc.distanceSquared(monumentLocation)>ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)*ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)) {
+					if(tempPLoc.getWorld()==monumentLocation.getWorld() && tempPLoc.distanceSquared(monumentLocation)>ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)*ConfigManager.getStaticConfig().getInt("max_monument_distance", 200)) {
 						int current = ConfigManager.getStaticConfig().getInt("max_monument_counter", 10);
 						if(monDistance.containsKey(playern)) {
 							current = monDistance.get(playern) - 1;
