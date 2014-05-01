@@ -64,8 +64,8 @@ join_free_game: true
 item_stats: true
 global_stats: true
 # WARNING: when this is enabled, Players can only see their real exp when opening an inventory(other than their normal one)
-always_show_stats: false
-scoreboard_timer_seconds: false
+always_show_stats: true
+scoreboard_timer_seconds: true
 show_monument_bar: true
 
 show_game_id: true

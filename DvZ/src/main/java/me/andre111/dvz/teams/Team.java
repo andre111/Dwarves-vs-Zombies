@@ -66,48 +66,48 @@ public class Team {
 	public void tick(GameTeamSetup setup, Game game) {
 		ticker++;
 		
-		//Check players
-		ArrayList<UUID> teamPlayers = game.getTeamPlayers(this);
-		if(teamPlayers.isEmpty()) {
-			setup.performCommands(deathCommands);
-			return;
-		}
-		//TODO - maybe chonge back to every 2 seconds than every second?
-		if(ticker>=20)
-			effectManager.playerEffects(game);
 		effectManager.killEffects(game);
-		
-		if(!hasMonument()) {
-			return;
-		}
 
-		//monument destroyed
-		boolean destr = false;
-		int destroyed = 0;
-
-		Block block = monumentLocation.getWorld().getBlockAt(monumentLocation);
-		Block block2;
-
-		for(int i=0; i<=1; i++) {
-			for(int j=0; j<=1; j++) {
-				block2 = block.getRelative(i, 3, j);
-				if(block2.getType()!=Material.ENCHANTMENT_TABLE) 
-					destroyed++;
-			}
-		}
-		if(destroyed==4) {
-			destr = true;
-		}
-		setMonumentHealth(100 - (int) Math.round((100/4)*destroyed));
-
-		if(destr) {
-			setup.performCommand("lose "+getName());
-			return;
-		}
-
-		//monument distance
 		if(ticker>=20) {
 			ticker = 0;
+			//TODO - maybe chonge back to every 2 seconds than every second?
+			//Check players
+			ArrayList<UUID> teamPlayers = game.getTeamPlayers(this);
+			if(teamPlayers.isEmpty()) {
+				setup.performCommands(deathCommands);
+				return;
+			}
+			effectManager.playerEffects(game);
+			
+			if(!hasMonument()) {
+				return;
+			}
+			
+			//monument destroyed
+			boolean destr = false;
+			int destroyed = 0;
+	
+			Block block = monumentLocation.getWorld().getBlockAt(monumentLocation);
+			Block block2;
+	
+			for(int i=0; i<=1; i++) {
+				for(int j=0; j<=1; j++) {
+					block2 = block.getRelative(i, 3, j);
+					if(block2.getType()!=Material.ENCHANTMENT_TABLE) 
+						destroyed++;
+				}
+			}
+			if(destroyed==4) {
+				destr = true;
+			}
+			setMonumentHealth(100 - (int) Math.round((100/4)*destroyed));
+	
+			if(destr) {
+				setup.performCommand("lose "+getName());
+				return;
+			}
+
+			//monument distance
 			for(UUID playern : teamPlayers) {
 				Player player = PlayerHandler.getPlayerFromUUID(playern);
 	

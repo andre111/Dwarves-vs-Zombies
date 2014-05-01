@@ -821,10 +821,10 @@ public class Game {
 			if(!lastTimerDisplay.equals("")) {
 				StatManager.setTimeStat(lastTimerDisplay, 0);
 			}
-			if(teamSetup.isTimerDisplayed()) {
-				StatManager.setTimeStat(teamSetup.getTimerDisplay(), teamSetup.getTimerDisplayVar());
-			}
 			lastTimerDisplay = teamSetup.getTimerDisplay();
+		}
+		if(teamSetup.isTimerDisplayed() && !teamSetup.getTimerDisplay().equals("")) {
+			StatManager.setTimeStat(teamSetup.getTimerDisplay(), teamSetup.getTimerDisplayVar()/20);
 		}
 		/*if(!released) {
 			StatManager.setTimeStat(ConfigManager.getLanguage().getString("scoreboard_release", "M.Release"), releasetime);

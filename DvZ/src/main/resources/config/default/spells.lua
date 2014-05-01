@@ -245,11 +245,11 @@ end
 
 --Reward Items
 function rewardPoint(player, target, block, location)
-    spell.ItemGetItem(player, "!minecraft:bow 0 1 10 poisonous:0,-10:0 Bow of ...", 1)
-    spell.ItemGetItem(player, "!minecraft:snowball 0 32 10 freezing:0,-10:0 Freezing Snowballs", 1)
+    spell.ItemGetItem(player, "!minecraft:bow 0 1 10 poisonous:0,-10:0 . {display:{Name:\"Bow of ...\"}}", 1)
+    spell.ItemGetItem(player, "!minecraft:snowball 0 32 10 freezing:0,-10:0 . {display:{Name:\"Freezing Snowballs\"}}", 1)
     spell.ItemGetItem(player, "!spellitems:lightningsword 0 1 10 -10:0", 1)
     spell.ItemGetItem(player, "!spellitems:potionpie 0 4 10", 1)
-    spell.ItemGetItem(player, "!minecraft:blaze_rod 0 1 10 20:1 Fire Rod", 1)
+    spell.ItemGetItem(player, "!minecraft:blaze_rod 0 1 10 -10:1 . {display:{Name:\"Fire Rod\"}}", 1)
     
     return true
 end
