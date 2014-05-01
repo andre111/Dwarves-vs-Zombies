@@ -24,6 +24,7 @@ public class ConfigManager {
 	private static FileConfiguration blockfile;
 	private static FileConfiguration playerfile;
 	private static FileConfiguration rewardfile;
+	private static FileConfiguration setupfile;
 	
 	private static ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
 	private static ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
@@ -74,6 +75,11 @@ public class ConfigManager {
 				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/rewards.yml"), new File(plugin.getDataFolder(), "rewards.yml"));
 			} catch (IOException e) {}
 		}
+		if (!new File(plugin.getDataFolder(), "setup.yml").exists()) {
+			try {
+				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/setup.yml"), new File(plugin.getDataFolder(), "setup.yml"));
+			} catch (IOException e) {}
+		}
 		if (!new File(plugin.getDataFolder(), "spells.lua").exists()) {
 			try {
 				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/spells.lua"), new File(plugin.getDataFolder(), "spells.lua"));
@@ -91,6 +97,7 @@ public class ConfigManager {
 		blockfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "blocks.yml"));
 		playerfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "players.yml"));
 		rewardfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "rewards.yml"));
+		setupfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "setup.yml"));
 		
 		loadConfigs();
 	}
@@ -104,6 +111,7 @@ public class ConfigManager {
 		plugin.saveResource("config/default/blocks.yml", true);
 		plugin.saveResource("config/default/players.yml", true);
 		plugin.saveResource("config/default/rewards.yml", true);
+		plugin.saveResource("config/default/setup.yml", true);
 		plugin.saveResource("config/default/spells.lua", true);
 		//language
 		for(String st : Language.getPossibleLanguages()) {
