@@ -12,6 +12,8 @@ import me.andre111.dvz.config.DVZFileConfiguration;
 import me.andre111.dvz.manager.EffectManager;
 
 public class GameTeamSetup {
+	public static final String NO_TEAM = "-1_no_team_found!";
+	
 	private int gameID;
 	private Random rand;
 	
@@ -203,6 +205,10 @@ public class GameTeamSetup {
 	}
 	
 	public String getStartTeam() {
+		if(startTeams.isEmpty()) {
+			return NO_TEAM;
+		}
+		
 		int pos = rand.nextInt(startTeams.size());
 		return startTeams.get(pos);
 	}

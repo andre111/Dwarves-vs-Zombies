@@ -395,6 +395,7 @@ public class Game {
 				}*/
 				
 				//TODO - remove test
+				if(state==2)
 				for(Map.Entry<UUID, Integer> e : playerstate.entrySet()) {
 					if(!playerteam.containsKey(e.getKey())) {
 						System.out.println("WARNING: Found player without team, this should not happen!");
@@ -594,6 +595,10 @@ public class Game {
 						for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
 							UUID players = e.getKey();
 							int pstate = e.getValue();
+							
+							if(playerteam.get(players).equals(GameTeamSetup.NO_TEAM)) {
+								playerteam.put(players, teamSetup.getStartTeam());
+							}
 							
 							if (pstate==1) {
 								Player player = PlayerHandler.getPlayerFromUUID(players);
