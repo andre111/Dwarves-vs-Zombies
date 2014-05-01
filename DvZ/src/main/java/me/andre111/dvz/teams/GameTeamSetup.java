@@ -104,7 +104,7 @@ public class GameTeamSetup {
 			if(team.isHasMonument()) {
 				if(config.contains(team.getName()+".monument")) {
 					Location loc = loadLocation(config.getConfigurationSection(team.getName()+".monument"), world);
-					team.setSpawnLocation(loc);
+					team.setMonumentLocation(loc);
 					DvZ.instance.getGame(gameID).createMonument(loc, false);
 				}
 			}
