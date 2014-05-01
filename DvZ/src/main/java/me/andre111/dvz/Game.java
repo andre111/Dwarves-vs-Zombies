@@ -583,7 +583,7 @@ public class Game {
 			//only online players
 			if (player!=null) {
 				if (getTeam(e.getKey()).getName().equals(team.getName())) {
-					pmessage = pmessage + e.getKey() + ",";
+					pmessage = pmessage + player.getName() + ",";
 					pcount++;
 					if(pcount>=pmaxCount) {
 						broadcastMessage(pmessage);
