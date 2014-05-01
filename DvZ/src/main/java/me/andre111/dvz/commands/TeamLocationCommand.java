@@ -32,11 +32,11 @@ public class TeamLocationCommand extends DvZCommand {
 		}
 		
 		//TODO - add message for what went wrong
-		if(args.length<2) {
+		if(args.length<3) {
 			return false;
 		}
-		String team = args[0];
-		String loc = args[1].toLowerCase();
+		String team = args[1];
+		String loc = args[2].toLowerCase();
 		Location location = player.getLocation();
 		boolean found = false;
 		
