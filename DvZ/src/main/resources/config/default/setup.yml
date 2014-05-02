@@ -18,6 +18,7 @@
 # removestartteam [team]
 # set [team] [invulnerable] [true/false]
 # assassins [team] [percentage_of_players]
+# command [command] [arg1] [arg2] ...
 
 gamestart:
    startteams:
@@ -39,6 +40,9 @@ teams:
         - 1
         - 2
         - 3
+        - 4
+        - 5
+        - 6
       relation:
          friendly: []
          hostile:
@@ -79,6 +83,9 @@ teams:
         - 14
         - 15
         - 16
+        - 17
+        - 18
+        - 19
       relation:
          friendly: []
          hostile:

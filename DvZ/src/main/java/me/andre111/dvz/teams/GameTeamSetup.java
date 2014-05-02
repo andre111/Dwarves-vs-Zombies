@@ -3,6 +3,7 @@ package me.andre111.dvz.teams;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -179,6 +180,16 @@ public class GameTeamSetup {
 			if(team!=null) {
 				int percentage = Integer.parseInt(split[2]);
 				DvZ.instance.getGame(gameID).addAssasins(team, percentage);
+			}
+		} else if(split[0].equals("command")) {
+			if(split.length>1) {
+				StringBuilder stbuilder = new StringBuilder();
+				stbuilder.append(split[1]);
+				for(int i=2; i<split.length; i++) {
+					stbuilder.append(" ");
+					stbuilder.append(split[i]);
+				}
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), stbuilder.toString());
 			}
 		}
 	}
