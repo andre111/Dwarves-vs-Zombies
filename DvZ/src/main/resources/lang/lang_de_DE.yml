@@ -96,6 +96,7 @@ string_last_dwarf: "Letzter üerlegender Dwarf - &e-0-&f! Gratulation!"
 string_win: "&4Sieg!&f Die Dwarves haben das Monument verteidigt!"
 string_win_dwarves: "Dwarves welche das Monument beschützt haben:"
 string_destroy_monument: "Was machst du? Das ist dein Monument!"
+string_destroy_monument_other: "Was machst du? Das ist das Monument von -0-!"
 string_destroyed_monument: "Jemand zerstört das Monument von -0-!"
 # Item Descriptions
 string_used_seconds: "Kann alle -0- Sekunden benutzt werden!"

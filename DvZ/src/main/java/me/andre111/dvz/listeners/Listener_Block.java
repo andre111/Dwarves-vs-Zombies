@@ -72,11 +72,16 @@ public class Listener_Block implements Listener {
 			} else {
 				for(Team teamO : game.teamSetup.getTeams()) {
 					if(game.isMonument(event.getBlock(), teamO)) {
-						//TODO - maybe fix wording for team(of Dwarfes?)
-						String message = ConfigManager.getLanguage().getString("string_destroyed_monument","Someone is destroying the monument of -0-!").replace("-0-", teamO.getDisplayName());
-						
-						if(!message.equals("") && !message.equals(" ")) {
-							game.broadcastMessage(message);
+						if(team.isFriendly(teamO)) {
+							event.setCancelled(true);
+							DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_destroy_monument_other","What are you trying to do? This is the monument of -0-!").replace("-0-", teamO.getDisplayName()));
+						} else {
+							//TODO - maybe fix wording for team(of Dwarfes?)
+							String message = ConfigManager.getLanguage().getString("string_destroyed_monument","Someone is destroying the monument of -0-!").replace("-0-", teamO.getDisplayName());
+							
+							if(!message.equals("") && !message.equals(" ")) {
+								game.broadcastMessage(message);
+							}
 						}
 					}
 				}
