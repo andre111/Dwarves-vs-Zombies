@@ -40,6 +40,7 @@ teams:
         - 4
         - 5
         - 6
+      selectInLobby: true
       relation:
          friendly: []
          hostile:
@@ -89,6 +90,7 @@ teams:
         - 17
         - 18
         - 19
+      selectInLobby: false
       relation:
          friendly: []
          hostile:

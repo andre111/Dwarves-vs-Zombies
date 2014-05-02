@@ -67,6 +67,7 @@ public class GameTeamSetup {
 			team.setCanDropItems(teamSec.getBoolean(st+".items.drop", true));
 			team.setDeathDropItems(teamSec.getBoolean(st+".items.deathDrop", true));
 			team.setHideKills(teamSec.getBoolean(st+".hideKills", false));
+			team.setSelectInLobby(teamSec.getBoolean(st+".selectInLobby", true));
 			EffectManager effects = new EffectManager(team);
 			effects.loadEffects(teamSec, st);
 			team.setEffectManager(effects);

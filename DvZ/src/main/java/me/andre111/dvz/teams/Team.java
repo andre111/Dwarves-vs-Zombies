@@ -34,6 +34,7 @@ public class Team {
 	private boolean invulnerable;
 	private boolean hideKills;
 	private int spawnBuff;
+	private boolean selectInLobby;
 
 	private Location spawnLocation;
 	private Location monumentLocation;
@@ -293,5 +294,11 @@ public class Team {
 	}
 	public void setSpawnBuff(int spawnBuff) {
 		this.spawnBuff = spawnBuff;
+	}
+	public boolean isSelectInLobby() {
+		return selectInLobby;
+	}
+	public void setSelectInLobby(boolean selectInLobby) {
+		this.selectInLobby = selectInLobby;
 	}
 }

@@ -808,7 +808,7 @@ public class Game {
 	            	
 	            	//safety for not running games
 	            	if(!game.isRunning()) {
-	            		resetPlayerToWorldLobby(player);
+	            		resetPlayerToWorldLobby(player, true);
 	    				
 	    				event.setWillClose(true);
 	                    event.setWillDestroy(true);
@@ -877,8 +877,12 @@ public class Game {
 		}
 	}
 	
-	public void resetPlayerToWorldLobby(final Player player) {
-		playerstate.put(player.getUniqueId(), 1);
+	public void resetPlayerToWorldLobby(final Player player, boolean resetState) {
+		if(resetState) {
+			playerstate.put(player.getUniqueId(), 1);
+			//TODO - is a teamreset needed here or not?
+			playerteam.remove(player.getUniqueId());
+		}
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
@@ -889,7 +893,9 @@ public class Game {
 					w = Bukkit.getServer().getWorlds().get(0);
 				
 				if(w!=null) {
-					player.teleport(w.getSpawnLocation());
+					if(player.getWorld()!=w || player.getLocation().distanceSquared(w.getSpawnLocation())>2) {
+						player.teleport(w.getSpawnLocation());
+					}
 				}
 			}
 		}, 1);
@@ -910,7 +916,7 @@ public class Game {
 			
 			//safety for not running games
         	if(!isRunning()) {
-        		resetPlayerToWorldLobby(player);
+        		resetPlayerToWorldLobby(player, true);
         		return;
         	}
 			
@@ -931,7 +937,7 @@ public class Game {
 					sp.addCrytalItems(this, player);
 				}
 				Location loc = getTeam(player.getUniqueId()).getSpawnLocation(getWorld());
-				player.getLocation(loc);
+				player.teleport(loc);
 				addMonsterBuff(player, getTeam(player.getUniqueId()).getSpawnBuff());
 			}
 		}
@@ -1323,11 +1329,15 @@ public class Game {
 						DvZ.sendPlayerMessageFormated(player, message2);
 					}
 					
-					Location loc = player.getLocation();
-					Location target = getTeam(playern).getSpawnLocation(getWorld());
-					
-					if(loc.distanceSquared(target)>2) {
-						player.teleport(target);
+					if(getTeam(player.getUniqueId()).isSelectInLobby()) {
+						resetPlayerToWorldLobby(player, false);
+					} else {
+						Location loc = player.getLocation();
+						Location target = getTeam(playern).getSpawnLocation(getWorld());
+						
+						if(loc.distanceSquared(target)>2) {
+							player.teleport(target);
+						}
 					}
 				}
 			}
@@ -1335,6 +1345,7 @@ public class Game {
 	}
 	
 	//teleport unwanted players
+	//TODO - player somehow gets teleported to mainworld for a split second on gamestart
 	public void kickUnwanted() {
 		//mainworld
 		World w = getWorld();
@@ -1343,15 +1354,20 @@ public class Game {
 			for(Player p : w.getPlayers()) {
 				//not playing -> kick to lobby
 				if(!isPlayer(p.getUniqueId()) || getPlayerState(p.getUniqueId())==1) {
-					resetPlayerToWorldLobby(p);
+					resetPlayerToWorldLobby(p, true);
 					playerstate.remove(p.getUniqueId());
+					playerteam.remove(p.getUniqueId());
 					//DvZ.instance.joinGame(p, this, false);
 				}
 				//pickclass -> to team spawn
 				if(getPlayerState(p.getUniqueId())==Game.pickClass) {
-					Location loc = getTeam(p.getUniqueId()).getSpawnLocation(w);
-					if(loc.distanceSquared(p.getLocation())>2) {
-						p.teleport(loc);
+					if(getTeam(p.getUniqueId()).isSelectInLobby()) {
+						resetPlayerToWorldLobby(p, false);
+					} else {
+						Location loc = getTeam(p.getUniqueId()).getSpawnLocation(w);
+						if(loc.distanceSquared(p.getLocation())>2) {
+							p.teleport(loc);
+						}
 					}
 					
 					/*resetPlayerToWorldLobby(p);
@@ -1372,7 +1388,13 @@ public class Game {
 		
 		if(wl!=null) {
 			for(Player p : wl.getPlayers()) {
-				Location loc = getTeam(p.getUniqueId()).getSpawnLocation(wl);
+				if(getPlayerState(p.getUniqueId())==Game.pickClass) {
+					if(getTeam(p.getUniqueId()).isSelectInLobby()) {
+						continue;
+					}
+				}
+				
+				Location loc = getTeam(p.getUniqueId()).getSpawnLocation(getWorld());
 				
 				p.teleport(loc);
 			}
