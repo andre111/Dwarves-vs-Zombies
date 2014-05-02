@@ -22,6 +22,7 @@ public class GameTeamSetup {
 	private ArrayList<GameTimer> counters = new ArrayList<GameTimer>();
 	
 	private ArrayList<String> startTeams = new ArrayList<String>();
+	private boolean evenTeamSplit;
 	
 	public GameTeamSetup(int gid) {
 		gameID = gid;
@@ -92,6 +93,7 @@ public class GameTeamSetup {
 		for(String st : config.getStringList("gamestart.startteams")) {
 			startTeams.add(st);
 		}
+		evenTeamSplit = config.getBoolean("gamestart.eventeamsplit", true);
 		for(String st : config.getStringList("gamestart.starttimers")) {
 			GameTimer timer = getTimer(st);
 			if(timer!=null) {
@@ -253,8 +255,21 @@ public class GameTeamSetup {
 			return NO_TEAM;
 		}
 		
-		int pos = rand.nextInt(startTeams.size());
-		return startTeams.get(pos);
+		if(evenTeamSplit) {
+			int lowest = 0;
+			int lowestVar = 100000000;
+			for(int i=0; i<startTeams.size(); i++) {
+				int count = DvZ.instance.getGame(gameID).getTeamPlayers(getTeam(startTeams.get(i))).size();
+				if(count<lowestVar) {
+					lowest = i;
+					lowestVar = count;
+				}
+			}
+			return startTeams.get(lowest);
+		} else {
+			int pos = rand.nextInt(startTeams.size());
+			return startTeams.get(pos);
+		}
 	}
 	
 	public ArrayList<Team> getTeams() {

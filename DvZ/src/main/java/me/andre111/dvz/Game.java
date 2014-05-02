@@ -1347,15 +1347,7 @@ public class Game {
 					playerstate.remove(p.getUniqueId());
 					//DvZ.instance.joinGame(p, this, false);
 				}
-				//picking monster -> to monsterspawn
-				//TODO - change for team system
-				/*if(getPlayerState(p.getUniqueId())==Game.pickMonster) {
-					if(spawnMonsters!=null) {
-						if(spawnMonsters.distanceSquared(p.getLocation())>2)
-							p.teleport(spawnMonsters);
-					}
-				}*/
-				//pickdwarf -> rejoin
+				//pickclass -> to team spawn
 				if(getPlayerState(p.getUniqueId())==Game.pickClass) {
 					Location loc = getTeam(p.getUniqueId()).getSpawnLocation(w);
 					if(loc.distanceSquared(p.getLocation())>2) {

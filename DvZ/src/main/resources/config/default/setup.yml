@@ -18,6 +18,8 @@
 gamestart:
    startteams:
      - "dwarves"
+   # not even means completly random which is also most likely about even
+   eventeamsplit: true
    starttimers:
      - "release"
      - "invulnerable"
