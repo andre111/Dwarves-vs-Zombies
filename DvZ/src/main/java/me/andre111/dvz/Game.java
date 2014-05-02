@@ -534,37 +534,49 @@ public class Game {
 	}
 	
 	public void win(Team team) {
-		//TODO - change message for teams
-		broadcastMessage(ConfigManager.getLanguage().getString("string_win","§4Victory!§f The dwarves protected the Monument!"));
-		
-		//broadcastMessage(ConfigManager.getLanguage().getString("string_win_dwarves","Dwarves who survived and protected the Monument:"));
-		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20), ConfigManager.getLanguage().getString("highscore_get_win","You received -0- for winning!"), team);
-		
-		//Score/Stats
-		for(UUID st : playerstate.keySet()){
-			if(getTeam(st).getName().equals(team.getName())) {
-				Player player = PlayerHandler.getPlayerFromUUID(st);
-				if (player!=null) {
-					PlayerScore pscore = HighscoreManager.getPlayerScore(st);
-					pscore.setVictories(pscore.getVictories()+1);
+		ArrayList<Team> winTeams = new ArrayList<Team>();
+		winTeams.add(team);
+		multiWinLose(winTeams, null);
+	}
+	public void lose(Team team) {
+		ArrayList<Team> loseTeams = new ArrayList<Team>();
+		loseTeams.add(team);
+		multiWinLose(null, loseTeams);
+	}
+	public void multiWinLose(ArrayList<Team> winTeams, ArrayList<Team> loseTeams) {
+		if(winTeams!=null)
+		for(Team team : winTeams) {
+			//TODO - change message for teams
+			broadcastMessage(ConfigManager.getLanguage().getString("string_win","§4Victory!§f The dwarves protected the Monument!"));
+			
+			//broadcastMessage(ConfigManager.getLanguage().getString("string_win_dwarves","Dwarves who survived and protected the Monument:"));
+			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20), ConfigManager.getLanguage().getString("highscore_get_win","You received -0- for winning!"), team);
+			
+			//Score/Stats
+			for(UUID st : playerstate.keySet()){
+				if(getTeam(st).getName().equals(team.getName())) {
+					Player player = PlayerHandler.getPlayerFromUUID(st);
+					if (player!=null) {
+						PlayerScore pscore = HighscoreManager.getPlayerScore(st);
+						pscore.setVictories(pscore.getVictories()+1);
+					}
 				}
 			}
 		}
-		
-		reset(true);
-	}
-	public void lose(Team team) {
-		//TODO - change message for teams
-		broadcastMessage(ConfigManager.getLanguage().getString("string_lose","-0- lost the game:").replace("-0-", team.getDisplayName()));
-		printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_loose_monument", -5), ConfigManager.getLanguage().getString("highscore_loose_lost","You lost -0- for failing to protect the monument!"), team);
-		
-		//Score/Stats
-		for(UUID st : playerstate.keySet()){
-			if(getTeam(st).getName().equals(team.getName())) {
-				Player player = PlayerHandler.getPlayerFromUUID(st);
-				if (player!=null) {
-					PlayerScore pscore = HighscoreManager.getPlayerScore(player.getUniqueId());
-					pscore.setLosses(pscore.getLosses()+1);
+		if(loseTeams!=null)
+		for(Team team : loseTeams) {
+			//TODO - change message for teams and points for teams
+			broadcastMessage(ConfigManager.getLanguage().getString("string_lose","-0- lost the game!").replace("-0-", team.getDisplayName()));
+			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_loose_monument", -5), ConfigManager.getLanguage().getString("highscore_lose_points","You lost -0-!"), team);
+			
+			//Score/Stats
+			for(UUID st : playerstate.keySet()){
+				if(getTeam(st).getName().equals(team.getName())) {
+					Player player = PlayerHandler.getPlayerFromUUID(st);
+					if (player!=null) {
+						PlayerScore pscore = HighscoreManager.getPlayerScore(player.getUniqueId());
+						pscore.setLosses(pscore.getLosses()+1);
+					}
 				}
 			}
 		}

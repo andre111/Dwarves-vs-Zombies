@@ -140,7 +140,7 @@ highscore_leaders: "Highscore Anführer: "
 highscore_point: "-0- Punkt"
 highscore_points: "-0- Punkte"
 highscore_get_win: "Du hast -0- für den Sieg erhalten!"
-highscore_loose_lost: "Du hast -0- verloren!"
+highscore_lose_points: "Du hast -0- verloren!"
 highscore_get_kill: "Du hast -0- erhalten da du mindestens -1- kills hattest!"
 highscore_loose_distance: "Du hast -0- verloren, da du zu weit weggelaufen bist!"
 

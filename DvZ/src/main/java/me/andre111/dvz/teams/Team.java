@@ -26,6 +26,7 @@ public class Team {
 	private ArrayList<String> rel_enemy = new ArrayList<String>();
 	private ArrayList<String> rel_friendly = new ArrayList<String>();
 	private ArrayList<String> deathCommands = new ArrayList<String>();
+	private ArrayList<String> monumentDestroyCommands = new ArrayList<String>();
 	private boolean friendlyFire;
 	private boolean canPickupItems;
 	private boolean canDropItems;
@@ -104,7 +105,8 @@ public class Team {
 			setMonumentHealth(100 - (int) Math.round((100/4)*destroyed));
 	
 			if(destr) {
-				setup.performCommand("lose "+getName());
+				//setup.performCommand("lose "+getName());
+				setup.performCommands(monumentDestroyCommands);
 				return;
 			}
 
@@ -218,6 +220,12 @@ public class Team {
 	}
 	public void addDeathCommand(String deathCommand) {
 		deathCommands.add(deathCommand);
+	}
+	public ArrayList<String> getMonumentDestroyCommands() {
+		return monumentDestroyCommands;
+	}
+	public void addMonumentDestroyCommand(String monumentDestroyCommand) {
+		monumentDestroyCommands.add(monumentDestroyCommand);
 	}
 	public boolean isFriendlyFire() {
 		return friendlyFire;

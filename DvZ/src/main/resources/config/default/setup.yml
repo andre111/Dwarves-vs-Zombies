@@ -3,13 +3,6 @@
 # this file is allready used by the plugin
 # but it might still get more additions
 
-# when I want to make dwarves/zombies into one class system
-# it would be best to merge monsters into dwarves
-# things missing in dwarf system:
-# - disguise
-# - placeBlocks
-# plus effectsystem ofcourse
-
 # commands:
 # win [team]
 # lose [team]
@@ -54,6 +47,8 @@ teams:
       hideKills: false
       spawnBuff: 0
       onDeath:
+        - "lose dwarves"
+      onMonumentDestroy:
         - "lose dwarves"
       items:
          pickup: true
@@ -101,6 +96,7 @@ teams:
       hideKills: true
       spawnBuff: 10
       onDeath: []
+      onMonumentDestroy: []
       items:
          pickup: false
          drop: false

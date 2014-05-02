@@ -56,6 +56,9 @@ public class GameTeamSetup {
 			for(String commands : teamSec.getStringList(st+".onDeath")) {
 				team.addDeathCommand(commands);
 			}
+			for(String commands : teamSec.getStringList(st+".onMonumentDestroy")) {
+				team.addMonumentDestroyCommand(commands);
+			}
 			team.setFriendlyFire(teamSec.getBoolean(st+".friendlyFire", false));
 			team.setInvulnerable(teamSec.getBoolean(st+".invulnerable", false));
 			team.setSpawnBuff(teamSec.getInt(st+".spawnBuff", 0));
@@ -133,8 +136,31 @@ public class GameTeamSetup {
 	}
 	
 	public void performCommands(ArrayList<String> commands) {
+		ArrayList<Team> winTeams = new ArrayList<Team>();
+		ArrayList<Team> loseTeams = new ArrayList<Team>();
 		for(String command : commands) {
-			performCommand(command);
+			//multi win/lose
+			if(command.startsWith("win ")) {
+				String[] split = command.split(" ");
+				Team team = getTeam(split[1]);
+				if(team!=null) {
+					winTeams.add(team);
+				}
+			} else if(command.startsWith("lose ")) {
+				String[] split = command.split(" ");
+				Team team = getTeam(split[1]);
+				if(team!=null) {
+					loseTeams.add(team);
+				}
+			//Normal commands
+			} else {
+				performCommand(command);
+			}
+		}
+		
+		//multi win/lose
+		if(!winTeams.isEmpty() || !loseTeams.isEmpty()) {
+			DvZ.instance.getGame(gameID).multiWinLose(winTeams, loseTeams);
 		}
 	}
 	public void performCommand(String command) {
