@@ -1,5 +1,7 @@
-# For now this is only an idea collection in form of
+# For now this is an idea collection in form of
 # a configuration for the default dvz game
+# this file is allready used by the plugin
+# but it might still get more additions
 
 # when I want to make dwarves/zombies into one class system
 # it would be best to merge monsters into dwarves
@@ -58,6 +60,9 @@ teams:
          drop: true
          deathDrop: true
       effects:
+         day: []
+         night: []
+         midnight: []
          lightlevel:
             above: []
             below:
@@ -71,6 +76,7 @@ teams:
       respawn: "zombies"
       needRelease: true
       hasMonument: false
+      monumentName: ""
       monumentBar: "dwarves"
       classes:
         - 7
@@ -107,6 +113,13 @@ teams:
          midnight:
            - 11 0
            - 5 0
+         lightlevel:
+            above: []
+            below: []
+         kill:
+            enabled: false
+            duration: 3
+            particles: true
 
 timer:
    invulnerable:
