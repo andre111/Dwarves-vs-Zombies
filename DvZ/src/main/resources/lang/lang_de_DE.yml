@@ -151,6 +151,7 @@ monument_bar: "Monument"
 
 # ----------------------------------------------------------------------------------
 # Default classes/config
+# WARNING: FAIL MESSAGES ARE NOW LOCATED IN THE SPELLS.LUA
 # ----------------------------------------------------------------------------------
 string_default_builder: "Erbauer Zwerg"
 string_default_builder_suf: " der Erbauer"
@@ -159,17 +160,17 @@ string_default_alchemy: "Alchemy Zwerg"
 string_default_alchemy_suf: " der Alchemist"
 string_default_alchemy_spell: "Transmutiere Tränke"
 string_default_alchemy_need: "3 Gewöhnliche Tränke"
-string_default_alchemy_fail: "Du brauchst 3 Gewöhnliche Tränke zum transmutieren! Nutze Redstone und Wasserflaschen in einem Braustand"
+# string_default_alchemy_fail: "Du brauchst 3 Gewöhnliche Tränke zum transmutieren! Nutze Redstone und Wasserflaschen in einem Braustand"
 string_default_blacksmith: "Schmied Zwerg"
 string_default_blacksmith_suf: " der Schmied"
 string_default_blacksmith_spell: "Erschaffe Werkzeuge und Waffen"
 string_default_blacksmith_need: "3 Uhren"
-string_default_blacksmith_fail: "Du brauchst 3 goldene Uhren! Schmelze Gold und crafte es mit Redstone zu Uhren!"
+# string_default_blacksmith_fail: "Du brauchst 3 goldene Uhren! Schmelze Gold und crafte es mit Redstone zu Uhren!"
 string_default_tailor: "Schneider Zwerg"
 string_default_tailor_suf: " der Schneider"
 string_default_tailor_spell: "Erschaffe Rüstung"
 string_default_tailor_need: "3 Brote"
-string_default_tailor_fail: "Du brauchst 3 Brote zum transmutieren! Benutze Knochenmehl um den Prozess zu beschleunigen!"
+# string_default_tailor_fail: "Du brauchst 3 Brote zum transmutieren! Benutze Knochenmehl um den Prozess zu beschleunigen!"
 string_default_newbuilder: "Erbauer Zwerg"
 string_default_newbuilder_suf: " der Erbauer"
 string_default_newlumberjack: "Holzfäller Zwerg"
