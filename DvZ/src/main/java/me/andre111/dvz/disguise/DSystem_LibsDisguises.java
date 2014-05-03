@@ -98,7 +98,7 @@ public class DSystem_LibsDisguises implements DSystem, Listener {
 		Player p = (Player) event.getEntity();
 		Game game = DvZ.instance.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
-			if(game.getState()>1) {
+			if(game.isRunning()) {
 				CustomClass cc = game.getClass(p.getUniqueId());
 				if(cc.getDisguise()!=null && !cc.getDisguise().equals("")) {
 					event.setCancelled(true);

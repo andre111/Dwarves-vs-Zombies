@@ -54,7 +54,7 @@ public class Game {
 	
 	private int gameType;
 	
-	private int state;
+	private GameState state;
 	private int starttime;
 	
 	private boolean voting;
@@ -118,7 +118,7 @@ public class Game {
 		gameType = type;
 		teamSetup = new GameTeamSetup(gid);
 		
-		state = 1;
+		state = GameState.IDLING;
 		starttime = 30;//60;
 		
 		voting = ConfigManager.getStaticConfig().getBoolean("lobby_voting", false);
@@ -181,7 +181,7 @@ public class Game {
 	
 	public void reset(boolean callEvent) {
 		starting = false;
-		state = 1;
+		state = GameState.IDLING;
 		
 		if(callEvent) {
 			DVZGameEndEvent event = new DVZGameEndEvent(this);
@@ -257,7 +257,7 @@ public class Game {
 		if(!starting) {
 			if(infotimer++>=30) {
 				infotimer = 0;
-				if (state==1) {
+				if (state==GameState.IDLING) {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_waiting","Waiting for the Game to start..."));
 					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replace("-0-", ""+playerstate.size()).replace("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
 				}
@@ -308,7 +308,7 @@ public class Game {
 				}
 			}
 			
-			if (starttime<=0) {
+			if (starttime<=0 && state==GameState.RUNNING) {
 				dauer++;
 				ticker++;
 				
@@ -414,7 +414,7 @@ public class Game {
 	
 	//fastticker 20 times per second
 	public void fastTick() {
-		if(state==2)
+		if(state==GameState.RUNNING)
 			teamSetup.tick();
 		
 		fastticker++;
@@ -433,7 +433,7 @@ public class Game {
 	private int taskid = -1;
 	private Random rand = new Random();
 	public void startGame() {
-		if (state==1) {
+		if (state==GameState.IDLING) {
 			currentlyVoting = false;
 			
 			//welt erstellen
@@ -493,7 +493,7 @@ public class Game {
 						}
 						//TODO - disabled to not teleport wrong players
 						//teleportToMainWorld();
-						state = 2;
+						state = GameState.RUNNING;
 						
 						DvZ.startedGames += 1;
 						
@@ -546,8 +546,7 @@ public class Game {
 	public void multiWinLose(ArrayList<Team> winTeams, ArrayList<Team> loseTeams) {
 		if(winTeams!=null)
 		for(Team team : winTeams) {
-			//TODO - change message for teams
-			broadcastMessage(ConfigManager.getLanguage().getString("string_win","§4Victory!§f The dwarves protected the Monument!"));
+			broadcastMessage(ConfigManager.getLanguage().getString("string_win","-0- won the game!").replace("-0-", team.getDisplayName()));
 			
 			//broadcastMessage(ConfigManager.getLanguage().getString("string_win_dwarves","Dwarves who survived and protected the Monument:"));
 			printSurvivingPlayers(ConfigManager.getStaticConfig().getInt("hscore_win", 20), ConfigManager.getLanguage().getString("highscore_get_win","You received -0- for winning!"), team);
@@ -1031,7 +1030,7 @@ public class Game {
 	//#######################################
 	public boolean addPlayer(UUID player) {
 		//nur wenn noch nicht eingetragen und spiel nicht gestartet
-		if (!playerstate.containsKey(player) && state==1) {
+		if (!playerstate.containsKey(player) && state==GameState.IDLING) {
 			playerstate.put(player, 1);	//nix, pregame
 			DvZ.log(player+" added to the Game.");
 			return true;
@@ -1305,17 +1304,17 @@ public class Game {
 			}
 		}
 		
-		//TODO - change message to teams
-		broadcastMessage(ConfigManager.getLanguage().getString("string_release", "The Monsters have been released!"));
+		broadcastMessage(ConfigManager.getLanguage().getString("string_release", "-0- have been released!").replace("-0-", team.getDisplayName()));
 	}
 	
 	//teleport unreleased monsters back to their spawn
 	public void teleportUnreleased() {
 		//int minutes = (int) Math.floor(releasetime/60);
 		//int seconds = releasetime - minutes*60;
-		//TODO - change message for teams
-		String message = ConfigManager.getLanguage().getString("string_release_wait", "&cMonsters are not released yet!");
-		String message2 = ConfigManager.getLanguage().getString("string_release_time", "&cMaximum Time until release: &6-0- Minutes -1- Seconds");//.replace("-0-", ""+minutes).replace("-1-", ""+seconds);
+
+		String message = ConfigManager.getLanguage().getString("string_release_wait", "-0- are not released yet!");
+		//TODO - todo somehow readd releasetime display here?(not possible?)
+		//String message2 = ConfigManager.getLanguage().getString("string_release_time", "&cMaximum Time until release: &6-0- Minutes -1- Seconds");//.replace("-0-", ""+minutes).replace("-1-", ""+seconds);
 		
 		Object[] rplayers = playerstate.keySet().toArray();
 		for(int i=0; i<rplayers.length; i++) {
@@ -1325,8 +1324,8 @@ public class Game {
 	
 				if(player!=null) {
 					if (ticker==10) {
-						DvZ.sendPlayerMessageFormated(player, message);
-						DvZ.sendPlayerMessageFormated(player, message2);
+						DvZ.sendPlayerMessageFormated(player, message.replace("-0-", getTeam(player.getUniqueId()).getDisplayName()));
+						//DvZ.sendPlayerMessageFormated(player, message2);
 					}
 					
 					if(getTeam(player.getUniqueId()).isSelectInLobby()) {
@@ -1408,7 +1407,7 @@ public class Game {
 	//#######################################
 	//Gamestate setzen
 	//#######################################
-	public void setGameState(int newstate) {
+	public void setGameState(GameState newstate) {
 		state = newstate;
 	}
 	
@@ -1533,7 +1532,7 @@ public class Game {
 		return gameType;
 	}
 	
-	public int getState() {
+	public GameState getState() {
 		return state;
 	}
 	
@@ -1542,7 +1541,7 @@ public class Game {
 	}
 	
 	public boolean isRunning() {
-		return state>1;
+		return state==GameState.RUNNING;
 	}
 	
 	public int getStartTime() {

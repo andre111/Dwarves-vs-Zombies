@@ -100,7 +100,7 @@ public class Listener_Player implements Listener  {
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replace("-0-", cm.getName()));
 			}
 			//player leave during start
-			if(pstate==1 && plugin.getPlayerGame(player.getUniqueId()).getState()>1) {
+			if(pstate==1 && plugin.getPlayerGame(player.getUniqueId()).isRunning()) {
 				plugin.joinGame(player, plugin.getPlayerGame(player.getUniqueId()), true);
 			}
 		}

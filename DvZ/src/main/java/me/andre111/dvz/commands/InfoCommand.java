@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.GameState;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.teams.Team;
 import me.andre111.dvz.utils.PlayerHandler;
@@ -26,8 +27,7 @@ public class InfoCommand extends DvZCommand {
 		Game game = getGameFromID(gameID, sender);
 		
 		if(game!=null) {
-			int gameS = game.getState();
-			if(gameS==1) {
+			if(game.getState()==GameState.IDLING) {
 				if(!game.getStarting()) {
 					DvZ.sendPlayerMessageFormated(sender, ConfigManager.getLanguage().getString("string_game_notrunning","No Game running!"));
 				} else {

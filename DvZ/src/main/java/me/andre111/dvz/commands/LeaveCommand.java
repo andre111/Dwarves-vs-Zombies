@@ -2,6 +2,7 @@ package me.andre111.dvz.commands;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.GameState;
 import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
@@ -29,7 +30,7 @@ public class LeaveCommand extends DvZCommand {
 		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 
 		if(game!=null) {
-			if(game.getState()==1 && game.getPlayerState(player.getUniqueId())==1) {
+			if(game.getState()==GameState.IDLING && game.getPlayerState(player.getUniqueId())==1) {
 				game.removePlayer(player.getUniqueId());
 
 				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))

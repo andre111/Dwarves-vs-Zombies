@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
+import me.andre111.dvz.GameState;
 import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.command.CommandSender;
@@ -91,11 +92,11 @@ public class DvZCommand {
 			
 			//searching for a game in the "Lobby state"
 			if(ConfigManager.getStaticConfig().getString("join_free_game", "true").equals("true")) {
-				if(game.getState()>1) {
+				if(game.isRunning()) {
 					for(int i=0; i<10; i++) {
 						Game g = DvZ.instance.getGame(i);
 						if(g!=null) {
-							if(g.getState()<2) {
+							if(g.getState()==GameState.IDLING) {
 								id = i;
 								game = g;
 								break;

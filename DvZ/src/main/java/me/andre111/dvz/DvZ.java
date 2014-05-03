@@ -388,15 +388,14 @@ public class DvZ extends JavaPlugin {
 		Bukkit.getServer().getPluginManager().callEvent(event);
 
 		//autoadd player
-		if(game.getState()>1) {
+		if(game.isRunning()) {
 			if (getConfig().getString("autoadd_players","false").equals("true") || autojoin) {
 				game.setPlayerState(player.getUniqueId(), Game.pickClass);
 				game.setPlayerTeam(player.getUniqueId(), game.teamSetup.getStartTeam());
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 				game.addClassItems(player);
 
-				//TODO - change message to teams
-				game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- as a Dwarf to the Game!").replace("-0-", player.getDisplayName()));
+				game.broadcastMessage(ConfigManager.getLanguage().getString("string_autoadd","Autoadded -0- to -1- to the Game!").replace("-0-", player.getDisplayName()).replace("-1-", game.getTeam(player.getUniqueId()).getDisplayName()));
 			}
 		} else {
 			if(ConfigManager.getStaticConfig().getBoolean("hscore_in_lobby", true)) {

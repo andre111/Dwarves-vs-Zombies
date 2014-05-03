@@ -244,7 +244,7 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 		
 		Game game = plugin.getPlayerGame(p.getUniqueId());
 		if(game!=null) {
-			if(game.getState()>1) {
+			if(game.isRunning()) {
 				CustomClass cc = game.getClass(p.getUniqueId());
 				if(cc.getDisguise()!=null && !cc.getDisguise().equals("")) {
 					event.setCancelled(true);

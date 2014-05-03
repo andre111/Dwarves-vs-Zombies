@@ -5,9 +5,7 @@ import java.io.IOException;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.config.DVZFileConfiguration;
-import me.andre111.dvz.utils.Slapi;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
