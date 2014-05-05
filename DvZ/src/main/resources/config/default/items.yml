@@ -188,7 +188,8 @@ items:
    # TODO - add effects/enchants
    internDwarfSword:
      name: "lang:string_default_item_sword"
-     lore: []
+     lore:
+       - "lang:string_default_item_sword_lore1"
      id: 276
      data: 0
      useUp: false

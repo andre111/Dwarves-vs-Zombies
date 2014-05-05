@@ -45,13 +45,13 @@ function internDwarfBow(player, target, block, location)
 end
 
 function internDwarfPotion(player, target, block, location)
-    spell.ItemDamage(player, -4)
+    spell.ItemDamage(player, player, -4)
 
     return true
 end
 
 function internPotionHealth(player, target, block, location)
-    spell.ItemDamage(player, -20)
+    spell.ItemDamage(player, player, -20)
     utils.CreateEffect(player, "Caster")
 
     return true
@@ -286,7 +286,7 @@ function rewardPoint(player, target, block, location)
 end
 
 function lightningsword(player, target, block, location)
-    item.ItemDamage(target, 60)
+    item.ItemDamage(player, target, 60)
 end
 
 function potionpie(player, target, block, location)
