@@ -50,6 +50,31 @@ function internDwarfPotion(player, target, block, location)
     return true
 end
 
+function internPotionHealth(player, target, block, location)
+    spell.ItemDamage(player, -20)
+    utils.CreateEffect(player, "Caster")
+
+    return true
+end
+function internPotionStrength(player, target, block, location)
+    spell.ItemPotionEffect(player, "5:20:0")
+    utils.CreateEffect(player, "Caster")
+
+    return true
+end
+function internPotionSpeed(player, target, block, location)
+    spell.ItemPotionEffect(player, "1:20:0")
+    utils.CreateEffect(player, "Caster")
+
+    return true
+end
+function internPotionFireRes(player, target, block, location)
+    spell.ItemPotionEffect(player, "12:20:0")
+    utils.CreateEffect(player, "Caster")
+
+    return true
+end
+
 --Transmute Books
 function internBuilderBook(player, target, block, location)
     if(spell.ItemClassCheck(player, 0, "dwarves")) then
@@ -64,7 +89,7 @@ end
 
 function internAlchemyBook(player, target, block, location)
     if(spell.ItemClassCheck(player, 1, "dwarves")) then
-        if(spell.ItemTransmute(player, 373, 64, 3, "You need 3 Mudane Potions to Transmute! Use Redstone and a Bottle of Water in a Brewing Stand", false, "!minecraft:bone 0 9", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 11449 1 20", "373 16274 1 20", "!minecraft:potion 16310 1 20", "!minecraft:milk_bucket 0 5 20", "!minecraft:cake 0 5 20", "!minecraft:potion 8259 1 5")) then
+        if(spell.ItemTransmute(player, 373, 64, 3, "You need 3 Mudane Potions to Transmute! Use Redstone and a Bottle of Water in a Brewing Stand", false, "!minecraft:bone 0 9", "!minecraft:milk_bucket 0 5 20", "!minecraft:cake 0 5 20", "!spellitems:internPotionHealth 8421 1 20", "!spellitems:internPotionHealth 8421 1 20", "!spellitems:internPotionHealth 8421 1 20", "!spellitems:internPotionHealth 8421 1 20", "!spellitems:internPotionStrength 11449 1 20", "!spellitems:internPotionSpeed 16274 1 20", "!spellitems:internPotionFireRes 8259 1 5")) then
             dwarfSpecialClassSuccess(player)
             return true
         end

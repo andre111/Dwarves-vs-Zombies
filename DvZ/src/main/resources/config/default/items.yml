@@ -248,6 +248,66 @@ items:
        mana:
          cost: 100
        lua: "internDwarfPotion"
+   internPotionHealth:
+     name: "lang:string_default_item_potion_health"
+     lore:
+       - "lang:string_default_item_potion_health_lore"
+       - "lang:string_default_item_potion_general_lore"
+     id: 373
+     data: 8421
+     useUp: false
+     leftclick:
+       effects:
+         - "Caster ItemEffectNormal POTION_BREAK:8421"
+       cooldown: 0
+       mana:
+         cost: 100
+       lua: "internPotionHealth"
+   internPotionStrength:
+     name: "lang:string_default_item_potion_strength"
+     lore:
+       - "lang:string_default_item_potion_strength_lore"
+       - "lang:string_default_item_potion_general_lore"
+     id: 373
+     data: 11449
+     useUp: false
+     leftclick:
+       effects:
+         - "Caster ItemEffectNormal POTION_BREAK:11449"
+       cooldown: 0
+       mana:
+         cost: 100
+       lua: "internPotionStrength"
+   internPotionSpeed:
+     name: "lang:string_default_item_potion_speed"
+     lore:
+       - "lang:string_default_item_potion_speed_lore"
+       - "lang:string_default_item_potion_general_lore"
+     id: 373
+     data: 16274
+     useUp: false
+     leftclick:
+       effects:
+         - "Caster ItemEffectNormal POTION_BREAK:16274"
+       cooldown: 0
+       mana:
+         cost: 100
+       lua: "internPotionSpeed"
+   internPotionFireRes:
+     name: "lang:string_default_item_potion_fire"
+     lore:
+       - "lang:string_default_item_potion_fire_lore"
+       - "lang:string_default_item_potion_general_lore"
+     id: 373
+     data: 8259
+     useUp: false
+     leftclick:
+       effects:
+         - "Caster ItemEffectNormal POTION_BREAK:8259"
+       cooldown: 0
+       mana:
+         cost: 100
+       lua: "internPotionFireRes"
    # transmute books
    internBuilderBook:
      name: "lang:string_default_builder_spell"
