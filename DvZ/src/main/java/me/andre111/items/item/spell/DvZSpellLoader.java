@@ -9,6 +9,7 @@ public class DvZSpellLoader {
 		ItemSpell.addSpellToLUA(new ItemDvZClassPoint(), "ItemDvZClassPoint");
 		ItemSpell.addSpellToLUA(new ItemDVZTeleport(), "ItemDVZTeleport");
 		ItemSpell.addSpellToLUA(new ItemPortal(), "ItemPortal");
+		ItemSpell.addSpellToLUA(new ItemPortalTeleport(), "ItemPortalTeleport");
 		ItemSpell.addSpellToLUA(new ItemPotions(), "ItemPotions");
 		ItemSpell.addSpellToLUA(new ItemReinforcePortal(), "ItemReinforcePortal");
 		ItemSpell.addSpellToLUA(new ItemVariableSetDvZ(), "ItemVariableSetDvZ");

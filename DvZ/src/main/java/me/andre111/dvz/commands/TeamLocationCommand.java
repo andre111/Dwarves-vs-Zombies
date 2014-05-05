@@ -45,6 +45,9 @@ public class TeamLocationCommand extends DvZCommand {
 		} else if(loc.equals("monument")) {
 			found = true;
 			DvZ.instance.getDummy().createMonument(location, true);
+			Location teleport = location.clone();
+			teleport.add(0, 4, 0);
+			player.teleport(teleport);
 		}
 		
 		if(!found) {

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
+//TODO - document team changes
 public class ItemClassCheck extends ItemSpell {
 	/*private String playername = "";
 	private String type = "dwarf";
@@ -17,15 +18,16 @@ public class ItemClassCheck extends ItemSpell {
 	
 	@Override
 	public Varargs invoke(Varargs args) {
-		if(args.narg()>=2) {
+		if(args.narg()>=3) {
 			LuaValue playerN = args.arg(1);
 			//LuaValue typeN = args.arg(2);
 			LuaValue classidN = args.arg(2);
-			//LuaValue teamN = args.arg(3);
+			LuaValue teamN = args.arg(3);
 			
-			if(playerN.isstring() && classidN.isnumber()) {
+			if(playerN.isstring() && classidN.isnumber() && teamN.isstring()) {
 				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
 				int classid = classidN.toint();
+				String team = teamN.toString();
 				
 				if(player!=null) {
 					Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
@@ -33,8 +35,9 @@ public class ItemClassCheck extends ItemSpell {
 					
 					//if(game.isDwarf(player.getUniqueId(), true)) {
 						int dId = game.getPlayerState(player.getUniqueId())-Game.classMin;
-
-						if(dId==classid) return RETURN_TRUE;
+						String pteam = game.playerteam.get(player.getUniqueId());
+						
+						if(dId==classid && pteam.equals(team)) return RETURN_TRUE;
 					//}
 				}
 			}

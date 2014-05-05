@@ -316,6 +316,19 @@ items:
        mana:
          cost: 0
        lua: "internSuicidePill"
+   internTeleportMap:
+     name: "lang:string_spell_teleport"
+     lore: 
+       - "lang:string_used_seconds:15"
+     id: 358
+     data: 0
+     useUp: false
+     rightclick:
+       effects: []
+       cooldown: 15
+       mana:
+         cost: 0
+       lua: "internTeleportMap"
    internCreeperExplode:
      name: "lang:string_default_item_monster_explode"
      lore: 

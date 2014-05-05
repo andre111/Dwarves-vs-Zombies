@@ -27,6 +27,7 @@ public class Team {
 	private ArrayList<String> rel_friendly = new ArrayList<String>();
 	private ArrayList<String> deathCommands = new ArrayList<String>();
 	private ArrayList<String> monumentDestroyCommands = new ArrayList<String>();
+	private ArrayList<String> spawnBuffItems = new ArrayList<String>();
 	private boolean friendlyFire;
 	private boolean canPickupItems;
 	private boolean canDropItems;
@@ -227,6 +228,12 @@ public class Team {
 	}
 	public void addMonumentDestroyCommand(String monumentDestroyCommand) {
 		monumentDestroyCommands.add(monumentDestroyCommand);
+	}
+	public ArrayList<String> getSpawnBuffItems() {
+		return spawnBuffItems;
+	}
+	public void addSpawnBuffItem(String spawnBuffItem) {
+		spawnBuffItems.add(spawnBuffItem);
 	}
 	public boolean isFriendlyFire() {
 		return friendlyFire;

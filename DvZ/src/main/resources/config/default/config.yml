@@ -1,6 +1,6 @@
 # Default Dwarves vs Zombies config.yml
-# To configure Dwarf classes look into classes.yml
-# To configure Monster classes look into monsters.yml
+# To configure the general game/team setup look into setup.yml (this can be per world in the [worldfolder]/dvz/setup-yml)
+# To configure classes look into classes.yml
 # To configure Dragon/Attacks look into dragons.yml
 # To configure Specialitems look into items.yml
 # To configure Blockdrops look into blocks.yml
@@ -44,7 +44,6 @@ autoadd_players: false
 autojoin_on_join: true
 # Automatically add all Players again when a game ends
 auto_rejoin: false
-monster_invulnarable: 30
 monster_suizidepill: true
 set_to_day: true
 # Only diable the check if you have disguisecraft installed, but it somehow doesn't detect it.
@@ -74,17 +73,6 @@ show_andre111_tag: true
 globalstorage: 27
 privatestorage: 27
 
-# Monster have to wait until Assasins are choosen or /dvz_release was used
-need_release: false
-# Time(in Minutes) until monsters are released(0=disabled - WARNING: if you have need_release=true and time_release=0 you HAVE TO use /dvz_release or the monsters cann't do anything)
-time_release: 20
-# Can the dwarves win 
-can_win: false
-# After which ammount of minutes should the dwarves win? - starts counting after monsterrelease
-time_win: 20
-# In this time dwarves can take no damage(in minutes)
-time_grace: 5
-
 # Tickdelay between teleporting players at gamestart
 # If it laggs to badly try setting this to 2
 delayed_teleporation: 0
@@ -100,12 +88,6 @@ use_lobby: true
 # Players needed to automatically start the game(0 to disable)
 lobby_players: 20
 lobby_starttime: 60
-# 0=no assasins
-lobby_playerperassasin: 10
-# Minutes until assasins "spawn"
-lobby_assasintime: 20
-# Max Deaths -> More Deaths -> No Assasins(0 to disable)
-lobby_assasindeath: 2
 # Enable voting for maps
 lobby_voting: false
 

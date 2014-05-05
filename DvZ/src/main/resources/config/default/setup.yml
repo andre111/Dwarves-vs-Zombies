@@ -49,6 +49,7 @@ teams:
       invulnerable: true
       hideKills: false
       spawnBuff: 0
+      spawnBuffItems: []
       onDeath:
         - "lose dwarves"
       onMonumentDestroy:
@@ -99,6 +100,9 @@ teams:
       invulnerable: false
       hideKills: true
       spawnBuff: 10
+      spawnBuffItems:
+        - "!spellitems:internSuicidePill"
+        - "!spellitems:internTeleportMap"
       onDeath: []
       onMonumentDestroy: []
       items:
@@ -123,8 +127,8 @@ teams:
 
 timer:
    invulnerable:
-      # 10 Minutes 10*60*20
-      time: 12000
+      # 5 Minutes 5*60*20
+      time: 6000
       showDisplay: false
       display: ""
       onEnd:

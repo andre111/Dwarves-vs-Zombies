@@ -52,7 +52,7 @@ end
 
 --Transmute Books
 function internBuilderBook(player, target, block, location)
-    if(spell.ItemClassCheck(player, 0)) then
+    if(spell.ItemClassCheck(player, 0, "dwarves")) then
         spell.ItemTransmute(player, 0, 0, 0, "", false, "!minecraft:stonebrick 0 64 40", "!minecraft:stonebrick 1 64 40", "!minecraft:stonebrick 2 64 40", "!minecraft:cobblestone 0 64 40")
         
         dwarfGetExperience(player, 3)
@@ -63,7 +63,7 @@ function internBuilderBook(player, target, block, location)
 end
 
 function internAlchemyBook(player, target, block, location)
-    if(spell.ItemClassCheck(player, 1)) then
+    if(spell.ItemClassCheck(player, 1, "dwarves")) then
         if(spell.ItemTransmute(player, 373, 64, 3, "You need 3 Mudane Potions to Transmute! Use Redstone and a Bottle of Water in a Brewing Stand", false, "!minecraft:bone 0 9", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 8421 1 20", "!minecraft:potion 11449 1 20", "373 16274 1 20", "!minecraft:potion 16310 1 20", "!minecraft:milk_bucket 0 5 20", "!minecraft:cake 0 5 20", "!minecraft:potion 8259 1 5")) then
             dwarfSpecialClassSuccess(player)
             return true
@@ -74,7 +74,7 @@ function internAlchemyBook(player, target, block, location)
 end
 
 function internBlacksmithBook(player, target, block, location)
-    if(spell.ItemClassCheck(player, 2)) then
+    if(spell.ItemClassCheck(player, 2, "dwarves")) then
         if(spell.ItemTransmute(player, 347, 0, 3, "You need 3 Gold Clocks! Smelt Gold and Redstone and craft them into clocks!", false, "!minecraft:coal 0 10", "!minecraft:redstone_ore 0 8", "!minecraft:diamond_sword 0 1 45", "!minecraft:iron_sword 0 1 45", "!minecraft:diamond_axe 0 1 45", "!minecraft:string 0 3 45", "!minecraft:feather 0 32 50", "!minecraft:flint 0 32 50")) then
             dwarfSpecialClassSuccess(player)
             return true
@@ -85,7 +85,7 @@ function internBlacksmithBook(player, target, block, location)
 end
 
 function internTailorBook(player, target, block, location)
-    if(spell.ItemClassCheck(player, 3)) then
+    if(spell.ItemClassCheck(player, 3, "dwarves")) then
         if(spell.ItemTransmute(player, 297, 0, 3, "You need 3 Bread to Transmute! Use Bonemeal to spead up the process!", false, "!minecraft:gold_ore 0 1", "!minecraft:diamond_helmet 0 1:2 40", "!minecraft:diamond_chestplate 0 1:2 40", "!minecraft:diamond_leggings 0 1:2 40", "!minecraft:diamond_boots 0 1:2 40")) then
             dwarfSpecialClassSuccess(player)
             return true
@@ -108,6 +108,12 @@ end
 --Monsters
 function internSuicidePill(player, target, block, location)
     spell.ItemKill(player)
+    
+    return true
+end
+
+function internTeleportMap(player, target, block, location)
+    spell.ItemPortalTeleport(player)
     
     return true
 end

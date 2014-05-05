@@ -63,6 +63,9 @@ public class GameTeamSetup {
 			team.setFriendlyFire(teamSec.getBoolean(st+".friendlyFire", false));
 			team.setInvulnerable(teamSec.getBoolean(st+".invulnerable", false));
 			team.setSpawnBuff(teamSec.getInt(st+".spawnBuff", 0));
+			for(String items : teamSec.getStringList(st+".spawnBuffItems")) {
+				team.addSpawnBuffItem(items);
+			}
 			team.setCanPickupItems(teamSec.getBoolean(st+".items.pickup", true));
 			team.setCanDropItems(teamSec.getBoolean(st+".items.drop", true));
 			team.setDeathDropItems(teamSec.getBoolean(st+".items.deathDrop", true));

@@ -52,9 +52,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Game {
 	private DvZ plugin;
 	
-	private int gameType;
-	
 	private GameState state;
+	private int gameType;
 	private int starttime;
 	
 	private boolean voting;
@@ -65,7 +64,6 @@ public class Game {
 	
 	private int dauer;
 	private int ticker;
-	private int fastticker;
 	private boolean starting;
 	
 	public boolean enderActive;
@@ -94,8 +92,6 @@ public class Game {
 	
 	public static int classMin = 10;
 	public static int classMax = 29;
-	//public static int monsterMin = 30;
-	//public static int monsterMax = 49;
 	public static int dragonMin = 100;
 	
 	public WaitingMenu waitm;
@@ -128,7 +124,6 @@ public class Game {
 		plugin = p;
 		dauer = 0;
 		ticker = 0;
-		fastticker = 0;
 		starting = false;
 		enderActive = false;
 		enderPortal = null;
@@ -267,12 +262,6 @@ public class Game {
 				if(playerstate.size()>=lobby_Player) {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("lobby_starttime", 60)));
 					start(plugin.getConfig().getInt("lobby_starttime", 60));
-					
-					if(plugin.getConfig().getInt("lobby_playerperassasin", 10)>0) {
-						//-1 => calculate assassin count
-						//TODO - autoassasins still needed?
-						//assasins(plugin.getConfig().getInt("lobby_assasintime", 30), -1, plugin.getConfig().getInt("lobby_assasindeath", 2));
-					}
 				}
 			}
 			
@@ -322,7 +311,7 @@ public class Game {
 					//TODO - make sure there are no errors occuring
 				}
 				
-				if (ticker==10) {
+				if (ticker>=10) {
 					ticker = 0;
 
 					//healthbar
@@ -339,26 +328,6 @@ public class Game {
 						}
 					}
 				}
-				
-				//Assasin controller
-				//TODO - maybe read Auto-Assassin
-				/*if (autoassasin) {
-					a_ticker++;
-					if (a_ticker>=60) {
-						a_ticker = 0;
-						a_minutes--;
-						if(a_minutes==0) {
-							if(deaths<=a_maxdeaths || a_maxdeaths<=0) {
-								//-1 => calculate assassin count
-								if(a_count==-1) {
-									a_count = playerstate.size()/plugin.getConfig().getInt("lobby_playerperassasin", 10);
-									if (a_count==0) a_count=1;
-								}
-								addAssasins(a_count);
-							}
-						}
-					}
-				}*/
 				
 				//TODO - remove test
 				//if(state==2)
@@ -412,18 +381,30 @@ public class Game {
 		remove.clear();
 	}
 	
+	//#######################################
+	//Countdown Over
+	//#######################################
+	public void countdownEnd(UUID player, String countdown) {
+		//assasin
+		if(playerstate.get(player)==Game.assasinState) {
+			if(countdown.equals("assassin_time")) {
+				Player playern = PlayerHandler.getPlayerFromUUID(player);
+				if(playern!=null) {
+					playern.damage((double) 1000);
+					DvZ.sendPlayerMessageFormated(playern, ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
+				}
+			}
+		}
+
+		if(countdown.equals("monster_invulnarability")) {
+			addMonsterMap(PlayerHandler.getPlayerFromUUID(player));
+		}
+	}
+	
 	//fastticker 20 times per second
 	public void fastTick() {
 		if(state==GameState.RUNNING)
 			teamSetup.tick();
-		
-		fastticker++;
-		
-		if(fastticker>=5) {
-			fastticker = 0;
-			
-			//DvZ.effectManager.killEffects(this);
-		}
 	}
 
 	//#######################################
@@ -465,7 +446,8 @@ public class Game {
 				WorldManager.newRandomMainWorld(plugin.getGameID(this));
 			}
 			
-			int gid = DvZ.instance.getGameID(this);
+			//Setup laden
+			final int gid = DvZ.instance.getGameID(this);
 			File file = new File(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+DvZ.instance.getConfig().getString("world_prefix", "DvZ_")+"Main"+gid+"/"), "setup.yml");
 			if(!file.exists()) {
 				file = new File(DvZ.instance.getDataFolder(), "setup.yml");
@@ -473,6 +455,7 @@ public class Game {
 			DVZFileConfiguration sconfig = DVZFileConfiguration.loadConfiguration(file);
 			teamSetup.loadSetup(sconfig);
 			
+			//spieler in starteams einteilen
 			for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
 				UUID players = e.getKey();
 				
@@ -481,12 +464,10 @@ public class Game {
 				}
 			}
 			
-			final int gtemp = plugin.getGameID(this);
-			
 			if(taskid==-1)
 			taskid = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 				public void run() {
-					World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+gtemp+"");
+					World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+gid+"");
 					if(w!=null) {
 						if(plugin.getConfig().getString("set_to_day","true").equals("true")) {
 							w.setTime(0);
@@ -668,16 +649,7 @@ public class Game {
 		return false;
 	}
 	
-	//Autoassasins :P
-	//TODO - maybe readd autoassasins even though it is doable with a timer?
 	//TODO - readd deathcounter for assasins to not spawn
-	/*public void assasins(int minutes, int count, int maxdeaths) {
-		autoassasin = true;
-		a_minutes = minutes;
-		a_count = count;
-		a_maxdeaths = maxdeaths;
-	}*/
-	
 	//Add Assasins
 	public void addAssasins(Team team, int percentage) {
 		Random rand = new Random();
@@ -733,26 +705,6 @@ public class Game {
 			}
 		}
 		broadcastMessage(ConfigManager.getLanguage().getString("string_assasins","-0- Assasins have been chosen!!").replace("-0-", ""+count));
-	}
-	
-	//#######################################
-	//Countdown Over
-	//#######################################
-	public void countdownEnd(UUID player, String countdown) {
-		//assasin
-		if(playerstate.get(player)==Game.assasinState) {
-			if(countdown.equals("assassin_time")) {
-				Player playern = PlayerHandler.getPlayerFromUUID(player);
-				if(playern!=null) {
-					playern.damage((double) 1000);
-					DvZ.sendPlayerMessageFormated(playern, ConfigManager.getLanguage().getString("string_assasin_timeup","Your time is up!"));
-				}
-			}
-		}
-		
-		if(countdown.equals("monster_invulnarability")) {
-			addMonsterMap(PlayerHandler.getPlayerFromUUID(player));
-		}
 	}
 	
 	//#######################################
@@ -921,14 +873,16 @@ public class Game {
 			
 			//costum dwarves
         	AttributeStorage storage = AttributeStorage.newTarget(event.getItem(), classselectionID);
-        	int classID = Integer.parseInt(storage.getData(""+0));
-			//for(int i=0; i<DvZ.classManager.getCount(); i++) {
-				CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
-			//	if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
-					cm.becomeClass(this, player);
-					classFound = true;
-			//	}
-			//}
+        	if(!storage.getData("").equals("")) {
+	        	int classID = Integer.parseInt(storage.getData(""+0));
+				//for(int i=0; i<DvZ.classManager.getCount(); i++) {
+					CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
+				//	if(itemId==cm.getClassItem() && itemD==cm.getClassItemDamage()) {
+						cm.becomeClass(this, player);
+						classFound = true;
+				//	}
+				//}
+        	}
 			
 			if (classFound) {
 				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
@@ -962,6 +916,7 @@ public class Game {
 		//}
 		
 		//TODO - recreate as special items for teams
+		//TODO - IMPORTANT readd possibility for enderman portal, now broken!!!!
 		//if(isDwarf(puuid, true) && itemId==Material.ENDER_STONE) Spellcontroller.spellDisablePortal(this, player);
 		//if(isMonster(puuid) && itemId==Material.MAP) Spellcontroller.spellTeleport(this, player);
 		
@@ -1003,6 +958,7 @@ public class Game {
 		}
 		
 		//TODO - recreate as special item and remove team dependency
+		//TODO - IMPORTANT readd possibility for mana potions, now broken!!!!
 		/*if(itemMat == Material.POTION && isDwarf(puuid, true)) {
 			//changed from old hacky potionhandler to new bukkit functionallity
 			if(ExperienceUtils.getCurrentExp(player)>=plugin.getConfig().getInt("dwarf_potion_exp", 2)) {
@@ -1066,9 +1022,9 @@ public class Game {
 		//only monsters are allowed to get these items
 		//TODO - readd for teams
 		if(player!=null /*&& getPlayerState(player.getUniqueId())>=Game.monsterMin && getPlayerState(player.getUniqueId())<=Game.monsterMax*/) {
-			PlayerInventory inv = player.getInventory();
+			//PlayerInventory inv = player.getInventory();
 			
-			ItemStack it = new ItemStack(Material.MAP, 1);
+			/*ItemStack it = new ItemStack(Material.MAP, 1);
 			ItemMeta im = it.getItemMeta();
 			im.setDisplayName(ConfigManager.getLanguage().getString("string_spell_teleport","Teleport to Enderman Portal"));
 			ArrayList<String> li4 = new ArrayList<String>();
@@ -1082,9 +1038,20 @@ public class Game {
 				if(it!=null) {
 					inv.addItem(it);
 				}
+			}*/
+			Team team = getTeam(player.getUniqueId());
+			if(team!=null && !team.getSpawnBuffItems().isEmpty()) {
+				PlayerInventory inv = player.getInventory();
+				
+				for(String item : team.getSpawnBuffItems()) {
+					ItemStack it = ItemHandler.decodeItem(item, player);
+					if(it!=null) {
+						inv.addItem(it);
+					}
+				}
+				
+				DvZ.updateInventory(player);
 			}
-			
-			DvZ.updateInventory(player);
 		}
 	}
 	
@@ -1190,7 +1157,6 @@ public class Game {
 	//Lade Gameinfo von DvZ_Main
 	//#######################################
 	private int taskid2;
-	//TODO - use this file only for backupcompatibilty for teams
 	public void loadGameInfo() {
 		File wf = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+plugin.getGameID(this)+"/");
 		
@@ -1344,7 +1310,6 @@ public class Game {
 	}
 	
 	//teleport unwanted players
-	//TODO - player somehow gets teleported to mainworld for a split second on gamestart
 	public void kickUnwanted() {
 		//mainworld
 		World w = getWorld();
@@ -1368,12 +1333,6 @@ public class Game {
 							p.teleport(loc);
 						}
 					}
-					
-					/*resetPlayerToWorldLobby(p);
-					playerstate.remove(p.getUniqueId());
-					if(state>1) {
-						DvZ.instance.joinGame(p, this, true);
-					}*/
 				}
 			}
 		}
