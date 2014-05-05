@@ -67,7 +67,7 @@ classes:
       effects: []
       damageBuff: 1
       disabledDamage: []
-      manaMax: 100
+      manaMax: 1000
       manaRegen: 5
       startHealth: 20
       startHunger: 20
@@ -100,7 +100,7 @@ classes:
       effects: []
       damageBuff: 1
       disabledDamage: []
-      manaMax: 100
+      manaMax: 1000
       manaRegen: 5
       startHealth: 20
       startHunger: 20
@@ -135,7 +135,7 @@ classes:
       effects: []
       damageBuff: 1
       disabledDamage: []
-      manaMax: 100
+      manaMax: 1000
       manaRegen: 5
       startHealth: 20
       startHunger: 20
@@ -170,7 +170,7 @@ classes:
       effects: []
       damageBuff: 1
       disabledDamage: []
-      manaMax: 100
+      manaMax: 1000
       manaRegen: 5
       startHealth: 20
       startHunger: 20
