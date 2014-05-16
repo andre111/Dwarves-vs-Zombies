@@ -501,7 +501,7 @@ public class Game {
 							}
 						}
 						
-						DvZ.itemStandManager.loadStands(w, new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+w.getName()+"/dvz/itemstands/"));
+						DvZ.itemStandManager.loadStands(w, new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+w.getName()+"/dvz/"));
 						
 						endTask();
 					}

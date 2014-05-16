@@ -3,6 +3,7 @@ require 'SpellLibrary'
 function crystalPerPlayer(player, target, block, location)
     spell.ItemCrystalStorage(player, false)
     spell.ItemPotionEffect(player, "15:60:0")
+    utils.CreateEffect(player, "Caster")
     
     return true
 end
@@ -10,6 +11,7 @@ end
 function crystalGlobal(player, target, block, location)
     spell.ItemCrystalStorage(player, true)
     spell.ItemPotionEffect(player, "15:60:0")
+    utils.CreateEffect(player, "Caster")
     
     return true
 end
@@ -46,6 +48,7 @@ end
 
 function internDwarfPotion(player, target, block, location)
     spell.ItemDamage(player, player, -4)
+    utils.CreateEffect(player, "Caster")
 
     return true
 end
@@ -121,7 +124,7 @@ function internTailorBook(player, target, block, location)
 end
 
 function dwarfSpecialClassSuccess(player)
-    dwarfGetExperience(player, 6)
+    --dwarfGetExperience(player, 6)
     spell.ItemRewardPoints(player, 32)
     spell.ItemDvZClassPoint(player, 1)
 end

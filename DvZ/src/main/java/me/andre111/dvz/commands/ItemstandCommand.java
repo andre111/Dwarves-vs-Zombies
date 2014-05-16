@@ -46,7 +46,7 @@ public class ItemstandCommand extends DvZCommand {
 						
 						//get the item
 						if(ItemHandler.decodeItem(itemSt, null)!=null) {
-							DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/itemstands/"), player.getLocation(), itemID, once, itemSt, onlyClicking);
+							DvZ.itemStandManager.createAndSaveStand(new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+player.getWorld().getName()+"/dvz/"), player.getLocation(), itemID, once, itemSt, onlyClicking);
 							return true;
 						} else {
 							DvZ.sendPlayerMessageFormated(sender, "Could not decode Itemstring: "+itemSt);

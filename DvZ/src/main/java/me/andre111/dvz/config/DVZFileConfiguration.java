@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.andre111.dvz.DvZ;
+
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -62,6 +64,8 @@ public class DVZFileConfiguration extends YamlConfiguration {
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {
 		} catch (InvalidConfigurationException e) {
+			DvZ.log("ERROR loading: "+file.getName());
+			e.printStackTrace();
 		}
 		
 		return instance;
