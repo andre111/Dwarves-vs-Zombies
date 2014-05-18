@@ -124,7 +124,7 @@ public class Listener_Entity implements Listener {
 					Team pTeam = game.getTeam(player);
 					Team dTeam = game.getTeam(damager);
 
-					if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState)) {
+					if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState && game.getPlayerState(player)!=Game.assasinState)) {
 						event.setCancelled(true);
 						return;
 					}
@@ -152,7 +152,7 @@ public class Listener_Entity implements Listener {
 						Team pTeam = game.getTeam(player);
 						Team dTeam = game.getTeam(damager);
 
-						if(pTeam.isFriendly(dTeam) || (pTeam==dTeam && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState)) {
+						if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState && game.getPlayerState(player)!=Game.assasinState)) {
 							event.setCancelled(true);
 							return;
 						}
