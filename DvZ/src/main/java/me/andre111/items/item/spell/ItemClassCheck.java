@@ -37,7 +37,7 @@ public class ItemClassCheck extends ItemSpell {
 						int dId = game.getPlayerState(player.getUniqueId())-Game.classMin;
 						String pteam = game.playerteam.get(player.getUniqueId());
 						
-						if(dId==classid && pteam.equals(team)) return RETURN_TRUE;
+						if((dId==classid || dId<0) && pteam.equals(team)) return RETURN_TRUE;
 					//}
 				}
 			}

@@ -917,7 +917,7 @@ public class Game {
 		
 		//TODO - recreate as special items for teams
 		//TODO - IMPORTANT readd possibility for enderman portal, now broken!!!!
-		//if(isDwarf(puuid, true) && itemId==Material.ENDER_STONE) Spellcontroller.spellDisablePortal(this, player);
+		if(item.getType()==Material.ENDER_STONE) Spellcontroller.spellDisablePortal(this, player);
 		//if(isMonster(puuid) && itemId==Material.MAP) Spellcontroller.spellTeleport(this, player);
 		
 		//dragon
@@ -1290,11 +1290,11 @@ public class Game {
 	
 				if(player!=null) {
 					if (ticker==10) {
-						DvZ.sendPlayerMessageFormated(player, message.replace("-0-", getTeam(player.getUniqueId()).getDisplayName()));
+						DvZ.sendPlayerMessageFormated(player, message.replace("-0-", getTeam(playern).getDisplayName()));
 						//DvZ.sendPlayerMessageFormated(player, message2);
 					}
 					
-					if(getTeam(player.getUniqueId()).isSelectInLobby()) {
+					if(getTeam(playern).isSelectInLobby()) {
 						resetPlayerToWorldLobby(player, false);
 					} else {
 						Location loc = player.getLocation();
