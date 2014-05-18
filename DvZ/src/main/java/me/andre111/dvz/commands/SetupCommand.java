@@ -22,11 +22,11 @@ public class SetupCommand extends DvZCommand {
 		Game game = getGameFromID(gameID, sender);
 		
 		if(game!=null) {
-			if(args.length>0) {
-				if(args[0].equalsIgnoreCase("finishtimer")) {
+			if(args.length>1) {
+				if(args[1].equalsIgnoreCase("finishtimer")) {
 					String timername = game.teamSetup.getDisplayedTimer();
-					if(args.length>1) {
-						timername = args[1];
+					if(args.length>2) {
+						timername = args[2];
 					}
 					
 					GameTimer timer = game.teamSetup.getTimer(timername);

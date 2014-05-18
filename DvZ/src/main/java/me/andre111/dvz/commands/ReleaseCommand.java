@@ -22,8 +22,8 @@ public class ReleaseCommand extends DvZCommand {
 		Game game = getGameFromID(gameID, sender);
 		
 		if(game!=null) {
-			if(args.length>0) {
-				Team team = game.teamSetup.getTeam(args[0]);
+			if(args.length>1) {
+				Team team = game.teamSetup.getTeam(args[1]);
 				if(team!=null)
 					game.release(team);
 			} else {

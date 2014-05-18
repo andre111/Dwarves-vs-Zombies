@@ -32,7 +32,7 @@ public class VoteCommand extends DvZCommand {
 			if(game!=null) {
 				if(game.acceptsVotes()) {
 					try {
-						int id = Integer.parseInt(args[0]);
+						int id = Integer.parseInt(args[1]);
 						if(game.vote(player, id)) {
 							DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_vote_success", "You voted for -0-!").replace("-0-", WorldManager.getWorldName(DvZ.instance.getGameID(game), id-1)));
 						}
