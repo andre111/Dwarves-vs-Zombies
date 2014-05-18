@@ -111,6 +111,11 @@ commands:
       aliases: [d_vote]
       usage: /<command> [map_Number]
       permission: dvz.vote
+   dvz_setup:
+      description: Manipulate the currently running game
+      aliases: [d_setup]
+      usage: /<command> [gameID_default_0] [finishtimer/(more to come)] [timerName]
+      permission: dvz.setup
 
 permissions:
    dvz.*:

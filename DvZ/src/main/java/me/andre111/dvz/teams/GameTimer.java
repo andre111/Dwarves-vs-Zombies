@@ -28,6 +28,11 @@ public class GameTimer {
 		}
 	}
 	
+	public void finish() {
+		time = 0;
+		teamSetup.performCommands(getCommands());
+	}
+	
 	public String getName() {
 		return name;
 	}

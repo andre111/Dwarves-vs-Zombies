@@ -253,6 +253,15 @@ public class GameTeamSetup {
 		
 		return 0;
 	}
+	public String getDisplayedTimer() {
+		for(GameTimer counter : counters) {
+			if(counter.isShowDisplay() && counter.isStarted() && counter.getTime()>0) {
+				return counter.getName();
+			}
+		}
+		
+		return "";
+	}
 	
 	public String getStartTeam() {
 		if(startTeams.isEmpty()) {
