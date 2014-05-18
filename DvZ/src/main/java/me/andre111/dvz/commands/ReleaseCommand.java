@@ -26,6 +26,8 @@ public class ReleaseCommand extends DvZCommand {
 				Team team = game.teamSetup.getTeam(args[0]);
 				if(team!=null)
 					game.release(team);
+			} else {
+				return false;
 			}
 		}
 		

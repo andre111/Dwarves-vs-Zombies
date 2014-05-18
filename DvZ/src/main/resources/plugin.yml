@@ -84,7 +84,7 @@ commands:
    dvz_release:
       description: Releases the Monsters
       aliases: [d_release]
-      usage: /<command> [gameID_default_0]
+      usage: /<command> [gameID_default_0] [team]
       permission: dvz.release
    dvz_give:
       description: Gives Items from formated Strings
