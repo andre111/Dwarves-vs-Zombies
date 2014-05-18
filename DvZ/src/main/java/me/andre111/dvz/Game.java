@@ -1348,7 +1348,7 @@ public class Game {
 		
 		if(wl!=null) {
 			for(Player p : wl.getPlayers()) {
-				if(getPlayerState(p.getUniqueId())==Game.pickClass) {
+				if(getPlayerState(p.getUniqueId())==Game.pickClass || !getTeam(p.getUniqueId()).isReleased()) {
 					if(getTeam(p.getUniqueId()).isSelectInLobby()) {
 						continue;
 					}
