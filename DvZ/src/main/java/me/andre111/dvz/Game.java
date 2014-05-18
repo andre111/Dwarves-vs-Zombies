@@ -209,6 +209,8 @@ public class Game {
 		
 		UUID[] players = playerstate.keySet().toArray(new UUID[playerstate.keySet().size()]);
 		playerstate.clear();
+		playerteam.clear();
+		teamSetup = new GameTeamSetup(DvZ.instance.getGameID(this));
 		votes.clear();
 		maxVote = -1;
 		currentlyVoting = false;
