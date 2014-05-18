@@ -4,7 +4,7 @@ version: ${project.version}
 website: http://andre111.bplaced.net/
 author: andre111
 
-softdepend: [DisguiseCraft,ProtocolLib,SpellItems]
+softdepend: [DisguiseCraft,LibsDisguises,ProtocolLib,SpellItems]
 
 commands:
    dvztest:
@@ -114,7 +114,7 @@ commands:
    dvz_setup:
       description: Manipulate the currently running game
       aliases: [d_setup]
-      usage: /<command> [gameID_default_0] [finishtimer/(more to come)] [timerName]
+      usage: /<command> [gameID_default_0] [finishtimer/more to come] [timerName]
       permission: dvz.setup
 
 permissions:
@@ -138,6 +138,7 @@ permissions:
          dvz.itemstand: true
          dvz.quarry: true
          dvz.vote: true
+         dvz.setup: true
    dvz.start:
       description: Starting the Game
       default: op
@@ -201,3 +202,6 @@ permissions:
    dvz.vote:
       description: Vote for a Map
       default: true
+   dvz.setup:
+      description: Manipulate the currently running game
+      default: op

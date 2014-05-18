@@ -32,13 +32,13 @@ public class SetupCommand extends DvZCommand {
 					GameTimer timer = game.teamSetup.getTimer(timername);
 					if(timer!=null) {
 						timer.finish();
+						
+						return true;
 					}
 				}
-			} else {
-				return false;
 			}
 		}
 		
-		return true;
+		return false;
 	}
 }
