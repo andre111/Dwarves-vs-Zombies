@@ -39,38 +39,38 @@ public class GameTeamSetup {
 		for(String st : teamSec.getKeys(false)) {
 			Team team = new Team();
 			team.setName(st);
-			team.setDisplayName(teamSec.getString(st+".name", ""));
-			team.setRespawnTeam(teamSec.getString(st+".respawn", st));
-			team.setReleased(!teamSec.getBoolean(st+".needRelease", false));
-			team.setHasMonument(teamSec.getBoolean(st+".hasMonument", false));
-			team.setMonumentName(teamSec.getString(st+".monumentName", ""));
-			team.setMonumentBarTeam(teamSec.getString(st+".monumentBar", ""));
-			for(Integer classes : teamSec.getIntegerList(st+".classes")) {
+			team.setDisplayName(config.getString("teams."+st+".name", ""));
+			team.setRespawnTeam(config.getString("teams."+st+".respawn", st));
+			team.setReleased(!config.getBoolean("teams."+st+".needRelease", false));
+			team.setHasMonument(config.getBoolean("teams."+st+".hasMonument", false));
+			team.setMonumentName(config.getString("teams."+st+".monumentName", ""));
+			team.setMonumentBarTeam(config.getString("teams."+st+".monumentBar", ""));
+			for(Integer classes : config.getIntegerList("teams."+st+".classes")) {
 				team.addClass(classes);
 			}
-			for(String friendly : teamSec.getStringList(st+".relation.friendly")) {
+			for(String friendly : config.getStringList("teams."+st+".relation.friendly")) {
 				team.addFriendly(friendly);
 			}
-			for(String hostile : teamSec.getStringList(st+".relation.hostile")) {
+			for(String hostile : config.getStringList("teams."+st+".relation.hostile")) {
 				team.addEnemy(hostile);
 			}
-			for(String commands : teamSec.getStringList(st+".onDeath")) {
+			for(String commands : config.getStringList("teams."+st+".onDeath")) {
 				team.addDeathCommand(commands);
 			}
-			for(String commands : teamSec.getStringList(st+".onMonumentDestroy")) {
+			for(String commands : config.getStringList("teams."+st+".onMonumentDestroy")) {
 				team.addMonumentDestroyCommand(commands);
 			}
-			team.setFriendlyFire(teamSec.getBoolean(st+".friendlyFire", false));
-			team.setInvulnerable(teamSec.getBoolean(st+".invulnerable", false));
-			team.setSpawnBuff(teamSec.getInt(st+".spawnBuff", 0));
-			for(String items : teamSec.getStringList(st+".spawnBuffItems")) {
+			team.setFriendlyFire(config.getBoolean("teams."+st+".friendlyFire", false));
+			team.setInvulnerable(config.getBoolean("teams."+st+".invulnerable", false));
+			team.setSpawnBuff(config.getInt("teams."+st+".spawnBuff", 0));
+			for(String items : config.getStringList("teams."+st+".spawnBuffItems")) {
 				team.addSpawnBuffItem(items);
 			}
-			team.setCanPickupItems(teamSec.getBoolean(st+".items.pickup", true));
-			team.setCanDropItems(teamSec.getBoolean(st+".items.drop", true));
-			team.setDeathDropItems(teamSec.getBoolean(st+".items.deathDrop", true));
-			team.setHideKills(teamSec.getBoolean(st+".hideKills", false));
-			team.setSelectInLobby(teamSec.getBoolean(st+".selectInLobby", true));
+			team.setCanPickupItems(config.getBoolean("teams."+st+".items.pickup", true));
+			team.setCanDropItems(config.getBoolean("teams."+st+".items.drop", true));
+			team.setDeathDropItems(config.getBoolean("teams."+st+".items.deathDrop", true));
+			team.setHideKills(config.getBoolean("teams."+st+".hideKills", false));
+			team.setSelectInLobby(config.getBoolean("teams."+st+".selectInLobby", true));
 			EffectManager effects = new EffectManager(team);
 			effects.loadEffects(teamSec, st);
 			team.setEffectManager(effects);
@@ -83,10 +83,10 @@ public class GameTeamSetup {
 		for(String st : timerSec.getKeys(false)) {
 			GameTimer timer = new GameTimer(this);
 			timer.setName(st);
-			timer.setMaxTime(timerSec.getInt(st+".time", 20*60*1));
-			timer.setShowDisplay(timerSec.getBoolean(st+".showDisplay", true));
-			timer.setDisplay(timerSec.getString(st+".display", ""));
-			for(String command : timerSec.getStringList(st+".onEnd")) {
+			timer.setMaxTime(config.getInt("timer."+st+".time", 20*60*1));
+			timer.setShowDisplay(config.getBoolean("timer."+st+".showDisplay", true));
+			timer.setDisplay(config.getString("timer."+st+".display", ""));
+			for(String command : config.getStringList("timer."+st+".onEnd")) {
 				timer.addCommand(command);
 			}
 			
