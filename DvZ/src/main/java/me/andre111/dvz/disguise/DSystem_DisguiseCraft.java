@@ -228,7 +228,6 @@ public class DSystem_DisguiseCraft implements DSystem, Listener {
 
 						//TODO - this should somehow be handled by the SpellItems Plugin
 						SpellItems.playerSpecialItemC(player, item, 1, null, target);
-						game.playerRCPlayer(player, item, target);
 					}
 				}
 			}

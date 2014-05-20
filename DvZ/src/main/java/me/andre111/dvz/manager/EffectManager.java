@@ -74,7 +74,7 @@ public class EffectManager {
 			UUID playern = e.getKey();
 			
 			if(game.playerteam.get(playern).equals(team.getName())) {
-				Player player = PlayerHandler.getPlayerFromUUID(playern);
+				Player player = Bukkit.getPlayer(playern);
 				
 				if(player!=null) {
 					if(!PlayerHandler.hasHigherPotionEffect(player, id, level)) {
@@ -90,7 +90,7 @@ public class EffectManager {
 			UUID playern = e.getKey();
 			
 			if(game.playerteam.get(playern).equals(team.getName())) {
-				Player player = PlayerHandler.getPlayerFromUUID(playern);
+				Player player = Bukkit.getPlayer(playern);
 				if(player!=null) {
 					int light = player.getLocation().getBlock().getLightLevel();
 
@@ -122,7 +122,7 @@ public class EffectManager {
 		
 		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
-			Player player = PlayerHandler.getPlayerFromUUID(playern);
+			Player player = Bukkit.getPlayer(playern);
 			
 			if(player!=null) {
 				if(game.playerteam.get(playern).equals(team.getName())) {

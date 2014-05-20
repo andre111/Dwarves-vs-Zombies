@@ -8,8 +8,8 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.manager.EffectManager;
-import me.andre111.dvz.utils.PlayerHandler;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -114,7 +114,7 @@ public class Team {
 
 			//monument distance
 			for(UUID playern : teamPlayers) {
-				Player player = PlayerHandler.getPlayerFromUUID(playern);
+				Player player = Bukkit.getPlayer(playern);
 	
 				if(player!=null) {
 					Location tempPLoc = player.getLocation().clone();

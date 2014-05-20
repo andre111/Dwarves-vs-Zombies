@@ -172,6 +172,9 @@ public class ConfigManager {
 	public static FileConfiguration getRewardFile() {
 		return rewardfile;
 	}
+	public static FileConfiguration getSetupFile() {
+		return setupfile;
+	}
 	public static FileConfiguration getStaticConfig() {
 		return configfile;
 	}

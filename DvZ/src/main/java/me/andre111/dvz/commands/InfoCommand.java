@@ -7,8 +7,8 @@ import me.andre111.dvz.Game;
 import me.andre111.dvz.GameState;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.teams.Team;
-import me.andre111.dvz.utils.PlayerHandler;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 public class InfoCommand extends DvZCommand {
@@ -55,7 +55,7 @@ public class InfoCommand extends DvZCommand {
 					int online = 0;
 					int offline = 0;
 					for(UUID puuid : game.getTeamPlayers(team)) {
-						if(PlayerHandler.getPlayerFromUUID(puuid)!=null) {
+						if(Bukkit.getPlayer(puuid)!=null) {
 							online++;
 						} else {
 							offline++;

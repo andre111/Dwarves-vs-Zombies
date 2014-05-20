@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import me.andre111.dvz.DvZ;
-import me.andre111.dvz.Game;
 import me.andre111.dvz.config.DVZFileConfiguration;
 
 import org.bukkit.Bukkit;
@@ -76,7 +75,7 @@ public class TeamLocationCommand extends DvZCommand {
 		
 		//TODO - set location in active game
 		if(gameID!=-1) {
-			Game game = DvZ.instance.getGame(gameID);
+			//Game game = DvZ.instance.getGame(gameID);
 		}
 		
 		return true;

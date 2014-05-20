@@ -19,7 +19,6 @@ import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.players.SpecialPlayer;
 import me.andre111.dvz.teams.Team;
 import me.andre111.dvz.utils.InventoryHandler;
-import me.andre111.dvz.utils.PlayerHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,7 +26,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -137,11 +135,11 @@ public class Listener_Player implements Listener  {
 			else if(action==Action.RIGHT_CLICK_BLOCK) {
 				game.playerRC(event, player, item, event.getClickedBlock());
 			}
-			else if(action==Action.LEFT_CLICK_AIR) {
-				game.playerLC(player, item, null);
-			}
+			//else if(action==Action.LEFT_CLICK_AIR) {
+			//	game.playerLC(player, item, null);
+			//}
 			else if(action==Action.LEFT_CLICK_BLOCK) {
-				game.playerLC(player, item, event.getClickedBlock());
+				//game.playerLC(player, item, event.getClickedBlock());
 				
 				//"breaking" fire
 				Block relative = event.getClickedBlock().getRelative(event.getBlockFace());
@@ -158,11 +156,11 @@ public class Listener_Player implements Listener  {
 		Game game = plugin.getPlayerGame(player.getUniqueId());
 		
 		if (game!=null) {
-			Entity entity = event.getRightClicked();
+			/*Entity entity = event.getRightClicked();
 			ItemStack item = event.getPlayer().getItemInHand();
 			if(entity instanceof Player) {
 				game.playerRCPlayer(player, item, (Player)entity);
-			}
+			}*/
 			
 			//disable rightclick items during class selection
 			if(game.getPlayerState(player.getUniqueId())==Game.pickClass) {
@@ -255,7 +253,7 @@ public class Listener_Player implements Listener  {
 				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						Player player = PlayerHandler.getPlayerFromUUID(puuid);
+						Player player = Bukkit.getPlayer(puuid);
 						
 						if(player!=null) {
 							player.teleport(loc);
@@ -270,7 +268,7 @@ public class Listener_Player implements Listener  {
 	
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						Player player = PlayerHandler.getPlayerFromUUID(puuid);
+						Player player = Bukkit.getPlayer(puuid);
 						
 						if(player!=null) {
 							InventoryHandler.clearInv(player, false);
