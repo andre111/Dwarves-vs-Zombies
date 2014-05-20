@@ -256,12 +256,12 @@ public class Game {
 				infotimer = 0;
 				if (state==GameState.IDLING) {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_waiting","Waiting for the Game to start..."));
-					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replace("-0-", ""+playerstate.size()).replace("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
+					broadcastMessage(ConfigManager.getLanguage().getString("string_lobby_players","-0-/-1- Players for Game to start!").replace("-0-", ""+getOnlinePlayers()).replace("-1-", ""+plugin.getConfig().getInt("lobby_players", 20)));
 				}
 			}
 			//Autostart{
 			if(lobby_Player>0) {
-				if(playerstate.size()>=lobby_Player) {
+				if(getOnlinePlayers()>=lobby_Player) {
 					broadcastMessage(ConfigManager.getLanguage().getString("string_game_start","Game starting in -0- Seconds!").replace("-0-", ""+plugin.getConfig().getInt("lobby_starttime", 60)));
 					start(plugin.getConfig().getInt("lobby_starttime", 60));
 				}
@@ -940,9 +940,9 @@ public class Game {
 		if(item==null) return;
 		
 		//disable clicking when monsters are not released
-		if(!getTeam(player.getUniqueId()).isReleased()) {
+		/*if(!getTeam(player.getUniqueId()).isReleased()) {
 			return;
-		}
+		}*/
 	}
 	
 	//#######################################
@@ -955,9 +955,9 @@ public class Game {
 		//UUID puuid = player.getUniqueId();
 		
 		//disable clicking when monsters are not released
-		if(!getTeam(player.getUniqueId()).isReleased()) {
+		/*if(!getTeam(player.getUniqueId()).isReleased()) {
 			return;
-		}
+		}*/
 		
 		//TODO - recreate as special item and remove team dependency
 		//TODO - IMPORTANT readd possibility for mana potions, now broken!!!!
@@ -1370,6 +1370,16 @@ public class Game {
 	//#######################################
 	public void setGameState(GameState newstate) {
 		state = newstate;
+	}
+	
+	public int getOnlinePlayers() {
+		int counter = 0;
+		for(UUID puuid : playerstate.keySet()) {
+			if(PlayerHandler.getPlayerFromUUID(puuid)!=null) {
+				counter++;
+			}
+		}
+		return counter;
 	}
 	
 	//#######################################
