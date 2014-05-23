@@ -35,7 +35,7 @@ public class ItemVariableSetDvZ extends ItemSpell {
 					if(player!=null && DvZ.instance.getPlayerGame(player.getUniqueId())!=null) {
 						Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 						
-						if(game.teamSetup.getTeam(team).hasMonument()) {
+						if(game.teamSetup.getTeam(team)!=null && game.teamSetup.getTeam(team).hasMonument()) {
 							returnValue[1] = LuaValue.userdataOf(game.teamSetup.getTeam(team).getMonumentLocation());
 							return LuaValue.varargsOf(returnValue);
 						}
