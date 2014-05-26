@@ -90,15 +90,15 @@ public class Listener_Player implements Listener  {
 			
 			plugin.joinGame(player, true);
 		} else if (plugin.getPlayerGame(player.getUniqueId())!=null) {
-			int pstate = plugin.getPlayerGame(player.getUniqueId()).getPlayerState(player.getUniqueId());
+			String pstate = plugin.getPlayerGame(player.getUniqueId()).getPlayerState(player.getUniqueId());
 			//redisguise
-			CustomClass cm = DvZ.classManager.getClass(pstate-Game.classMin);
+			CustomClass cm = DvZ.classManager.getClass(pstate);
 			if(cm!=null && cm.getDisguise()!=null && !cm.getDisguise().equals("")) {
 				DisguiseSystemHandler.disguiseP(player, cm.getDisguise());
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_redisguise","Redisguised you as a -0-!").replace("-0-", cm.getName()));
 			}
 			//player leave during start
-			if(pstate==1 && plugin.getPlayerGame(player.getUniqueId()).isRunning()) {
+			if(pstate.equals(Game.STATE_PREGAME) && plugin.getPlayerGame(player.getUniqueId()).isRunning()) {
 				plugin.joinGame(player, plugin.getPlayerGame(player.getUniqueId()), true);
 			}
 		}
@@ -121,7 +121,7 @@ public class Listener_Player implements Listener  {
 		
 		if (game!=null) {
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getUniqueId())==Game.pickClass) {
+			if(game.getPlayerState(player.getUniqueId()).equals(Game.STATE_CHOOSECLASS)) {
 				event.setCancelled(true);
 			}
 			
@@ -163,7 +163,7 @@ public class Listener_Player implements Listener  {
 			}*/
 			
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getUniqueId())==Game.pickClass) {
+			if(game.getPlayerState(player.getUniqueId()).equals(Game.STATE_CHOOSECLASS)) {
 				event.setCancelled(true);
 			}
 		}
@@ -176,7 +176,7 @@ public class Listener_Player implements Listener  {
 
 		if (game!=null) {
 			//disable rightclick items during class selection
-			if(game.getPlayerState(player.getUniqueId())==Game.pickClass) {
+			if(game.getPlayerState(player.getUniqueId()).equals(Game.STATE_CHOOSECLASS)) {
 				event.setCancelled(true);
 			}
 		}
@@ -196,7 +196,8 @@ public class Listener_Player implements Listener  {
 		Player player = event.getPlayer();
 		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if (game!=null) {
-			if(game.getPlayerState(player.getUniqueId())<4) {
+			String pState = game.getPlayerState(player.getUniqueId());
+			if(pState.equals(Game.STATE_PREGAME) || pState.equals(Game.STATE_CHOOSECLASS)) {
 				event.setCancelled(true);
 				return;
 			}
@@ -213,7 +214,8 @@ public class Listener_Player implements Listener  {
 		Player player = event.getPlayer();
 		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if (game!=null) {
-			if(game.getPlayerState(player.getUniqueId())<4 && !player.isOp()) {
+			String pState = game.getPlayerState(player.getUniqueId());
+			if((pState.equals(Game.STATE_PREGAME) || pState.equals(Game.STATE_CHOOSECLASS)) && !player.isOp()) {
 				event.setCancelled(true);
 				return;
 			}
@@ -261,7 +263,7 @@ public class Listener_Player implements Listener  {
 					}
 				}, 1);
 				
-				game.setPlayerState(puuid, Game.pickClass);
+				game.setPlayerState(puuid, Game.STATE_CHOOSECLASS);
 				game.setPlayerTeam(puuid, game.getTeam(puuid).getRespawnTeam());
 
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
@@ -298,15 +300,14 @@ public class Listener_Player implements Listener  {
 			String prefix = "";
 			String suffix = "";
 			//normal classes
-			int pstate = game.getPlayerState(player.getUniqueId());
-			if(pstate>=Game.classMin && pstate<=Game.classMax) {
-				int did = pstate - Game.classMin;
-				CustomClass cd = DvZ.classManager.getClass(did);
+			String pstate = game.getPlayerState(player.getUniqueId());
+			if(pstate.startsWith(Game.STATE_CLASSPREFIX)) {
+				CustomClass cd = game.getClass(player.getUniqueId());
 
 				prefix = cd.getPrefix();
 				suffix = cd.getSuffix();
 			}
-			if(pstate==Game.assasinState) {
+			if(pstate.equals(Game.STATE_ASSASSIN)) {
 				prefix = ConfigManager.getClassFile().getString("assassin_prefix", "");
 				suffix = ConfigManager.getClassFile().getString("assassin_suffix", " the Assassin");
 			}

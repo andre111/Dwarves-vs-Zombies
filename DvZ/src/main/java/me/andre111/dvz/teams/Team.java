@@ -22,7 +22,7 @@ public class Team {
 	private String respawnTeam;
 	private boolean released;
 	private boolean hasMonument;
-	private ArrayList<Integer> classes = new ArrayList<Integer>();
+	private ArrayList<String> classes = new ArrayList<String>();
 	private ArrayList<String> rel_enemy = new ArrayList<String>();
 	private ArrayList<String> rel_friendly = new ArrayList<String>();
 	private ArrayList<String> deathCommands = new ArrayList<String>();
@@ -199,10 +199,10 @@ public class Team {
 	public void setDeathDropItems(boolean deathDropItems) {
 		this.deathDropItems = deathDropItems;
 	}
-	public ArrayList<Integer> getClasses() {
+	public ArrayList<String> getClasses() {
 		return classes;
 	}
-	public void addClass(Integer classA) {
+	public void addClass(String classA) {
 		classes.add(classA);
 	}
 	public ArrayList<String> getEnemy() {

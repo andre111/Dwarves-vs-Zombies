@@ -374,9 +374,9 @@ public class DvZ extends JavaPlugin {
     }
 	
 	public void joinGame(Player player, Game game, boolean autojoin) {
-		if(!(getConfig().getString("autoadd_players","false").equals("true") || autojoin) && game.getPlayerState(player.getUniqueId())>1) return;
+		if(!(getConfig().getString("autoadd_players","false").equals("true") || autojoin) && !game.getPlayerState(player.getUniqueId()).equals(Game.STATE_PREGAME)) return;
 		
-		game.setPlayerState(player.getUniqueId(), 1);
+		game.setPlayerState(player.getUniqueId(), Game.STATE_PREGAME);
 		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
 			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 		InventoryHandler.clearInv(player, false);
@@ -390,7 +390,7 @@ public class DvZ extends JavaPlugin {
 		//autoadd player
 		if(game.isRunning()) {
 			if (getConfig().getString("autoadd_players","false").equals("true") || autojoin) {
-				game.setPlayerState(player.getUniqueId(), Game.pickClass);
+				game.setPlayerState(player.getUniqueId(), Game.STATE_CHOOSECLASS);
 				game.setPlayerTeam(player.getUniqueId(), game.teamSetup.getStartTeam());
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));
 				game.addClassItems(player);

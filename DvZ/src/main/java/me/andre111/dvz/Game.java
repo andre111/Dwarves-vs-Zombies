@@ -75,7 +75,12 @@ public class Game {
 	
 	public GameTeamSetup teamSetup;
 	public HashMap<UUID, String> playerteam = new HashMap<UUID, String>();
-	public HashMap<UUID, Integer> playerstate = new HashMap<UUID, Integer>();
+	public HashMap<UUID, String> playerstate = new HashMap<UUID, String>();
+	
+	public static final String STATE_PREGAME = "PREGAME";
+	public static final String STATE_ASSASSIN = "ASSASSIN";
+	public static final String STATE_CHOOSECLASS = "CHOOSE_CLASS";
+	public static final String STATE_CLASSPREFIX = "CLASS_";
 	//1 = nix
 	//2 = choose class
 	//5 = dragon warrior
@@ -329,7 +334,7 @@ public class Game {
 				
 				//TODO - remove test
 				//if(state==2)
-				for(Map.Entry<UUID, Integer> e : playerstate.entrySet()) {
+				for(Map.Entry<UUID, String> e : playerstate.entrySet()) {
 					if(!playerteam.containsKey(e.getKey())) {
 						System.out.println("WARNING: Found player without team, this should not happen!");
 						System.out.println("Player: "+e.getKey()+" - State: "+e.getValue());
@@ -384,7 +389,7 @@ public class Game {
 	//#######################################
 	public void countdownEnd(UUID player, String countdown) {
 		//assasin
-		if(playerstate.get(player)==Game.assasinState) {
+		if(playerstate.get(player).equals(STATE_ASSASSIN)) {
 			if(countdown.equals("assassin_time")) {
 				Player playern = Bukkit.getPlayer(player);
 				if(playern!=null) {
@@ -454,7 +459,7 @@ public class Game {
 			teamSetup.loadSetup(sconfig);
 			
 			//spieler in starteams einteilen
-			for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
+			for(Map.Entry<UUID, String> e : playerstate.entrySet()){
 				UUID players = e.getKey();
 				
 				if(!playerteam.containsKey(players) || playerteam.get(players).equals(GameTeamSetup.NO_TEAM)) {
@@ -476,14 +481,14 @@ public class Game {
 						
 						DvZ.startedGames += 1;
 						
-						for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
+						for(Map.Entry<UUID, String> e : playerstate.entrySet()){
 							UUID players = e.getKey();
-							int pstate = e.getValue();
+							String pstate = e.getValue();
 							
-							if (pstate==1) {
+							if (pstate.equals(STATE_PREGAME)) {
 								Player player = Bukkit.getPlayer(players);
 								if(player!=null) {
-									playerstate.put(players, Game.pickClass);
+									playerstate.put(players, Game.STATE_CHOOSECLASS);
 									
 									InventoryHandler.clearInv(player, false);
 									//this doesn't really seem to work
@@ -567,7 +572,7 @@ public class Game {
 		int pcount = 0;
 		int pmaxCount = 5;
 		
-		for(Map.Entry<UUID, Integer> e : playerstate.entrySet()){
+		for(Map.Entry<UUID, String> e : playerstate.entrySet()){
 			Player player = Bukkit.getPlayer(e.getKey());
 			
 			//only online players
@@ -585,9 +590,9 @@ public class Game {
 					//Score
 					HighscoreManager.addPoints(e.getKey(), score);
 					if(Math.abs(score)==1)
-						DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", Math.abs(score)+"")));
+						DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_point","-0- Point").replace("-0-", score+"")));
 					else
-						DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", Math.abs(score)+"")));
+						DvZ.sendPlayerMessageFormated(player, score_text.replace("-0-", ConfigManager.getLanguage().getString("highscore_points","-0- Points").replace("-0-", score+"")));
 				}
 			}
 		}
@@ -682,7 +687,7 @@ public class Game {
 
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_become_assasin","You have been chosen to be a Assasin!"));
 
-			playerstate.put(player.getUniqueId(), Game.assasinState);
+			playerstate.put(player.getUniqueId(), Game.STATE_ASSASSIN);
 
 			//time
 			int asstime = ConfigManager.getClassFile().getInt("assasin_time_minutes",5);
@@ -716,9 +721,9 @@ public class Game {
 		
 		resetCountdowns(player.getUniqueId());
 		
-		HashMap<Integer, ItemStack> dwarfItems = new HashMap<Integer, ItemStack>();
+		HashMap<String, ItemStack> dwarfItems = new HashMap<String, ItemStack>();
 		
-		for(int classI : getTeam(player.getUniqueId()).getClasses()) {
+		for(String classI : getTeam(player.getUniqueId()).getClasses()) {
 			dwarfItems.put(classI, new ItemStack(DvZ.classManager.getClass(classI).getClassItem(), 1, (short)DvZ.classManager.getClass(classI).getClassItemDamage()));
 			ItemMeta cim = dwarfItems.get(classI).getItemMeta();
 			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.classManager.getClass(classI).getName()));
@@ -730,7 +735,7 @@ public class Game {
 		
 		//costum dwarves
 		if(!plugin.getConfig().getString("new_classselection","true").equals("true")) {
-			for(Map.Entry<Integer, ItemStack> e : dwarfItems.entrySet()) {
+			for(Map.Entry<String, ItemStack> e : dwarfItems.entrySet()) {
 				if(rand.nextInt(100)<DvZ.classManager.getClass(e.getKey()).getClassChance() || player.hasPermission("dvz.allclasses")/* || player.hasPermission("dvz.alldwarves")*/) {
 					//game type
 					int gID = DvZ.classManager.getClass(e.getKey()).getGameId();
@@ -767,7 +772,7 @@ public class Game {
 	            	boolean classFound = false;
 	            	final Player player = event.getPlayer();
 	            	AttributeStorage storage = AttributeStorage.newTarget(event.getItem(), classselectionID);
-	            	int classID = Integer.parseInt(storage.getData(""+0));
+	            	String classID = storage.getData("");
 	    			
 	    			CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
 	    			cm.becomeClass(game, player);
@@ -796,7 +801,7 @@ public class Game {
 
 			//adding
 			int pos = 0;
-			for(Map.Entry<Integer, ItemStack> e : dwarfItems.entrySet()) {
+			for(Map.Entry<String, ItemStack> e : dwarfItems.entrySet()) {
 				if(rand.nextInt(100)<DvZ.classManager.getClass(e.getKey()).getClassChance() || player.hasPermission("dvz.allclasses")/* || player.hasPermission("dvz.alldwarves")*/) {
 					//game type
 					int gID = DvZ.classManager.getClass(e.getKey()).getGameId();
@@ -822,7 +827,7 @@ public class Game {
 	
 	public void resetPlayerToWorldLobby(final Player player, boolean resetState) {
 		if(resetState) {
-			playerstate.put(player.getUniqueId(), 1);
+			playerstate.put(player.getUniqueId(), STATE_PREGAME);
 			//TODO - is a teamreset needed here or not?
 			playerteam.remove(player.getUniqueId());
 		}
@@ -853,7 +858,7 @@ public class Game {
 
 		UUID puuid = player.getUniqueId();
 		
-		if(getPlayerState(puuid)==Game.pickClass) { //class pick
+		if(getPlayerState(puuid)==Game.STATE_CHOOSECLASS) { //class pick
 			boolean classFound = false;
 			
 			//safety for not running games
@@ -865,7 +870,7 @@ public class Game {
 			//costum dwarves
         	AttributeStorage storage = AttributeStorage.newTarget(event.getItem(), classselectionID);
         	if(!storage.getData("").equals("")) {
-	        	int classID = Integer.parseInt(storage.getData(""+0));
+	        	String classID = storage.getData("");
 	        	
 				CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
 				cm.becomeClass(this, player);
@@ -890,9 +895,10 @@ public class Game {
 		
 		//custom dwarves - rightclick
 		//if(isDwarf(puuid, false)) {
-			int dId = getPlayerState(puuid)-Game.classMin;
-			if(dId>=0 && dId<DvZ.classManager.getCount()) {
-				CustomClass cd = DvZ.classManager.getClass(dId);
+			//int dId = getPlayerState(puuid)-Game.classMin;
+			//if(dId>=0 && dId<DvZ.classManager.getCount()) {
+			if(getPlayerState(puuid).startsWith(STATE_CLASSPREFIX)) {
+				CustomClass cd = getClass(puuid);
 				
 				//transmute items
 				if(block!=null) {
@@ -918,9 +924,8 @@ public class Game {
 	}
 	
 	public void playerBreakBlock(Player player, Block block) {
-		if(isPlayer(player.getUniqueId())) {
-			int dId = getPlayerState(player.getUniqueId()) - Game.classMin;
-			CustomClass cd = DvZ.classManager.getClass(dId);
+		if(isPlayer(player.getUniqueId()) && getPlayerState(player.getUniqueId()).startsWith(STATE_CLASSPREFIX)) {
+			CustomClass cd = getClass(player.getUniqueId());
 			
 			if(cd != null)
 				cd.transmuteItemOnBreak(this, player, block);
@@ -933,7 +938,7 @@ public class Game {
 	public boolean addPlayer(UUID player) {
 		//nur wenn noch nicht eingetragen und spiel nicht gestartet
 		if (!playerstate.containsKey(player) && state==GameState.IDLING) {
-			playerstate.put(player, 1);	//nix, pregame
+			playerstate.put(player, STATE_PREGAME);	//nix, pregame
 			DvZ.log(player+" added to the Game.");
 			return true;
 		}
@@ -1026,15 +1031,15 @@ public class Game {
 	//#######################################
 	//Bekomme Playerstate
 	//#######################################
-	public int getPlayerState(UUID player) {
+	public String getPlayerState(UUID player) {
 		if (playerstate.containsKey(player))
 			return playerstate.get(player);
 		else
-			return 0;
+			return "";
 	}
 	public CustomClass getClass(UUID player) {
-		if(playerstate.containsKey(player))
-			return DvZ.classManager.getClass(playerstate.get(player)-Game.classMin);
+		if(playerstate.containsKey(player) && playerstate.get(player).startsWith(STATE_CLASSPREFIX))
+			return DvZ.classManager.getClass(playerstate.get(player).replace(STATE_CLASSPREFIX, ""));
 		else
 			return null;
 	}
@@ -1054,7 +1059,7 @@ public class Game {
 	//#######################################
 	//Setze Playerstate
 	//#######################################
-	public void setPlayerState(UUID player, int pstate) {
+	public void setPlayerState(UUID player, String pstate) {
 		playerstate.put(player, pstate);
 	}
 	public void setPlayerTeam(UUID player, String team) {
@@ -1244,14 +1249,14 @@ public class Game {
 		if(w!=null) {
 			for(Player p : w.getPlayers()) {
 				//not playing -> kick to lobby
-				if(!isPlayer(p.getUniqueId()) || getPlayerState(p.getUniqueId())==1) {
+				if(!isPlayer(p.getUniqueId()) || getPlayerState(p.getUniqueId()).equals(STATE_PREGAME)) {
 					resetPlayerToWorldLobby(p, true);
 					playerstate.remove(p.getUniqueId());
 					playerteam.remove(p.getUniqueId());
 					//DvZ.instance.joinGame(p, this, false);
 				}
 				//pickclass -> to team spawn
-				if(getPlayerState(p.getUniqueId())==Game.pickClass) {
+				if(getPlayerState(p.getUniqueId()).equals(STATE_CHOOSECLASS)) {
 					if(getTeam(p.getUniqueId()).isSelectInLobby()) {
 						resetPlayerToWorldLobby(p, false);
 					} else {
@@ -1273,7 +1278,7 @@ public class Game {
 		
 		if(wl!=null) {
 			for(Player p : wl.getPlayers()) {
-				if(getPlayerState(p.getUniqueId())==Game.pickClass || !getTeam(p.getUniqueId()).isReleased()) {
+				if(getPlayerState(p.getUniqueId()).equals(STATE_CHOOSECLASS) || !getTeam(p.getUniqueId()).isReleased()) {
 					if(getTeam(p.getUniqueId()).isSelectInLobby()) {
 						continue;
 					}

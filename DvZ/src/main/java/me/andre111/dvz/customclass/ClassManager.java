@@ -45,7 +45,8 @@ public class ClassManager {
 	private void loadClass(String dw) {
 		CustomClass dwTemp = new CustomClass();
 		
-		dwTemp.setId(classCounter);
+		//dwTemp.setId(classCounter);
+		dwTemp.setInternalName(dw);
 		dwTemp.setGameId(ConfigManager.getClassFile().getInt("classes."+dw+".gameType", 0));
 		dwTemp.setName(ConfigManager.getClassFile().getString("classes."+dw+".name", ""));
 		dwTemp.setDisguise(ConfigManager.getClassFile().getString("classes."+dw+".disguise", ""));
@@ -101,11 +102,21 @@ public class ClassManager {
 		classCounter++;
 	}
 	
-	public CustomClass getClass(int id) {
+	/*public CustomClass getClass(int id) {
 		if(id>=0 && id<classCounter) 
 			return classes[id];
 		else
 			return null;
+	}*/
+	
+	public CustomClass getClass(String iName) {
+		for(CustomClass cc : classes) {
+			if(cc.getInternalName().equals(iName)) {
+				return cc;
+			}
+		}
+		
+		return null;
 	}
 	
 	public int getCount() {

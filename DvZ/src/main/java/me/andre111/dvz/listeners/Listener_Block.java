@@ -35,20 +35,19 @@ public class Listener_Block implements Listener {
 		Game game = plugin.getPlayerGame(player.getUniqueId());
 		if(game==null) return;
 		
-		if(game.getPlayerState(player.getUniqueId())<4 && !player.isOp()) {
+		String pstate = game.getPlayerState(player.getUniqueId());
+		if((pstate.equals(Game.STATE_PREGAME) || pstate.equals(Game.STATE_CHOOSECLASS)) && !player.isOp()) {
 			event.setCancelled(true);
 			return;
 		}
 		//rewards on blockplace
-		if(game.isPlayer(player.getUniqueId())) {
-			int id = game.getPlayerState(player.getUniqueId()) - Game.classMin;
-			
-			if(!DvZ.classManager.getClass(id).isPlaceBlocks()) {
+		if(game.isPlayer(player.getUniqueId()) && pstate.startsWith(Game.STATE_CLASSPREFIX)) {
+			if(!game.getClass(player.getUniqueId()).isPlaceBlocks()) {
 				event.setCancelled(true);
 				return;
 			}
 			
-			if(DvZ.classManager.getClass(id).isRewardOnBlockPlace()) {
+			if(game.getClass(player.getUniqueId()).isRewardOnBlockPlace()) {
 				RewardManager.addRewardPoints(player, 1);
 			}
 		}

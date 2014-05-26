@@ -70,7 +70,7 @@ public class EffectManager {
 	}
 	
 	private void addDaytimeEffect(Game game, PotionEffectType id, int level) {
-		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
+		for(Map.Entry<UUID, String> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
 			
 			if(game.playerteam.get(playern).equals(team.getName())) {
@@ -86,7 +86,7 @@ public class EffectManager {
 	}
 	
 	private void addLightlevelEffects(Game game) {
-		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
+		for(Map.Entry<UUID, String> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
 			
 			if(game.playerteam.get(playern).equals(team.getName())) {
@@ -120,7 +120,7 @@ public class EffectManager {
 	public void killEffects(Game game) {
 		if(!killEffectParticles) return;
 		
-		for(Map.Entry<UUID, Integer> e : game.playerstate.entrySet()){
+		for(Map.Entry<UUID, String> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
 			Player player = Bukkit.getPlayer(playern);
 			

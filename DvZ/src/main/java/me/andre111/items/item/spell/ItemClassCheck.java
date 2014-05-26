@@ -24,9 +24,9 @@ public class ItemClassCheck extends ItemSpell {
 			LuaValue classidN = args.arg(2);
 			LuaValue teamN = args.arg(3);
 			
-			if(playerN.isstring() && classidN.isnumber() && teamN.isstring()) {
+			if(playerN.isstring() && classidN.isstring() && teamN.isstring()) {
 				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
-				int classid = classidN.toint();
+				String classid = classidN.toString();
 				String team = teamN.toString();
 				
 				if(player!=null) {
@@ -34,10 +34,10 @@ public class ItemClassCheck extends ItemSpell {
 					if(game==null) return RETURN_FALSE;
 					
 					//if(game.isDwarf(player.getUniqueId(), true)) {
-						int dId = game.getPlayerState(player.getUniqueId())-Game.classMin;
+						String dId = game.getClass(player.getUniqueId()).getInternalName();
 						String pteam = game.playerteam.get(player.getUniqueId());
 						
-						if((dId==classid || dId<0) && pteam.equals(team)) return RETURN_TRUE;
+						if((dId.equals(classid) || classid.equals("")) && pteam.equals(team)) return RETURN_TRUE;
 					//}
 				}
 			}

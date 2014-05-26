@@ -30,7 +30,7 @@ public class LeaveCommand extends DvZCommand {
 		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 
 		if(game!=null) {
-			if(game.getState()==GameState.IDLING && game.getPlayerState(player.getUniqueId())==1) {
+			if(game.getState()==GameState.IDLING && game.getPlayerState(player.getUniqueId()).equals(Game.STATE_PREGAME)) {
 				game.removePlayer(player.getUniqueId());
 
 				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))

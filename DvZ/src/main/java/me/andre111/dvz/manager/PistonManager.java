@@ -46,9 +46,9 @@ public class PistonManager {
 		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 		
 		if(game!=null) {
-			int dSt = game.getPlayerState(player.getUniqueId()) - Game.classMin;
-			if(dSt>=0 && dSt<DvZ.classManager.getCount()) {
-				CustomClass cd = DvZ.classManager.getClass(dSt);
+			String dSt = game.getPlayerState(player.getUniqueId());
+			if(dSt.startsWith(Game.STATE_CLASSPREFIX)) {
+				CustomClass cd = game.getClass(player.getUniqueId());
 				
 				if(cd.isPistonEnabled()) {
 					transform(event, loc, maxD, blist, cd.getPistonChange());

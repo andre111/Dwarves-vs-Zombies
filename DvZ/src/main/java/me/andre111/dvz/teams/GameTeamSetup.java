@@ -45,7 +45,7 @@ public class GameTeamSetup {
 			team.setHasMonument(config.getBoolean("teams."+st+".hasMonument", false));
 			team.setMonumentName(config.getString("teams."+st+".monumentName", ""));
 			team.setMonumentBarTeam(config.getString("teams."+st+".monumentBar", ""));
-			for(Integer classes : config.getIntegerList("teams."+st+".classes")) {
+			for(String classes : config.getStringList("teams."+st+".classes")) {
 				team.addClass(classes);
 			}
 			for(String friendly : config.getStringList("teams."+st+".relation.friendly")) {

@@ -92,8 +92,7 @@ public class Listener_Entity implements Listener {
 					}
 
 					if(!damage.equals("")) {
-						int pid = game.getPlayerState(player.getUniqueId()) - Game.classMin;
-						CustomClass cd = DvZ.classManager.getClass(pid);
+						CustomClass cd = game.getClass(player.getUniqueId());
 
 						if(cd != null && cd.isDamageDisabled(damage)) {
 							event.setCancelled(true);
@@ -124,7 +123,7 @@ public class Listener_Entity implements Listener {
 					Team pTeam = game.getTeam(player);
 					Team dTeam = game.getTeam(damager);
 
-					if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState && game.getPlayerState(player)!=Game.assasinState)) {
+					if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && !game.getPlayerState(damager).equals(Game.STATE_ASSASSIN) && !game.getPlayerState(player).equals(Game.STATE_ASSASSIN))) {
 						event.setCancelled(true);
 						return;
 					}
@@ -152,7 +151,7 @@ public class Listener_Entity implements Listener {
 						Team pTeam = game.getTeam(player);
 						Team dTeam = game.getTeam(damager);
 
-						if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && game.getPlayerState(damager)!=Game.assasinState && game.getPlayerState(player)!=Game.assasinState)) {
+						if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && !game.getPlayerState(damager).equals(Game.STATE_ASSASSIN) && !game.getPlayerState(player).equals(Game.STATE_ASSASSIN))) {
 							event.setCancelled(true);
 							return;
 						}
@@ -182,8 +181,7 @@ public class Listener_Entity implements Listener {
 						event.setDamage(event.getDamage()*5);
 					}
 
-					int id = game.getPlayerState(dgm.getUniqueId()) - Game.classMin;
-					event.setDamage(event.getDamage()*DvZ.classManager.getClass(id).getDamageBuff());
+					event.setDamage(event.getDamage()*game.getClass(dgm.getUniqueId()).getDamageBuff());
 
 					//Dwarf kill effects
 					event.setDamage(event.getDamage()*game.getTeam(dgm.getUniqueId()).getEffectManager().getKillMultiplier(game, dgm.getUniqueId()));
@@ -221,7 +219,7 @@ public class Listener_Entity implements Listener {
 
 				Game game = plugin.getPlayerGame(damager.getUniqueId());
 				if (game!=null) {
-					if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId())==Game.assasinState) {
+					if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId()).equals(Game.STATE_ASSASSIN)) {
 						game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
 					}
 				}

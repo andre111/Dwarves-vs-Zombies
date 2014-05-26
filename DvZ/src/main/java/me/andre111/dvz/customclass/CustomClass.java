@@ -25,7 +25,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class CustomClass {
-	private int id;
+	//private int id;
+	private String internalName;
 	private int gameId;
 	private String name;
 	private String prefix;
@@ -58,7 +59,7 @@ public class CustomClass {
 	
 	//become custom Dwarf
 	public void becomeClass(Game game, final Player player) {
-		game.setPlayerState(player.getUniqueId(), id+Game.classMin);
+		game.setPlayerState(player.getUniqueId(), Game.STATE_CLASSPREFIX+internalName);
 		game.resetCountdowns(player.getUniqueId());
 		ManaManager.setMaxMana(player.getUniqueId(), getMaxMana(), true);
 		ManaManager.setManaRegen(player.getUniqueId(), getManaRegen());
@@ -256,12 +257,20 @@ public class CustomClass {
 		return false;
 	}
 	
-	public int getId() {
+	/*public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}*/
+	public String getInternalName() {
+		return internalName;
 	}
+
+	public void setInternalName(String internalName) {
+		this.internalName = internalName;
+	}
+
 	public int getGameId() {
 		return gameId;
 	}
