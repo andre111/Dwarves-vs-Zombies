@@ -66,7 +66,7 @@ public class Listener_Player implements Listener  {
 		DvZ.item3DHandler.respawnAll(player);
 		
 		//notify updates update
-		if (ConfigManager.getStaticConfig().getString("updateCheck", "true").equals("true") && player.isOp()) {
+		if (ConfigManager.getStaticConfig().getBoolean("updateCheck", true) && player.isOp()) {
 			//TODO - write with new Method: http://wiki.bukkit.org/ServerMods_API
 			//plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new DvZUpdateNotifier(plugin, player));
 		}
@@ -75,15 +75,14 @@ public class Listener_Player implements Listener  {
 		if(event.getPlayer().getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby") && (plugin.getPlayerGame(event.getPlayer().getUniqueId())==null))
 			event.getPlayer().teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 		
-		if (plugin.getPlayerGame(player.getUniqueId())!=null
-				&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
+		if (plugin.getPlayerGame(player.getUniqueId())!=null && ConfigManager.getStaticConfig().getBoolean("hide_join_leave", false)) {
 			event.setJoinMessage("");
 		}
 		
-		if (plugin.getPlayerGame(player.getUniqueId())==null && ConfigManager.getStaticConfig().getString("autojoin_on_join", "true").equals("true")) {
+		if (plugin.getPlayerGame(player.getUniqueId())==null && ConfigManager.getStaticConfig().getBoolean("autojoin_on_join", true)) {
 			DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_motd","Welcome to this §1DvZ§f Server!"));
 			DvZ.sendPlayerMessageFormated(player, "--------------------------------");
-			if(ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true"))
+			if(ConfigManager.getStaticConfig().getBoolean("show_andre111_tag", true))
 				DvZ.sendPlayerMessageFormated(player, "Plugin by andre111");
 			
 			event.setJoinMessage(ConfigManager.getLanguage().getString("string_welcome","Welcome -0- to the Game!").replace("-0-", player.getDisplayName()));
@@ -109,7 +108,7 @@ public class Listener_Player implements Listener  {
 		Player player = event.getPlayer();
 		
 		if (plugin.getPlayerGame(player.getUniqueId())!=null
-			&& ConfigManager.getStaticConfig().getString("hide_join_leave", "false").equals("true")) {
+			&& ConfigManager.getStaticConfig().getBoolean("hide_join_leave", false)) {
 			event.setQuitMessage("");
 		}
 	}
@@ -328,14 +327,14 @@ public class Listener_Player implements Listener  {
 					suffix = sp.getSuffix();
 				}
 			}
-			if(player.getName().equals("andre111") && ConfigManager.getStaticConfig().getString("show_andre111_tag", "true").equals("true")) {
+			if(player.getName().equals("andre111") && ConfigManager.getStaticConfig().getBoolean("show_andre111_tag", true)) {
 				prefix = "";
 				suffix = " the Plugin Author";
 			}
 			event.setFormat("§r<"+prefix+"%1$s"+suffix+"> %2$s");
 			
 			//game dedicated chat
-			if(plugin.getConfig().getString("dedicated_chat", "true").equals("true")) {
+			if(plugin.getConfig().getBoolean("dedicated_chat", true)) {
 				Set<Player> playerset = event.getRecipients();
 				Iterator<Player> playerit = playerset.iterator();
 				try{
@@ -397,7 +396,7 @@ public class Listener_Player implements Listener  {
 			/*if (game.isDwarf(p.getUniqueId(), true)) {
 				//Is killer monster
 				if (game.isMonster(k.getUniqueId())) {*/
-					if (plugin.getConfig().getString("change_death_message", "true").equals("true") && team.isHideKills()) {
+					if (plugin.getConfig().getBoolean("change_death_message", true) && team.isHideKills()) {
 						event.setDeathMessage(ChatColor.YELLOW+ConfigManager.getLanguage().getString("string_chat_death", "-0- was killed by -1-!").replace("-0-", p.getName()).replace("-1-", team.getDisplayName()));
 					}
 				}
@@ -408,7 +407,7 @@ public class Listener_Player implements Listener  {
 					//Item stats
 					//----
 					//TODO - maybe change back to only monsters, but still supporting teams?
-					if (plugin.getConfig().getString("item_stats", "true").equals("true")) {
+					if (plugin.getConfig().getBoolean("item_stats", true)) {
 						if (k.getItemInHand().getAmount() > 0) {
 							ItemStack it = k.getItemInHand();
 							ItemMeta im = it.getItemMeta();

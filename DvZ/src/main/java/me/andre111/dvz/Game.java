@@ -31,6 +31,7 @@ import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.utils.WaitingMenu;
 import me.andre111.dvz.volatileCode.DvZPackets;
 import me.andre111.items.ItemHandler;
+import me.andre111.items.item.spell.ItemPortal;
 import me.andre111.items.utils.AttributeStorage;
 
 import org.bukkit.Bukkit;
@@ -236,7 +237,7 @@ public class Game {
 		HighscoreManager.saveHighscore();
 		
 		//rejoin
-		if(plugin.getConfig().getString("auto_rejoin", "false").equals("true")) {
+		if(plugin.getConfig().getBoolean("auto_rejoin", false)) {
 			for(UUID playern : players) {
 				Player player = Bukkit.getServer().getPlayer(playern);
 				
@@ -304,7 +305,7 @@ public class Game {
 				dauer++;
 				ticker++;
 				
-				if(ConfigManager.getStaticConfig().getString("global_stats", "true").equals("true"))
+				if(ConfigManager.getStaticConfig().getBoolean("global_stats", true))
 					updateGlobalStats();
 				
 				try {
@@ -318,7 +319,7 @@ public class Game {
 					ticker = 0;
 
 					//healthbar
-					if(ConfigManager.getStaticConfig().getString("show_monument_bar", "true").equals("true")) {
+					if(ConfigManager.getStaticConfig().getBoolean("show_monument_bar", true)) {
 						for(UUID st : playerstate.keySet()){
 							Player player = Bukkit.getPlayer(st);
 							Team team = getTeam(st);
@@ -472,7 +473,7 @@ public class Game {
 				public void run() {
 					World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+gid+"");
 					if(w!=null) {
-						if(plugin.getConfig().getString("set_to_day","true").equals("true")) {
+						if(plugin.getConfig().getBoolean("set_to_day", true)) {
 							w.setTime(0);
 						}
 						//TODO - disabled to not teleport wrong players
@@ -734,7 +735,7 @@ public class Game {
 		}
 		
 		//costum dwarves
-		if(!plugin.getConfig().getString("new_classselection","true").equals("true")) {
+		if(!plugin.getConfig().getBoolean("new_classselection", true)) {
 			for(Map.Entry<String, ItemStack> e : dwarfItems.entrySet()) {
 				if(rand.nextInt(100)<DvZ.classManager.getClass(e.getKey()).getClassChance() || player.hasPermission("dvz.allclasses")/* || player.hasPermission("dvz.alldwarves")*/) {
 					//game type
@@ -835,7 +836,7 @@ public class Game {
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
 				World w;
-				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+				if(ConfigManager.getStaticConfig().getBoolean("use_lobby", true))
 					w = Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby");
 				else
 					w = Bukkit.getServer().getWorlds().get(0);
@@ -911,7 +912,7 @@ public class Game {
 		
 		//TODO - recreate as special items for teams
 		//TODO - IMPORTANT readd possibility for enderman portal, now broken!!!!
-		if(item.getType()==Material.ENDER_STONE) Spellcontroller.spellDisablePortal(this, player);
+		if(item.getType()==Material.ENDER_STONE) ItemPortal.spellDisablePortal(this, player);
 		
 		//dragon
 		if(dragon!=null) {
@@ -1271,7 +1272,7 @@ public class Game {
 		
 		//lobby
 		World wl;
-		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+		if(ConfigManager.getStaticConfig().getBoolean("use_lobby", true))
 			wl = Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby");
 		else
 			wl = Bukkit.getServer().getWorlds().get(0);

@@ -92,7 +92,7 @@ public class DvZCommand {
 			game = DvZ.instance.getGame(0);
 			
 			//searching for a game in the "Lobby state"
-			if(ConfigManager.getStaticConfig().getString("join_free_game", "true").equals("true")) {
+			if(ConfigManager.getStaticConfig().getBoolean("join_free_game", true)) {
 				if(game.isRunning()) {
 					for(int i=0; i<10; i++) {
 						Game g = DvZ.instance.getGame(i);
