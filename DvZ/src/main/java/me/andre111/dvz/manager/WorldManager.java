@@ -76,7 +76,7 @@ public abstract class WorldManager {
 			
 			for ( Player player : w.getPlayers() ) {
 				InventoryHandler.clearInv(player, false);
-				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+				if(ConfigManager.getStaticConfig().getBoolean("use_lobby", true))
 					player.teleport(Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 				else
 					player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());

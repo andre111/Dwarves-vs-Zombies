@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
 
 import org.bukkit.Bukkit;
@@ -25,11 +24,8 @@ public class ClassManager {
 		ConfigurationSection as = df.getConfigurationSection("classes");
 		Set<String> strings2 = as.getKeys(false);
 		String[] stK2 = strings2.toArray(new String[strings2.size()]);
-		//change the limits for the dwarves/monsters
 		int length = stK2.length;
-		Game.classMax = Game.classMin+length;
-		//Game.monsterMin = Game.classMax + 1;
-		Game.dragonMin = Game.classMax + 1;
+
 		//load monster
 		classes = new CustomClass[length];
 		for(int i=0; i<length; i++) {

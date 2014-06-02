@@ -108,7 +108,7 @@ public class DvZ extends JavaPlugin {
 		ConfigManager.initConfig(this);
 		
 		//Disguisecraft check
-		if (!ConfigManager.getStaticConfig().getString("disable_dcraft_check", "false").equals("true")) {
+		if (!ConfigManager.getStaticConfig().getBoolean("disable_dcraft_check", false)) {
 			if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
 			{
 				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
@@ -131,7 +131,6 @@ public class DvZ extends JavaPlugin {
 		}
 		DvZPackets.setEntityID(DisguiseSystemHandler.newEntityID());
 		
-		Spellcontroller.plugin = this;
 		IconMenuHandler.instance = new IconMenuHandler(this);
 		
 		SpellItems.loadFromConfiguration(ConfigManager.getItemFile());
@@ -195,7 +194,7 @@ public class DvZ extends JavaPlugin {
 		    // Failed to submit the stats :-(
 		}
 		
-		if(getConfig().getString("use_lobby", "true").equals("true"))
+		if(getConfig().getBoolean("use_lobby", true))
 			Bukkit.getServer().createWorld(new WorldCreator(this.getConfig().getString("world_prefix", "DvZ_")+"Lobby"));
 		File f = new File(Bukkit.getServer().getWorldContainer().getPath()+"/"+this.getConfig().getString("world_prefix", "DvZ_")+"Worlds/");
 		if(!f.exists()) f.mkdirs();
@@ -374,10 +373,10 @@ public class DvZ extends JavaPlugin {
     }
 	
 	public void joinGame(Player player, Game game, boolean autojoin) {
-		if(!(getConfig().getString("autoadd_players","false").equals("true") || autojoin) && !game.getPlayerState(player.getUniqueId()).equals(Game.STATE_PREGAME)) return;
+		if(!(getConfig().getBoolean("autoadd_players", false) || autojoin) && !game.getPlayerState(player.getUniqueId()).equals(Game.STATE_PREGAME)) return;
 		
 		game.setPlayerState(player.getUniqueId(), Game.STATE_PREGAME);
-		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+		if(ConfigManager.getStaticConfig().getBoolean("use_lobby", true))
 			player.teleport(Bukkit.getServer().getWorld(getConfig().getString("world_prefix", "DvZ_")+"Lobby").getSpawnLocation());
 		InventoryHandler.clearInv(player, false);
 
@@ -389,7 +388,7 @@ public class DvZ extends JavaPlugin {
 
 		//autoadd player
 		if(game.isRunning()) {
-			if (getConfig().getString("autoadd_players","false").equals("true") || autojoin) {
+			if (getConfig().getBoolean("autoadd_players", false) || autojoin) {
 				game.setPlayerState(player.getUniqueId(), Game.STATE_CHOOSECLASS);
 				game.setPlayerTeam(player.getUniqueId(), game.teamSetup.getStartTeam());
 				DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_choose","Choose your class!"));

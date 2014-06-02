@@ -17,7 +17,7 @@ public class DisguiseSystemHandler implements Listener {
 	
 	public static boolean init() {
 		//Disguise-Plugin check
-		if (!ConfigManager.getStaticConfig().getString("disable_dcraft_check", "false").equals("true")) {
+		if (!ConfigManager.getStaticConfig().getBoolean("disable_dcraft_check", false)) {
 			if (Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
 				dsystem = SupportedDisguises.LIBSDISGUISES;
 			} else if (Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft")) {

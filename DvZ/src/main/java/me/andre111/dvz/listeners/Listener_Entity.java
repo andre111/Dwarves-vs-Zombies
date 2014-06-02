@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
-import me.andre111.dvz.Spellcontroller;
 import me.andre111.dvz.customclass.CustomClass;
 import me.andre111.dvz.teams.Team;
 
@@ -16,7 +15,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -54,14 +52,6 @@ public class Listener_Entity implements Listener {
 	public void onEntityDamage(EntityDamageEvent event) {
 		if (event.isCancelled()) return;
 
-		if (event.getCause() == DamageCause.FALL && event.getEntity() instanceof Player && Spellcontroller.jumpingNormal.contains((Player)event.getEntity())) {
-			event.setCancelled(true);
-			Spellcontroller.jumpingNormal.remove((Player)event.getEntity());
-			if(Spellcontroller.jumping.contains((Player)event.getEntity())) {
-				Spellcontroller.jumping.remove((Player)event.getEntity());
-				Spellcontroller.spellIronGolemLand((Player)event.getEntity());
-			}
-		}
 		//disabled monster damage
 		if (event.isCancelled()) return;
 		if(event.getEntity() instanceof Player) {
@@ -112,57 +102,40 @@ public class Listener_Entity implements Listener {
 	public void onEntityDamageEntity(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
 
-		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
-			//disable friendly fire
-			Game game = plugin.getPlayerGame(((Player)event.getEntity()).getUniqueId());
-			if (game!=null) {
-				if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
-					UUID player = ((Player)event.getEntity()).getUniqueId();
-					UUID damager = ((Player)event.getDamager()).getUniqueId();
-
-					Team pTeam = game.getTeam(player);
-					Team dTeam = game.getTeam(damager);
-
-					if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && !game.getPlayerState(damager).equals(Game.STATE_ASSASSIN) && !game.getPlayerState(player).equals(Game.STATE_ASSASSIN))) {
-						event.setCancelled(true);
-						return;
-					}
-				}
+		if(event.getEntity() instanceof Player) {
+			Player pplayer = (Player) event.getEntity();
+			
+			Player ddamager = null;
+			if(event.getDamager() instanceof Player) {
+				ddamager = (Player)event.getDamager();
+			//bows, snowballs and more
+			} else if(event.getDamager() instanceof Projectile && ((Projectile)event.getDamager()).getShooter() instanceof Player) {
+				ddamager = (Player) ((Projectile)event.getDamager()).getShooter();
 			}
-			//spawn no pvp
-			Player p = ((Player)event.getEntity());
-			if (plugin.getConfig().getInt("spawn_nopvp",0)>0 && p.getLocation().distanceSquared(p.getWorld().getSpawnLocation())<=plugin.getConfig().getInt("spawn_nopvp",0)*plugin.getConfig().getInt("spawn_nopvp",0)) {
-				event.setCancelled(true);
-			}
-			if (plugin.getConfig().getInt("spawn_nopvp",0)>0 && p.getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby")) {
-				event.setCancelled(true);
-			}
-		}
-		//bows, snowballs and more
-		if(event.getEntity() instanceof Player && event.getDamager() instanceof Projectile) {
-			if(((Projectile)event.getDamager()).getShooter() instanceof Player) {
+			
+			if(ddamager!=null) {
 				//disable friendly fire
-				Game game = plugin.getPlayerGame(((Player)event.getEntity()).getUniqueId());
+				Game game = plugin.getPlayerGame(pplayer.getUniqueId());
 				if (game!=null) {
-					if (!plugin.getConfig().getString("friendly_fire","true").equals("true")) {
-						UUID player = ((Player)event.getEntity()).getUniqueId();
-						UUID damager = ((Player)((Projectile)event.getDamager()).getShooter()).getUniqueId();
+					if (!plugin.getConfig().getBoolean("friendly_fire", true)) {
+						UUID playerUUID = pplayer.getUniqueId();
+						UUID damagerUUID = ddamager.getUniqueId();
 
-						Team pTeam = game.getTeam(player);
-						Team dTeam = game.getTeam(damager);
+						Team pTeam = game.getTeam(playerUUID);
+						Team dTeam = game.getTeam(damagerUUID);
 
-						if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && !game.getPlayerState(damager).equals(Game.STATE_ASSASSIN) && !game.getPlayerState(player).equals(Game.STATE_ASSASSIN))) {
+						if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && !game.getPlayerState(damagerUUID).equals(Game.STATE_ASSASSIN) && !game.getPlayerState(playerUUID).equals(Game.STATE_ASSASSIN))) {
 							event.setCancelled(true);
 							return;
 						}
 					}
 				}
-				//spawn no pvp
-				Player p = ((Player)event.getEntity());
-				if (plugin.getConfig().getInt("spawn_nopvp",0)>0 && p.getLocation().distanceSquared(p.getWorld().getSpawnLocation())<=plugin.getConfig().getInt("spawn_nopvp",0)*plugin.getConfig().getInt("spawn_nopvp",0)) {
+				
+				//TODO - this spawn no pvp seems a bit wiered and even breaking things? - is it needed?
+				if (plugin.getConfig().getInt("spawn_nopvp",0)>0 && pplayer.getLocation().distanceSquared(pplayer.getWorld().getSpawnLocation())<=plugin.getConfig().getInt("spawn_nopvp",0)*plugin.getConfig().getInt("spawn_nopvp",0)) {
 					event.setCancelled(true);
 				}
-				if (plugin.getConfig().getInt("spawn_nopvp",0)>0 && p.getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby")) {
+				if (plugin.getConfig().getInt("spawn_nopvp",0)>0 && pplayer.getLocation().getWorld()==Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby")) {
 					event.setCancelled(true);
 				}
 			}
@@ -188,13 +161,6 @@ public class Listener_Entity implements Listener {
 				}
 			}
 		}
-
-		if((event.getDamager() instanceof Snowball)) {
-			//Hurting Snowballs
-			if (event.getDamager().getFallDistance() == Spellcontroller.identifier) {
-				event.setDamage((double) Spellcontroller.sdamage);
-			}
-		}
 	}
 
 	//Assasin kills
@@ -214,15 +180,15 @@ public class Listener_Entity implements Listener {
 		Player damager = (Player) event.getDamager();
 
 		//is kill?
-				if(e.getDamage()<player.getHealth())
-					return;
+		if(e.getDamage()<player.getHealth())
+			return;
 
-				Game game = plugin.getPlayerGame(damager.getUniqueId());
-				if (game!=null) {
-					if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId()).equals(Game.STATE_ASSASSIN)) {
-						game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
-					}
-				}
+		Game game = plugin.getPlayerGame(damager.getUniqueId());
+		if (game!=null) {
+			if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId()).equals(Game.STATE_ASSASSIN)) {
+				game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
+			}
+		}
 	}
 
 	//Spielerteleports zur Lobby
@@ -231,8 +197,8 @@ public class Listener_Entity implements Listener {
 		if(event.getEntityType()==EntityType.PLAYER) {
 			World w = event.getTo().getWorld();
 			World fw = event.getFrom().getWorld();
-			World lobby = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby");
-			World main = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main");
+			World lobby = Bukkit.getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Lobby");
+			World main = Bukkit.getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main");
 
 			if(w==lobby && fw!=main) {
 				//TODO - disable to toquestion wich game to join

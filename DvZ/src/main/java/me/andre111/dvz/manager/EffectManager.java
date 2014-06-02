@@ -296,8 +296,8 @@ public class EffectManager {
 		}
 		
 		//kill effects
-		killEffectEnabled = teamSec.getString(st+".effects.kill.enabled", "true").equals("true");
+		killEffectEnabled = teamSec.getBoolean(st+".effects.kill.enabled", true);
 		killEffectTime = teamSec.getInt(st+".effects.kill.duration", 3);
-		killEffectParticles = teamSec.getString(st+".effects.kill.particles", "true").equals("true");
+		killEffectParticles = teamSec.getBoolean(st+".effects.kill.particles", true);
 	}
 }

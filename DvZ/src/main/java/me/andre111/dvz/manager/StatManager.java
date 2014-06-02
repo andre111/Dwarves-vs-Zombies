@@ -36,7 +36,7 @@ public class StatManager {
 	//Hide them
 	public static void hide(Player player, boolean force) {
 		//don't hide when always shown s enabled
-		if(!ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true") || force) {
+		if(!ConfigManager.getStaticConfig().getBoolean("always_show_stats", false) || force) {
 			player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 		}
 	}
@@ -52,7 +52,7 @@ public class StatManager {
 		sc.getObjective(objectiveName).getScore(stat).setScore(value);
 		
 		//show stats, when they should always show
-		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(ConfigManager.getStaticConfig().getBoolean("always_show_stats", false)) {
 			Player p = Bukkit.getPlayer(player);
 			if(p!=null) show(p);
 		}
@@ -65,7 +65,7 @@ public class StatManager {
 	}
 	//Set a timerstat for all players
 	public static void setTimeStat(String stat, int time) {
-		if(!ConfigManager.getStaticConfig().getString("scoreboard_timer_seconds", "false").equals("true")) {
+		if(!ConfigManager.getStaticConfig().getBoolean("scoreboard_timer_seconds", false)) {
 			int rminutes = (int) Math.floor(time/(double)60);
 			int rseconds = time - rminutes*60;
 			String rsec = "" + rseconds;
@@ -80,9 +80,7 @@ public class StatManager {
 			//send new stat
 			if(time>0)
 				sendNewTimer(add);
-		}
-		else
-		{
+		} else {
 			for(Map.Entry<UUID, Scoreboard> mapE : stats.entrySet()) {
 				if(time>0)
 					mapE.getValue().getObjective(objectiveName).getScore(stat).setScore(time);
@@ -109,7 +107,7 @@ public class StatManager {
 	}
 	
 	public static void onInventoryClose(final Player player) {
-		if(ConfigManager.getStaticConfig().getString("always_show_stats", "false").equals("true")) {
+		if(ConfigManager.getStaticConfig().getBoolean("always_show_stats", false)) {
 			show(player);
 		}
 	}

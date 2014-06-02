@@ -31,6 +31,7 @@ import me.andre111.dvz.utils.Slapi;
 import me.andre111.dvz.utils.WaitingMenu;
 import me.andre111.dvz.volatileCode.DvZPackets;
 import me.andre111.items.ItemHandler;
+import me.andre111.items.item.spell.ItemPortal;
 import me.andre111.items.utils.AttributeStorage;
 
 import org.bukkit.Bukkit;
@@ -77,25 +78,11 @@ public class Game {
 	public HashMap<UUID, String> playerteam = new HashMap<UUID, String>();
 	public HashMap<UUID, String> playerstate = new HashMap<UUID, String>();
 	
+	//TODO - use this vars everywhere
 	public static final String STATE_PREGAME = "PREGAME";
 	public static final String STATE_ASSASSIN = "ASSASSIN";
 	public static final String STATE_CHOOSECLASS = "CHOOSE_CLASS";
 	public static final String STATE_CLASSPREFIX = "CLASS_";
-	//1 = nix
-	//2 = choose class
-	//5 = dragon warrior
-	//6 = assasin
-	//10 - ?? = dwarves
-	//?? - ?? = dragon
-	//TODO - use this vars everywhere
-	public static int pickClass = 2;
-	
-	public static int assasinState = 5;
-	public static int dragonWarrior = 6;
-	
-	public static int classMin = 10;
-	public static int classMax = 29;
-	public static int dragonMin = 100;
 	
 	public WaitingMenu waitm;
 	
@@ -236,7 +223,7 @@ public class Game {
 		HighscoreManager.saveHighscore();
 		
 		//rejoin
-		if(plugin.getConfig().getString("auto_rejoin", "false").equals("true")) {
+		if(plugin.getConfig().getBoolean("auto_rejoin", false)) {
 			for(UUID playern : players) {
 				Player player = Bukkit.getServer().getPlayer(playern);
 				
@@ -273,38 +260,12 @@ public class Game {
 			if (starttime>=0) {
 				starttime--;
 				updateHighscore();
-			}
-			
-			if (starttime==60*5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
-			else if (starttime==60) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
-			else if (starttime==10) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "10"));
-			else if (starttime==5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "5"));
-			else if (starttime==4) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "4"));
-			else if (starttime==3) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "3"));
-			else if (starttime==2) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "2"));
-			else if (starttime==1) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_second","-0- Second left!").replace("-0-", "1"));
-			else if (starttime==0) startGame();//timeUp();
-			
-			//Voting
-			if(voting && starttime%10==0 && starttime>0) {
-				broadcastMessage(ConfigManager.getLanguage().getString("string_vote","Vote for your favourite map with /dvz vote!"));
-				for(int i=0; i<maxVote; i++) {
-					int vote = 0;
-					if(votes.containsKey(i))
-						vote = votes.get(i);
-
-					broadcastMessage(ConfigManager.getLanguage().getString("string_vote_map","-0-. -1- - -2- votes")
-										.replace("-0-", (i+1)+"")
-										.replace("-1-", WorldManager.getWorldName(plugin.getGameID(this), i))
-										.replace("-2-", vote+""));
-				}
-			}
-			
-			if (starttime<=0 && state==GameState.RUNNING) {
+				pregameCountdownTick();
+			} else if (starttime<=0 && state==GameState.RUNNING) {
 				dauer++;
 				ticker++;
 				
-				if(ConfigManager.getStaticConfig().getString("global_stats", "true").equals("true"))
+				if(ConfigManager.getStaticConfig().getBoolean("global_stats", true))
 					updateGlobalStats();
 				
 				try {
@@ -318,7 +279,7 @@ public class Game {
 					ticker = 0;
 
 					//healthbar
-					if(ConfigManager.getStaticConfig().getString("show_monument_bar", "true").equals("true")) {
+					if(ConfigManager.getStaticConfig().getBoolean("show_monument_bar", true)) {
 						for(UUID st : playerstate.keySet()){
 							Player player = Bukkit.getPlayer(st);
 							Team team = getTeam(st);
@@ -334,12 +295,12 @@ public class Game {
 				
 				//TODO - remove test
 				//if(state==2)
-				for(Map.Entry<UUID, String> e : playerstate.entrySet()) {
+				/*for(Map.Entry<UUID, String> e : playerstate.entrySet()) {
 					if(!playerteam.containsKey(e.getKey())) {
 						System.out.println("WARNING: Found player without team, this should not happen!");
 						System.out.println("Player: "+e.getKey()+" - State: "+e.getValue());
 					}
-				}
+				}*/
 				
 				countdownTicker();
 			}
@@ -354,6 +315,32 @@ public class Game {
 				if(player!=null && player.isValid()) {
 					player.setScoreboard(HighscoreManager.createOrRefreshPlayerScore(player.getUniqueId()));
 				}
+			}
+		}
+	}
+	private void pregameCountdownTick() {
+		if (starttime==60*5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minutes","-0- Minutes left!").replace("-0-", "5"));
+		else if (starttime==60) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_minute","-0- Minute left!").replace("-0-", "1"));
+		else if (starttime==10) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "10"));
+		else if (starttime==5) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "5"));
+		else if (starttime==4) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "4"));
+		else if (starttime==3) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "3"));
+		else if (starttime==2) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_seconds","-0- Seconds left!").replace("-0-", "2"));
+		else if (starttime==1) broadcastMessage(ConfigManager.getLanguage().getString("string_starting_second","-0- Second left!").replace("-0-", "1"));
+		else if (starttime==0) startGame();//timeUp();
+		
+		//Voting
+		if(voting && starttime%10==0 && starttime>0) {
+			broadcastMessage(ConfigManager.getLanguage().getString("string_vote","Vote for your favourite map with /dvz vote!"));
+			for(int i=0; i<maxVote; i++) {
+				int vote = 0;
+				if(votes.containsKey(i))
+					vote = votes.get(i);
+
+				broadcastMessage(ConfigManager.getLanguage().getString("string_vote_map","-0-. -1- - -2- votes")
+									.replace("-0-", (i+1)+"")
+									.replace("-1-", WorldManager.getWorldName(plugin.getGameID(this), i))
+									.replace("-2-", vote+""));
 			}
 		}
 	}
@@ -472,7 +459,7 @@ public class Game {
 				public void run() {
 					World w = Bukkit.getServer().getWorld(plugin.getConfig().getString("world_prefix", "DvZ_")+"Main"+gid+"");
 					if(w!=null) {
-						if(plugin.getConfig().getString("set_to_day","true").equals("true")) {
+						if(plugin.getConfig().getBoolean("set_to_day", true)) {
 							w.setTime(0);
 						}
 						//TODO - disabled to not teleport wrong players
@@ -734,7 +721,7 @@ public class Game {
 		}
 		
 		//costum dwarves
-		if(!plugin.getConfig().getString("new_classselection","true").equals("true")) {
+		if(!plugin.getConfig().getBoolean("new_classselection", true)) {
 			for(Map.Entry<String, ItemStack> e : dwarfItems.entrySet()) {
 				if(rand.nextInt(100)<DvZ.classManager.getClass(e.getKey()).getClassChance() || player.hasPermission("dvz.allclasses")/* || player.hasPermission("dvz.alldwarves")*/) {
 					//game type
@@ -835,7 +822,7 @@ public class Game {
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
 				World w;
-				if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+				if(ConfigManager.getStaticConfig().getBoolean("use_lobby", true))
 					w = Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby");
 				else
 					w = Bukkit.getServer().getWorlds().get(0);
@@ -858,7 +845,7 @@ public class Game {
 
 		UUID puuid = player.getUniqueId();
 		
-		if(getPlayerState(puuid)==Game.STATE_CHOOSECLASS) { //class pick
+		if(getPlayerState(puuid).equals(Game.STATE_CHOOSECLASS)) { //class pick
 			boolean classFound = false;
 			
 			//safety for not running games
@@ -911,7 +898,7 @@ public class Game {
 		
 		//TODO - recreate as special items for teams
 		//TODO - IMPORTANT readd possibility for enderman portal, now broken!!!!
-		if(item.getType()==Material.ENDER_STONE) Spellcontroller.spellDisablePortal(this, player);
+		if(item.getType()==Material.ENDER_STONE) ItemPortal.spellDisablePortal(this, player);
 		
 		//dragon
 		if(dragon!=null) {
@@ -1049,7 +1036,7 @@ public class Game {
 	public ArrayList<UUID> getTeamPlayers(Team team) {
 		ArrayList<UUID> ret = new ArrayList<UUID>();
 		for(UUID player : playerstate.keySet()) {
-			if(playerteam.get(player)!=null && playerteam.get(player).equals(team.getName())) {
+			if(team.getName().equals(playerteam.get(player))) {
 				ret.add(player);
 			}
 		}
@@ -1271,7 +1258,7 @@ public class Game {
 		
 		//lobby
 		World wl;
-		if(ConfigManager.getStaticConfig().getString("use_lobby", "true").equals("true"))
+		if(ConfigManager.getStaticConfig().getBoolean("use_lobby", true))
 			wl = Bukkit.getServer().getWorld(ConfigManager.getStaticConfig().getString("world_prefix", "DvZ_")+"Lobby");
 		else
 			wl = Bukkit.getServer().getWorlds().get(0);
@@ -1337,7 +1324,7 @@ public class Game {
 					ii++;
 				}
 				
-			}.runTaskTimer(getPlugin(), 0, ConfigManager.getStaticConfig().getInt("delayed_teleporation", 0));
+			}.runTaskTimer(plugin, 0, ConfigManager.getStaticConfig().getInt("delayed_teleporation", 0));
 		} else {
 			//instant teleportation
 			for(int i=0; i<rplayers.length; i++) {
@@ -1451,9 +1438,5 @@ public class Game {
 	
 	public int getDauer() {
 		return dauer;
-	}
-	
-	public DvZ getPlugin() {
-		return plugin;
 	}
 }
