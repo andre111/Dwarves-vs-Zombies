@@ -34,6 +34,22 @@ public class SetupCommand extends DvZCommand {
 						timer.finish();
 						
 						return true;
+					} else{
+						sender.sendMessage("Couldn't find timer "+timername);
+					}
+				} else if(args[1].equalsIgnoreCase("starttimer")) {
+					String timername = "";
+					if(args.length>2) {
+						timername = args[2];
+					}
+					
+					GameTimer timer = game.teamSetup.getTimer(timername);
+					if(timer!=null) {
+						timer.start();
+						
+						return true;
+					} else {
+						sender.sendMessage("Couldn't find timer "+timername);
 					}
 				}
 			}
