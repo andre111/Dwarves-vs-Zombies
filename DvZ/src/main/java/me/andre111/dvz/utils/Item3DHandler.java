@@ -118,6 +118,7 @@ public class Item3DHandler {
 	//Spawn a new zombie
 	private void spawnZombie(Player p, String world, int x, int y, int z, byte rotation, int itemID, int stand) {
 		int eid = DisguiseSystemHandler.newEntityID();
+		int eid2 = DisguiseSystemHandler.newEntityID();
 		entityIDs.add(eid);
 		standIDs.put(eid, stand);
 		
@@ -131,12 +132,12 @@ public class Item3DHandler {
 		info.setItemID(itemID);
 		entityInfo.put(eid, info);
 		
-		DvZPackets.sendFakeZombieSpawn(p, world, x, y, z, rotation, eid, itemID);
+		DvZPackets.sendFakeFloatingZombieSpawn(p, world, x, y, z, rotation, eid, eid2, itemID);
 	}
 	
 	//respawn an old zombie
 	private void spawnOldZombie(Player p, String world, int x, int y, int z, byte rotation, int itemID, int eid, int stand) {
-		DvZPackets.sendFakeZombieSpawn(p, world, x, y, z, rotation, eid, itemID);
+		DvZPackets.sendFakeFloatingZombieSpawn(p, world, x, y, z, rotation, eid, eid+1, itemID);
 	}
 	
 	//runnable class

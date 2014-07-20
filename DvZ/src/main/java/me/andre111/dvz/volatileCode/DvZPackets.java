@@ -9,6 +9,7 @@ import me.andre111.dvz.event.DvZInvalidInteractEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,7 +26,13 @@ import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public abstract class DvZPackets {
+	//IMPORTANT:
+	//Location of values are not like in the protocol,
+	//but as they are kept in memory
+	//see: https://github.com/aadnk/PacketWrapper/tree/master/PacketWrapper/src/main/java/com/comphenix/packetwrapper
+	
 	private static int D_ENTITY_ID;
+	private static WrappedDataWatcher zombieWatcher;
 
 	public static void setEntityID(int eid) {
 		D_ENTITY_ID = eid;
@@ -92,14 +99,38 @@ public abstract class DvZPackets {
 	}
 
 	//Spawn a zombie
-	public static void sendFakeZombieSpawn(Player p, String world, int x, int y, int z, byte rotation, int entityID, int itemID) {
-		WrappedDataWatcher zombieWatcher = getDefaultWatcher(Bukkit.getServer().getWorlds().get(0), EntityType.ZOMBIE);
+	public static void sendFakeFloatingZombieSpawn(Player p, String world, int x, int y, int z, byte rotation, int entityID, int entityID2, int itemID) {
+		if(zombieWatcher==null) {
+			zombieWatcher = getDefaultWatcher(Bukkit.getServer().getWorlds().get(0), EntityType.ZOMBIE);
+		}
 		
 		//world check
 		if(p==null || !p.getWorld().getName().equals(world)) {
 			return;
 		}
+		
+		//WITHER SKULL
+		PacketContainer skullPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
+		
+		//entitiy id
+		skullPacket.getIntegers().
+		write(0, entityID2).
+		write(1, (int) x).
+		write(2, (int) y).
+		write(3, (int) z).
+		
+		//speed
+		write(4, 0).
+		write(5, 0).
+		write(6, 0).
+		
+		write(7, 0). //yaw
+		write(8, (int) rotation). //pitch
+		
+		write(9, 66); //Witherskull
+		
 
+		//ZOMBIE
 		PacketContainer newPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
 
 		//entitiy id
@@ -130,10 +161,20 @@ public abstract class DvZPackets {
 
 		ePacket.getItemModifier().
 		write(0, new ItemStack(itemID));
-
+		
+		//riding/atach
+		PacketContainer aPacket = new PacketContainer(PacketType.Play.Server.ATTACH_ENTITY);
+		
+		aPacket.getIntegers().
+		write(0, 0). //not leashed
+		write(1, entityID).
+		write(2, entityID2);
+		
 		try {
+			ProtocolLibrary.getProtocolManager().sendServerPacket(p, skullPacket);
 			ProtocolLibrary.getProtocolManager().sendServerPacket(p, newPacket);
 			ProtocolLibrary.getProtocolManager().sendServerPacket(p, ePacket);
+			ProtocolLibrary.getProtocolManager().sendServerPacket(p, aPacket);
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
@@ -170,6 +211,9 @@ public abstract class DvZPackets {
 	
 	public static WrappedDataWatcher getDefaultWatcher(World world, EntityType type) {
 		Entity entity = world.spawnEntity(new Location(world, 0, 256, 0), type);
+		if(entity instanceof Ageable) {
+			((Ageable) entity).setAdult();
+		}
 		WrappedDataWatcher watcher = WrappedDataWatcher.getEntityWatcher(entity).deepClone();
 
 		entity.remove();
