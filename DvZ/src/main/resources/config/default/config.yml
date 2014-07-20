@@ -39,12 +39,11 @@ friendly_fire: false
 # No PvP around Spawn(Range) 0=disabled
 spawn_nopvp: 0
 # crystal chest is no longer a global config option, but a custom item
-autoadd_players: false
+autoadd_players: true
 # automatically join a game when joining the server
 autojoin_on_join: true
 # Automatically add all Players again when a game ends
 auto_rejoin: false
-monster_suizidepill: true
 set_to_day: true
 # Only diable the check if you have disguisecraft installed, but it somehow doesn't detect it.
 disable_dcraft_check: false
@@ -103,11 +102,6 @@ hscore_loose_distance: -1
 max_monument_distance: 200
 # Time in seconds to get back
 max_monument_counter: 10
-
-# ----------------------------------------------------------------------------------
-# Spell wait times
-# ----------------------------------------------------------------------------------
-spelltime_teleport: 15
 
 # ----------------------------------------------------------------------------------
 # Disabled Items to craft(ID) - List
