@@ -160,7 +160,7 @@ public class EffectManager {
 			}
 		}
 
-		DvZPackets.sendParticles(player.getLocation(), effect, 1, 1, 1, 5, 32);
+		DvZPackets.sendParticles(player.getLocation(), effect, 0.3f, 0.3f, 0.5f, 5, 32);
 	}
 	//not working
 	/*
