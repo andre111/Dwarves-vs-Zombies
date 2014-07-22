@@ -70,7 +70,7 @@ teams:
          kill:
             enabled: true
             duration: 3
-            particles: true
+            particles: "MOBSPAWNER_FLAMES"
    zombies:
       name: "Zombies"
       respawn: "zombies"
@@ -125,7 +125,7 @@ teams:
          kill:
             enabled: false
             duration: 3
-            particles: true
+            particles: ""
 
 timer:
    invulnerable:

@@ -26,7 +26,7 @@ public class EffectManager {
 	
 	private boolean killEffectEnabled;
 	private int killEffectTime;
-	private boolean killEffectParticles;
+	private String killEffectParticles;
 	
 	private Team team;
 	
@@ -118,7 +118,7 @@ public class EffectManager {
 	}
 	
 	public void killEffects(Game game) {
-		if(!killEffectParticles) return;
+		if(killEffectParticles.equals("")) return;
 		
 		for(Map.Entry<UUID, String> e : game.playerstate.entrySet()){
 			UUID playern = e.getKey();
@@ -127,7 +127,7 @@ public class EffectManager {
 			if(player!=null) {
 				if(game.playerteam.get(playern).equals(team.getName())) {
 					if(game.getCustomCooldown(playern, "effects_kill")>=0) {
-						spawnParticle(game, player);
+						spawnParticle(game, player, killEffectParticles);
 					}
 				}
 			}
@@ -151,8 +151,8 @@ public class EffectManager {
 		return 1;
 	}
 	
-	private void spawnParticle(Game game, Player player) {
-		player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
+	private void spawnParticle(Game game, Player player, String effect) {
+		player.getWorld().playEffect(player.getLocation(), Effect.valueOf(effect), 0);
 	}
 	//not working
 	/*
@@ -298,6 +298,6 @@ public class EffectManager {
 		//kill effects
 		killEffectEnabled = teamSec.getBoolean(st+".effects.kill.enabled", true);
 		killEffectTime = teamSec.getInt(st+".effects.kill.duration", 3);
-		killEffectParticles = teamSec.getBoolean(st+".effects.kill.particles", true);
+		killEffectParticles = teamSec.getString(st+".effects.kill.particles", "MOBSPAWNER_FLAMES");
 	}
 }
