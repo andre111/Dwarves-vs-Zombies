@@ -78,6 +78,35 @@ public abstract class DvZPackets {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void sendParticles(Location loc, String name, float spreadHor, float spreatVert, float speed, int count, int radius) {
+		PacketContainer packet = DvZ.protocolManager.createPacket(PacketType.Play.Server.WORLD_PARTICLES);
+		
+		packet.getStrings().write(0, name);
+		
+		packet.getFloat().
+		write(0, (float) loc.getX()).
+		write(1, (float) loc.getY()).
+		write(2, (float) loc.getZ()).
+		
+		write(3, spreadHor).
+		write(4, spreatVert).
+		write(5, spreadHor).
+		
+		write(6, speed);
+		
+		packet.getIntegers().write(0, count);
+		
+		int rSq = radius * radius;
+		try {
+			for (Player player : loc.getWorld().getPlayers()) {
+				if (player.getLocation().distanceSquared(loc) <= rSq) {
+					DvZ.protocolManager.sendServerPacket(player, packet);
+				}
+			}
+		} catch (Exception e) {
+		}
+	}
 
 	public static void sendBlockBreakAnimToPlayer(Player player, Location loc, byte data) {
 		PacketContainer pBlockBreakAnim = DvZ.protocolManager.createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);

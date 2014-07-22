@@ -8,6 +8,7 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.teams.Team;
 import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.dvz.volatileCode.DvZPackets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -152,7 +153,14 @@ public class EffectManager {
 	}
 	
 	private void spawnParticle(Game game, Player player, String effect) {
-		player.getWorld().playEffect(player.getLocation(), Effect.valueOf(effect), 0);
+		for(Effect e : Effect.values()) {
+			if(e.toString().equals(effect)) {
+				player.getWorld().playEffect(player.getLocation(), e, 0);
+				return;
+			}
+		}
+
+		DvZPackets.sendParticles(player.getLocation(), effect, 1, 1, 1, 5, 32);
 	}
 	//not working
 	/*
