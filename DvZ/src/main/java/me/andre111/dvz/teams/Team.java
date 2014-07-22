@@ -20,6 +20,7 @@ public class Team {
 	private String name;
 	private String displayName;
 	private String respawnTeam;
+	private String assassinDisplay;
 	private boolean released;
 	private boolean hasMonument;
 	private ArrayList<String> classes = new ArrayList<String>();
@@ -168,6 +169,12 @@ public class Team {
 	}
 	public void setRespawnTeam(String respawnTeam) {
 		this.respawnTeam = respawnTeam;
+	}
+	public String getAssassinDisplay() {
+		return assassinDisplay;
+	}
+	public void setAssassinDisplay(String assassinDisplay) {
+		this.assassinDisplay = assassinDisplay;
 	}
 	public boolean isReleased() {
 		return released;

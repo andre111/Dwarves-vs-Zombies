@@ -28,6 +28,7 @@ teams:
    dwarves:
       name: "Dwarves"
       respawn: "zombies"
+      assassinDisplay: "Assassins"
       needRelease: false
       hasMonument: true
       monumentName: "Monument"
@@ -73,6 +74,7 @@ teams:
    zombies:
       name: "Zombies"
       respawn: "zombies"
+      assassinDisplay: ""
       needRelease: true
       hasMonument: false
       monumentName: ""

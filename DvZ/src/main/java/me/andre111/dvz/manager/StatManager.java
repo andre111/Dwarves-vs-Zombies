@@ -58,9 +58,12 @@ public class StatManager {
 		}
 	}
 	//set a stat for all Players
-	public static void setGlobalStat(String stat, int value) {
+	public static void setGlobalStat(String stat, int value, boolean hideIfZero) {
 		for(Map.Entry<UUID, Scoreboard> mapE : stats.entrySet()) {
 			mapE.getValue().getObjective(objectiveName).getScore(stat).setScore(value);
+			if(value==0 && hideIfZero) {
+				mapE.getValue().resetScores(stat);
+			}
 		}
 	}
 	//Set a timerstat for all players

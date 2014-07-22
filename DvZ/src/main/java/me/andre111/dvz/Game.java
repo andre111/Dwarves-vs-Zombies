@@ -593,16 +593,23 @@ public class Game {
 	private void updateGlobalStats() {
 		for(Team team : teamSetup.getTeams()) {
 			int tcount = 0;
+			int assa = 0;
 			for(UUID puuid : getTeamPlayers(team)) {
 				Player player = Bukkit.getPlayer(puuid);
 				if(player!=null) {
 					tcount++;
+					if(getPlayerState(puuid)==STATE_ASSASSIN) {
+						assa++;
+					}
 				}
 			}
-			StatManager.setGlobalStat(team.getDisplayName(), tcount);
+			StatManager.setGlobalStat(team.getDisplayName(), tcount, false);
+			if(!team.getAssassinDisplay().equals("")) {
+				StatManager.setGlobalStat(team.getAssassinDisplay(), assa, true);
+			}
 			
 			if(team.hasMonument()) {
-				StatManager.setGlobalStat(team.getMonumentName(), team.getMonumentHealth());
+				StatManager.setGlobalStat(team.getMonumentName(), team.getMonumentHealth(), false);
 			}
 		}
 		

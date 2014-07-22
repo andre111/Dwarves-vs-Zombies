@@ -41,6 +41,7 @@ public class GameTeamSetup {
 			team.setName(st);
 			team.setDisplayName(config.getString("teams."+st+".name", ""));
 			team.setRespawnTeam(config.getString("teams."+st+".respawn", st));
+			team.setAssassinDisplay(config.getString("teams."+st+".assassinDisplay", ""));
 			team.setReleased(!config.getBoolean("teams."+st+".needRelease", false));
 			team.setHasMonument(config.getBoolean("teams."+st+".hasMonument", false));
 			team.setMonumentName(config.getString("teams."+st+".monumentName", ""));
