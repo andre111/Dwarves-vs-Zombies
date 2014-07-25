@@ -41,7 +41,7 @@ public class DynamicClassFunctions {
 		return false;
 	}
 	
-	public static HashMap<String, Class<?>> classes = new HashMap<String, Class<?>>();
+	public static final HashMap<String, Class<?>> classes = new HashMap<String, Class<?>>();
 	public static boolean setClasses() {
 		try {
 			// org.bukkit.craftbukkit
@@ -64,7 +64,7 @@ public class DynamicClassFunctions {
 		}
 	}
 	
-	public static HashMap<String, Method> methods = new HashMap<String, Method>();
+	public static final HashMap<String, Method> methods = new HashMap<String, Method>();
 	public static boolean setMethods() {
 		try {
 			// org.bukkit.craftbukkit
@@ -81,7 +81,7 @@ public class DynamicClassFunctions {
 		}
 	}
 	
-	public static HashMap<String, Field> fields = new HashMap<String, Field>();
+	public static final HashMap<String, Field> fields = new HashMap<String, Field>();
 	public static boolean setFields() {
 		try {
 			fields.put("RegionFileCache.regionsByFilename", classes.get("RegionFileCache").getDeclaredField("a")); 		// obfuscated - regionsByFilename in RegionFileCache
@@ -105,8 +105,8 @@ public class DynamicClassFunctions {
 	
 	//methods
 	@SuppressWarnings("rawtypes")
-	protected static HashMap regionfiles;
-	protected static Field rafField;
+	private static HashMap regionfiles;
+	private static Field rafField;
 	
 	@SuppressWarnings("rawtypes")
 	public static void bindRegionFiles()

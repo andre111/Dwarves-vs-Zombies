@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 
 public class PistonManager {
-	public static double maxDistance = 3*3;
+	public static final double maxDistance = 3*3;
 	//private static ArrayList<Location> disabled = new ArrayList<Location>();
 	private static int called = 0;
 	

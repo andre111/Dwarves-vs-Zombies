@@ -162,41 +162,6 @@ public class EffectManager {
 
 		DvZPackets.sendParticles(player.getLocation(), effect, 0.3f, 0.3f, 0.5f, 5, 32);
 	}
-	//not working
-	/*
-		PacketContainer packet = DvZ.protocolManager.createPacket(0x3F);
-		
-		packet.getStrings().
-			write(0, "magicCrit");
-		packet.getFloat().
-			write(0, (float) player.getLocation().getX()).
-			write(1, (float) player.getLocation().getY()).
-			write(2, (float) player.getLocation().getZ()).
-			write(3, 0F).
-			write(4, 0F).
-			write(5, 0F).
-			write(6, 0F);
-		packet.getIntegers().
-			write(0, 1);
-		
-		sendToAll(game, packet);
-	}
-	
-	private void sendToAll(Game game, PacketContainer packet) {
-		System.out.println("Sparticles!");
-		try {
-			for(Map.Entry<String, Integer> e : game.playerstate.entrySet()){
-				String playern = e.getKey();
-				Player player = Bukkit.getServer().getPlayerExact(playern);
-				
-				if(player!=null) {
-					DvZ.protocolManager.sendServerPacket(player, packet);
-				}
-			}
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-	}*/
 	
 	public void loadEffects(ConfigurationSection teamSec, String st) {
 		//monster

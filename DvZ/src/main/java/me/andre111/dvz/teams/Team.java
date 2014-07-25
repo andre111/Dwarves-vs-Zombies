@@ -105,7 +105,7 @@ public class Team {
 			if(destroyed==4) {
 				destr = true;
 			}
-			setMonumentHealth(100 - (int) Math.round((100/4)*destroyed));
+			setMonumentHealth(100 - (int) Math.round((100/4.0f)*destroyed));
 	
 			if(destr) {
 				//setup.performCommand("lose "+getName());

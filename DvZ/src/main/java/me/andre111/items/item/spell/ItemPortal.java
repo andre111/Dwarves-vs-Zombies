@@ -86,7 +86,6 @@ public class ItemPortal extends ItemSpell {
 
 		game.enderPortal = nloc;
 		game.enderActive = true;
-		game.enderMan = player.getUniqueId();
 
 		game.broadcastMessage(ConfigManager.getLanguage().getString("string_portal_create","An Enderman has created a Portal!"));
 	}

@@ -37,8 +37,8 @@ public class HighscoreCommand extends DvZCommand {
 		//own
 		int ownpoints = 0;
 		int position = 0;
-		if(pointMap.containsKey(player.getName())) {
-			ownpoints = pointMap.get(player.getName());
+		if(pointMap.containsKey(player.getUniqueId())) {
+			ownpoints = pointMap.get(player.getUniqueId());
 		}
 		
 		//sort
@@ -57,7 +57,7 @@ public class HighscoreCommand extends DvZCommand {
         		DvZ.sendPlayerMessageFormated(player, (i+1)+". "+pname+" - "+ppoints);
         	}
         	
-        	if(pname.equals(player.getName())) {
+        	if(pname.equals(player.getUniqueId())) {
         		position = i+1;
         	}
         }

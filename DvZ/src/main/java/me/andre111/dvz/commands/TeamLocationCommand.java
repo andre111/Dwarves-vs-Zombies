@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
 import me.andre111.dvz.config.DVZFileConfiguration;
 
 import org.bukkit.Bukkit;
@@ -43,7 +44,7 @@ public class TeamLocationCommand extends DvZCommand {
 			found = true;
 		} else if(loc.equals("monument")) {
 			found = true;
-			DvZ.instance.getDummy().createMonument(location, true);
+			Game.createMonument(location, true);
 			Location teleport = location.clone();
 			teleport.add(0, 4, 0);
 			player.teleport(teleport);

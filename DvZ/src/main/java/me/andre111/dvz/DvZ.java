@@ -46,7 +46,6 @@ import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.protocol.ProtocolLibrary;
@@ -57,7 +56,6 @@ public class DvZ extends JavaPlugin {
 	public static DvZ instance;
 	
 	private Game[] games = new Game[10];
-	private GameDummy gameDummy = new GameDummy();
 	public static int startedGames = 0;
 	private Lobby lobby;
 	
@@ -77,17 +75,12 @@ public class DvZ extends JavaPlugin {
 	public static ClassManager classManager;
 	
 	public static Logger logger;
-	public static String prefix = "[Dwarves vs Zombies] ";
-	
-	public PluginDescriptionFile descriptionFile;
+	public static final String prefix = "[Dwarves vs Zombies] ";
 	
 	
 	@Override
 	public void onLoad() {
 		logger = Logger.getLogger("Minecraft");
-
-		// Get plugin description
-		descriptionFile = this.getDescription();
 
 		// Dynamic package detection
 		if (!DynamicClassFunctions.setPackages()) {
@@ -336,10 +329,6 @@ public class DvZ extends JavaPlugin {
 	
 	public Game getGame(int id) {
 		return games[id];
-	}
-
-	public GameDummy getDummy() {
-		return gameDummy;
 	}
 	
 	public Lobby getLobby() {

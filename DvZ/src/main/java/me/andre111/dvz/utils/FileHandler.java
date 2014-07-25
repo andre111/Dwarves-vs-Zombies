@@ -33,19 +33,26 @@ public abstract class FileHandler {
 		}else{
 			//if file, then copy it
 			//Use bytes stream to support all file types
-			InputStream in = new FileInputStream(src);
-			OutputStream out = new FileOutputStream(dest); 
-
-			byte[] buffer = new byte[1024];
-
-			int length;
-			//copy the file content in bytes 
-			while ((length = in.read(buffer)) > 0){
-				out.write(buffer, 0, length);
+			InputStream in = null;
+			OutputStream out = null; 
+			
+			try {
+				in = new FileInputStream(src);
+				out = new FileOutputStream(dest); 
+	
+				byte[] buffer = new byte[1024];
+	
+				int length;
+				//copy the file content in bytes 
+				while ((length = in.read(buffer)) > 0){
+					out.write(buffer, 0, length);
+				}
+			} finally {
+				if(in!=null)
+					in.close();
+				if(out!=null)
+					out.close();
 			}
-
-			in.close();
-			out.close();
 		}
 	}
 	

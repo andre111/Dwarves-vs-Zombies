@@ -69,7 +69,6 @@ public class Game {
 	
 	public boolean enderActive;
 	public Location enderPortal;
-	public UUID enderMan;
 	
 	private Inventory globalCrystalChest;
 	private HashMap<UUID, Inventory> crystalPerPlayer = new HashMap<UUID, Inventory>();
@@ -117,7 +116,6 @@ public class Game {
 		starting = false;
 		enderActive = false;
 		enderPortal = null;
-		enderMan = null;
 
 		infotimer = 0;
 		dragon = null;
@@ -147,7 +145,7 @@ public class Game {
 		if (!event.isCancelled()){
 			if(!starting) {
 				starting = true;
-				this.starttime = time;
+				starttime = time;
 				
 				if(voting) {
 					maxVote = WorldManager.getWorldIDSize(plugin.getGameID(this));
@@ -155,8 +153,8 @@ public class Game {
 				}
 			//change the countdown when allready starting
 			} else {
-				if(this.starttime>0) {
-					this.starttime = time;
+				if(starttime>0) {
+					starttime = time;
 				}
 			}
 		}
@@ -207,7 +205,6 @@ public class Game {
 		ticker = 0;
 		enderActive = false;
 		enderPortal = null;
-		enderMan = null;
 		infotimer = 0;
 		dragon = null;
 		
@@ -292,15 +289,6 @@ public class Game {
 						}
 					}
 				}
-				
-				//TODO - remove test
-				//if(state==2)
-				/*for(Map.Entry<UUID, String> e : playerstate.entrySet()) {
-					if(!playerteam.containsKey(e.getKey())) {
-						System.out.println("WARNING: Found player without team, this should not happen!");
-						System.out.println("Player: "+e.getKey()+" - State: "+e.getValue());
-					}
-				}*/
 				
 				countdownTicker();
 			}
@@ -400,7 +388,6 @@ public class Game {
 	//#######################################
 	//Starte das wirkliche Spiel/oder geht weiter
 	//#######################################
-	//TODO - Start anders machen/moderator...
 	private int taskid = -1;
 	private Random rand = new Random();
 	public void startGame() {
@@ -887,24 +874,19 @@ public class Game {
 			return;
 		}
 		
-		//custom dwarves - rightclick
-		//if(isDwarf(puuid, false)) {
-			//int dId = getPlayerState(puuid)-Game.classMin;
-			//if(dId>=0 && dId<DvZ.classManager.getCount()) {
-			if(getPlayerState(puuid).startsWith(STATE_CLASSPREFIX)) {
-				CustomClass cd = getClass(puuid);
+		//custom class - rightclick
+		if(getPlayerState(puuid).startsWith(STATE_CLASSPREFIX)) {
+			CustomClass cd = getClass(puuid);
 				
-				//transmute items
-				if(block!=null) {
-					if(cd.transmuteItemOnBlock(this, player, item, block)) {
-						event.setCancelled(true);
-					}
+			//transmute items
+			if(block!=null) {
+				if(cd.transmuteItemOnBlock(this, player, item, block)) {
+					event.setCancelled(true);
 				}
 			}
-		//}
+		}
 		
 		//TODO - recreate as special items for teams
-		//TODO - IMPORTANT readd possibility for enderman portal, now broken!!!!
 		if(item.getType()==Material.ENDER_STONE) ItemPortal.spellDisablePortal(this, player);
 		
 		//dragon
@@ -988,7 +970,7 @@ public class Game {
 	//#######################################
 	//Creating the Monument
 	//#######################################
-	public void createMonument(Location loc, boolean obsi) {
+	public static void createMonument(Location loc, boolean obsi) {
 		Block block = loc.getWorld().getBlockAt(loc);
 		Block block2;
 		
