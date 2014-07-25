@@ -28,26 +28,7 @@ public class StartCommand extends DvZCommand {
 			else
 				game.broadcastMessage(ConfigManager.getLanguage().getString("string_starting_instant","Starting instantly!"));
 			
-			/*boolean assasins = false;
-			int minutes = 10;
-			int count = 1;
-			int maxdeaths = 0;
-			if(args.length>2) {
-				assasins = true;
-				minutes = Integer.parseInt(args[2].replace("+", ""));
-				if(args.length>3) {
-					count = Integer.parseInt(args[3].replace("+", ""));
-				}
-				if(args.length>4) {
-					maxdeaths = Integer.parseInt(args[4].replace("+", ""));
-				}
-			}*/
-			
 			game.start(time);
-			//TODO - autoassasins still needed?
-			/*if(assasins) {
-				game.assasins(minutes, count, maxdeaths);
-			}*/
 		}
 		return true;
 	}

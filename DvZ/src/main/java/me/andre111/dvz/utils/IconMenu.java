@@ -1,7 +1,5 @@
 package me.andre111.dvz.utils;
 
-import me.andre111.dvz.DvZ;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -108,7 +106,7 @@ public class IconMenu {
                 Plugin plugin = this.plugin;
                 OptionClickEvent e = new OptionClickEvent((Player) event.getWhoClicked(), slot, optionNames[slot], optionIcons[slot]);
                 handler.onOptionClick(e);
-                DvZ.updateInventory((Player) event.getWhoClicked());
+                InventoryHandler.updateInventory((Player) event.getWhoClicked());
 
                 if (e.willClose()) {
                     final Player p = (Player) event.getWhoClicked();

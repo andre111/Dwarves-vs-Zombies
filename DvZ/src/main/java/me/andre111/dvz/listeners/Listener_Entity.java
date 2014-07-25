@@ -143,14 +143,13 @@ public class Listener_Entity implements Listener {
 
 		if(event.isCancelled()) return;
 
-		//IronGolem more damage/buffed monsters
-		//irongolem deaktiviert, da custom monster existieren
+		//Custom Classes more damage/buffed monsters
 		if(event.getDamager() instanceof Player) {
 			Player dgm = (Player) event.getDamager();
 			Game game = plugin.getPlayerGame(dgm.getUniqueId());
 			if (game!=null) {
 				if(game.isPlayer(dgm.getUniqueId())) {
-					if(/*game.getPlayerState(dgm.getUniqueId())==35 ||*/ game.isBuffed(dgm.getUniqueId())) {
+					if(game.isBuffed(dgm.getUniqueId())) {
 						event.setDamage(event.getDamage()*5);
 					}
 
@@ -185,7 +184,7 @@ public class Listener_Entity implements Listener {
 
 		Game game = plugin.getPlayerGame(damager.getUniqueId());
 		if (game!=null) {
-			if(/*game.isDwarf(player.getUniqueId(), true) && */game.getPlayerState(damager.getUniqueId()).equals(Game.STATE_ASSASSIN)) {
+			if(game.getPlayerState(damager.getUniqueId()).equals(Game.STATE_ASSASSIN)) {
 				game.resetCustomCooldown(damager.getUniqueId(), "assassin_time");
 			}
 		}

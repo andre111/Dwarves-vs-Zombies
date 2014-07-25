@@ -295,12 +295,6 @@ public class DvZ extends JavaPlugin {
 		logger.info(prefix+s);
 	}
 	
-	//TODO - remove temporary workaround
-	@SuppressWarnings("deprecation")
-	public static void updateInventory(Player player) {
-		player.updateInventory();
-	}
-	
 	//#######################################
 	//Bekomme Spiel in dem das der Spieler ist
 	//#######################################

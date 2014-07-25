@@ -81,22 +81,6 @@ public class ItemStandManager {
 		int y = loc.getBlockY();
 		int z = loc.getBlockZ();
 
-		/*String save = x+"//"+y+"//"+z+"//"+itemID+"//"+once+"//"+formatedItem+"//"+onlyClicking;
-
-		File f = new File(directory, "0.dat");
-		int count = 0;
-		while(f.exists()) {
-			count++;
-			f = new File(directory, count+".dat");
-		}
-
-		try {
-			Slapi.save(save, f.getPath());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
 		//NEW
 		File file = new File(directory, "itemstands.yml");
 		if(!file.exists()) {
@@ -124,10 +108,6 @@ public class ItemStandManager {
 		} catch (IOException e) {
 		}
 	}
-
-	/*public void saveStands(File directory) {
-
-	}*/
 
 	private void createStand(Location loc, final int itemID, final boolean once, final String formatedItem, final boolean onlyClicking) {
 		DvZ.item3DHandler.spawnAroundBlock(null, loc, itemID, new Item3DRunnable() {

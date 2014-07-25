@@ -134,12 +134,8 @@ public class Listener_Player implements Listener  {
 			else if(action==Action.RIGHT_CLICK_BLOCK) {
 				game.playerRC(event, player, item, event.getClickedBlock());
 			}
-			//else if(action==Action.LEFT_CLICK_AIR) {
-			//	game.playerLC(player, item, null);
-			//}
+
 			else if(action==Action.LEFT_CLICK_BLOCK) {
-				//game.playerLC(player, item, event.getClickedBlock());
-				
 				//"breaking" fire
 				Block relative = event.getClickedBlock().getRelative(event.getBlockFace());
 				if(relative.getType()==Material.FIRE) {
@@ -155,12 +151,6 @@ public class Listener_Player implements Listener  {
 		Game game = plugin.getPlayerGame(player.getUniqueId());
 		
 		if (game!=null) {
-			/*Entity entity = event.getRightClicked();
-			ItemStack item = event.getPlayer().getItemInHand();
-			if(entity instanceof Player) {
-				game.playerRCPlayer(player, item, (Player)entity);
-			}*/
-			
 			//disable rightclick items during class selection
 			if(game.getPlayerState(player.getUniqueId()).equals(Game.STATE_CHOOSECLASS)) {
 				event.setCancelled(true);
@@ -200,7 +190,7 @@ public class Listener_Player implements Listener  {
 				event.setCancelled(true);
 				return;
 			}
-			//monster können nichts aufheben
+			//don't pickup items
 			if(!game.getTeam(player.getUniqueId()).isCanPickupItems()) {
 				event.setCancelled(true);
 				return;
@@ -218,7 +208,7 @@ public class Listener_Player implements Listener  {
 				event.setCancelled(true);
 				return;
 			}
-			//monster können nichts droppen
+			//don't drop items
 			if(!game.getTeam(player.getUniqueId()).isCanDropItems() && !player.isOp()) {
 				event.setCancelled(true);
 				return;
@@ -293,9 +283,6 @@ public class Listener_Player implements Listener  {
 		Game game = plugin.getPlayerGame(player.getUniqueId());
 		
 		if (game!=null) {
-			//default
-			//event.setFormat("§r<%1$s> %2$s");
-			
 			String prefix = "";
 			String suffix = "";
 			//normal classes
@@ -310,12 +297,7 @@ public class Listener_Player implements Listener  {
 				prefix = ConfigManager.getClassFile().getString("assassin_prefix", "");
 				suffix = ConfigManager.getClassFile().getString("assassin_suffix", " the Assassin");
 			}
-			/*if(game.isMonster(player.getUniqueId())) {
-				int did = pstate - Game.monsterMin;
-				
-				prefix = DvZ.monsterManager.getMonster(did).getPrefix();
-				suffix = DvZ.monsterManager.getMonster(did).getSuffix();
-			}*/
+
 			//player specific
 			if(DvZ.playerManager.getPlayer(player.getUniqueId())!=null) {
 				SpecialPlayer sp = DvZ.playerManager.getPlayer(player.getUniqueId());
@@ -388,68 +370,41 @@ public class Listener_Player implements Listener  {
 			}
 			
 			Team team = game.getTeam(p.getUniqueId());
-			//Team kteam = game.getTeam(k.getUniqueId());
-			
+
 			team.getEffectManager().killedPlayer(game, p);
 			
-			//Is dwarv
-			/*if (game.isDwarf(p.getUniqueId(), true)) {
-				//Is killer monster
-				if (game.isMonster(k.getUniqueId())) {*/
-					if (plugin.getConfig().getBoolean("change_death_message", true) && team.isHideKills()) {
-						event.setDeathMessage(ChatColor.YELLOW+ConfigManager.getLanguage().getString("string_chat_death", "-0- was killed by -1-!").replace("-0-", p.getName()).replace("-1-", team.getDisplayName()));
+			
+			if (plugin.getConfig().getBoolean("change_death_message", true) && team.isHideKills()) {
+				event.setDeathMessage(ChatColor.YELLOW+ConfigManager.getLanguage().getString("string_chat_death", "-0- was killed by -1-!").replace("-0-", p.getName()).replace("-1-", team.getDisplayName()));
+			}
+		}
+
+		
+		//TODO - maybe change back to only monsters, but still supporting teams?
+		if (plugin.getConfig().getBoolean("item_stats", true)) {
+			if (k.getItemInHand().getAmount() > 0) {
+				ItemStack it = k.getItemInHand();
+				ItemMeta im = it.getItemMeta();
+				if(im.hasLore()) {
+					String lore1 = im.getLore().get(0);
+					if(lore1.startsWith(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": ")) {
+						int count = Integer.parseInt(lore1.replace(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": ", ""));
+						count += 1;
+						ArrayList<String> li = new ArrayList<String>();
+						li.add(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": "+count);
+						im.setLore(li);
 					}
+				} else {
+					ArrayList<String> li = new ArrayList<String>();
+					li.add(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": "+1);
+					im.setLore(li);
 				}
-			//is Monster
-			//} else if(game.isMonster(p.getUniqueId())) {
-				//Is killer dwarv
-				//if (game.isDwarf(k.getUniqueId(), true)) {
-					//Item stats
-					//----
-					//TODO - maybe change back to only monsters, but still supporting teams?
-					if (plugin.getConfig().getBoolean("item_stats", true)) {
-						if (k.getItemInHand().getAmount() > 0) {
-							ItemStack it = k.getItemInHand();
-							ItemMeta im = it.getItemMeta();
-							if(im.hasLore()) {
-								String lore1 = im.getLore().get(0);
-								if(lore1.startsWith(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": ")) {
-									int count = Integer.parseInt(lore1.replace(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": ", ""));
-									count += 1;
-									ArrayList<String> li = new ArrayList<String>();
-									li.add(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": "+count);
-									im.setLore(li);
-								}
-							} else {
-								ArrayList<String> li = new ArrayList<String>();
-								li.add(ConfigManager.getLanguage().getString("string_stats_kills","Kills")+": "+1);
-								im.setLore(li);
-							}
-							it.setItemMeta(im);
-							k.setItemInHand(it);
-							DvZ.updateInventory(k);
-						}
-					}
-					//----
-					
-					//dwarf kill buffs
-					//DvZ.effectManager.dwarfKilledMonster(game, k);
-				//}
-			//}
-		//}
+				it.setItemMeta(im);
+				k.setItemInHand(it);
+				InventoryHandler.updateInventory(k);
+			}
+		}
     }
-	
-	//Item Monster Damage listener maybe
-	/* @EventHandler
-    public void onDamage(EntityDamageByEntityEvent event) {
-        Player p = null;
-        if (event.getDamager() instanceof Player) {
-            p = (Player) event.getDamager();
-        } else if (event.getDamager() instanceof Arrow && ((Arrow) event.getDamager()).getShooter() instanceof Player) {
-            p = (Player) ((Arrow) event.getDamager()).getShooter();
-        }
-        if (p != null) {
-            if (p.getItemInHand().getAmount() > 0*/
 	
 	//Crafting
 	@EventHandler

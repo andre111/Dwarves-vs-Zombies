@@ -127,7 +127,7 @@ public class CustomClass {
 			}
 		}
 
-		DvZ.updateInventory(player);
+		InventoryHandler.updateInventory(player);
 		
 		//update stats
 		Bukkit.getScheduler().runTaskLater(DvZ.instance, new Runnable() {
@@ -185,7 +185,7 @@ public class CustomClass {
 					player.setItemInHand(item);
 					
 					//update the invventory, because it is glitchy
-					DvZ.updateInventory(player);
+					InventoryHandler.updateInventory(player);
 
 					return true;
 				}
@@ -245,7 +245,7 @@ public class CustomClass {
 						inv.setItem(i, item);
 						
 						//update the invventory, because it is glitchy
-						DvZ.updateInventory(player);
+						InventoryHandler.updateInventory(player);
 						
 						//break for loop
 						i = 10000;

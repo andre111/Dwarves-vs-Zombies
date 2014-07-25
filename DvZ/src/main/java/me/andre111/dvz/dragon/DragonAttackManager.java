@@ -22,6 +22,7 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.Animation;
 import me.andre111.dvz.utils.Fireworks;
+import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
 
 public class DragonAttackManager {
@@ -134,7 +135,7 @@ public class DragonAttackManager {
 			}
 		}
 		
-		DvZ.updateInventory(player);
+		InventoryHandler.updateInventory(player);
 	}
 	
 	public DragonCustom getDragon(int id) {

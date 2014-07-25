@@ -70,8 +70,7 @@ public class TeamLocationCommand extends DvZCommand {
 		try {
 			save.save(new File(path));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			sender.sendMessage("Could not save location!");
 		}
 		
 		//TODO - set location in active game

@@ -958,7 +958,7 @@ public class Game {
 					}
 				}
 				
-				DvZ.updateInventory(player);
+				InventoryHandler.updateInventory(player);
 			}
 		}
 	}
