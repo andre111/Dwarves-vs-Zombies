@@ -1,0 +1,273 @@
+# DWARVES VS ZOMBIES - CLAN WARS
+# This setup.yml creates Two Dwarf and Two Zombie Teams
+# When a player dies as a dwarf he will attack the other dwarfteam as a monster
+# The Dwarfteam which survives longer wins
+# NOTICE: This requires a different setup of the world(spawn/monument for all teams)
+# NOTICE: You can place a setup.yml in the [world]/dvz/ folder to only apply it to that world
+# NOTICE: The teams are just named "Dwarf Clan 1" or "Zombie Clan 2" right now
+# Warning: This mode hasn't been tested yet!
+
+# For now this is an idea collection in form of
+# a configuration for the default dvz game
+# this file is allready used by the plugin
+# but it might still get more additions
+
+# commands:
+# win [team]
+# lose [team]
+# release [team]
+# starttimer [timer]
+# setstartteam [team]
+# addstartteam [team]
+# removestartteam [team]
+# set [team] [invulnerable] [true/false]
+# assassins [team] [percentage_of_players]
+# command [command] [arg1] [arg2] ...
+
+gamestart:
+   startteams:
+     - "dwarvesOne"
+     - "dwarvesTwo"
+   # not even means completly random which is also most likely about even
+   eventeamsplit: true
+   starttimers:
+     - "release"
+     - "invulnerable"
+
+teams:
+   dwarvesOne:
+      name: "Dwarf Clan 1"
+      respawn: "zombiesOne"
+      assassinDisplay: ""
+      needRelease: false
+      hasMonument: true
+      monumentName: "Clan 1 Monument"
+      monumentBar: "dwarvesOne"
+      classes:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      selectInLobby: true
+      relation:
+         friendly:
+           - "dwarvesTwo"
+           - "zombiesOne"
+         hostile:
+           - "zombiesTwo"
+      friendlyFire: false
+      invulnerable: true
+      hideKills: false
+      spawnBuff: 0
+      spawnBuffItems: []
+      onDeath:
+        - "lose dwarvesOne"
+        - "win dwarvesTwo"
+      onMonumentDestroy:
+        - "lose dwarvesOne"
+        - "win dwarvesTwo"
+      items:
+         pickup: true
+         drop: true
+         deathDrop: true
+      effects:
+         day: []
+         night: []
+         midnight: []
+         lightlevel:
+            above: []
+            below:
+               6: "15 0" 
+         kill:
+            enabled: true
+            duration: 3
+            particles: "MOBSPAWNER_FLAMES"
+   dwarvesTwo:
+      name: "Dwarf Clan 2"
+      respawn: "zombiesTwo"
+      assassinDisplay: ""
+      needRelease: false
+      hasMonument: true
+      monumentName: "Clan 2 Monument"
+      monumentBar: "dwarvesTwo"
+      classes:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      selectInLobby: true
+      relation:
+         friendly:
+           - "dwarvesOne"
+           - "zombiesTwo"
+         hostile:
+           - "zombiesOne"
+      friendlyFire: false
+      invulnerable: true
+      hideKills: false
+      spawnBuff: 0
+      spawnBuffItems: []
+      onDeath:
+        - "lose dwarvesTwo"
+        - "win dwarvesOne"
+      onMonumentDestroy:
+        - "lose dwarvesTwo"
+        - "win dwarvesOne"
+      items:
+         pickup: true
+         drop: true
+         deathDrop: true
+      effects:
+         day: []
+         night: []
+         midnight: []
+         lightlevel:
+            above: []
+            below:
+               6: "15 0" 
+         kill:
+            enabled: true
+            duration: 3
+            particles: "MOBSPAWNER_FLAMES"
+   zombiesOne:
+      name: "Zombies Clan 1"
+      respawn: "zombiesOne"
+      assassinDisplay: ""
+      needRelease: true
+      hasMonument: false
+      monumentName: ""
+      monumentBar: "dwarvesTwo"
+      classes:
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 18
+        - 19
+      selectInLobby: false
+      relation:
+         friendly:
+           - "dwarvesOne"
+           - "monstersTwo"
+         hostile:
+           - "dwarvesTwo"
+      friendlyFire: false
+      invulnerable: false
+      hideKills: true
+      spawnBuff: 10
+      spawnBuffItems:
+        - "!spellitems:internSuicidePill"
+        - "!spellitems:internTeleportMap"
+      onDeath: []
+      onMonumentDestroy: []
+      items:
+         pickup: false
+         drop: false
+         deathDrop: false
+      effects:
+         day: []
+         night:
+           - 11 0
+           - 5 0
+         midnight:
+           - 11 0
+           - 5 0
+         lightlevel:
+            above: []
+            below: []
+         kill:
+            enabled: false
+            duration: 3
+            particles: ""
+   zombiesTwo:
+      name: "Zombies Clan 2"
+      respawn: "zombiesTwo"
+      assassinDisplay: ""
+      needRelease: true
+      hasMonument: false
+      monumentName: ""
+      monumentBar: "dwarvesOne"
+      classes:
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 18
+        - 19
+      selectInLobby: false
+      relation:
+         friendly:
+           - "dwarvesTwo"
+           - "monstersOne"
+         hostile:
+           - "dwarvesOne"
+      friendlyFire: false
+      invulnerable: false
+      hideKills: true
+      spawnBuff: 10
+      spawnBuffItems:
+        - "!spellitems:internSuicidePill"
+        - "!spellitems:internTeleportMap"
+      onDeath: []
+      onMonumentDestroy: []
+      items:
+         pickup: false
+         drop: false
+         deathDrop: false
+      effects:
+         day: []
+         night:
+           - 11 0
+           - 5 0
+         midnight:
+           - 11 0
+           - 5 0
+         lightlevel:
+            above: []
+            below: []
+         kill:
+            enabled: false
+            duration: 3
+            particles: ""
+
+timer:
+   invulnerable:
+      # 5 Minutes 5*60*20
+      time: 6000
+      showDisplay: false
+      display: ""
+      onEnd:
+        - "set dwarvesOne invulnerable false"
+        - "set dwarvesTwo invulnerable false"
+   release:
+      # 20 Minutes 20*60*20
+      time: 24000
+      showDisplay: true
+      display: "M-Release"
+      onEnd:
+        - "release zombiesOne"
+        - "release zombiesTwo"
+        - "setstartteam zombiesOne"
+        - "addstarttem zombiesTwo"
+        - "assassins dwarvesOne 5"
+        - "assassins dwarvesTwo 5"
