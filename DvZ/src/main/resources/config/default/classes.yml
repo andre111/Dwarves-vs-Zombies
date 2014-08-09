@@ -1,14 +1,6 @@
 # ----------------------------------------------------------------------------------
 # Custom Classes
 # ----------------------------------------------------------------------------------
-# Item Format:
-# id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id_OR_customEnchantmentName>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>
-# Name and Lore1,2,3 can contain spaces
-# to get Names without enchantments use -1 as the enchantmentid(ignoring it)
-# or use -10 to only get the glowing effect
-# Example: "257 1 100 -1:0 Hi i'm Named!,I also have a lore!,2,3"
-# WARNING: Do not change name or lore of custom Items or they will not work!
-# ----------------------------------------------------------------------------------
 
 # transmuteRightClick and transmuteBlockBreak format:
 # 
