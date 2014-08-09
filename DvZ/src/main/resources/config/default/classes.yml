@@ -1,15 +1,5 @@
-# effects:
-#    lightlevel:
-#       above: []
-#       below:
-#         6: "15 0" 
-#    kill:
-#       enabled: true
-#       duration: 3
-#       particles: true
-
 # ----------------------------------------------------------------------------------
-# Custom Dwarves
+# Custom Classes
 # ----------------------------------------------------------------------------------
 # Item Format:
 # id_OR_customItemName:<damagevalue> <min_count>:<max_count> <chance_to_get_item> <enchant1_id_OR_customEnchantmentName>:<enchant1_level>,... <name>,<lore1>,<lore2>,<lore3>
