@@ -29,9 +29,9 @@ public class ClassManager {
 		//load monster
 		classes = new CustomClass[length];
 		for(int i=0; i<length; i++) {
-			Permission perm = new Permission("dvz.classes."+i, PermissionDefault.TRUE);
+			Permission perm = new Permission("dvz.classes."+stK2[i], PermissionDefault.TRUE);
 			//perm.addParent("dvz.*", true); - broken?
-			if(Bukkit.getPluginManager().getPermission("dvz.classes."+i)==null)
+			if(Bukkit.getPluginManager().getPermission("dvz.classes."+stK2[i])==null)
 				Bukkit.getPluginManager().addPermission(perm);
 			
 			loadClass(stK2[i]);
