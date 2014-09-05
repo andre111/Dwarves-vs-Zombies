@@ -26,7 +26,7 @@ public class VoteCommand extends DvZCommand {
 			return false;
 		}
 
-		if(args.length>0) {
+		if(args.length>1) {
 			Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 			
 			if(game!=null) {
