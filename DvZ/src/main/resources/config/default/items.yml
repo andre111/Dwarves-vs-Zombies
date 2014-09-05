@@ -1,11 +1,3 @@
-# WARNING:
-# You should always set a lore,
-# because the items are identified by
-# id,data,name and lore
-# and lore can not be canged in normal minecraft!
-
-# required is a number of the spell that needs to succed before using this(-1 = none)
-
 # -------
 # countup - can be used to countup before using the cast
 # WARNING: It cannot use any attack needing a target(block or player)

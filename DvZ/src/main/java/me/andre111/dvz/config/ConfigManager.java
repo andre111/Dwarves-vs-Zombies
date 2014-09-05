@@ -19,7 +19,6 @@ public class ConfigManager {
 	private static FileConfiguration enlangfile;
 	private static FileConfiguration dragonsfile;
 	private static FileConfiguration classfile;
-	private static FileConfiguration monsterfile;
 	private static FileConfiguration itemfile;
 	private static FileConfiguration blockfile;
 	private static FileConfiguration playerfile;
@@ -48,11 +47,6 @@ public class ConfigManager {
 		if (!new File(plugin.getDataFolder(), "classes.yml").exists()) {
 			try {
 				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/classes.yml"), new File(plugin.getDataFolder(), "classes.yml"));
-			} catch (IOException e) {}
-		}
-		if (!new File(plugin.getDataFolder(), "monster.yml").exists()) {
-			try {
-				FileHandler.copyFolder(new File(plugin.getDataFolder(), "config/default/monster.yml"), new File(plugin.getDataFolder(), "monster.yml"));
 			} catch (IOException e) {}
 		}
 		if (!new File(plugin.getDataFolder(), "items.yml").exists()) {
@@ -92,7 +86,6 @@ public class ConfigManager {
 		enlangfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "lang/lang_en_EN.yml"));
 		dragonsfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "dragons.yml"));
 		classfile =  DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "classes.yml"));
-		monsterfile =  DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "monster.yml"));
 		itemfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "items.yml"));
 		blockfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "blocks.yml"));
 		playerfile = DVZFileConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "players.yml"));
@@ -106,7 +99,6 @@ public class ConfigManager {
 		plugin.saveResource("config/default/config.yml", true);
 		plugin.saveResource("config/default/dragons.yml", true);
 		plugin.saveResource("config/default/classes.yml", true);
-		plugin.saveResource("config/default/monster.yml", true);
 		plugin.saveResource("config/default/items.yml", true);
 		plugin.saveResource("config/default/blocks.yml", true);
 		plugin.saveResource("config/default/players.yml", true);
@@ -157,9 +149,6 @@ public class ConfigManager {
 	public static FileConfiguration getClassFile() {
 		return classfile;
 	}
-	public static FileConfiguration getMonsterFile() {
-		return monsterfile;
-	}
 	public static FileConfiguration getItemFile() {
 		return itemfile;
 	}
@@ -182,9 +171,6 @@ public class ConfigManager {
 	public static void reloadConfig(String name) {
 		if(name.equalsIgnoreCase("dwarves")) {
 			classfile =  DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "classes.yml"));
-		}
-		if(name.equalsIgnoreCase("monsters")) {
-			monsterfile =  DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "monster.yml"));
 		}
 		if(name.equalsIgnoreCase("items")) {
 			itemfile = DVZFileConfiguration.loadConfiguration(new File(DvZ.instance.getDataFolder(), "items.yml"));
