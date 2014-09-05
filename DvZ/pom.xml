@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.andre111</groupId>
   <artifactId>DvZ</artifactId>
-  <version>1.7.1</version>
+  <version>1.7.2</version>
   <name>Dwarves vs Zombies</name>
   <repositories>
     <repository>
