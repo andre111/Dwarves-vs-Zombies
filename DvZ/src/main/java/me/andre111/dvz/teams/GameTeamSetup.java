@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.Game;
 import me.andre111.dvz.config.DVZFileConfiguration;
 import me.andre111.dvz.manager.EffectManager;
 
@@ -116,7 +117,7 @@ public class GameTeamSetup {
 				if(config.contains(team.getName()+".monument")) {
 					Location loc = loadLocation(config.getConfigurationSection(team.getName()+".monument"), world);
 					team.setMonumentLocation(loc);
-					DvZ.instance.getGame(gameID).createMonument(loc, false);
+					Game.createMonument(loc, false);
 				}
 			}
 		}

@@ -10,7 +10,7 @@ import me.andre111.dvz.teams.Team;
 import me.andre111.items.RewardManager;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import org.bukkit.CropState;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +19,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.material.Crops;
 
 public class Listener_Block implements Listener {
 	private DvZ plugin;
@@ -100,6 +101,9 @@ public class Listener_Block implements Listener {
 	}
 	
 	//Speed up growth
+	private CropState[] stateOrder = {CropState.SEEDED, CropState.GERMINATED, CropState.VERY_SMALL, CropState.SMALL,
+									  CropState.MEDIUM, CropState.TALL, CropState.VERY_TALL, CropState.RIPE};
+	
 	@EventHandler
 	public void onBlockGrow(BlockGrowEvent event) {
 		Game game = null;
@@ -117,11 +121,25 @@ public class Listener_Block implements Listener {
 	    	byte extra = (byte) ConfigManager.getBlockFile().getInt("growthExtra.gameType"+GameType.getDwarfAndMonsterTypes(game.getGameType()), 0);
 
 	    	if(extra!=0)
-	    	if (event.getBlock().getType() == Material.CROPS
-	    	|| event.getBlock().getType() == Material.CARROT
-	    	|| event.getBlock().getType() == Material.POTATO) {
-	    		event.getBlock().setData((byte) (event.getBlock().getData() + extra), true);
-	    	}
+	    	//if (event.getBlock().getType() == Material.CROPS || event.getBlock().getType() == Material.CARROT || event.getBlock().getType() == Material.POTATO) {
+	    		if(event.getNewState().getData() instanceof Crops) {
+	    			Crops crops = (Crops) event.getNewState().getData();
+	    			
+	    			CropState nextState = crops.getState();
+	    			int pos = 0;
+	    			for(int i=0; i<stateOrder.length; i++) {
+	    				if(nextState==stateOrder[i]) {
+	    					pos = i;
+	    					break;
+	    				}
+	    			}
+	    			pos += extra;
+	    			if(pos>=stateOrder.length) pos = stateOrder.length-1;
+	    			
+	    			crops.setState(stateOrder[pos]);
+	    		}
+	    		//event.getBlock().setData((byte) (event.getBlock().getData() + extra), true);
+	    	//}
 	    }
 	}
 }
