@@ -1,7 +1,6 @@
 package me.andre111.dvz.disguise;
 
 import me.andre111.dvz.DvZ;
-import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.event.DvZInvalidInteractEvent;
 import me.andre111.dvz.volatileCode.DvZPackets;
 
@@ -17,21 +16,20 @@ public class DisguiseSystemHandler implements Listener {
 	
 	public static boolean init() {
 		//Disguise-Plugin check
-		if (!ConfigManager.getStaticConfig().getBoolean("disable_dcraft_check", false)) {
-			if (Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
-				dsystem = SupportedDisguises.LIBSDISGUISES;
-			} else if (Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft")) {
-				dsystem = SupportedDisguises.DISGUISECRAFT;
-			//} else if (Bukkit.getPluginManager().isPluginEnabled("BeTheMob")) {
-			//	dsystem = SupportedDisguises.BETHEMOB;
-			}
-			
-			if(dsystem==SupportedDisguises.NOONE) {
-				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), DvZ.prefix+ChatColor.RED+"No supported disguising Plugin could be found, disabling...");
-				Bukkit.getPluginManager().disablePlugin(DvZ.instance);
-				return false;
-			}
+		if (Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
+			dsystem = SupportedDisguises.LIBSDISGUISES;
+		} else if (Bukkit.getPluginManager().isPluginEnabled("DisguiseCraft")) {
+			dsystem = SupportedDisguises.DISGUISECRAFT;
+		//} else if (Bukkit.getPluginManager().isPluginEnabled("BeTheMob")) {
+		//	dsystem = SupportedDisguises.BETHEMOB;
 		}
+			
+		if(dsystem==SupportedDisguises.NOONE) {
+			DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), DvZ.prefix+ChatColor.RED+"No supported disguising Plugin could be found, disabling...");
+			Bukkit.getPluginManager().disablePlugin(DvZ.instance);
+			return false;
+		}
+		
 		
 		//init disguisesystem
 		DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), DvZ.prefix+"Using "+dsystem.getName()+" to handle Disguising");

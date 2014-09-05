@@ -100,21 +100,20 @@ public class DvZ extends JavaPlugin {
 		
 		ConfigManager.initConfig(this);
 		
-		//Disguisecraft check
-		if (!ConfigManager.getStaticConfig().getBoolean("disable_dcraft_check", false)) {
-			if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
-			{
-				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
-				Bukkit.getPluginManager().disablePlugin(this);
-				return;
-			}
-			if (!Bukkit.getPluginManager().isPluginEnabled("SpellItems"))
-			{
-				DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"SpellItems could not be found, disabling...");
-				Bukkit.getPluginManager().disablePlugin(this);
-				return;
-			}
+		//Dependency check
+		if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
+		{
+			DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"ProtocolLib could not be found, disabling...");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
 		}
+		if (!Bukkit.getPluginManager().isPluginEnabled("SpellItems"))
+		{
+			DvZ.sendPlayerMessageFormated(Bukkit.getServer().getConsoleSender(), prefix+" "+ChatColor.RED+"SpellItems could not be found, disabling...");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
+		
 		DvZ.protocolManager = ProtocolLibrary.getProtocolManager();
 		DvZ.spellItems = SpellItems.instance;
 		
