@@ -26,13 +26,13 @@ public class VoteCommand extends DvZCommand {
 			return false;
 		}
 
-		if(args.length>1) {
+		if(args.length>0) {
 			Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
 			
 			if(game!=null) {
 				if(game.acceptsVotes()) {
 					try {
-						int id = Integer.parseInt(args[1]);
+						int id = Integer.parseInt(args[0]);
 						if(game.vote(player, id)) {
 							DvZ.sendPlayerMessageFormated(player, ConfigManager.getLanguage().getString("string_vote_success", "You voted for -0-!").replace("-0-", WorldManager.getWorldName(DvZ.instance.getGameID(game), id-1)));
 						}
