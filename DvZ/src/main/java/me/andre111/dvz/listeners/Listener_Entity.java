@@ -124,9 +124,15 @@ public class Listener_Entity implements Listener {
 						Team pTeam = game.getTeam(playerUUID);
 						Team dTeam = game.getTeam(damagerUUID);
 
-						if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && !game.getPlayerState(damagerUUID).equals(Game.STATE_ASSASSIN) && !game.getPlayerState(playerUUID).equals(Game.STATE_ASSASSIN))) {
-							event.setCancelled(true);
-							return;
+						if(pTeam==null || dTeam==null) {
+							//TODO - this should not happen, but it does sometimes
+							if(pTeam==null) DvZ.log(pplayer.getName()+" has no Team in damage event!");
+							if(dTeam==null) DvZ.log(ddamager.getName()+" has no Team in damage event!");
+						} else {
+							if(pTeam.isFriendly(dTeam) || (pTeam.getName().equals(dTeam.getName()) && !pTeam.isFriendlyFire() && !game.getPlayerState(damagerUUID).equals(Game.STATE_ASSASSIN) && !game.getPlayerState(playerUUID).equals(Game.STATE_ASSASSIN))) {
+								event.setCancelled(true);
+								return;
+							}
 						}
 					}
 				}
