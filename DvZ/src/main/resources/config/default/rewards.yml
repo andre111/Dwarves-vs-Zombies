@@ -14,4 +14,4 @@ rewards:
       points: 64
       repeating: true
       reset: true
-      item: "rewardPoint"
+      item: "spellitems:rewardPoint"

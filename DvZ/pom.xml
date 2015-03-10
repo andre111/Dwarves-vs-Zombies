@@ -2,17 +2,16 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.andre111</groupId>
   <artifactId>DvZ</artifactId>
-  <version>1.7.2</version>
+  <version>1.8</version>
   <name>Dwarves vs Zombies</name>
   <repositories>
     <repository>
-      <id>bukkit-repo</id>
-      <url>http://repo.bukkit.org/content/groups/public/</url>
+      <id>shadowvolt-repo</id>
+      <url>http://ci.shadowvolt.com/plugin/repository/everything/</url>
     </repository>
     <repository>
-      <id>comphenix-repo</id>
-      <name>Comphenix Repository</name>
-      <url>http://repo.comphenix.net/content/groups/public</url>
+      <id>spigot-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
     </repository>
     <repository>
       <id>disguisecraft-repo</id>
@@ -37,20 +36,22 @@
     </repository>
   </repositories>
   <dependencies>
-    <dependency>
-      <groupId>org.bukkit</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>1.7.10-R0.1-SNAPSHOT</version>
-    </dependency>
+    <!--Spigot-API-->
+    <!--<dependency>
+        <groupId>org.spigotmc</groupId>
+        <artifactId>spigot-api</artifactId>
+        <version>1.8.3-R0.1-SNAPSHOT</version>
+    </dependency>-->
+    <!--Bukkit API-->
     <dependency>
         <groupId>org.bukkit</groupId>
-        <artifactId>craftbukkit</artifactId>
-        <version>1.7.10-R0.1-SNAPSHOT</version>
+        <artifactId>bukkit</artifactId>
+        <version>1.8.3-R0.1-SNAPSHOT</version>
     </dependency>
-    <dependency>
+  	<dependency>
         <groupId>com.comphenix.protocol</groupId>
         <artifactId>ProtocolLib</artifactId>
-        <version>3.2.0</version>
+        <version>3.6.3-SNAPSHOT</version>
     </dependency>
     <dependency>
         <groupId>pgDev</groupId>
@@ -70,7 +71,7 @@
     <dependency>
         <groupId>me.andre111</groupId>
         <artifactId>SpellItems</artifactId>
-        <version>2.0.0</version>
+        <version>2.2.0</version>
     </dependency>
   </dependencies>
   <build>

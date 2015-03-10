@@ -32,7 +32,9 @@ import me.andre111.dvz.utils.WaitingMenu;
 import me.andre111.dvz.volatileCode.DvZPackets;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.item.spell.ItemPortal;
-import me.andre111.items.utils.AttributeStorage;
+import me.andre111.items.utils.Attributes;
+import me.andre111.items.utils.Attributes.Attribute;
+import me.andre111.items.utils.Attributes.AttributeType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -50,6 +52,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+//TODO - convert all classes/... to use new itemformat
 public class Game {
 	private DvZ plugin;
 	
@@ -709,9 +712,12 @@ public class Game {
 			ItemMeta cim = dwarfItems.get(classI).getItemMeta();
 			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.classManager.getClass(classI).getName()));
 			dwarfItems.get(classI).setItemMeta(cim);
-			AttributeStorage storage = AttributeStorage.newTarget(dwarfItems.get(classI), classselectionID);
-				storage.setData(""+classI);
-			dwarfItems.put(classI, storage.getTarget());
+			
+			Attribute att = Attribute.newBuilder().uuid(classselectionID).name(""+classI).amount(0).type(AttributeType.GENERIC_ATTACK_DAMAGE).build();
+			Attributes attributes = new Attributes(dwarfItems.get(classI));
+			attributes.add(att);
+			
+			dwarfItems.put(classI, attributes.getStack());
 		}
 		
 		//costum dwarves
@@ -752,8 +758,14 @@ public class Game {
 	            	
 	            	boolean classFound = false;
 	            	final Player player = event.getPlayer();
-	            	AttributeStorage storage = AttributeStorage.newTarget(event.getItem(), classselectionID);
-	            	String classID = storage.getData("");
+	            	
+	            	String classID = "";
+	            	Attributes attributes = new Attributes(event.getItem());
+	            	for(Attribute att : attributes.values()) {
+	            		if(att.getUUID().equals(classselectionID)) {
+	            			classID = att.getName();
+	            		}
+	            	}
 	    			
 	    			CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
 	    			cm.becomeClass(game, player);
@@ -849,11 +861,16 @@ public class Game {
         	}
 			
 			//costum dwarves
-        	AttributeStorage storage = AttributeStorage.newTarget(event.getItem(), classselectionID);
-        	if(!storage.getData("").equals("")) {
-	        	String classID = storage.getData("");
-	        	
-				CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
+        	String classID = "";
+        	Attributes attributes = new Attributes(event.getItem());
+        	for(Attribute att : attributes.values()) {
+        		if(att.getUUID().equals(classselectionID)) {
+        			classID = att.getName();
+        		}
+        	}
+        	
+        	if(!classID.equals("")) {
+	        	CustomClass cm = DvZ.classManager.getClass(classID/*i*/);
 				cm.becomeClass(this, player);
 				classFound = true;
         	}
