@@ -1,7 +1,7 @@
 # Default Dwarves vs Zombies config.yml
-# To configure the general game/team setup look into setup.yml (this can be per world in the [worldfolder]/dvz/setup-yml)
+# To configure the general game/team setup look into setup.yml (this can be per world in the [worldfolder]/dvz/setup.yml)
 # To configure classes look into classes.yml
-# To configure Dragon/Attacks look into dragons.yml
+# To configure Dragon/Attacks look into dragons.yml - this is deprecated and will soon be merged into Spellitems
 # To configure Specialitems look into items.yml
 # To configure Blockdrops look into blocks.yml
 # ----------------------------------------------------------------------------------
