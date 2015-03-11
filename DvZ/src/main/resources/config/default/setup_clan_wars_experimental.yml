@@ -169,8 +169,8 @@ teams:
       hideKills: true
       spawnBuff: 10
       spawnBuffItems:
-        - "!spellitems:internSuicidePill"
-        - "!spellitems:internTeleportMap"
+        - "spellitems:internSuicidePill"
+        - "spellitems:internTeleportMap"
       onDeath: []
       onMonumentDestroy: []
       items:
@@ -226,8 +226,8 @@ teams:
       hideKills: true
       spawnBuff: 10
       spawnBuffItems:
-        - "!spellitems:internSuicidePill"
-        - "!spellitems:internTeleportMap"
+        - "spellitems:internSuicidePill"
+        - "spellitems:internTeleportMap"
       onDeath: []
       onMonumentDestroy: []
       items:

@@ -73,4 +73,9 @@ public class DeprecatedMethods {
 	public static int getEntityTypeID(EntityType type) {
 		return type.getTypeId();
 	}
+	
+	//TODO - the getUnsafe methods should be replaced when they get allternatives
+	public static Material getMaterialFromInternalName(String name) {
+		return Bukkit.getUnsafe().getMaterialFromInternalName(name);
+	}
 }

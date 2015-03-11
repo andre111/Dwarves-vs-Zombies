@@ -25,7 +25,6 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 
 public class CustomClass {
-	//private int id;
 	private String internalName;
 	private int gameId;
 	private String name;
@@ -247,7 +246,7 @@ public class CustomClass {
 						InventoryHandler.updateInventory(player);
 						
 						//break for loop
-						i = 10000;
+						break;
 					}
 				}
 			}
@@ -255,13 +254,7 @@ public class CustomClass {
 		
 		return false;
 	}
-	
-	/*public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}*/
+
 	public String getInternalName() {
 		return internalName;
 	}

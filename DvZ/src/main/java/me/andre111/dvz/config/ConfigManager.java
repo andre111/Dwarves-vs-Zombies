@@ -26,8 +26,8 @@ public class ConfigManager {
 	private static FileConfiguration rewardfile;
 	private static FileConfiguration setupfile;
 	
-	private static ArrayList<Integer> disabledCrafts = new ArrayList<Integer>();
-	private static ArrayList<Integer> disabledCraftsType2 = new ArrayList<Integer>();
+	private static ArrayList<Material> disabledCrafts = new ArrayList<Material>();
+	private static ArrayList<Material> disabledCraftsType2 = new ArrayList<Material>();
 	
 	public static void initConfig(DvZ plugin) {
 		exportConfigs(plugin);
@@ -118,22 +118,20 @@ public class ConfigManager {
 	private static void loadConfigs() {
 		//disabled crafting recipies
 		//-----------------------------
-		for(int id : configfile.getIntegerList("disables_crafts")) {
-			disabledCrafts.add(id);
+		for(String id : configfile.getStringList("disables_crafts")) {
+			disabledCrafts.add(DeprecatedMethods.getMaterialFromInternalName(id)); 
 		}
 		//type 2(new dvz needs more crafts to disable)
-		for(int id : configfile.getIntegerList("disables_crafts_type2")) {
-			disabledCraftsType2.add(id);
+		for(String id : configfile.getStringList("disables_crafts_type2")) {
+			disabledCraftsType2.add(DeprecatedMethods.getMaterialFromInternalName(id));
 		}
 	}
 	
 	public static boolean isCraftDisabled(Material mat, int gameType) {
-		int id = DeprecatedMethods.getMaterialID(mat);
-		
 		if (gameType==1)
-			return disabledCrafts.contains(id);
+			return disabledCrafts.contains(mat);
 		else if (gameType==2)
-			return disabledCraftsType2.contains(id);
+			return disabledCraftsType2.contains(mat);
 		else
 			return false;
 	}
