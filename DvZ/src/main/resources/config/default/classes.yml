@@ -20,7 +20,7 @@
 
 # disabledDamage:
 ######################################
-# List of Damagesources to disable for the monster
+# List of Damagesources to disable for the class
 # currently available: 
 # contact(Cactus),drown,explosion,fall,fire,lava,poison,starve,wither
 # If you miss one just write a comment on the dev.bukkit page

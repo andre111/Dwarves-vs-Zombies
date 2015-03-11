@@ -279,7 +279,7 @@ end
 
 --Reward Items
 function rewardPoint(player, target, block, location)
-    spell.ItemGetItem(player, "minecraft:bow 0 1 10 poisonous:0,-10:0 . {display:{Name:\"Bow of ...\"}}", 1)
+    spell.ItemGetItem(player, "minecraft:bow 0 1 10 poisonous:0,-10:0 . {display:{Name:\"Bow of Poison\"}}", 1)
     spell.ItemGetItem(player, "minecraft:snowball 0 32 10 freezing:0,-10:0 . {display:{Name:\"Freezing Snowballs\"}}", 1)
     spell.ItemGetItem(player, "spellitems:lightningsword 0 1 10 -10:0", 1)
     spell.ItemGetItem(player, "spellitems:potionpie 0 4 10", 1)
@@ -323,6 +323,7 @@ function freezing(player, target, block, location)
     spell.ItemPotionEffect(target, "2:200:7")
     spell.ItemPotionEffect(target, "8:200:128")
     spell.ItemPotionEffect(target, "4:200:7")
+    utils.CreateEffect(target, "Target")
     
     return true
 end
