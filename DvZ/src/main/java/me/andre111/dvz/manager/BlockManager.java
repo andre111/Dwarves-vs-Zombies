@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 import me.andre111.items.ItemHandler;
 
 import org.bukkit.Material;
@@ -59,8 +60,8 @@ public class BlockManager {
 	public static void onBlockBreak(BlockBreakEvent event) {
 		if(event.isCancelled()) return;
 		
-		int blockID = event.getBlock().getTypeId();
-		byte data = event.getBlock().getData();
+		int blockID = DeprecatedMethods.getBlockID(event.getBlock());
+		byte data = DeprecatedMethods.getBlockData(event.getBlock());
 		
 		Player player = event.getPlayer();
 		Game game = DvZ.instance.getPlayerGame(player.getUniqueId());
@@ -123,8 +124,8 @@ public class BlockManager {
 	}
 	
 	private static void changeDrops(BlockBreakEvent event, ArrayList<String> drop) {
-		int id = event.getBlock().getTypeId();
-		byte data = event.getBlock().getData();
+		int id = DeprecatedMethods.getBlockID(event.getBlock());
+		byte data = DeprecatedMethods.getBlockData(event.getBlock());
 
 		for(String st : drop) {
 			String[] split = st.split(";");
@@ -166,7 +167,7 @@ public class BlockManager {
 					event.setCancelled(true);
 					
 					Block b = event.getBlock();
-					b.setTypeIdAndData(Integer.parseInt(newBlock[0]), (byte)Integer.parseInt(newBlock[1]), true);
+					DeprecatedMethods.setBlockIDandData(b, Integer.parseInt(newBlock[0]), (byte)Integer.parseInt(newBlock[1]), true);
 				}
 			}
 		}
@@ -201,7 +202,7 @@ public class BlockManager {
 			Block block = event.getClickedBlock();
 			
 			if(block.getType()==Material.CAKE_BLOCK) {
-				block.setData((byte) 0, true);
+				DeprecatedMethods.setBlockData(block, (byte) 0, true);
 			}
 		}
 	}

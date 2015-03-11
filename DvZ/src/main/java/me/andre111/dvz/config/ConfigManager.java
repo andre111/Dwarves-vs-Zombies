@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Language;
 import me.andre111.dvz.utils.FileHandler;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -127,7 +128,7 @@ public class ConfigManager {
 	}
 	
 	public static boolean isCraftDisabled(Material mat, int gameType) {
-		int id = mat.getId();
+		int id = DeprecatedMethods.getMaterialID(mat);
 		
 		if (gameType==1)
 			return disabledCrafts.contains(id);

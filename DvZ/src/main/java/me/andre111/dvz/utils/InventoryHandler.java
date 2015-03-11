@@ -1,6 +1,8 @@
 package me.andre111.dvz.utils;
 
 
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -60,7 +62,7 @@ public class InventoryHandler {
 	public static int removeItems(Player player, Material type, int data, int remaining) {
 		int itemsExchanged = 0;
 		for (ItemStack i : player.getInventory()){
-			if (i != null && i.getType() == type && i.getData().getData() == data){
+			if (i != null && i.getType() == type && DeprecatedMethods.getDatavalue(i.getData()) == data){
 				if (i.getAmount() > remaining){
 					i.setAmount(i.getAmount() - remaining);
 					itemsExchanged += remaining;
@@ -79,7 +81,7 @@ public class InventoryHandler {
 	public static int countItems(Player player, Material type, int data) {
 		int items = 0;
 		for (ItemStack i : player.getInventory()){
-			if (i != null && i.getType() == type && i.getData().getData() == data){
+			if (i != null && i.getType() == type && DeprecatedMethods.getDatavalue(i.getData()) == data){
 				items += i.getAmount();
 			}
 		}

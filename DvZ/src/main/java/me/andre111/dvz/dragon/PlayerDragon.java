@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.disguise.DisguiseSystemHandler;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
@@ -77,7 +78,7 @@ public class PlayerDragon implements Dragon {
 	}
 
 	public void playerRC(ItemStack item, Block block) {
-		int itemID = item.getTypeId();
+		int itemID = DeprecatedMethods.getMaterialID(item.getType());
 		
 		int attackID = DvZ.dragonAtManager.getAttack(itemID);
 		if(attackID != -1) {

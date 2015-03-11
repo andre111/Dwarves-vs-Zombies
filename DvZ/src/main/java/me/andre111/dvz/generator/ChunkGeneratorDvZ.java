@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -38,26 +40,26 @@ public class ChunkGeneratorDvZ extends ChunkGenerator {
 				int yt;
 				//stone and grass
 				for(y=0; y<h; y++) {
-					result[xyzToByte(x,y,z)] = (byte) Material.STONE.getId();
+					result[xyzToByte(x,y,z)] = (byte) DeprecatedMethods.getMaterialID(Material.STONE);
 					
 					//grass
 					if(y>=h-1) {
-						result[xyzToByte(x,y,z)] = (byte) Material.GRASS.getId();
+						result[xyzToByte(x,y,z)] = (byte) DeprecatedMethods.getMaterialID(Material.GRASS);
 					//dirt
 					} else if(y>=h-5) {
-						result[xyzToByte(x,y,z)] = (byte) Material.DIRT.getId();
+						result[xyzToByte(x,y,z)] = (byte) DeprecatedMethods.getMaterialID(Material.DIRT);
 					}
 				}
 				//water and sand
 				yt = y;
 				for(y-=3; y<waterlevel; y++) {
 					if(y<yt)
-						result[xyzToByte(x,y,z)] = (byte) Material.SAND.getId();
+						result[xyzToByte(x,y,z)] = (byte) DeprecatedMethods.getMaterialID(Material.SAND);
 					else
-						result[xyzToByte(x,y,z)] = (byte) Material.STATIONARY_WATER.getId();
+						result[xyzToByte(x,y,z)] = (byte) DeprecatedMethods.getMaterialID(Material.STATIONARY_WATER);
 				}
 				//This will set the floor of each chunk at bedrock level to bedrock
-				result[xyzToByte(x,0,z)] = (byte) Material.BEDROCK.getId();
+				result[xyzToByte(x,0,z)] = (byte) DeprecatedMethods.getMaterialID(Material.BEDROCK);
 			}
 		return result;
 	}

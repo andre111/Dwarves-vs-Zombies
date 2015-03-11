@@ -1,5 +1,7 @@
 package me.andre111.dvz.generator;
 
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -26,7 +28,7 @@ public abstract class BasicGenerator {
 							Block block = world.getBlockAt(x2, y2, z2);
 							if(block.getType()!=Material.BEDROCK) {
 								block.setType(mat);
-								block.setData(data);
+								DeprecatedMethods.setBlockData(block, data);
 							}
 						}
 					}

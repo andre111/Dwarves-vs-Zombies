@@ -2,6 +2,8 @@ package me.andre111.dvz.generator;
 
 import java.util.Random;
 
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
+
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -39,7 +41,7 @@ public class TreeLogPopulator extends BlockPopulator {
                mat==Material.LONG_GRASS) {
 	            for (i1 = yB; i1 <= yB + 1 + height; ++i1) {
 	                world.getBlockAt(xB, i1, zB).setType(Material.LOG);
-	                world.getBlockAt(xB, i1, zB).setData((byte) 0);
+	                DeprecatedMethods.setBlockData(world.getBlockAt(xB, i1, zB), (byte) 0);
 	            }
             }
             //catus
@@ -51,7 +53,7 @@ public class TreeLogPopulator extends BlockPopulator {
             	) {
 	            	for (i1 = yB; i1 <= yB + 1 + height; ++i1) {
 	            		world.getBlockAt(xB, i1, zB).setType(Material.CACTUS);
-	            		world.getBlockAt(xB, i1, zB).setData((byte) 0);
+	            		DeprecatedMethods.setBlockData(world.getBlockAt(xB, i1, zB), (byte) 0);
 	            	}
             	}
             }

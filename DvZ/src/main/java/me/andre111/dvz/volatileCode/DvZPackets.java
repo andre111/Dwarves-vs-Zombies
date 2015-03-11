@@ -13,7 +13,6 @@ import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -48,7 +47,7 @@ public abstract class DvZPackets {
 
 		pc.getIntegers().
 		write(0, D_ENTITY_ID).
-		write(1, (int) EntityType.ENDER_DRAGON.getTypeId()).
+		write(1, (int) DeprecatedMethods.getEntityTypeID(EntityType.ENDER_DRAGON)).
 		write(2, player.getLocation().getBlockX() * 32).
 		write(3, player.getLocation().getBlockY() * 32 - 256*3*32). //*2 to make it appere small as the invisibility doesn't seem to work
 		write(4, player.getLocation().getBlockZ() * 32);
@@ -165,7 +164,7 @@ public abstract class DvZPackets {
 		//entitiy id
 		newPacket.getIntegers().
 		write(0, entityID).
-		write(1, (int) EntityType.ZOMBIE.getTypeId()).
+		write(1, (int) DeprecatedMethods.getEntityTypeID(EntityType.ZOMBIE)).
 		//position
 		write(2, (int) x).
 		write(3, (int) y).
@@ -189,7 +188,7 @@ public abstract class DvZPackets {
 		write(0, entityID);
 
 		ePacket.getItemModifier().
-		write(0, new ItemStack(itemID));
+		write(0, DeprecatedMethods.createItemStackByID(itemID));
 		
 		//riding/atach
 		PacketContainer aPacket = new PacketContainer(PacketType.Play.Server.ATTACH_ENTITY);

@@ -1,9 +1,9 @@
 package me.andre111.dvz.commands;
 
 import me.andre111.dvz.DvZ;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 import me.andre111.items.ItemHandler;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,7 +23,7 @@ public class GiveCommand extends DvZCommand {
 
 		//get the player
 		if(args.length>0) {
-			Player player = Bukkit.getServer().getPlayerExact(args[0]);
+			Player player = DeprecatedMethods.getPlayerByName(args[0]);
 			
 			if(player!=null) {
 				//recombine all other arguments

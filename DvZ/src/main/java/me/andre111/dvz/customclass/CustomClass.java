@@ -10,6 +10,7 @@ import me.andre111.dvz.disguise.DisguiseSystemHandler;
 import me.andre111.dvz.manager.StatManager;
 import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.ManaManager;
 
@@ -22,7 +23,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class CustomClass {
 	//private int id;
@@ -100,7 +100,7 @@ public class CustomClass {
 			if(strs.length>2) duration = Integer.parseInt(strs[2]);
 			
 			if(id!=-1) {
-				player.addPotionEffect(new PotionEffect(PotionEffectType.getById(id), duration, level), true);
+				player.addPotionEffect(new PotionEffect(DeprecatedMethods.getPotionEffectByID(id), duration, level), true);
 			}
 		}
 		//
@@ -143,19 +143,19 @@ public class CustomClass {
 			String[] split = st.split(";");
 			
 			//player block check
-			if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=Integer.parseInt(split[0])) {
+			if(DeprecatedMethods.getBlockID(player.getLocation().clone().subtract(0, 1, 0).getBlock())!=Integer.parseInt(split[0])) {
 				continue;
 			}
-			if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=Integer.parseInt(split[1])) {
+			if(DeprecatedMethods.getBlockID(player.getLocation().clone().subtract(0, -2, 0).getBlock())!=Integer.parseInt(split[1])) {
 				continue;
 			}
 			
 			//is it the right item?
 			String[] itemSt = split[2].split(":");
-			if(Integer.parseInt(itemSt[0])==item.getTypeId() && Integer.parseInt(itemSt[1])==item.getDurability()) {
+			if(Integer.parseInt(itemSt[0])==DeprecatedMethods.getMaterialID(item.getType()) && Integer.parseInt(itemSt[1])==item.getDurability()) {
 				//right block clicked?
 				String[] bSt = split[3].split(":");
-				if(Integer.parseInt(bSt[0])==block.getTypeId() && (Integer.parseInt(bSt[1])==block.getData() || Integer.parseInt(bSt[1])==-1)) {
+				if(Integer.parseInt(bSt[0])==DeprecatedMethods.getBlockID(block) && (Integer.parseInt(bSt[1])==DeprecatedMethods.getBlockData(block) || Integer.parseInt(bSt[1])==-1)) {
 					//sound
 					String[] sound = split[4].split(":");
 					String sId = "-1";
@@ -200,10 +200,10 @@ public class CustomClass {
 			String[] split = st.split(";");
 			
 			//player block check
-			if(player.getLocation().clone().subtract(0, 1, 0).getBlock().getTypeId()!=Integer.parseInt(split[0])) {
+			if(DeprecatedMethods.getBlockID(player.getLocation().clone().subtract(0, 1, 0).getBlock())!=Integer.parseInt(split[0])) {
 				continue;
 			}
-			if(player.getLocation().clone().subtract(0, -2, 0).getBlock().getTypeId()!=Integer.parseInt(split[1])) {
+			if(DeprecatedMethods.getBlockID(player.getLocation().clone().subtract(0, -2, 0).getBlock())!=Integer.parseInt(split[1])) {
 				continue;
 			}
 			
@@ -211,12 +211,12 @@ public class CustomClass {
 			PlayerInventory inv = player.getInventory();
 			//right block clicked?
 			String[] bSt = split[3].split(":");
-			if(Integer.parseInt(bSt[0])==block.getTypeId() && (Integer.parseInt(bSt[1])==block.getData() || Integer.parseInt(bSt[1])==-1))  {
+			if(Integer.parseInt(bSt[0])==DeprecatedMethods.getBlockID(block) && (Integer.parseInt(bSt[1])==DeprecatedMethods.getBlockData(block) || Integer.parseInt(bSt[1])==-1))  {
 				//whole inventory
 				for(int i=0; i<inv.getSize(); i++) {
 					ItemStack item  = inv.getItem(i);
 					if(item!=null)
-					if(Integer.parseInt(itemSt[0])==item.getTypeId() && Integer.parseInt(itemSt[1])==item.getDurability()) {
+					if(Integer.parseInt(itemSt[0])==DeprecatedMethods.getMaterialID(item.getType()) && Integer.parseInt(itemSt[1])==item.getDurability()) {
 						//sound
 						String[] sound = split[4].split(":");
 						String sId = "-1";

@@ -24,6 +24,7 @@ import me.andre111.dvz.utils.Animation;
 import me.andre111.dvz.utils.Fireworks;
 import me.andre111.dvz.utils.InventoryHandler;
 import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
 public class DragonAttackManager {
 	public DragonCustom[] dragons;
@@ -126,7 +127,7 @@ public class DragonAttackManager {
 		
 		for(int i=0; i<attacks.length; i++) {
 			if(attacks[i].getDragons().contains(dID)) {
-				ItemStack it = new ItemStack(attacks[i].getItemID());
+				ItemStack it = DeprecatedMethods.createItemStackByID(attacks[i].getItemID());
 				ItemMeta im = it.getItemMeta();
 				im.setDisplayName(attacks[i].getName());
 				it.setItemMeta(im);
@@ -187,7 +188,7 @@ public class DragonAttackManager {
 				}
 			}
 			//nothing reached
-			if (DvZ.transparent.contains((byte)furthest.getTypeId()))
+			if (DvZ.transparent.contains((byte) DeprecatedMethods.getBlockID(furthest)))
 			{
 				return false;
 			}
@@ -496,9 +497,9 @@ public class DragonAttackManager {
 					
 					for(Player p : playersNearby) {
 						Block prev = blockprev.getWorld().getBlockAt(blockprev);
-						p.sendBlockChange(prev.getLocation(), prev.getType(), prev.getData());
+						DeprecatedMethods.sendBlockChange(p, prev.getLocation(), prev.getType(), DeprecatedMethods.getBlockData(prev));
 						
-						p.sendBlockChange(loc, manager.attacks[attack].getFxType(), (byte) 0);
+						DeprecatedMethods.sendBlockChange(p, loc, DeprecatedMethods.getMaterialByID(manager.attacks[attack].getFxType()), (byte) 0);
 					}
 					
 					blockprev = loc.clone();
@@ -554,7 +555,7 @@ public class DragonAttackManager {
 				
 				for(Player p : playersNearby) {
 					Block prev = blockprev.getWorld().getBlockAt(blockprev);
-					p.sendBlockChange(prev.getLocation(), prev.getType(), prev.getData());
+					DeprecatedMethods.sendBlockChange(p, prev.getLocation(), prev.getType(), DeprecatedMethods.getBlockData(prev));
 				}
 				a.remove();
 				//

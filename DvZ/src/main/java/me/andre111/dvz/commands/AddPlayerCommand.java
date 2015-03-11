@@ -3,8 +3,8 @@ package me.andre111.dvz.commands;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -26,7 +26,7 @@ public class AddPlayerCommand extends DvZCommand {
 		if(game!=null) {
 			Player player = null;
 			if(args.length>1)
-				player = Bukkit.getServer().getPlayerExact(args[1]);
+				player = DeprecatedMethods.getPlayerByName(args[1]);
 			
 			if(player!=null) {
 				DvZ.instance.joinGame(player, game, true);

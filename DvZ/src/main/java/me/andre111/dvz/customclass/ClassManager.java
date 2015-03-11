@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import me.andre111.dvz.config.ConfigManager;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -49,7 +50,7 @@ public class ClassManager {
 		dwTemp.setPrefix(ConfigManager.getClassFile().getString("classes."+dw+".chatPrefix", ""));
 		dwTemp.setSuffix(ConfigManager.getClassFile().getString("classes."+dw+".chatSuffix", ""));
 		
-		Material mat = Material.getMaterial(ConfigManager.getClassFile().getInt("classes."+dw+".classItem", 0));
+		Material mat = DeprecatedMethods.getMaterialByID(ConfigManager.getClassFile().getInt("classes."+dw+".classItem", 0));
 		dwTemp.setClassItem(mat);
 		dwTemp.setClassItemDamage(ConfigManager.getClassFile().getInt("classes."+dw+".classItemDamage", 0));
 		dwTemp.setClassChance(ConfigManager.getClassFile().getInt("classes."+dw+".classChance", 100));

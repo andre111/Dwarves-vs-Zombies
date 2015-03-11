@@ -5,6 +5,7 @@ import java.util.List;
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.customclass.CustomClass;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -71,10 +72,10 @@ public class PistonManager {
 					
 					String split[] = st.split(" ");
 					
-					if(loc.clone().subtract(0, 1, 0).getBlock().getTypeId()!=Integer.parseInt(split[0])) {
+					if(DeprecatedMethods.getBlockID(loc.clone().subtract(0, 1, 0).getBlock())!=Integer.parseInt(split[0])) {
 						return;
 					}
-					if(loc.clone().subtract(0, -2, 0).getBlock().getTypeId()!=Integer.parseInt(split[1])) {
+					if(DeprecatedMethods.getBlockID(loc.clone().subtract(0, -2, 0).getBlock())!=Integer.parseInt(split[1])) {
 						return;
 					}
 					
@@ -86,13 +87,13 @@ public class PistonManager {
 					targetID = Integer.parseInt(target[0]);
 					if(target.length>1) targetData = Integer.parseInt(target[1]);
 					
-					if(b.getTypeId()==originalID && b.getData()==originalData) {
+					if(DeprecatedMethods.getBlockID(b)==originalID && DeprecatedMethods.getBlockData(b)==originalData) {
 						//in radius?
 						if(b.getLocation().distanceSquared(loc)<=maxD) {
 							called = 1;
 							//important -> disable cainreation before setting the block
-							b.setTypeId(targetID);
-							b.setData((byte) targetData);
+							DeprecatedMethods.setBlockID(b, targetID);
+							DeprecatedMethods.setBlockData(b, (byte) targetData);
 							break;
 						}
 					}

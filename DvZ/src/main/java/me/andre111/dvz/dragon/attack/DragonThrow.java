@@ -6,6 +6,7 @@ import java.util.Random;
 
 import me.andre111.dvz.dragon.DragonAttack;
 import me.andre111.dvz.utils.Animation;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -115,14 +116,14 @@ public class DragonThrow extends DragonAttack {
 				Block block = start.clone().add(0,tick,0).getBlock();
 				if (block.getType() == Material.AIR) {
 					for (Player p : nearby) {
-						p.sendBlockChange(block.getLocation(), throwType, (byte)0);
+						DeprecatedMethods.sendBlockChange(p, block.getLocation(), throwType, (byte)0);
 					}
 				}
 			} else {
 				int n = throwHeight-(tick-throwHeight)-1;
 				Block block = start.clone().add(0, n, 0).getBlock();
 				for (Player p : nearby) {
-					p.sendBlockChange(block.getLocation(), block.getType(), block.getData());
+					DeprecatedMethods.sendBlockChange(p, block.getLocation(), block.getType(), DeprecatedMethods.getBlockData(block));
 				}
 			}
 		}

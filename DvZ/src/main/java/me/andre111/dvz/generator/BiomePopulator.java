@@ -2,6 +2,8 @@ package me.andre111.dvz.generator;
 
 import java.util.Random;
 
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
+
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -33,7 +35,7 @@ public class BiomePopulator extends BlockPopulator {
 						//grass+flowers
 						if(random.nextInt(100)<GRASS_CHANCE) {
 							world.getBlockAt(centerX+x, highest.getY()+1, centerZ+z).setType(Material.LONG_GRASS);
-							world.getBlockAt(centerX+x, highest.getY()+1, centerZ+z).setData((byte) 1);
+							DeprecatedMethods.setBlockData(world.getBlockAt(centerX+x, highest.getY()+1, centerZ+z), (byte) 1);
 						}
 						
 						if(random.nextInt(100)<YELLOW_CHANCE) {
@@ -53,7 +55,7 @@ public class BiomePopulator extends BlockPopulator {
 							if(random.nextInt(100)<DEAD_CHANCE) 
 							if(random.nextInt(100)<DEAD_CHANCE2) {
 								world.getBlockAt(centerX+x, highest.getY()+1, centerZ+z).setType(Material.DEAD_BUSH);
-								world.getBlockAt(centerX+x, highest.getY()+1, centerZ+z).setData((byte) 0);
+								DeprecatedMethods.setBlockData(world.getBlockAt(centerX+x, highest.getY()+1, centerZ+z), (byte) 0);
 							}
 							
 							world.getBlockAt(centerX+x, highest.getY(), centerZ+z).setType(Material.SAND);

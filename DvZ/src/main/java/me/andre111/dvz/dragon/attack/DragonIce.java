@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import me.andre111.dvz.dragon.DragonAttack;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -45,7 +46,7 @@ public class DragonIce extends DragonAttack {
 		// animate
 		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*time, 4), false);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 20*time, 4), false);
-		player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, Material.ICE.getId());
+		player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, DeprecatedMethods.getMaterialID(Material.ICE));
 	}
 	
 	@Override
@@ -63,7 +64,7 @@ public class DragonIce extends DragonAttack {
 		for(int i=0; i<effects; i++) {
 			Location loc2 = loc.clone();
 			loc2 = loc2.add((rand.nextDouble()-0.5)*2*range, 1, (rand.nextDouble()-0.5)*2*range);
-			loc2.getWorld().playEffect(loc2, Effect.STEP_SOUND, Material.ICE.getId());
+			loc2.getWorld().playEffect(loc2, Effect.STEP_SOUND, DeprecatedMethods.getMaterialID(Material.ICE));
 		}
 		
 		//get Players

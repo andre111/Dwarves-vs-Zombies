@@ -436,44 +436,50 @@ public class DvZ extends JavaPlugin {
 				material == Material.CARROT ||
 				material == Material.WOOD_BUTTON;
 	}
-	public final static HashSet<Byte> transparent = new HashSet<Byte>();
+	public final static HashSet<Material> transparent = new HashSet<Material>();
 	static {
-		transparent.add((byte)0);
-		transparent.add((byte)6);
-		transparent.add((byte)8);
-		transparent.add((byte)9);
-		transparent.add((byte)27);
-		transparent.add((byte)28);
-		transparent.add((byte)31);
-		transparent.add((byte)32);
-		transparent.add((byte)37);
-		transparent.add((byte)38);
-		transparent.add((byte)39);
-		transparent.add((byte)40);
-		transparent.add((byte)50);
-		transparent.add((byte)51);
-		transparent.add((byte)55);
-		transparent.add((byte)59);
-		transparent.add((byte)63);
-		transparent.add((byte)65);
-		transparent.add((byte)66);
-		transparent.add((byte)68);
-		transparent.add((byte)69);
-		transparent.add((byte)70);
-		transparent.add((byte)71);
-		transparent.add((byte)75);
-		transparent.add((byte)76);
-		transparent.add((byte)77);
-		transparent.add((byte)78);
-		transparent.add((byte)83);
-		transparent.add((byte)106);
-		transparent.add((byte)111);
-		transparent.add((byte)115);
-		transparent.add((byte)131);
-		transparent.add((byte)132);
-		transparent.add((byte)141);
-		transparent.add((byte)142);
-		transparent.add((byte)143);
+		transparent.add(Material.AIR);
+		transparent.add(Material.SAPLING);
+		transparent.add(Material.WATER);
+		transparent.add(Material.STATIONARY_WATER);
+		transparent.add(Material.POWERED_RAIL);
+		transparent.add(Material.DETECTOR_RAIL);
+		transparent.add(Material.LONG_GRASS);
+		transparent.add(Material.DEAD_BUSH);
+		transparent.add(Material.YELLOW_FLOWER);
+		transparent.add(Material.RED_ROSE);
+		transparent.add(Material.BROWN_MUSHROOM);
+		transparent.add(Material.RED_MUSHROOM);
+		transparent.add(Material.TORCH);
+		transparent.add(Material.FIRE);
+		//transparent.add((byte)55); TODO - what was that
+		//transparent.add((byte)59); TODO - what was that
+		//transparent.add((byte)63); TODO - what was that
+		transparent.add(Material.LADDER);
+		transparent.add(Material.RAILS);
+		//transparent.add((byte)68); TODO - what was that
+		transparent.add(Material.LEVER);
+		transparent.add(Material.STONE_PLATE);
+		//transparent.add((byte)71); TODO - what was that
+		transparent.add(Material.WOOD_PLATE);
+		transparent.add(Material.REDSTONE_TORCH_OFF);
+		transparent.add(Material.REDSTONE_TORCH_ON);
+		transparent.add(Material.STONE_BUTTON);
+		transparent.add(Material.SNOW);
+		//transparent.add((byte)83); TODO - what was that
+		transparent.add(Material.VINE);
+		transparent.add(Material.WATER_LILY);
+		//transparent.add((byte)115); TODO - what was that
+		transparent.add(Material.TRIPWIRE_HOOK);
+		//transparent.add((byte)132); TODO - what was that
+		//transparent.add((byte)141); TODO - what was that
+		//transparent.add((byte)142); TODO - what was that
+		transparent.add(Material.WOOD_BUTTON);
+		transparent.add(Material.GOLD_PLATE);
+		transparent.add(Material.IRON_PLATE);
+		transparent.add(Material.DETECTOR_RAIL);
+		transparent.add(Material.CARPET);
+		transparent.add(Material.DOUBLE_PLANT);
 	}
 	
 	public static int scheduleRepeatingTask(final Runnable task, int delay, int interval) {

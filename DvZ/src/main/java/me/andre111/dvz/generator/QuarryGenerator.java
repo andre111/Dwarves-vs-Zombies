@@ -2,6 +2,8 @@ package me.andre111.dvz.generator;
 
 import java.util.Random;
 
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -50,7 +52,7 @@ public abstract class QuarryGenerator {
 					if(block.getType()!=Material.BEDROCK && rand.nextInt(100)<40 || yy==offset/*first row*/) {
 						if(y2>0) {
 							block.setType(Material.LADDER);
-							block.setData((byte) 5);
+							DeprecatedMethods.setBlockData(block, (byte) 5);
 						}
 					} else {
 						if(y2>0) {

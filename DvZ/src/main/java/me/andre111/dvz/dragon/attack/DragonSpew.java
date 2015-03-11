@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import me.andre111.dvz.dragon.DragonAttack;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 import me.andre111.dvz.volatileCode.DynamicClassFunctions;
 
 public class DragonSpew extends DragonAttack {
@@ -36,7 +37,7 @@ public class DragonSpew extends DragonAttack {
 			Vector velocity = player.getEyeLocation().getDirection();
 			velocity.normalize().multiply(power);
 			
-			FallingBlock fb = entity.getWorld().spawnFallingBlock(entity.getLocation().clone().add(0, 1, 0), blockID, (byte)0);
+			FallingBlock fb = DeprecatedMethods.spawnFallingBlock(entity.getLocation().clone().add(0, 1, 0), DeprecatedMethods.getMaterialByID(blockID), (byte)0);
 			fb.setDropItem(false);
 			fb.setVelocity(velocity);
 			

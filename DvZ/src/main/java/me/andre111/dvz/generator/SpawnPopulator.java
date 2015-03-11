@@ -33,14 +33,14 @@ public class SpawnPopulator extends BlockPopulator {
             		   || (x==size && (z==-size || z==size))) {
 	            		int y = -1;
 	            		Vector yposition = center.clone().add(new Vector(x, y, z));
-	            		int blockType = world.getBlockAt(yposition.toLocation(world)).getTypeId();
-	            		while(blockType==Material.AIR.getId() || blockType==Material.STATIONARY_WATER.getId() || blockType==Material.WATER.getId()) {
+	            		Material blockMat = world.getBlockAt(yposition.toLocation(world)).getType();
+	            		while(blockMat==Material.AIR || blockMat==Material.STATIONARY_WATER || blockMat==Material.WATER) {
 	            			
 	            			world.getBlockAt(yposition.toLocation(world)).setType(Material.WOOD);
 	            			
 	            			y -= 1;
 	            			yposition = center.clone().add(new Vector(x, y, z));
-	                		blockType = world.getBlockAt(yposition.toLocation(world)).getTypeId();
+	            			blockMat = world.getBlockAt(yposition.toLocation(world)).getType();
 	            		}
             		}
             		

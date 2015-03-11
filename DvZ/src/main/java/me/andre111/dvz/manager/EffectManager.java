@@ -8,6 +8,7 @@ import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.teams.Team;
 import me.andre111.dvz.utils.PlayerHandler;
+import me.andre111.dvz.volatileCode.DeprecatedMethods;
 import me.andre111.dvz.volatileCode.DvZPackets;
 
 import org.bukkit.Bukkit;
@@ -61,7 +62,7 @@ public class EffectManager {
 		}
 		
 		for(int i=0; i<effects.length; i++) {
-			PotionEffectType effect = PotionEffectType.getById(effects[i][0]);
+			PotionEffectType effect = DeprecatedMethods.getPotionEffectByID(effects[i][0]);
 			int level = effects[i][1];
 			
 			if(effect!=null) {
@@ -97,7 +98,7 @@ public class EffectManager {
 
 					//above
 					for(int i=light-1; i>=0; i--) {
-						PotionEffectType effect = PotionEffectType.getById(effectAbove[i][0]);
+						PotionEffectType effect = DeprecatedMethods.getPotionEffectByID(effectAbove[i][0]);
 						int level = effectAbove[i][1];
 						if(effect!=null)
 						if(!PlayerHandler.hasHigherPotionEffect(player, effect, level)) {
@@ -106,7 +107,7 @@ public class EffectManager {
 					}
 					//below
 					for(int i=light+1; i<16; i++) {
-						PotionEffectType effect = PotionEffectType.getById(effectBelow[i][0]);
+						PotionEffectType effect = DeprecatedMethods.getPotionEffectByID(effectBelow[i][0]);
 						int level = effectBelow[i][1];
 						if(effect!=null)
 						if(!PlayerHandler.hasHigherPotionEffect(player, effect, level)) {
