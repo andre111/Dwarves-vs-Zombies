@@ -32,8 +32,7 @@ classes:
       chatPrefix: ""
       chatSuffix: "lang:string_default_builder_suf"
       gameType: 1
-      classItem: 2256
-      classItemDamage: 0
+      classItem: "minecraft:record_13"
       classChance: 100
       items: 
          - "spellitems:internBuilderBook 0 1 100 -10:0"
@@ -67,8 +66,7 @@ classes:
       chatPrefix: ""
       chatSuffix: "lang:string_default_alchemy_suf"
       gameType: 1
-      classItem: 2257
-      classItemDamage: 0
+      classItem: "minecraft:record_cat"
       classChance: 20
       items: 
          - "spellitems:internAlchemyBook 0 1 100 -10:0"
@@ -100,8 +98,7 @@ classes:
       chatPrefix: ""
       chatSuffix: "lang:string_default_blacksmith_suf"
       gameType: 1
-      classItem: 2258
-      classItemDamage: 0
+      classItem: "minecraft:record_blocks"
       classChance: 20
       items: 
          - "spellitems:internBlacksmithBook 0 1 100 -10:0"
@@ -135,8 +132,7 @@ classes:
       chatPrefix: ""
       chatSuffix: "lang:string_default_tailor_suf"
       gameType: 1
-      classItem: 2259
-      classItemDamage: 0
+      classItem: "minecraft:record_chirp"
       classChance: 20
       items: 
          - "spellitems:internTailorBook 0 1 100 -10:0"
@@ -170,8 +166,7 @@ classes:
       chatPrefix: ""
       chatSuffix: "lang:string_default_newbuilder_suf"
       gameType: 2
-      classItem: 2260
-      classItemDamage: 0
+      classItem: "minecraft:record_far"
       classChance: 100
       items: 
          - "minecraft:diamond_pickaxe"
@@ -215,8 +210,7 @@ classes:
       chatPrefix: ""
       chatSuffix: "lang:string_default_newlumberjack_suf"
       gameType: 2
-      classItem: 2261
-      classItemDamage: 0
+      classItem: "minecraft:record_mall"
       classChance: 20
       items: 
          - "minecraft:diamond_pickaxe"
@@ -264,8 +258,7 @@ classes:
       chatPrefix: ""
       chatSuffix: "lang:string_default_newblacksmith_suf"
       gameType: 2
-      classItem: 2262
-      classItemDamage: 0
+      classItem: "minecraft:record_mellohi"
       classChance: 20
       items: 
          - "minecraft:diamond_pickaxe"
@@ -315,8 +308,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_zombie_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 54
+     classItem: "minecraft:spawn_egg 54"
      classChance: 100
      items: 
        - "minecraft:iron_sword 0 1 100 16:2"
@@ -346,8 +338,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_skeleton_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 51
+     classItem: "minecraft:spawn_egg 51"
      classChance: 75
      items: 
        - "minecraft:bow 0 1 100 48:1,50:1,51:1,49:1"
@@ -377,8 +368,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_creeper_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 50
+     classItem: "minecraft:spawn_egg 50"
      classChance: 50
      items: 
        - "spellitems:internCreeperExplode"
@@ -407,8 +397,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_wolf_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 95
+     classItem: "minecraft:spawn_egg 95"
      classChance: 25
      items: 
        - "minecraft:diamond_sword 0 1 100 16:2"
@@ -440,8 +429,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_spider_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 52
+     classItem: "minecraft:spawn_egg 52"
      classChance: 25
      items: 
        - "spellitems:internSpiderConfuse"
@@ -476,8 +464,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_irongolem_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 99
+     classItem: "minecraft:spawn_egg 99"
      classChance: 5
      items: 
        - "spellitems:internIronGolemSmash"
@@ -513,8 +500,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_snowgolem_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 97
+     classItem: "minecraft:spawn_egg 97"
      classChance: 5
      items: 
        - "spellitems:internSnowGolemGet"
@@ -540,8 +526,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_broodmother_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 60
+     classItem: "minecraft:spawn_egg 60"
      classChance: 5
      items: 
        - "spellitems:internBroodmotherRoar"
@@ -570,8 +555,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_enderman_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 58
+     classItem: "minecraft:spawn_egg 58"
      classChance: 5
      items: 
        - "spellitems:internEndermanBlink"
@@ -597,8 +581,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_cat_suf"
      gameType: 1
-     classItem: 383
-     classItemDamage: 98
+     classItem: "minecraft:spawn_egg 98"
      classChance: 5
      items: 
        - "spellitems:internCatHunger"
@@ -624,8 +607,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_zombie_suf"
      gameType: 2
-     classItem: 2256
-     classItemDamage: 0
+     classItem: "minecraft:record_13"
      classChance: 100
      items: 
        - "minecraft:iron_sword 0 1 100 16:2"
@@ -655,8 +637,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_skeleton_suf"
      gameType: 2
-     classItem: 2257
-     classItemDamage: 0
+     classItem: "minecraft:record_cat"
      classChance: 75
      items: 
        - "minecraft:bow 0 1 100 48:1,50:1,51:1,49:1"
@@ -686,8 +667,7 @@ classes:
      chatPrefix: ""
      chatSuffix: "lang:string_default_creeper_suf"
      gameType: 2
-     classItem: 2258
-     classItemDamage: 0
+     classItem: "minecraft:record_blocks"
      classChance: 50
      items: 
        - "spellitems:internCreeperExplodeNew 0 1"

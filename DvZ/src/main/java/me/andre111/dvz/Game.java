@@ -708,16 +708,19 @@ public class Game {
 		HashMap<String, ItemStack> dwarfItems = new HashMap<String, ItemStack>();
 		
 		for(String classI : getTeam(player.getUniqueId()).getClasses()) {
-			dwarfItems.put(classI, new ItemStack(DvZ.classManager.getClass(classI).getClassItem(), 1, (short)DvZ.classManager.getClass(classI).getClassItemDamage()));
-			ItemMeta cim = dwarfItems.get(classI).getItemMeta();
-			cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.classManager.getClass(classI).getName()));
-			dwarfItems.get(classI).setItemMeta(cim);
-			
-			Attribute att = Attribute.newBuilder().uuid(classselectionID).name(""+classI).amount(0).type(AttributeType.GENERIC_ATTACK_DAMAGE).build();
-			Attributes attributes = new Attributes(dwarfItems.get(classI));
-			attributes.add(att);
-			
-			dwarfItems.put(classI, attributes.getStack());
+			ItemStack it = ItemHandler.decodeItem(DvZ.classManager.getClass(classI).getClassItem(), player);
+			if(it!=null) {
+				dwarfItems.put(classI, it);
+				ItemMeta cim = dwarfItems.get(classI).getItemMeta();
+				cim.setDisplayName(ConfigManager.getLanguage().getString("string_become","Become -0-").replace("-0-", DvZ.classManager.getClass(classI).getName()));
+				dwarfItems.get(classI).setItemMeta(cim);
+				
+				Attribute att = Attribute.newBuilder().uuid(classselectionID).name(""+classI).amount(0).type(AttributeType.GENERIC_ATTACK_DAMAGE).build();
+				Attributes attributes = new Attributes(dwarfItems.get(classI));
+				attributes.add(att);
+				
+				dwarfItems.put(classI, attributes.getStack());
+			}
 		}
 		
 		//costum dwarves

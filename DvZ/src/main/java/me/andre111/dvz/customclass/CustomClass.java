@@ -32,8 +32,7 @@ public class CustomClass {
 	private String prefix;
 	private String suffix;
 	private String disguise;
-	private Material classItem;
-	private int classItemDamage;
+	private String classItem;
 	private int classChance;
 	private String[] items;
 	private String[] crystalItems;
@@ -301,17 +300,11 @@ public class CustomClass {
 	public void setDisguise(String disguise) {
 		this.disguise = disguise;
 	}
-	public Material getClassItem() {
+	public String getClassItem() {
 		return classItem;
 	}
-	public void setClassItem(Material classItem) {
+	public void setClassItem(String classItem) {
 		this.classItem = classItem;
-	}
-	public int getClassItemDamage() {
-		return classItemDamage;
-	}
-	public void setClassItemDamage(int classItemDamage) {
-		this.classItemDamage = classItemDamage;
 	}
 	public int getClassChance() {
 		return classChance;
