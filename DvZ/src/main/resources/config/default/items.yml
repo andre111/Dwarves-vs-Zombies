@@ -429,7 +429,8 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
+       effects:
+         - "Sound ItemEffectSound IRONGOLEM_THROW:1:1"
        cooldown: 1
        mana:
          cost: 0

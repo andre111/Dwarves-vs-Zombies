@@ -176,6 +176,7 @@ function internIronGolemSmash(player, target, block, location)
 
     if(success) then
         spell.ItemSmash(bPos, true)
+		utils.CreateEffect(bPos, "Sound")
 
         return true
     end
