@@ -217,9 +217,9 @@ function internBroodmotherLay(player, target, block, location)
 end
 
 function internEndermanBlink(player, target, block, location)
-	local success, lPos = spell.ItemVariableSetPlayerValue(player, "looking", 75)
+	local success, lookedAt, success2, lPos = spell.ItemVariableSetPlayerValue(player, "looking", 75)
 
-    if(success) then
+    if(success2) then
 		spell.ItemTeleport(player, lPos)
         return true
     end
