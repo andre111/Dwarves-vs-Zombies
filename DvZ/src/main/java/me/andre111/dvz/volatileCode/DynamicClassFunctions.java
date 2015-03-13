@@ -86,7 +86,6 @@ public class DynamicClassFunctions {
 		try {
 			fields.put("RegionFileCache.regionsByFilename", classes.get("RegionFileCache").getDeclaredField("a")); 		// obfuscated - regionsByFilename in RegionFileCache
 			fields.put("RegionFile.dataFile", classes.get("RegionFile").getDeclaredField("c"));							// obfuscated - dataFile in RegionFile
-			fields.put("WorldData.seed", classes.get("WorldData").getDeclaredField("seed"));
 			
 			fields.put("EntityFallingBlock.hurtEntities", classes.get("EntityFallingBlock").getDeclaredField("hurtEntities"));
 			fields.put("EntityFallingBlock.fallHurtAmount", classes.get("EntityFallingBlock").getDeclaredField("fallHurtAmount"));
