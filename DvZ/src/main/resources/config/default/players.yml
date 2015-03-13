@@ -1,4 +1,4 @@
 players:
    andre111:
       crystalItems:
-         - "276 1 100 16:1 &6Brisingr"
+         - "minecraft:diamond_sword 0 1 100 16:1  . {display:{Name:\"&6Brisingr\"}}"

@@ -22,6 +22,8 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.FieldAccessException;
 import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
+import com.comphenix.protocol.wrappers.EnumWrappers.TitleAction;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public abstract class DvZPackets {
@@ -122,6 +124,34 @@ public abstract class DvZPackets {
 		try {
 			if(player.isOnline())
 				DvZ.protocolManager.sendServerPacket(player, pBlockBreakAnim);
+		} catch (Exception e) {
+		}
+	}
+	
+	public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+		PacketContainer pTimeTitle = DvZ.protocolManager.createPacket(PacketType.Play.Server.TITLE);
+		pTimeTitle.getIntegers().
+		write(0, fadeIn).
+		write(1, stay).
+		write(2, fadeOut);
+		pTimeTitle.getTitleActions().write(0, TitleAction.TIMES);
+		
+		PacketContainer pSubTitle = DvZ.protocolManager.createPacket(PacketType.Play.Server.TITLE);
+		WrappedChatComponent subtitleComp = WrappedChatComponent.fromJson(subtitle);
+		pSubTitle.getChatComponents().write(0, subtitleComp);
+		pSubTitle.getTitleActions().write(0, TitleAction.SUBTITLE);
+		
+		PacketContainer pTitle = DvZ.protocolManager.createPacket(PacketType.Play.Server.TITLE);
+		WrappedChatComponent titleComp = WrappedChatComponent.fromJson(title);
+		pTitle.getChatComponents().write(0, titleComp);
+		pTitle.getTitleActions().write(0, TitleAction.TITLE);
+		
+		try {
+			if(player.isOnline()) {
+				DvZ.protocolManager.sendServerPacket(player, pTimeTitle);
+				DvZ.protocolManager.sendServerPacket(player, pSubTitle);
+				DvZ.protocolManager.sendServerPacket(player, pTitle);
+			}
 		} catch (Exception e) {
 		}
 	}
