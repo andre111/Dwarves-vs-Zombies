@@ -160,7 +160,7 @@ function internCreeperExplode(player, target, block, location)
 end
 
 function internSpiderConfuse(player, target, block, location)
-    spell.ItemConfuse(target, 300, 0)
+    spell.ItemPotionEffect(target, "9:300:0", "15:300:0")
     
     return true
 end
