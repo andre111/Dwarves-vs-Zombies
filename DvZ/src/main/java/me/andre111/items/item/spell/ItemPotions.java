@@ -3,6 +3,7 @@ package me.andre111.items.item.spell;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
@@ -10,6 +11,7 @@ import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.items.ItemHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 
 import org.bukkit.Effect;
 import org.bukkit.entity.Entity;
@@ -21,21 +23,16 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemPotions extends ItemSpell {
-	//0=dwarves, 1=monsters
-	/*private int target = 0;
-	private int radius = 2;
-	private ItemStack itemS;*/
-	
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=4) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue targetN = args.arg(2);
 			LuaValue radiusN = args.arg(3);
 			LuaValue itemSN = args.arg(4);
 			
-			if(playerN.isstring() && targetN.isnumber() && radiusN.isnumber() && itemSN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && targetN.isnumber() && radiusN.isnumber() && itemSN.isstring()) {
+				Player player = PlayerHandler.getPlayerFromUUID((UUID) playerN.touserdata(UUID.class));
 				int target = targetN.toint();
 				int radius = radiusN.toint();
 				ItemStack itemS = ItemHandler.decodeItem(itemSN.toString(), player);

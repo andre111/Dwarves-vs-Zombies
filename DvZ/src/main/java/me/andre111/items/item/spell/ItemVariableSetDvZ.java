@@ -1,29 +1,29 @@
 package me.andre111.items.item.spell;
 
+import java.util.UUID;
+
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
 import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 
 import org.bukkit.entity.Player;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 
 public class ItemVariableSetDvZ extends ItemSpell {
-	/*private int variable = 0;
-	private String value = "";*/
-	
 	//TODO - document teamvalue add(third argument)
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=3) {
-			LuaValue playerN = args.arg(1);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
 			LuaValue valueN = args.arg(2);
 			LuaValue teamN = args.arg(3);
 			
-			if(playerN.isstring() && valueN.isstring() && teamN.isstring()) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && valueN.isstring() && teamN.isstring()) {
+				Player player = PlayerHandler.getPlayerFromUUID((UUID) playerN.touserdata(UUID.class));
 				String value = valueN.toString();
 				String team = teamN.toString();
 				

@@ -1,6 +1,7 @@
 package me.andre111.items.item.spell;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import me.andre111.dvz.DvZ;
 import me.andre111.dvz.Game;
@@ -8,6 +9,7 @@ import me.andre111.dvz.config.ConfigManager;
 import me.andre111.dvz.utils.PlayerHandler;
 import me.andre111.items.SpellItems;
 import me.andre111.items.item.ItemSpell;
+import me.andre111.items.lua.LUAHelper;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,11 +26,11 @@ public class ItemReinforcePortal extends ItemSpell {
 	@Override
 	public Varargs invoke(Varargs args) {
 		if(args.narg()>=2) {
-			LuaValue playerN = args.arg(1);
-			LuaValue locN = args.arg(2);
+			LuaValue playerN = LUAHelper.getInternalValue(args.arg(1));
+			LuaValue locN = LUAHelper.getInternalValue(args.arg(2));
 			
-			if(playerN.isstring() && locN.isuserdata(Location.class)) {
-				Player player = PlayerHandler.getPlayerFromUUID(playerN.toString());
+			if(playerN.isuserdata(UUID.class) && locN.isuserdata(Location.class)) {
+				Player player = PlayerHandler.getPlayerFromUUID((UUID) playerN.touserdata(UUID.class));
 				Location loc = (Location) locN.touserdata(Location.class);
 				
 				if(player!=null && loc!=null) {

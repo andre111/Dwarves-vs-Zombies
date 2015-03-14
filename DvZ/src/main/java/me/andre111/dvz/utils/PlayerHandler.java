@@ -79,4 +79,8 @@ public class PlayerHandler {
 	public static Player getPlayerFromUUID(String uuid) {
 		return Bukkit.getPlayer(UUID.fromString(uuid));
 	}
+	
+	public static Player getPlayerFromUUID(UUID uuid) {
+		return Bukkit.getPlayer(uuid);
+	}
 }
