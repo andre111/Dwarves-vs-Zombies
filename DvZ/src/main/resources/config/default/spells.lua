@@ -27,7 +27,7 @@ function internDiamond(player, target, block, location)
 end
 
 function internConcrete(player, target, block, location)
-    local success, pPos = spell.ItemVariableSet("playerPos", player)
+    local success, pPos = player:getLocation()
 
     if(success) then
         spell.ItemReplace(pPos, 2, 4, 0, 98, 0)
@@ -147,7 +147,7 @@ function internTeleportMap(player, target, block, location)
 end
 
 function internCreeperExplode(player, target, block, location)
-    local success, pPos = spell.ItemVariableSet("playerPos", player)
+    local success, pPos = player:getLocation()
 
     if(success) then
         spell.ItemExplode(6, pPos)
@@ -172,7 +172,7 @@ function internSpiderPosion(player, target, block, location)
 end
 
 function internIronGolemSmash(player, target, block, location)
-    local success, bPos = spell.ItemVariableSet("blockPos", block)
+    local success, bPos = block:getLocation()
 
     if(success) then
         spell.ItemSmash(bPos, true)
@@ -228,7 +228,7 @@ function internEndermanBlink(player, target, block, location)
 end
 
 function internEndermanPortal(player, target, block, location)
-    local success, pPos = spell.ItemVariableSet("playerPos", player)
+    local success, pPos = player:getLocation()
 
     if(success) then
         if(spell.ItemPortal(player, pPos)) then
@@ -241,7 +241,7 @@ function internEndermanPortal(player, target, block, location)
 end
 
 function internEndermanReinforcePortal(player, target, block, location)
-    local success, pPos = spell.ItemVariableSet("playerPos", player)
+    local success, pPos = player:getLocation()
 
     if(success) then
         spell.ItemReinforcePortal(player, pPos)
@@ -269,7 +269,7 @@ function internCatSteal(player, target, block, location)
 end
 
 function internCreeperExplodeNew(player, target, block, location)
-    local success, pPos = spell.ItemVariableSet("playerPos", player)
+    local success, pPos = player:getLocation()
 
     if(success) then
         spell.ItemExplode(6, pPos)
