@@ -12,103 +12,6 @@
 #   itemSwitch: true
 # -------
 
-# Usable attacks(cast):
-######################################
-# Look at the items.yml of SpellItems for
-# information on the other available
-# Attacks/Spells
-######################################
-# "ItemCrystalStorage"
-# Opens the crystal storage
-#
-# castVar0: global(1=true, 0=per Player)
-######################################
-# "ItemPortal"
-# Creates or reinforces the Enderman Portal
-######################################
-# "ItemPotions"
-# "Dropps" Potions on nearby players
-#
-# castVar0: Potionitem(formated) 
-# castVar1: Target_Player(0=dwarves,1=monsters)
-# castVar2: Range
-######################################
-# "ItemClassCheck"
-# Checks for the players class
-#
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: Type("dwarf" or "monster")
-# castVar2: Classid
-######################################
-# "ItemDVZTeleport"
-# Teleports the Player(or targeted player) to(or near) a dvz location
-# castVar0: Variable with Location
-# castVar1: playername/variable with player/"" for casting player
-# castVar2: minimumDistance
-# castVar3: maximumDistance
-######################################
-# "ItemDvZClassPoint"
-# Gives/removes classpoints
-#
-# castVar0: playername/variable with player/"" for casting player
-# castVar1: ammount
-######################################
-# "ItemVariableSetDvZ"
-# Sets a variable to the given Object
-#
-# castVar0: variableID(int)
-# castVar1: value
-# Available values:
-# Locations: monument
-######################################
-# ""
-# 
-#
-# castVar0:
-# castVar1:
-######################################
-
-
-# -------
-# Effectsyntax: effectlocation effect <optionalData>
-# -------
-# position can be: Caster,Target or something specified by the ItemSpell
-# and when an counter is used: CounterStep,CounterInterrupt,CounterFinish
-# default: Caster
-
-# Usable effects:
-######################################
-# "ItemEffectNormal"
-# Creates a normal Minecraft Effect
-# (Look at org.bukkit.Effect)
-# Vars:
-# name:data
-######################################
-# "ItemEffectSound"
-# Creates a Sound
-# (Look at org.bukkit.Sound)
-# Vars:
-# name:volume:pitch
-######################################
-# "ItemEffectLightning"
-# Creates a lightning
-#
-# Vars:
-# 
-######################################
-# "ItemEffectItemSpray"
-# Creates fakeitems spraying from the location
-#
-# Vars:
-# number;duration;force(float);item(formated)
-######################################
-# ""
-# 
-#
-# Vars:
-# 
-######################################
-
 items:
    # dwarves
    crystalPerPlayer:
@@ -119,14 +22,11 @@ items:
      data: 0
      useUp: false
      leftclick:
-       effects: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
-       effects: 
-         - "Caster ItemEffectSound CHEST_OPEN:0.5:1"
        cooldown: 0
        mana:
          cost: 0
@@ -139,8 +39,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: 
-         - "Caster ItemEffectSound CHEST_OPEN:0.5:1"
        cooldown: 0
        mana:
          cost: 0
@@ -152,7 +50,6 @@ items:
      data: 0
      useUp: true
      rightclick:
-       effects: []
        cooldown: 0
        mana:
          cost: 0
@@ -164,15 +61,11 @@ items:
      data: 8
      useUp: true
      leftclick:
-       effects:
-         - "Caster ItemEffectNormal POTION_BREAK:8270"
        cooldown: 0
        mana:
          cost: 0
        lua: "internConcrete"
      rightclick:
-       effects: 
-         - "Caster ItemEffectNormal POTION_BREAK:8270"
        cooldown: 0
        mana:
          cost: 0
@@ -187,14 +80,11 @@ items:
      useUp: false
      ignoreDamage: true
      leftclick:
-       effects: []
        cooldown: 0
        mana:
          cost: 0
        casts: []
      rightclick:
-       effects: []
-       sounds: []
        cooldown: 0
        mana:
          cost: 0
@@ -235,8 +125,6 @@ items:
      data: 8197
      useUp: false
      leftclick:
-       effects:
-         - "Caster ItemEffectNormal POTION_BREAK:8197"
        cooldown: 0
        mana:
          cost: 100
@@ -250,8 +138,6 @@ items:
      data: 8421
      useUp: false
      leftclick:
-       effects:
-         - "Caster ItemEffectNormal POTION_BREAK:8421"
        cooldown: 0
        mana:
          cost: 100
@@ -265,8 +151,6 @@ items:
      data: 11449
      useUp: false
      leftclick:
-       effects:
-         - "Caster ItemEffectNormal POTION_BREAK:11449"
        cooldown: 0
        mana:
          cost: 100
@@ -280,8 +164,6 @@ items:
      data: 16274
      useUp: false
      leftclick:
-       effects:
-         - "Caster ItemEffectNormal POTION_BREAK:16274"
        cooldown: 0
        mana:
          cost: 100
@@ -295,8 +177,6 @@ items:
      data: 8259
      useUp: false
      leftclick:
-       effects:
-         - "Caster ItemEffectNormal POTION_BREAK:8259"
        cooldown: 0
        mana:
          cost: 100
@@ -310,7 +190,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 30
        mana:
          cost: 0
@@ -323,7 +202,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 30
        mana:
          cost: 0
@@ -336,7 +214,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 30
        mana:
          cost: 0
@@ -349,7 +226,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 30
        mana:
          cost: 0
@@ -364,7 +240,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 300
        mana:
          cost: 0
@@ -377,7 +252,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 15
        mana:
          cost: 0
@@ -390,7 +264,6 @@ items:
      data: 10
      useUp: false
      rightclick:
-       effects: []
        cooldown: 10
        mana:
          cost: 0
@@ -403,7 +276,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 0
        mana:
          cost: 0
@@ -416,7 +288,6 @@ items:
      data: 16452
      useUp: false
      leftclick:
-       effects: []
        cooldown: 0
        mana:
          cost: 0
@@ -429,8 +300,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects:
-         - "Sound ItemEffectSound IRONGOLEM_THROW:1:1"
        cooldown: 1
        mana:
          cost: 0
@@ -443,7 +312,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 30
        mana:
          cost: 0
@@ -456,7 +324,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 60
        mana:
          cost: 0
@@ -469,7 +336,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 0
        mana:
          cost: 0
@@ -482,7 +348,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 3
        mana:
          cost: 0
@@ -495,7 +360,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 3
        mana:
          cost: 0
@@ -508,10 +372,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects:
-         - "Caster ItemEffectNormal ENDER_SIGNAL:0"
-         - "Caster ItemEffectSound ENDERMAN_TELEPORT:1.1"
-         - "Teleport ItemEffectNormal ENDER_SIGNAL:0"
        cooldown: 18
        mana:
          cost: 0
@@ -524,7 +384,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 10
        mana:
          cost: 0
@@ -537,7 +396,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 10
        mana:
          cost: 0
@@ -550,7 +408,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 2
        mana:
          cost: 0
@@ -563,7 +420,6 @@ items:
      data: 0
      useUp: false
      rightclick:
-       effects: []
        cooldown: 2
        mana:
          cost: 0
@@ -586,7 +442,6 @@ items:
          damage: true
          itemSwitch: true
      rightclick:
-       effects: []
        cooldown: 10
        mana:
          cost: 0
@@ -601,7 +456,6 @@ items:
      data: 0
      useUp: true
      rightclick:
-       effects: []
        cooldown: 2
        mana:
          cost: 0
@@ -615,8 +469,6 @@ items:
      useUp: false
      ignoreDamage: true
      leftclick:
-       effects:
-         - "Target ItemEffectLightning"
        cooldown: 0
        mana:
          cost: 0
@@ -630,7 +482,6 @@ items:
      useUp: false
      ignoreDamage: true
      onEat:
-       effects: []
        cooldown: 0
        mana:
          cost: 0
@@ -639,10 +490,7 @@ items:
 enchantments:
    poisonous:
      name: "Poisonous"
-     effects: []
      lua: "poisonous"
    freezing:
      name: "Freezing"
-     effects:
-       - "Target ItemEffectNormal STEP_SOUND:79"
      lua: "freezing"

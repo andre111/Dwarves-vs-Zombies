@@ -3,15 +3,19 @@ require 'SpellLibrary'
 function crystalPerPlayer(player, target, block, location)
     spell.ItemCrystalStorage(player, false)
     spell.ItemPotionEffect(player, "15:60:0")
-    utils.CreateEffect(player, "Caster")
     
+	local suc, loc = player:getLocation()
+	effects.CreateSound(loc, "CHEST_OPEN", 0.5, 1)
+	
     return true
 end
 
 function crystalGlobal(player, target, block, location)
     spell.ItemCrystalStorage(player, true)
     spell.ItemPotionEffect(player, "15:60:0")
-    utils.CreateEffect(player, "Caster")
+    
+	local suc, loc = player:getLocation()
+	effects.CreateSound(loc, "CHEST_OPEN", 0.5, 1)
     
     return true
 end
@@ -32,6 +36,8 @@ function internConcrete(player, target, block, location)
     if(success) then
         spell.ItemReplace(pPos, 2, 4, 0, 98, 0)
         spell.ItemReplace(pPos, 2, 98, 2, 98, 0)
+		
+		effects.CreateParticle(pPos, "POTION_BREAK", 8270)
     
         return true
     end
@@ -48,33 +54,43 @@ end
 
 function internDwarfPotion(player, target, block, location)
     spell.ItemDamage(player, player, -4)
-    utils.CreateEffect(player, "Caster")
+    
+	local suc, loc = player:getLocation()
+	effects.CreateParticle(loc, "POTION_BREAK", 8197)
 
     return true
 end
 
 function internPotionHealth(player, target, block, location)
     spell.ItemDamage(player, player, -20)
-    utils.CreateEffect(player, "Caster")
+    
+	local suc, loc = player:getLocation()
+	effects.CreateParticle(loc, "POTION_BREAK", 8421)
 
     return true
 end
 function internPotionStrength(player, target, block, location)
     spell.ItemPotionEffect(player, "5:20:0")
-    utils.CreateEffect(player, "Caster")
-
+    
+	local suc, loc = player:getLocation()
+	effects.CreateParticle(loc, "POTION_BREAK", 11449)
+	
     return true
 end
 function internPotionSpeed(player, target, block, location)
     spell.ItemPotionEffect(player, "1:20:0")
-    utils.CreateEffect(player, "Caster")
-
+    
+	local suc, loc = player:getLocation()
+	effects.CreateParticle(loc, "POTION_BREAK", 16274)
+	
     return true
 end
 function internPotionFireRes(player, target, block, location)
     spell.ItemPotionEffect(player, "12:20:0")
-    utils.CreateEffect(player, "Caster")
-
+    
+	local suc, loc = player:getLocation()
+	effects.CreateParticle(loc, "POTION_BREAK", 8259)
+	
     return true
 end
 
@@ -176,7 +192,7 @@ function internIronGolemSmash(player, target, block, location)
 
     if(success) then
         spell.ItemSmash(bPos, true)
-		utils.CreateEffect(bPos, "Sound")
+		effects.CreateSound(bPos, "IRONGOLEM_THROW", 1, 1)
 
         return true
     end
@@ -220,7 +236,13 @@ function internEndermanBlink(player, target, block, location)
 	local success, lPos = player:getLooking(75, true)
 	
     if(success) then
+		local suc, loc = player:getLocation()
+		effects.CreateSound(loc, "ENDERMAN_TELEPORT", 1, 1)
+		effects.CreateParticle(loc, "ENDER_SIGNAL", 0)
+	
 		spell.ItemTeleport(player, lPos)
+		
+		effects.CreateParticle(lPos, "ENDER_SIGNAL", 0)
         return true
     end
     
@@ -294,6 +316,11 @@ end
 
 function lightningsword(player, target, block, location)
     item.ItemDamage(player, target, 60)
+	
+	local suc, loc = player:getLocation()
+	if(suc) then
+		effects.CreateLightning(loc)
+	end
 end
 
 function potionpie(player, target, block, location)
@@ -327,7 +354,9 @@ function freezing(player, target, block, location)
     spell.ItemPotionEffect(target, "2:200:7")
     spell.ItemPotionEffect(target, "8:200:128")
     spell.ItemPotionEffect(target, "4:200:7")
-    utils.CreateEffect(target, "Target")
+    
+	local suc, loc = target:getLocation()
+	effects.CreateParticle(loc, "STEP_SOUND", 79)
     
     return true
 end
