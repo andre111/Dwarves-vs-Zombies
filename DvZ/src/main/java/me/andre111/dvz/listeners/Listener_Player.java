@@ -209,7 +209,7 @@ public class Listener_Player implements Listener  {
 				return;
 			}
 			//don't drop items
-			if(!game.getTeam(player.getUniqueId()).isCanDropItems() && !player.isOp()) {
+			if(game.getTeam(player.getUniqueId()) != null && !game.getTeam(player.getUniqueId()).isCanDropItems() && !player.isOp()) {
 				event.setCancelled(true);
 				return;
 			}
