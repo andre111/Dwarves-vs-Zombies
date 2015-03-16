@@ -53,7 +53,6 @@ public class Listener_Entity implements Listener {
 		if (event.isCancelled()) return;
 
 		//disabled monster damage
-		if (event.isCancelled()) return;
 		if(event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			Game game = plugin.getPlayerGame(player.getUniqueId());
@@ -91,7 +90,7 @@ public class Listener_Entity implements Listener {
 				}
 
 				//graceperiode
-				if(game.getTeam(player.getUniqueId()).isInvulnerable()) {
+				if(game.getTeam(player.getUniqueId()).isInvulnerable() && event.getCause() != DamageCause.VOID) {
 					event.setCancelled(true);
 				}
 			}
