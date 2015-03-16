@@ -154,7 +154,7 @@ public class Listener_Entity implements Listener {
 			Player dgm = (Player) event.getDamager();
 			Game game = plugin.getPlayerGame(dgm.getUniqueId());
 			if (game!=null) {
-				if(game.isPlayer(dgm.getUniqueId())) {
+				if(game.isPlayer(dgm.getUniqueId()) && game.isRunning()) {
 					if(game.isBuffed(dgm.getUniqueId())) {
 						event.setDamage(event.getDamage()*5);
 					}
